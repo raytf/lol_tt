@@ -1,0 +1,36 @@
+{
+    "en": {
+        "enable_sound": "Enable Sound?",
+        "click_to_continue": "Click to continue",
+        "game_title": "Triton's Treasure",
+        "demo_subtitle": "SDK for LOLS",
+        "game_subtitle": "A Scientific Method Adventure",
+        "demo_intro_1": "This is a demo showcasing a game dev library made with Svelte...",
+        "demo_intro_2": "experimenting how to make faster loading and smaller sized web games.",
+        "demo_3d_1": "Hint: try clicking and/or dragging",
+        "game_intro_1": "Legends say, hidden in the depths of the ocean, lies a treasure of unimaginable rarity and beauty.",
+        "game_intro_2": "The ocean god Triton, guarded this treasure with puzzles and challenges...",
+        "game_intro_3": "...where only the wise and insightful may uncover its secrets.",
+        "features_text": "Display text in different ways",
+        "features_ui": "Library of ready-to-use ui components and animations",
+        "features_input": "Do things with clicks, drags, key presses, etc.",
+        "features_3d": "Support for interactive 3D graphics"
+    },
+    "es": {
+        "enable_sound": "¿Activar sonido?",
+        "click_to_continue": "Haz clic para continuar",
+        "game_title": "El Tesoro de Tritón",
+        "demo_subtitle": "SDK para LOLS",
+        "game_subtitle": "Una Aventura de Método Científico",
+        "demo_intro_1": "Esta es una demostración que muestra una biblioteca de desarrollo de juegos hecha con Svelte...",
+        "demo_intro_2": "experimentando cómo hacer juegos web de carga más rápida y tamaño más pequeño.",
+        "demo_3d_1": "Pista: intenta hacer clic y/o arrastrar",
+        "game_intro_1": "Las leyendas dicen que, oculto en las profundidades del océano, yace un tesoro de rareza e inigualable belleza.",
+        "game_intro_2": "El dios del océano Tritón, guardaba este tesoro con rompecabezas y desafíos...",
+        "game_intro_3": "...donde solo los sabios e intuitivos pueden descubrir sus secretos.",
+        "features_text": "Mostrar texto de diferentes maneras",
+        "features_ui": "Biblioteca de componentes de interfaz de usuario y animaciones listos para usar",
+        "features_input": "Hacer cosas con clics, arrastrar, pulsaciones de teclas, etc.",
+        "features_3d": "Soporte para gráficos 3D interactivos"
+    }
+}
