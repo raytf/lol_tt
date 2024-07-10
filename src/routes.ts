@@ -1,5 +1,5 @@
-import Init from "./routes/Init.svelte";
-import Home from "./routes/Home.svelte";
+import Init from "./pages/Init.svelte";
+import Home from "./pages/Home.svelte";
 
 export default {
   "/": Init,
