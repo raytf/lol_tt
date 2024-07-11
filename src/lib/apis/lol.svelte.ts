@@ -39,6 +39,9 @@ export class LolApi {
         this.languageData = languageData;
         this.languageLoaded = true;
         break;
+      case "loadState":
+        const savedData = JSON.parse(payload);
+        console.log("loadState:", savedData);
     }
   };
 
@@ -49,8 +52,16 @@ export class LolApi {
     });
   };
 
-  loadState = () => {
+  requestLoadState = () => {
     lol_send("loadState", {});
+  };
+
+  saveState = () => {
+    let data = {
+      message: "hey",
+    };
+
+    lol_send("saveState", { data });
   };
 }
 

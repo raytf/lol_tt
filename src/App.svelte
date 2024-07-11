@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { createLolApi } from "$lib/lolapi.svelte";
+  import { createLolApi } from "$lib/apis/lol.svelte";
   import Router from "svelte-spa-router";
   import routes from "./routes";
 
