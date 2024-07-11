@@ -1,6 +1,9 @@
 <script lang="ts">
-  import Router from "svelte-spa-router"
-  import routes from "./routes"
+  import { createLolApi } from "$lib/lolapi.svelte";
+  import Router from "svelte-spa-router";
+  import routes from "./routes";
+
+  createLolApi();
 </script>
 
 <main>
