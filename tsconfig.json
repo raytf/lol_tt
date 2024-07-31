@@ -17,10 +17,12 @@
     "moduleDetection": "force",
     "baseUrl": ".",
     "paths": {
+      "$assets": ["./src/assets"],
+      "$assets/*": ["./src/assets/*"],
       "$lib": ["./src/lib"],
       "$lib/*": ["./src/lib/*"],
-      "$assets": ["./src/assets"],
-      "$assets/*": ["./src/assets/*"]
+      "$components": ["./src/lib/components"],
+      "$components/*": ["./src/lib/components/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.js", "src/**/*.svelte"],

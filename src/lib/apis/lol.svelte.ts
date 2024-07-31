@@ -38,11 +38,17 @@ export class LolApi {
         const languageData = JSON.parse(payload);
         this.languageData = languageData;
         this.languageLoaded = true;
+        console.log(this.languageData);
         break;
       case "loadState":
         const savedData = JSON.parse(payload);
         console.log("loadState:", savedData);
     }
+  };
+
+  init = () => {
+    this.gameIsReady();
+    this.requestLoadState();
   };
 
   gameIsReady = () => {
@@ -62,6 +68,13 @@ export class LolApi {
     };
 
     lol_send("saveState", { data });
+  };
+
+  getText = (key: string) => {
+    if (key in this.languageData) {
+      return this.languageData[key];
+    }
+    return "key doesn't exist";
   };
 }
 

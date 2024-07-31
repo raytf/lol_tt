@@ -1,9 +1,11 @@
 <script lang="ts">
-  import { createLolApi } from "$lib/apis/lol.svelte";
   import Router from "svelte-spa-router";
+  import { createLolApi } from "$lib/apis/lol.svelte";
+  import { createGameApi } from "$lib/apis/game.svelte";
   import routes from "./routes";
 
   createLolApi();
+  createGameApi();
 </script>
 
 <main>
