@@ -19,12 +19,14 @@ export class GameApi {
     this.sceneReady = false;
     gsap.to(".fader", {
       opacity: 1,
-      duration: 1,
+      duration: 0.8,
+      ease: "none",
       onComplete: () => {
         push(sceneName);
         gsap.to(".fader", {
           opacity: 0,
-          duration: 1,
+          duration: 0.8,
+          ease: "none",
           onComplete: () => {
             this.sceneReady = true;
           },

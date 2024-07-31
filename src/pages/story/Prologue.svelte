@@ -26,10 +26,9 @@
       return;
     }
 
-    console.log("revealing text");
     gsap.to(`.text-prologue_${textTracker.index}`, {
-      duration: 1,
       opacity: 1,
+      duration: 1,
       onComplete: () => {
         textTracker.ready = true;
       },
@@ -41,7 +40,7 @@
 
     textTracker.ready = false;
     gsap.to(`.text-prologue_${textTracker.index}`, {
-      duration: 1,
+      duration: 0.5,
       opacity: 0,
       onComplete: () => {
         textTracker.increment();
