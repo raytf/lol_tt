@@ -1,5 +1,8 @@
 <script lang="ts">
   import Router from "svelte-spa-router";
+  // Components
+  import Fader from "$components/ui/Fader.svelte";
+  // Apis
   import { createLolApi } from "$lib/apis/lol.svelte";
   import { createGameApi } from "$lib/apis/game.svelte";
   import routes from "./routes";
@@ -10,6 +13,7 @@
 
 <main>
   <div class="content">
+    <Fader />
     <Router {routes} />
   </div>
 </main>
@@ -26,5 +30,13 @@
     width: 100%;
     height: 100%;
     max-height: 100vh;
+  }
+  .fader {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: black;
+
+    z-index: 1000;
   }
 </style>

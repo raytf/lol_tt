@@ -21,6 +21,8 @@
       "$assets/*": ["./src/assets/*"],
       "$lib": ["./src/lib"],
       "$lib/*": ["./src/lib/*"],
+      "$apis": ["./src/lib/apis"],
+      "$apis/*": ["./src/lib/apis/*"],
       "$components": ["./src/lib/components"],
       "$components/*": ["./src/lib/components/*"]
     }

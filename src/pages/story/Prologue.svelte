@@ -1,30 +1,39 @@
 <script>
   import { gsap } from "gsap";
-  import { createTextTracker } from "$components/text.svelte.ts";
-  import { getLolApi } from "$lib/apis/lol.svelte";
+  import { createTextTracker } from "$lib/helpers/text.svelte";
+  import { getLolApi } from "$apis/lol.svelte";
+  import { getGameApi } from "$apis/game.svelte";
 
   const lolApi = getLolApi();
+  const gameApi = getGameApi();
+
   const textKeys = ["prologue_1", "prologue_2", "prologue_3"];
   const textTracker = createTextTracker(textKeys);
 
-  // OnMount
+  // Scene setup
   $effect(() => {
     gsap.set(".text-prologue", { opacity: 0 });
-    textTracker.ready = true;
+
+    if (gameApi.sceneReady) {
+      textTracker.ready = true;
+    }
   });
   // Change: textTracker.index
   $effect(() => {
-    if (!textTracker.finished) {
-      gsap.to(`.text-prologue_${textTracker.index}`, {
-        duration: 1,
-        opacity: 1,
-        onComplete: () => {
-          textTracker.ready = true;
-        },
-      });
-    } else {
-      console.log("done!");
+    if (!gameApi.sceneReady) return;
+    if (textTracker.finished) {
+      gameApi.fadeScene("/title");
+      return;
     }
+
+    console.log("revealing text");
+    gsap.to(`.text-prologue_${textTracker.index}`, {
+      duration: 1,
+      opacity: 1,
+      onComplete: () => {
+        textTracker.ready = true;
+      },
+    });
   });
 
   function nextText() {

@@ -10,6 +10,7 @@ export default defineConfig({
     alias: {
       $assets: path.resolve("./src/assets"),
       $lib: path.resolve("./src/lib"),
+      $apis: path.resolve("./src/lib/apis"),
       $components: path.resolve("./src/lib/components"),
     },
   },
