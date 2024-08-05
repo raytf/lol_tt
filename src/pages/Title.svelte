@@ -17,7 +17,7 @@
       "#title_bg-image",
       {
         scale: 1.5,
-        duration: 4,
+        duration: 8,
       },
       0,
     );
@@ -49,13 +49,9 @@
 </script>
 
 <div class="size-full">
-  <img
-    id="title_bg-image"
-    src={titleScreen}
-    alt="bg"
-    class="absolute size-full"
-  />
-  <div class="relative size-full z-[1] flex flex-col items-center">
+  <img id="title_bg-image" src={titleScreen} alt="bg" />
+
+  <div class="relative size-full flex flex-col items-center">
     <h1 id="title_header" class="text-6xl mt-24 p-4">Triton's Treasure</h1>
     <h2 id="title_subheader" class="text-3xl p-2">
       A Scientific Method Adventure
@@ -71,3 +67,27 @@
     </div>
   </div>
 </div>
+
+<style>
+  #title_bg-image {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+  }
+
+  #title_header,
+  #title_subheader {
+    animation: underwater 5s infinite;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+  }
+
+  @keyframes underwater {
+    0% {
+      transform: skew(5deg);
+    }
+    100% {
+      transform: skew(-5deg);
+    }
+  }
+</style>

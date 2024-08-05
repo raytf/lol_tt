@@ -31,12 +31,4 @@
     height: 100%;
     max-height: 100vh;
   }
-  .fader {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: black;
-
-    z-index: 1000;
-  }
 </style>

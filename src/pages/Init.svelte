@@ -15,7 +15,6 @@
   });
 
   $effect(() => {
-    console.log(lolApi.languageLoaded);
     if (lolApi.languageLoaded) {
       gameApi.fadeScene("/story/prologue");
     }
