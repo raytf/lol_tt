@@ -3,12 +3,14 @@
   // Components
   import Fader from "$components/ui/Fader.svelte";
   // Apis
-  import { createLolApi } from "$lib/apis/lol.svelte";
-  import { createGameApi } from "$lib/apis/game.svelte";
+  import { createLolApi } from "$apis/lol.svelte";
+  import { createGameApi } from "$apis/game.svelte";
+  import { createAudioApi } from "$apis/audio.svelte";
   import routes from "./routes";
 
   createLolApi();
   createGameApi();
+  createAudioApi();
 </script>
 
 <main>

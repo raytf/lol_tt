@@ -1,9 +1,11 @@
 <script>
   import { gsap } from "gsap";
   import { getGameApi } from "$apis/game.svelte";
+  import { getAudioApi } from "$apis/audio.svelte";
   // Assets
   import titleScreen from "$assets/title_screen.jpg";
   const gameApi = getGameApi();
+  const audioApi = getAudioApi();
 
   $effect(() => {
     gsap.set(["#title_header", "#title_subheader", "#title_start-button"], {
@@ -12,6 +14,7 @@
   });
 
   $effect(() => {
+    audioApi.playTrack("music/theme_main.mp3");
     const entryTl = gsap.timeline();
     entryTl.to(
       "#title_bg-image",
