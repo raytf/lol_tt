@@ -1,12 +1,16 @@
 {
   "en": {
-    "prologue_1": "Deep in the darkest depths of the ocean, lies a legendary treasure.",
-    "prologue_2": "Guarded by a labyrinth of puzzles and clues, the treasure is said to have unimaginable value and beauty.",
-    "prologue_3": "It has remained for years, waiting for a brave soul worthy enough to claim it."
+    "prologue_1": "In the vast ocean of the Pacific, lies a legendary treasure.",
+    "prologue_2": "The treasure is said to have unimaginable value and beauty...",
+    "prologue_3": "but no one knows exactly what it is, or where it is hidden.",
+    "prologue_4": "The only clue, passed down through time, is the riddle...",
+    "prologue_5": "Above and Below, Light and Dark, Hot and Cold."
   },
   "es": {
-    "prologue_1": "En las profundidades más oscuras del océano, yace un tesoro legendario.",
-    "prologue_2": "Guardado por un laberinto de acertijos y pistas, se dice que el tesoro tiene un valor y belleza inimaginables.",
-    "prologue_3": "Durante siglos, ha estado esperando a un alma valiente lo suficientemente digna para reclamarlo."
+    "prologue_1": "En el vasto océano del Pacífico, yace un tesoro legendario.",
+    "prologue_2": "Se dice que el tesoro tiene un valor y belleza inimaginables...",
+    "prologue_3": "pero nadie sabe exactamente qué es, o dónde está escondido.",
+    "prologue_4": "La única pista, transmitida a través del tiempo, es el acertijo...",
+    "prologue_5": "Arriba y Abajo, Luz y Oscuridad, Calor y Frío."
   }
 }

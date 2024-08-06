@@ -14,7 +14,7 @@
   });
 
   $effect(() => {
-    audioApi.playTrack("music/theme_main.mp3");
+    audioApi.playTrack({ src: "music/theme_main.mp3", volume: 0.5 });
     const entryTl = gsap.timeline();
     entryTl.to(
       "#title_bg-image",

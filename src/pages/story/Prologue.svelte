@@ -7,7 +7,13 @@
   const lolApi = getLolApi();
   const gameApi = getGameApi();
 
-  const textKeys = ["prologue_1", "prologue_2", "prologue_3"];
+  const textKeys = [
+    "prologue_1",
+    "prologue_2",
+    "prologue_3",
+    "prologue_4",
+    "prologue_5",
+  ];
   const textTracker = createTextTracker(textKeys);
 
   // Scene setup

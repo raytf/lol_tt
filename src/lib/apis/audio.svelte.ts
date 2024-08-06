@@ -3,7 +3,8 @@ import { Howl, Howler } from "howler";
 import type { HowlOptions } from "howler";
 
 interface Track {
-  [key: string]: Howl;
+  sound: Howl;
+  instances: number[];
 }
 
 export interface TrackOptions {
@@ -35,13 +36,39 @@ export class AudioApi {
     console.log(this.tracks);
   };
 
-  playTrack = (src: string) => {
+  playTrack = ({
+    src,
+    volume = 1.0,
+    loop = false,
+    onload = () => {},
+  }: TrackOptions) => {
     const sound = this.tracks.get(src);
     if (sound) {
       console.log("sound state: " + sound.state());
+      if (sound.playing()) {
+        // Only one instance of sound at a time
+        sound.stop();
+      }
+      sound.loop(loop);
       sound.volume(0);
-      sound.play();
-      sound.fade(0, 1, 1000);
+
+      const id = sound.play();
+      sound.fade(0, volume, 1000, id);
+      console.log(this.tracks);
+    }
+  };
+
+  stopTrack = (src: string, fade: boolean = false) => {
+    const sound = this.tracks.get(src);
+    if (sound) {
+      if (fade) {
+        sound.once("fade", () => {
+          sound.stop();
+        });
+        sound.fade(sound.volume(), 0, 1000);
+      } else {
+        sound.stop();
+      }
     }
   };
 }
