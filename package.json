@@ -15,6 +15,8 @@
     "@types/howler": "^2.2.11",
     "@types/node": "^20.14.9",
     "autoprefixer": "^10.4.19",
+    "flowbite": "^2.5.1",
+    "flowbite-svelte": "^0.46.15",
     "postcss": "^8.4.39",
     "prettier": "^3.3.2",
     "prettier-plugin-svelte": "^3.2.5",

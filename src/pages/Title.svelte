@@ -62,7 +62,7 @@
     <div class="grow w-full flex flex-col justify-end items-center">
       <button
         id="title_start-button"
-        onclick={() => gameApi.fadeScene("/story/prologue")}
+        onclick={() => gameApi.fadeScene("/chapter-select")}
         class="p-12"
       >
         <p class="text-2xl">Start</p>

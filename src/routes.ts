@@ -1,11 +1,11 @@
-import { wrap } from "svelte-spa-router/wrap";
-
 import Init from "./pages/Init.svelte";
+import Prologue from "./pages/Prologue.svelte";
 import Title from "./pages/Title.svelte";
-import Prologue from "./pages/story/Prologue.svelte";
+import ChapterSelect from "./pages/ChapterSelect.svelte";
 
 export default {
   "/": Init,
+  "/prologue": Prologue,
   "/title": Title,
-  "/story/prologue": Prologue,
+  "/chapter-select": ChapterSelect,
 };

@@ -3,6 +3,7 @@
   import { createTextTracker } from "$lib/helpers/text.svelte";
   import { getLolApi } from "$apis/lol.svelte";
   import { getGameApi } from "$apis/game.svelte";
+  import { Next } from "$components/svg";
 
   const lolApi = getLolApi();
   const gameApi = getGameApi();
@@ -58,7 +59,9 @@
 <div class="size-full bg-blue-200">
   <button
     onclick={nextText}
-    class="absolute size-full flex flex-col justify-center items-center bg-black"
+    class="absolute size-full flex flex-col justify-center items-center bg-black {textTracker.ready
+      ? 'cursor-pointer'
+      : 'cursor-default'}"
   >
     {#each textKeys as key, i}
       <p class="text-prologue text-prologue_{i}">
@@ -66,6 +69,11 @@
       </p>
     {/each}
   </button>
+  <Next
+    class="absolute bottom-1/2 translate-y-1/2 right-[4%] pointer-events-none text-4xl {textTracker.ready
+      ? 'opacity-100'
+      : 'opacity-0'}"
+  />
 </div>
 
 <style>

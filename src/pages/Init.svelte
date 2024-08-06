@@ -25,7 +25,7 @@
 
   $effect(() => {
     if (lolApi.languageLoaded && audioLoaded) {
-      gameApi.fadeScene("/story/prologue");
+      gameApi.fadeScene("/prologue");
     }
   });
 </script>
