@@ -6,25 +6,28 @@
 
 <style>
   .underwater {
-    --color-top: #06bcfb;
-    --color-bottom: #4884ee;
-    /* background: linear-gradient(0deg, #182b3a 0%, #20a4f3 100%); */
+    --default-top: #182b3a;
+    --default-bottom: #20a4f3;
     background: linear-gradient(
       0deg,
-      var(--color-bottom) 0%,
-      var(--color-top) 100%
+      var(--color-bottom, --default-bottom),
+      var(--color-top, --default-top)
     );
   }
 
   .underwater::before {
     content: "";
     position: absolute;
-    background: linear-gradient(0deg, var(--color-bottom), var(--color-top));
+    background: linear-gradient(
+      0deg,
+      var(--color-bottom, --default-bottom),
+      var(--color-top, --default-top)
+    );
     translate: -99% 0;
     rotate: 44deg;
     filter: blur(44px) brightness(1.1);
-    width: 111%;
-    height: 111%;
+    width: 55%;
+    height: 55%;
     border-radius: 50%;
     animation: yoyo-x 11s alternate infinite ease-in-out;
     transform-origin: 60%;
@@ -33,12 +36,16 @@
   .underwater::after {
     content: "";
     position: absolute;
-    background: linear-gradient(0deg, var(--color-bottom), var(--color-top));
+    background: linear-gradient(
+      0deg,
+      var(--color-bottom, --default-bottom),
+      var(--color-top, --default-top)
+    );
     translate: -99% 0;
     rotate: -44deg;
     filter: blur(44px) brightness(0.9);
-    width: 111%;
-    height: 111%;
+    width: 55%;
+    height: 55%;
     border-radius: 50%;
     animation: yoyo-x 22s alternate infinite ease-in-out;
     /* animation-delay: 8s; */
