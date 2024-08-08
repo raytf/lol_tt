@@ -6,8 +6,8 @@
 
 <style>
   .underwater {
-    --color-top: #03e5b7;
-    --color-bottom: #037ade;
+    --color-top: #06bcfb;
+    --color-bottom: #4884ee;
     /* background: linear-gradient(0deg, #182b3a 0%, #20a4f3 100%); */
     background: linear-gradient(
       0deg,

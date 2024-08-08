@@ -18,9 +18,9 @@
       id: 1,
       title: "Chapter 1",
       subtitle: "Light and Dark",
-      link: "",
+      link: "/chapter1/exploration",
       completed: false,
-      unlocked: false,
+      unlocked: true,
     },
     {
       id: 2,
@@ -44,11 +44,11 @@
 <div class="size-full flex flex-col items-center">
   <UnderwaterGradient class="absolute size-full z-[-1]" />
   <h1 class="text-5xl p-8 font-bold text-slate-900">Chapter Select</h1>
-  <div class="grid grid-cols-3 gap-4">
+  <div class="grid grid-cols-2 gap-4">
     {#each chapters as chapter}
       <Card
-        class="relative dark cursor-pointer hover:bg-gray-700 {chapter.unlocked
-          ? 'row-span-2'
+        class="relative w-[444px] dark cursor-pointer hover:bg-gray-700 {chapter.unlocked
+          ? ''
           : 'blur pointer-events-none'}"
         onclick={() => gameApi.fadeScene(chapter.link)}
       >
