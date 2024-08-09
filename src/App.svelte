@@ -14,9 +14,11 @@
 </script>
 
 <main>
-  <div class="content">
-    <Fader />
-    <Router {routes} />
+  <div class="container">
+    <div class="content">
+      <Fader />
+      <Router {routes} />
+    </div>
   </div>
 </main>
 
@@ -27,10 +29,15 @@
     padding-bottom: 56.25%;
     overflow: hidden;
   }
-  .content {
+  .container {
     position: absolute;
     width: 100%;
     height: 100%;
     max-height: 100vh;
+  }
+  .content {
+    position: relative;
+    width: 100%;
+    height: 100%;
   }
 </style>
