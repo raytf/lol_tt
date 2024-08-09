@@ -34,7 +34,7 @@
 </script>
 
 <div
-  class="relative grid {extraClass}"
+  class="grid {extraClass}"
   style="transform: translate({xOffset}px, {yOffset}px)"
 >
   {@render characters()}

@@ -2,11 +2,12 @@
   import type { Snippet } from "svelte";
 
   let {
-    handleMouseDown,
     class: extraClass = "",
     children,
+    ...props
   }: {
-    handleMouseDown?: (e: MouseEvent) => void;
+    onmousedown?: (event: MouseEvent) => void;
+    onmouseenter?: (event: MouseEvent) => void;
     class?: string;
     children: Snippet;
   } = $props();
@@ -14,9 +15,9 @@
 
 <div
   class="relative h-screen w-screen {extraClass}"
-  onmousedown={handleMouseDown}
   role="button"
   tabindex="0"
+  {...props}
 >
   {@render children()}
 </div>

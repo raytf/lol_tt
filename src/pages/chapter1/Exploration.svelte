@@ -55,6 +55,7 @@
   {leftEnabled}
   {rightEnabled}
   onUp={() => {
+    resetNav();
     yOffset.update((current) => {
       const newOffset = current + window.innerHeight;
       const x = defaultCoords.x - $xOffset;
@@ -62,9 +63,9 @@
       moveSub(x, y);
       return current + window.innerHeight;
     });
-    resetNav();
   }}
   onDown={() => {
+    resetNav();
     yOffset.update((current) => {
       const newOffset = current - window.innerHeight;
       const x = defaultCoords.x - $xOffset;
@@ -72,9 +73,9 @@
       moveSub(x, y);
       return current - window.innerHeight;
     });
-    resetNav();
   }}
   onLeft={() => {
+    resetNav();
     xOffset.update((current) => {
       const newOffset = current + window.innerWidth;
       const x = defaultCoords.x - newOffset;
@@ -82,9 +83,9 @@
       moveSub(x, y);
       return current + window.innerWidth;
     });
-    resetNav();
   }}
   onRight={() => {
+    resetNav();
     xOffset.update((current) => {
       const newOffset = current - window.innerWidth;
       const x = defaultCoords.x - newOffset;
@@ -92,9 +93,8 @@
       moveSub(x, y);
       return newOffset;
     });
-    resetNav();
   }}
-  class="grid-cols-3 h-[100vh] w-[300vw]"
+  class="grid-cols-3 h-full w-[300%]"
 >
   {#snippet characters()}
     <Submarine
@@ -104,59 +104,63 @@
   {/snippet}
   {#snippet areas()}
     <Area
-      handleMouseDown={(e) => {
+      onmousedown={(e) => {
         handleMouseDown(e);
+        resetNav();
         rightEnabled = true;
       }}
+      onmouseenter={(e) => {}}
       class=""
     >
       <UnderwaterGradient
         class="absolute size-full z-[-1]"
-        style="transform: translate(0, 0)"
         --color-top="#03E5B7"
         --color-bottom="#037ADE"
       />
     </Area>
     <Area
-      handleMouseDown={(e) => {
+      onmousedown={(e) => {
         handleMouseDown(e);
+        resetNav();
         leftEnabled = true;
         rightEnabled = true;
       }}
-      class=""
+      onmouseenter={() => {
+        console.log("area 2");
+      }}
     >
       <UnderwaterGradient
         class="absolute size-full z-[-1]"
-        style="transform: translate(0, 0)"
         --color-top="#03E5B7"
         --color-bottom="#037ADE"
       />
     </Area>
     <Area
-      handleMouseDown={(e) => {
+      onmousedown={(e) => {
         handleMouseDown(e);
+        resetNav();
         leftEnabled = true;
         downEnabled = true;
       }}
-      class=""
+      onmouseenter={() => {}}
     >
       <UnderwaterGradient
         class="absolute size-full z-[-1]"
-        style="transform: translate(0, 0)"
         --color-top="#03E5B7"
         --color-bottom="#037ADE"
       />
     </Area>
     <Area
-      handleMouseDown={(e) => {
+      onmousedown={(e) => {
         handleMouseDown(e);
+        resetNav();
         upEnabled = true;
       }}
+      onmouseenter={() => {}}
       class="col-end-4"
     >
       <UnderwaterGradient
         class="absolute size-full z-[-1]"
-        style="transform: translate(0, 0)"
         --color-top="#037ADE"
         --color-bottom="#182b3a"
       />
