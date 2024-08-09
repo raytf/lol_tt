@@ -14,7 +14,7 @@
 </script>
 
 <div
-  class="relative h-screen w-screen {extraClass}"
+  class="relative size-full {extraClass}"
   role="button"
   tabindex="0"
   {...props}

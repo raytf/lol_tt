@@ -94,7 +94,7 @@
       return newOffset;
     });
   }}
-  class="grid-cols-3 h-full w-[300%]"
+  class="grid-cols-3 grid-rows-2 h-[200%] w-[300%]"
 >
   {#snippet characters()}
     <Submarine
