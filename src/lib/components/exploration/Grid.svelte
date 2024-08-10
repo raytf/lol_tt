@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Up, Down, Left, Right } from "$components/svg/caret";
+  import { Up, Down, Left, Right } from "$components/svg/icons/caret";
   import type { Snippet } from "svelte";
 
   let {

@@ -1,11 +1,20 @@
-<script>
+<script lang="ts">
   import { Card } from "flowbite-svelte";
   import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
-  import { Done } from "$components/svg";
+  import { Done } from "$components/svg/icons";
   import { getGameApi } from "$apis/game.svelte";
   const gameApi = getGameApi();
 
-  const chapters = [
+  interface Chapter {
+    id: number;
+    title: string;
+    subtitle: string;
+    link: string;
+    completed: boolean;
+    unlocked: boolean;
+  }
+
+  const chapters: Chapter[] = [
     {
       id: 0,
       title: "Prologue",
@@ -39,6 +48,10 @@
       unlocked: false,
     },
   ];
+
+  function onSelectChapter(chapter: Chapter) {
+    gameApi.fadeScene(chapter.link);
+  }
 </script>
 
 <div class="size-full flex flex-col items-center">
@@ -54,7 +67,7 @@
         class="relative w-[444px] dark cursor-pointer hover:bg-gray-700 {chapter.unlocked
           ? ''
           : 'blur pointer-events-none'}"
-        onclick={() => gameApi.fadeScene(chapter.link)}
+        onclick={() => onSelectChapter(chapter)}
       >
         {#if chapter.completed}
           <Done class="absolute right-0 top-0 text-3xl text-green-400" />

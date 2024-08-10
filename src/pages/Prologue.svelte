@@ -3,7 +3,7 @@
   import { createTextTracker } from "$lib/helpers/text.svelte";
   import { getLolApi } from "$apis/lol.svelte";
   import { getGameApi } from "$apis/game.svelte";
-  import { Next } from "$components/svg";
+  import { Next } from "$components/svg/icons";
 
   const lolApi = getLolApi();
   const gameApi = getGameApi();

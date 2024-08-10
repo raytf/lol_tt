@@ -4,7 +4,7 @@
   import { getLolApi } from "$apis/lol.svelte";
   import { getGameApi } from "$apis/game.svelte";
   import Page from "$components/Page.svelte";
-  import { Next } from "$components/svg";
+  import { Next } from "$components/svg/icons";
   import ocean from "$assets/ocean.jpg";
 
   const lolApi = getLolApi();
