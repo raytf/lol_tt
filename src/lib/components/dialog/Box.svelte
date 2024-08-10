@@ -48,10 +48,7 @@
     background: white;
     color: black;
 
-    padding-top: 22px;
-    padding-bottom: 22px;
-    padding-left: 22px;
-    padding-right: 22px;
+    padding: 22px;
 
     border-radius: 22px;
   }
@@ -68,5 +65,8 @@
     padding: 11px;
 
     border-radius: 22px;
+  }
+  p {
+    user-select: none;
   }
 </style>

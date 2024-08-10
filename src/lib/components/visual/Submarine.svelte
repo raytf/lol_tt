@@ -8,7 +8,7 @@
   <img
     src={sub}
     alt="sub"
-    class="w-[111px] h-[111px]"
+    class="select-none w-[111px] h-[111px]"
     style="transform: translate(-55px, -55px) scale({scaleX}, 1)"
   />
 </div>

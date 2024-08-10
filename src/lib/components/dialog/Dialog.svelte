@@ -6,7 +6,7 @@
   interface DialogKey {
     imgSrc?: string;
     name?: string;
-    text: string;
+    text?: string;
   }
 
   let { keys, onFinished }: { keys: DialogKey[]; onFinished: () => void } =
@@ -30,7 +30,7 @@
       {#snippet avatar()}
         <div class="relative w-[111px] h-[111px]">
           {#if key.imgSrc}
-            <img src={key.imgSrc} alt="avatar" class="size-full" />
+            <img src={key.imgSrc} alt="avatar" class="size-full select-none" />
           {/if}
         </div>
       {/snippet}
@@ -42,7 +42,11 @@
         {/if}
       {/snippet}
       {#snippet text()}
-        {lolApi.getText(key.text)}
+        {#if key.text}
+          {lolApi.getText(key.text)}
+        {:else}
+          ...
+        {/if}
       {/snippet}
     </DialogBox>
   {/if}

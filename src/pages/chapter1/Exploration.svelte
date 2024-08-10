@@ -1,10 +1,8 @@
 <script lang="ts">
   import { tweened, spring } from "svelte/motion";
-  import LanguageLoader from "$lib/components/LanguageLoader.svelte";
   import { Grid, Area } from "$components/exploration";
   import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
   import Submarine from "$components/visual/Submarine.svelte";
-  import { DialogShell1 } from "./dialog";
 
   const xOffset = tweened(0, {
     duration: 500,
@@ -45,12 +43,10 @@
     subCoords.set({ x: x, y: y });
 
     const dx = x - $subCoords.x;
-    subDirection = dx <= 0 ? 1 : -1;
+    subDirection = dx <= 0 ? -1 : 1;
   }
 </script>
 
-<LanguageLoader />
-<DialogShell1 />
 <Grid
   xOffset={$xOffset}
   yOffset={$yOffset}
