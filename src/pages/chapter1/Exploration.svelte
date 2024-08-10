@@ -1,11 +1,10 @@
 <script lang="ts">
   import { tweened, spring } from "svelte/motion";
-  import { DialogBox } from "$components/dialog";
-  import shell from "$assets/avatars/shell.png";
-  import neutral from "$assets/emoji/neutral.svg";
+  import LanguageLoader from "$lib/components/LanguageLoader.svelte";
   import { Grid, Area } from "$components/exploration";
   import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
   import Submarine from "$components/visual/Submarine.svelte";
+  import { DialogShell1 } from "./dialog";
 
   const xOffset = tweened(0, {
     duration: 500,
@@ -50,17 +49,8 @@
   }
 </script>
 
-<DialogBox>
-  {#snippet avatar()}
-    <img src={shell} alt="avatar" class="w-[111px] h-[111px]" />
-  {/snippet}
-  {#snippet name()}
-    You
-  {/snippet}
-  {#snippet text()}
-    Oi...
-  {/snippet}
-</DialogBox>
+<LanguageLoader />
+<DialogShell1 />
 <Grid
   xOffset={$xOffset}
   yOffset={$yOffset}

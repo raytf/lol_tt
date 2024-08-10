@@ -8,20 +8,12 @@
     "title": "Triton's Treasure",
     "subtitle": "A Scientific Method Adventure",
     "start": "Start",
-    "prologue_1": "In the vast ocean of the Pacific, lies a legendary treasure.",
-    "prologue_2": "The treasure is said to have unimaginable value and beauty...",
-    "prologue_3": "but no one knows exactly what it is, or where it is hidden.",
-    "prologue_4": "The only clue, passed down through time, is the riddle...",
-    "prologue_5": "Light and Dark, Above and Below, Hot and Cold."
+    "dialog-name_you": "You",
+    "dialog-name_shell": "Shell",
+    "ch1-dialog_1": "Oi...",
+    "ch1-dialog_2": "Who's talking?",
+    "ch1-dialog_3": "Me",
+    "ch1-dialog_4": "Who? The shell?"
   },
-  "es": {
-    "intro_1": "El océano cubre casi el 70% de la superficie de la Tierra, sin embargo, la mayor parte de él aún permanece inexplorado.",
-    "intro_2": "Explorar el océano no es una tarea fácil, ya que es un lugar lleno de tanto peligro como de misterio.",
-    "intro_3": "Para aquellos lo suficientemente valientes como para aceptar este desafío, utilizamos un proceso especial para descubrir estos misterios: el Método Científico.",
-    "prologue_1": "En el vasto océano del Pacífico, yace un tesoro legendario.",
-    "prologue_2": "Se dice que el tesoro tiene un valor y belleza inimaginables...",
-    "prologue_3": "pero nadie sabe exactamente qué es, o dónde está escondido.",
-    "prologue_4": "La única pista, transmitida a través del tiempo, es el acertijo...",
-    "prologue_5": "Arriba y Abajo, Luz y Oscuridad, Calor y Frío."
-  }
+  "es": {}
 }

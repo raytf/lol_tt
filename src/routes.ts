@@ -13,5 +13,5 @@ export default {
   "/prologue": Prologue,
   "/title": Title,
   "/chapter-select": ChapterSelect,
-  "/chapter1/exploration": Ch1Exploration,
+  "/chapter1-exploration": Ch1Exploration,
 };

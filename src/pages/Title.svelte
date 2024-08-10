@@ -1,6 +1,6 @@
 <script>
   import { gsap } from "gsap";
-  import Page from "$components/Page.svelte";
+  import LanguageLoader from "$lib/components/LanguageLoader.svelte";
   import { getLolApi, LolApi } from "$apis/lol.svelte";
   import { getGameApi } from "$apis/game.svelte";
   import { getAudioApi } from "$apis/audio.svelte";
@@ -62,29 +62,28 @@
   });
 </script>
 
-<Page>
-  <div class="size-full">
-    <img id="title_bg-image" src={titleScreen} alt="bg" />
+<LanguageLoader />
+<div class="size-full">
+  <img id="title_bg-image" src={titleScreen} alt="bg" />
 
-    <div class="relative size-full flex flex-col items-center">
-      <h1 id="title_header" class="text-6xl mt-24 p-4">
-        {lolApi.getText("title")}
-      </h1>
-      <h2 id="title_subheader" class="text-3xl p-2">
-        {lolApi.getText("subtitle")}
-      </h2>
-      <div class="grow w-full flex flex-col justify-end items-center">
-        <button
-          id="title_start-button"
-          onclick={() => gameApi.fadeScene("/chapter-select")}
-          class="p-12"
-        >
-          <p class="text-2xl">{lolApi.getText("start")}</p>
-        </button>
-      </div>
+  <div class="relative size-full flex flex-col items-center">
+    <h1 id="title_header" class="text-6xl mt-24 p-4">
+      {lolApi.getText("title")}
+    </h1>
+    <h2 id="title_subheader" class="text-3xl p-2">
+      {lolApi.getText("subtitle")}
+    </h2>
+    <div class="grow w-full flex flex-col justify-end items-center">
+      <button
+        id="title_start-button"
+        onclick={() => gameApi.fadeScene("/chapter-select")}
+        class="p-12"
+      >
+        <p class="text-2xl">{lolApi.getText("start")}</p>
+      </button>
     </div>
   </div>
-</Page>
+</div>
 
 <style>
   #title_bg-image {

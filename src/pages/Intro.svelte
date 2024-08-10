@@ -3,7 +3,7 @@
   import { SplitText } from "gsap/SplitText";
   import { getLolApi } from "$apis/lol.svelte";
   import { getGameApi } from "$apis/game.svelte";
-  import Page from "$components/Page.svelte";
+  import LanguageLoader from "$lib/components/LanguageLoader.svelte";
   import { Next } from "$components/svg/icons";
   import ocean from "$assets/ocean.jpg";
 
@@ -69,23 +69,22 @@
   });
 </script>
 
-<Page>
-  <button onclick={() => (textIndex += 1)} class="size-full">
-    <img src={ocean} alt="ocean" class="bg-image size-full" />
-    <div class="bg-shadow size-full"></div>
-    <div class="container-text size-full">
-      {#each textKeys as key, i}
-        <p
-          id="text-intro_{i}"
-          class="text-intro {i === 4 ? 'text-2xl font-bold' : 'text-xl'} p-4"
-        >
-          {lolApi.getText(key)}
-        </p>
-      {/each}
-      <Next class="button-next m-4 w-[44px] h-[44px] opacity-0" />
-    </div>
-  </button>
-</Page>
+<LanguageLoader />
+<button onclick={() => (textIndex += 1)} class="size-full">
+  <img src={ocean} alt="ocean" class="bg-image size-full" />
+  <div class="bg-shadow size-full"></div>
+  <div class="container-text size-full">
+    {#each textKeys as key, i}
+      <p
+        id="text-intro_{i}"
+        class="text-intro {i === 4 ? 'text-2xl font-bold' : 'text-xl'} p-4"
+      >
+        {lolApi.getText(key)}
+      </p>
+    {/each}
+    <Next class="button-next m-4 w-[44px] h-[44px] opacity-0" />
+  </div>
+</button>
 
 <style>
   .bg-image {

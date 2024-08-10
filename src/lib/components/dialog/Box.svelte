@@ -2,11 +2,14 @@
   import type { Snippet } from "svelte";
 
   let {
+    onclick,
     class: extraClass,
     avatar,
     name,
     text,
+    ...props
   }: {
+    onclick: (e: MouseEvent) => void;
     class?: string;
     avatar: Snippet;
     name: Snippet;
@@ -14,7 +17,8 @@
   } = $props();
 </script>
 
-<div class="container size-full {extraClass}">
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<div {onclick} class="container size-full {extraClass}" {...props}>
   <div class="mr-2">
     {@render avatar()}
   </div>
@@ -28,6 +32,7 @@
 
 <style>
   .container {
+    cursor: pointer;
     position: absolute;
     bottom: 0;
     padding-bottom: 22px;
