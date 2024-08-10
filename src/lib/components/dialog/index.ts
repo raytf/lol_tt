@@ -1,2 +1,3 @@
+import Dialog from "./Dialog.svelte";
 import Box from "./Box.svelte";
-export { Box as DialogBox };
+export { Dialog, Box as DialogBox };
