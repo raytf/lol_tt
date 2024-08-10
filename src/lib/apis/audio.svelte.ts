@@ -25,6 +25,11 @@ export class AudioApi {
     loop = false,
     onload = () => {},
   }: TrackOptions) => {
+    if (src in this.tracks) {
+      console.log("Track already loaded");
+      return;
+    }
+
     const fullSrc = `${import.meta.env.BASE_URL}${src}`;
     const sound = new Howl({
       src: [fullSrc],

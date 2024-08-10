@@ -42,7 +42,11 @@
 </script>
 
 <div class="size-full flex flex-col items-center">
-  <UnderwaterGradient class="absolute size-full z-[-1]" />
+  <UnderwaterGradient
+    --color-top="#20a4f3"
+    --color-bottom="#182b3a"
+    class="absolute size-full z-[-1]"
+  />
   <h1 class="text-5xl p-8 font-bold text-slate-900">Chapter Select</h1>
   <div class="grid grid-cols-2 gap-4">
     {#each chapters as chapter}

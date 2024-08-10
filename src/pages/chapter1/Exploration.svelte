@@ -124,6 +124,7 @@
         resetNav();
         leftEnabled = true;
         rightEnabled = true;
+        downEnabled = true;
       }}
       onmouseenter={() => {
         console.log("area 2");
@@ -140,7 +141,6 @@
         handleMouseDown(e);
         resetNav();
         leftEnabled = true;
-        downEnabled = true;
       }}
       onmouseenter={() => {}}
     >
@@ -157,7 +157,7 @@
         upEnabled = true;
       }}
       onmouseenter={() => {}}
-      class="col-end-4"
+      class="col-end-3"
     >
       <UnderwaterGradient
         class="absolute size-full z-[-1]"

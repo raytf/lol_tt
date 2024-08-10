@@ -1,16 +1,14 @@
 <script lang="ts">
-  import { gsap } from "gsap";
-  import { TextPlugin } from "gsap/TextPlugin";
   // Apis
   import { getLolApi } from "$apis/lol.svelte";
   import { getGameApi } from "$apis/game.svelte";
   import { getAudioApi } from "$apis/audio.svelte";
-
-  gsap.registerPlugin(TextPlugin);
-
   const lolApi = getLolApi();
   const gameApi = getGameApi();
   const audioApi = getAudioApi();
+
+  let { params }: { params: { from: string } } = $props();
+
   let audioLoaded = $state(false);
   $effect(() => {
     lolApi.init();
@@ -25,7 +23,12 @@
 
   $effect(() => {
     if (lolApi.languageLoaded && audioLoaded) {
-      gameApi.fadeScene("/prologue");
+      if (params && params.from) {
+        console.log("Init from:", params.from);
+        gameApi.fadeScene("/" + params.from);
+      } else {
+        gameApi.fadeScene("/intro");
+      }
     }
   });
 </script>

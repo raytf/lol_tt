@@ -8,6 +8,13 @@
   import { createAudioApi } from "$apis/audio.svelte";
   import routes from "./routes";
 
+  import { gsap } from "gsap";
+  import { SplitText } from "gsap/SplitText";
+  import { TextPlugin } from "gsap/TextPlugin";
+
+  gsap.registerPlugin(SplitText);
+  gsap.registerPlugin(TextPlugin);
+
   createLolApi();
   createGameApi();
   createAudioApi();

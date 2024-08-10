@@ -1,5 +1,13 @@
 {
   "en": {
+    "intro_1": "The ocean covers almost 70% of the Earth's surface...",
+    "intro_2": "and most of it still remains unexplored.",
+    "intro_3": "Exploring the ocean is no easy task, as it's a place brimming with as much danger as there is mystery.",
+    "intro_4": "For those brave enough to take on this challenge, we use a special process to uncover these mysteries: ",
+    "intro_5": "the Scientific Method.",
+    "title": "Triton's Treasure",
+    "subtitle": "A Scientific Method Adventure",
+    "start": "Start",
     "prologue_1": "In the vast ocean of the Pacific, lies a legendary treasure.",
     "prologue_2": "The treasure is said to have unimaginable value and beauty...",
     "prologue_3": "but no one knows exactly what it is, or where it is hidden.",
@@ -7,6 +15,9 @@
     "prologue_5": "Light and Dark, Above and Below, Hot and Cold."
   },
   "es": {
+    "intro_1": "El océano cubre casi el 70% de la superficie de la Tierra, sin embargo, la mayor parte de él aún permanece inexplorado.",
+    "intro_2": "Explorar el océano no es una tarea fácil, ya que es un lugar lleno de tanto peligro como de misterio.",
+    "intro_3": "Para aquellos lo suficientemente valientes como para aceptar este desafío, utilizamos un proceso especial para descubrir estos misterios: el Método Científico.",
     "prologue_1": "En el vasto océano del Pacífico, yace un tesoro legendario.",
     "prologue_2": "Se dice que el tesoro tiene un valor y belleza inimaginables...",
     "prologue_3": "pero nadie sabe exactamente qué es, o dónde está escondido.",
