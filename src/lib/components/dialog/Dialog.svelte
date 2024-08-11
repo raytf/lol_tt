@@ -6,10 +6,10 @@
   interface DialogKey {
     imgSrc?: string;
     name?: string;
-    text?: string;
+    text: string;
   }
 
-  let { keys, onFinished }: { keys: DialogKey[]; onFinished: () => void } =
+  let { keys, onFinished }: { keys: DialogKey[]; onFinished?: () => void } =
     $props();
 
   let dialogIndex = $state(0);
@@ -20,7 +20,9 @@
       return;
     }
 
-    onFinished();
+    if (onFinished) {
+      onFinished();
+    }
   }
 </script>
 
@@ -42,11 +44,7 @@
         {/if}
       {/snippet}
       {#snippet text()}
-        {#if key.text}
-          {lolApi.getText(key.text)}
-        {:else}
-          ...
-        {/if}
+        {lolApi.getText(key.text)}
       {/snippet}
     </DialogBox>
   {/if}

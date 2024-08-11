@@ -3,7 +3,9 @@ import Intro from "./pages/Intro.svelte";
 import Prologue from "./pages/Prologue.svelte";
 import Title from "./pages/Title.svelte";
 import ChapterSelect from "./pages/ChapterSelect.svelte";
-import Chapter1 from "./pages/chapter1";
+// Chapter 1
+import Ch1 from "./pages/chapter1";
+import Ch1_Lesson_SMIntro from "./pages/chapter1/lessons/SMIntroduction.svelte";
 
 export default {
   "/": Init,
@@ -12,5 +14,6 @@ export default {
   "/prologue": Prologue,
   "/title": Title,
   "/chapter-select": ChapterSelect,
-  "/chapter1": Chapter1,
+  "/ch1": Ch1,
+  "/ch1_lesson_sm-introduction": Ch1_Lesson_SMIntro,
 };

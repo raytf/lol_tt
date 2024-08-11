@@ -10,17 +10,18 @@
     "start": "Start",
     "dialog-name_you": "You",
     "dialog-name_shell": "Shell",
+    "name_triton": "Triton",
+    "desc_triton": "The Conch Shell",
     "ch1-dialog_1": "Oi...",
     "ch1-dialog_2": "Who's talking?",
     "ch1-dialog_3": "Me.",
     "ch1-dialog_4": "Who? The shell?",
     "ch1-dialog_5": "Yes, what are you doing here?",
-    "ch1-dialog_6": "Huh?! A talking shell?!!",
-    "ch1-dialog_7": "Yes I'm a shell, and I can talk...it's not a big deal. Now answer me.",
+    "ch1-dialog_6": "Huh? A talking shell?!",
+    "ch1-dialog_7": "Yes, I can talk...it's really not a big deal. Now answer me.",
     "ch1-dialog_8": "These waters can be very dangerous, why are you here?",
     "ch1-dialog_9": "I want to explore and learn about the deep ocean.",
-    "name_triton": "Triton",
-    "desc_triton": "The Conch Shell"
+    "ch1-dialog_10": "...really?"
   },
   "es": {}
 }

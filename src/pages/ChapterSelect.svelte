@@ -27,7 +27,7 @@
       id: 1,
       title: "Chapter 1",
       subtitle: "Light and Dark",
-      link: "/chapter1-exploration",
+      link: "/ch1",
       completed: false,
       unlocked: true,
     },

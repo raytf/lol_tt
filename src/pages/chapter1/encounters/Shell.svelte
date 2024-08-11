@@ -57,6 +57,7 @@
     {
       imgSrc: shell,
       name: "dialog-name_shell",
+      text: "ch1-dialog_10",
     },
   ];
 
