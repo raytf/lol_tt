@@ -15,5 +15,5 @@ export default {
   "/title": Title,
   "/chapter-select": ChapterSelect,
   "/ch1": Ch1,
-  "/ch1_lesson_sm-introduction": Ch1_Lesson_SMIntro,
+  "/ch1_lesson_sm-intro": Ch1_Lesson_SMIntro,
 };

@@ -9,7 +9,11 @@
     text: string;
   }
 
-  let { keys, onFinished }: { keys: DialogKey[]; onFinished?: () => void } =
+  let {
+    keys,
+    onProceed,
+    onFinished,
+  }: { keys: DialogKey[]; onProceed?: () => void; onFinished?: () => void } =
     $props();
 
   let dialogIndex = $state(0);
@@ -17,6 +21,9 @@
   function nextDialog() {
     dialogIndex++;
     if (dialogIndex < keys.length) {
+      if (onProceed) {
+        onProceed();
+      }
       return;
     }
 

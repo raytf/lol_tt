@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { gsap } from "gsap";
   import eye from "$assets/icons/eye.svg";
   import question from "$assets/icons/question-mark.svg";
   import lightbulb from "$assets/icons/light-bulb.svg";
@@ -6,8 +7,17 @@
   import barChart from "$assets/icons/bar-chart.svg";
   import notebook from "$assets/icons/notebook.svg";
 
-  let { class: extraClass, itemClass }: { class?: string; itemClass?: string } =
-    $props();
+  let {
+    visible = true,
+    activeIndex = 0,
+    class: extraClass,
+    itemClass,
+  }: {
+    visible?: boolean;
+    activeIndex?: number;
+    class?: string;
+    itemClass?: string;
+  } = $props();
 
   const steps = [
     {
@@ -57,12 +67,35 @@
       border: "rounded-br-3xl border-b-4 border-r-4 border-l-2 border-t-2",
     },
   ];
+
+  let revealTl: gsap.core.Timeline;
+  $effect(() => {
+    gsap.set(".grid-item", { opacity: 0 });
+    revealTl = gsap.timeline({ paused: true });
+    revealTl.to(".grid-item", {
+      opacity: 1,
+      duration: 1,
+      stagger: 0.5,
+    });
+  });
+
+  $effect(() => {
+    if (visible) {
+      revealTl.play();
+    } else {
+      revealTl.reverse();
+    }
+  });
 </script>
 
 <div class="grid grid-cols-3 grid-rows-2 {extraClass}">
   {#each steps as step, i}
     <div
-      class="{itemClass} border-black {step.border} flex flex-col justify-center items-center {step.bgColor}"
+      class="{itemClass} {activeIndex === i
+        ? ''
+        : activeIndex >= 0
+          ? 'brightness-50'
+          : ''} grid-item border-black {step.border} {step.bgColor}"
     >
       <p class="text-2xl font-bold text-black">{i + 1}. {step.title}</p>
       <img src={step.image} alt="icon" class="w-[55px] h-[55px] m-2" />
@@ -71,4 +104,12 @@
 </div>
 
 <style>
+  .grid-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    transition: filter 1s;
+  }
 </style>
