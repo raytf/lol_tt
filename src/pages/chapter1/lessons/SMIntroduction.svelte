@@ -11,6 +11,8 @@
   import grin from "$assets/emoji/grin.svg";
   import sweat from "$assets/emoji/sweat.svg";
   import shell from "$assets/avatars/shell.png";
+  import { getGameApi } from "$apis/game.svelte";
+  const gameApi = getGameApi();
 
   const dialogKeysIntro = [
     {
@@ -184,7 +186,10 @@
 {#if startDialogSM}
   <Dialog
     keys={dialogKeysSM}
-    onProceed={() => smStep++}
+    onProceed={() => {
+      smStep += 1;
+      if (smStep > 5) smStep = -1;
+    }}
     onFinished={() => {
       startDialogSM = false;
       startDialogDiscovery = true;
@@ -202,5 +207,10 @@
   />
 {/if}
 {#if startDialogGuide}
-  <Dialog keys={dialogKeysGuide} />
+  <Dialog
+    keys={dialogKeysGuide}
+    onFinished={() => {
+      gameApi.fadeScene("/ch1_exploration_shark");
+    }}
+  />
 {/if}

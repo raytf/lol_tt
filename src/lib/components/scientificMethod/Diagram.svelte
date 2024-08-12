@@ -75,7 +75,7 @@
     revealTl.to(".grid-item", {
       opacity: 1,
       duration: 1,
-      stagger: 0.5,
+      stagger: 0.44,
     });
   });
 

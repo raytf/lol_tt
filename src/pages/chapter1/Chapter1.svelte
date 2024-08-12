@@ -1,11 +1,11 @@
 <script>
   import LanguageLoader from "$lib/components/LanguageLoader.svelte";
-  import Exploration from "./Exploration.svelte";
-  import EncounterShell from "./story/EncounterShell.svelte";
+  import { getGameApi } from "$apis/game.svelte";
+  const gameApi = getGameApi();
+
+  $effect(() => {
+    gameApi.fadeScene("/ch1_exploration_start");
+  });
 </script>
 
 <LanguageLoader />
-<div class="relative size-full">
-  <Exploration />
-  <EncounterShell />
-</div>

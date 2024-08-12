@@ -1,6 +1,7 @@
 <script lang="ts">
   import { tweened, spring } from "svelte/motion";
   import { Grid, Area } from "$components/exploration";
+  import Wrecks from "./areas/Wrecks.svelte";
   import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
   import Submarine from "$components/visual/Submarine.svelte";
 
@@ -98,26 +99,21 @@
 >
   {#snippet characters()}
     <Submarine
+      x={$subCoords.x}
+      y={$subCoords.y}
       scaleX={subDirection}
-      style="transform: translate({$subCoords.x}px, {$subCoords.y}px)"
+      class="z-10"
     />
   {/snippet}
   {#snippet areas()}
-    <Area
+    <Wrecks
+      showInstruction={true}
       onmousedown={(e) => {
         handleMouseDown(e);
         resetNav();
         rightEnabled = true;
       }}
-      onmouseenter={(e) => {}}
-      class=""
-    >
-      <UnderwaterGradient
-        class="absolute size-full z-[-1]"
-        --color-top="#03E5B7"
-        --color-bottom="#037ADE"
-      />
-    </Area>
+    ></Wrecks>
     <Area
       onmousedown={(e) => {
         handleMouseDown(e);
