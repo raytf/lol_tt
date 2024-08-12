@@ -23,7 +23,7 @@
       var(--color-bottom, --default-bottom),
       var(--color-top, --default-top)
     );
-    translate: -99% 0;
+    translate: -99% 44%;
     rotate: 44deg;
     filter: blur(44px) brightness(1.1);
     width: 55%;
@@ -41,7 +41,7 @@
       var(--color-bottom, --default-bottom),
       var(--color-top, --default-top)
     );
-    translate: -99% 0;
+    translate: -99% 44%;
     rotate: -44deg;
     filter: blur(44px) brightness(0.9);
     width: 55%;
@@ -54,10 +54,10 @@
 
   @keyframes -global-yoyo-x {
     0% {
-      translate: -111% 0;
+      translate: 11% 44%;
     }
     100% {
-      translate: 111% 0;
+      translate: 88% 44%;
     }
   }
 </style>

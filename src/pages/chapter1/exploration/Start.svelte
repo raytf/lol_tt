@@ -45,7 +45,7 @@
 
   <button
     onclick={() => gameApi.fadeScene("/ch1_story_shell-encounter")}
-    class="absolute w-[222px] h-[88px] bottom-[14%] right-[21%] z-[1]"
+    class="absolute w-[222px] h-[88px] bottom-[11%] right-[21%] z-[5]"
   >
     <p class="text-2xl">Wrecks</p>
   </button>

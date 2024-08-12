@@ -1,9 +1,13 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import { tweened, spring } from "svelte/motion";
-  import { Grid, Area } from "$components/exploration";
+  import { Grid, Area, BgImg } from "$components/exploration";
   import Wrecks from "./areas/Wrecks.svelte";
   import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
   import Submarine from "$components/visual/Submarine.svelte";
+  import relics2 from "$assets/relics/relics_2.svg";
+  import foliage1 from "$assets/foliage/foliage_1.svg";
+  import foliage2 from "$assets/foliage/foliage_2.svg";
 
   const xOffset = tweened(0, {
     duration: 500,
@@ -13,9 +17,12 @@
   });
 
   let subDirection = $state(1);
-  const defaultCoords = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+  const defaultCoords = {
+    x: window.innerWidth / 2,
+    y: window.innerHeight / 2,
+  };
   let subCoords = spring(
-    { x: defaultCoords.x, y: defaultCoords.y },
+    { x: window.innerWidth / 2 + 88, y: window.innerHeight - 88 },
     {
       stiffness: 0.01,
       damping: 0.8,
@@ -46,6 +53,10 @@
     const dx = x - $subCoords.x;
     subDirection = dx <= 0 ? -1 : 1;
   }
+
+  onMount(() => {
+    moveSub(window.innerWidth / 2, window.innerHeight / 2);
+  });
 </script>
 
 <Grid
@@ -122,15 +133,28 @@
         rightEnabled = true;
         downEnabled = true;
       }}
-      onmouseenter={() => {
-        console.log("area 2");
-      }}
     >
       <UnderwaterGradient
-        class="absolute size-full z-[-1]"
+        class="absolute size-full"
         --color-top="#03E5B7"
         --color-bottom="#037ADE"
       />
+      <div class="absolute size-full z-[1] pointer-events-none">
+        <div class="absolute w-1/2 h-full left-0 overflow-clip">
+          <BgImg
+            src={relics2}
+            alt="relics-2"
+            class="bottom-[-42%] w-[200%] z-[2]"
+          />
+        </div>
+        <div class="absolute w-1/2 h-full right-0 overflow-clip">
+          <BgImg
+            src={foliage1}
+            alt="foliage-1"
+            class="right-0 bottom-[-38%] w-[200%] z-[2]"
+          />
+        </div>
+      </div>
     </Area>
     <Area
       onmousedown={(e) => {
@@ -145,6 +169,18 @@
         --color-top="#03E5B7"
         --color-bottom="#037ADE"
       />
+      <div class="absolute size-full z-[1] overflow-x-clip pointer-events-none">
+        <BgImg
+          src={foliage2}
+          alt="foliage-2"
+          class="scale-x-[-1] h-[111%] bottom-[-5%] right-0 w-[111%] z-[1]"
+        />
+        <BgImg
+          src={foliage1}
+          alt="foliage-1"
+          class="bottom-[-4%] left-[-34%] w-[144%] z-[2]"
+        />
+      </div>
     </Area>
     <Area
       onmousedown={(e) => {
@@ -160,6 +196,18 @@
         --color-top="#037ADE"
         --color-bottom="#182b3a"
       />
+      <div class="absolute size-full z-[1] overflow-clip pointer-events-none">
+        <BgImg
+          src={relics2}
+          alt="relics-2"
+          class="rotate-90 left-[-55%] bottom-[-31%] w-[133%] z-[2]"
+        />
+        <BgImg
+          src={foliage1}
+          alt="foliage-1"
+          class="rotate-90 scale-y-[-1] right-[-44%]"
+        />
+      </div>
     </Area>
   {/snippet}
 </Grid>

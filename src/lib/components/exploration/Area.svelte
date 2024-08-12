@@ -29,7 +29,9 @@
   }}
   {...props}
 >
-  <div class="absolute top-0 w-full flex justify-center pointer-events-none">
+  <div
+    class="absolute top-0 w-full flex justify-center pointer-events-none z-10"
+  >
     <div class="text-instruction text-4xl pt-8 {clicked ? 'opacity-0' : ''}">
       <CursorClick />
       <p class="ml-2">Explore</p>
