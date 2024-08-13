@@ -10,8 +10,11 @@
     "start": "Start",
     "dialog-name_explorer": "Explorer",
     "dialog-name_shell": "Shell",
-    "name_triton": "Triton",
-    "desc_triton": "The Conch Shell",
+    "dialog-name_shark": "Shark",
+    "name_shell": "Conch Shell",
+    "desc_shell": "Also known as Triton's Trumpet. This one can talk for some reason.",
+    "name_shark": "Great White Shark",
+    "desc_shark": "One of the largest predator fish.",
     "ch1-dialog_1-1": "Psst, hey...down here.",
     "ch1-dialog_1-2": "Who's talking?",
     "ch1-dialog_1-3": "Me.",
@@ -39,7 +42,13 @@
     "ch1-dialog_3-5": "...very well. I'll help you on your journey.",
     "ch1-dialog_4-1": "You have no idea where to go, or what lurks in these depths, do you?",
     "ch1-dialog_4-2": "No, not really.",
-    "ch1-dialog_4-3": "Then let me guide you. I know these waters like the back of my shell."
+    "ch1-dialog_4-3": "Then let me guide you. I know these waters like the back of my shell.",
+    "ch1-dialog_shark_1-1": "Woah, that's one big shark!",
+    "ch1-dialog_shark_2-1": "I won't let you destroy anything here. Get lost human!",
+    "ch1-dialog_shark_2-2": "Wait, this one won't hurt you. They're just here to learn.",
+    "ch1-dialog_shark_2-3": "I don't care! Leave now or I'll make you leave!",
+    "ch1-dialog_shark_2-4": "What is it saying? He looks kinda angry...",
+    "ch1-dialog_shark_2-5": "Run now! If you don't want to be shark food!"
   },
   "es": {}
 }

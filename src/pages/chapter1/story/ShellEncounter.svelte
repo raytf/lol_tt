@@ -63,8 +63,13 @@
     },
   ];
 
-  let panTl: gsap.core.Timeline;
-  let introTl: gsap.core.Timeline;
+  let panTl: gsap.core.Timeline = gsap.timeline({ paused: true });
+  let introTl: gsap.core.Timeline = gsap.timeline({
+    paused: true,
+    onComplete: () => {
+      revealIntroText = true;
+    },
+  });
   $effect(() => {
     gsap.set(".bg-image", { scale: 1.2 });
     gsap.set(".intro-shell", { opacity: 0 });
@@ -74,45 +79,32 @@
       duration: 10,
     });
 
-    panTl = gsap.timeline({ paused: true });
     panTl.to(".bg-image", { y: -500, duration: 10 }, 0);
 
-    introTl = gsap.timeline({
-      paused: true,
-      onComplete: () => {
-        revealIntro = true;
-      },
-    });
     introTl.to(".intro-shell", { opacity: 1, duration: 1 });
   });
 
   let startedPan = $state(false);
-  let revealIntro = $state(false);
+  let revealIntroText = $state(false);
   let startDialogue2 = $state(false);
 </script>
 
 <LanguageLoader />
-<!-- svelte-ignore a11y_click_events_have_key_events -->
-<!-- svelte-ignore a11y_no_static_element_interactions -->
-<div
-  onclick={() => console.log("done")}
-  class="bg-image absolute top-0 size-full cursor-pointer z-[1]"
->
+<div class="bg-image absolute top-0 size-full z-[1]">
   <img src={encounterShell} alt="background" class="absolute w-full" />
   <img src={introShell} alt="background" class="intro-shell absolute w-full" />
 </div>
-{#if revealIntro}
-  <Intro
-    onclick={() => {
-      introTl.reverse();
-      revealIntro = false;
-      startDialogue2 = true;
-    }}
-    class="flex flex-col p-12 z-[2]"
-    nameKey="name_triton"
-    descKey="desc_triton"
-  />
-{/if}
+<Intro
+  nameKey="name_shell"
+  descKey="desc_shell"
+  activate={revealIntroText}
+  onclick={() => {
+    introTl.reverse();
+    revealIntroText = false;
+    startDialogue2 = true;
+  }}
+  class="text-left p-12 z-[2]"
+/>
 <Dialog
   keys={dialogKeys1}
   onProceed={() => {

@@ -2,27 +2,42 @@
   import { onMount } from "svelte";
   import { tweened, spring } from "svelte/motion";
   import { Grid, Area, BgImg } from "$components/exploration";
+  import Dialog from "$components/dialog/Dialog.svelte";
   import Wrecks from "./areas/Wrecks.svelte";
+  import SharkLair from "./areas/SharkLair.svelte";
   import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
   import Submarine from "$components/visual/Submarine.svelte";
+  import Shark from "$components/visual/Shark.svelte";
   import relics2 from "$assets/relics/relics_2.svg";
   import foliage1 from "$assets/foliage/foliage_1.svg";
-  import foliage2 from "$assets/foliage/foliage_2.svg";
+  import openMouth from "$assets/emoji/open-mouth.svg";
+  import { sharkEncountered, explorationOffset, sharkCoords } from "../store";
+  import { getGameApi } from "$apis/game.svelte";
+  const gameApi = getGameApi();
 
-  const xOffset = tweened(0, {
+  const xOffset = tweened($explorationOffset.x, {
     duration: 500,
   });
-  const yOffset = tweened(0, {
+  const yOffset = tweened($explorationOffset.y, {
     duration: 500,
   });
 
-  let subDirection = $state(1);
   const defaultCoords = {
     x: window.innerWidth / 2,
     y: window.innerHeight / 2,
   };
+  let sharkDirection = $state(1);
+  let subDirection = $state(1);
+  const initialSubCoords = {
+    x: window.innerWidth / 2 + 88,
+    y: window.innerHeight - 88,
+  };
+  if ($sharkEncountered) {
+    initialSubCoords.x = window.innerWidth * 2.5;
+    initialSubCoords.y = window.innerHeight / 2;
+  }
   let subCoords = spring(
-    { x: window.innerWidth / 2 + 88, y: window.innerHeight - 88 },
+    { x: initialSubCoords.x, y: initialSubCoords.y },
     {
       stiffness: 0.01,
       damping: 0.8,
@@ -45,6 +60,9 @@
     const x = event.clientX - $xOffset;
     const y = event.clientY - $yOffset;
     moveSub(x, y);
+    if ($sharkEncountered) {
+      moveShark(x, y);
+    }
   }
 
   function moveSub(x: number, y: number) {
@@ -53,12 +71,38 @@
     const dx = x - $subCoords.x;
     subDirection = dx <= 0 ? -1 : 1;
   }
+  function moveShark(x: number, y: number) {
+    if (y > window.innerHeight) return;
+    sharkCoords.set({ x: x, y: y });
+
+    const dx = $subCoords.x - $sharkCoords.x;
+    sharkDirection = dx <= 0 ? 1 : -1;
+  }
 
   onMount(() => {
-    moveSub(window.innerWidth / 2, window.innerHeight / 2);
+    const x = window.innerWidth / 2 - $xOffset;
+    const y = window.innerHeight / 2 - $yOffset;
+    moveSub(x, y);
   });
+
+  let startDialog1 = $state(false);
+  let startDialog2 = $state(false);
 </script>
 
+{#if startDialog1}
+  <Dialog
+    keys={[
+      {
+        imgSrc: openMouth,
+        name: "dialog-name_explorer",
+        text: "ch1-dialog_shark_1-1",
+      },
+    ]}
+    onFinished={() => {
+      gameApi.fadeScene("/ch1_story_shark-encounter");
+    }}
+  />
+{/if}
 <Grid
   xOffset={$xOffset}
   yOffset={$yOffset}
@@ -113,6 +157,12 @@
       x={$subCoords.x}
       y={$subCoords.y}
       scaleX={subDirection}
+      class="z-[11]"
+    />
+    <Shark
+      x={$sharkCoords.x}
+      y={$sharkCoords.y}
+      scaleX={sharkDirection}
       class="z-10"
     />
   {/snippet}
@@ -156,39 +206,30 @@
         </div>
       </div>
     </Area>
-    <Area
+    <SharkLair
       onmousedown={(e) => {
+        if (!$sharkEncountered) {
+          moveShark($sharkCoords.x - 222, $sharkCoords.y);
+          startDialog1 = true;
+          $explorationOffset = { x: $xOffset, y: $yOffset };
+          $sharkEncountered = true;
+          return;
+        }
         handleMouseDown(e);
         resetNav();
         leftEnabled = true;
       }}
-      onmouseenter={() => {}}
-    >
-      <UnderwaterGradient
-        class="absolute size-full z-[-1]"
-        --color-top="#03E5B7"
-        --color-bottom="#037ADE"
-      />
-      <div class="absolute size-full z-[1] overflow-x-clip pointer-events-none">
-        <BgImg
-          src={foliage2}
-          alt="foliage-2"
-          class="scale-x-[-1] h-[111%] bottom-[-5%] right-0 w-[111%] z-[1]"
-        />
-        <BgImg
-          src={foliage1}
-          alt="foliage-1"
-          class="bottom-[-4%] left-[-34%] w-[144%] z-[2]"
-        />
-      </div>
-    </Area>
+    ></SharkLair>
     <Area
       onmousedown={(e) => {
         handleMouseDown(e);
         resetNav();
         upEnabled = true;
+
+        if ($sharkEncountered) {
+          startDialog2 = true;
+        }
       }}
-      onmouseenter={() => {}}
       class="col-end-3"
     >
       <UnderwaterGradient
