@@ -15,7 +15,7 @@
     );
   }
 
-  .underwater::before {
+  /* .underwater::before {
     content: "";
     position: absolute;
     background: linear-gradient(
@@ -48,9 +48,8 @@
     height: 55%;
     border-radius: 50%;
     animation: yoyo-x 22s alternate infinite ease-in-out;
-    /* animation-delay: 8s; */
     transform-origin: 60%;
-  }
+  } */
 
   @keyframes -global-yoyo-x {
     0% {

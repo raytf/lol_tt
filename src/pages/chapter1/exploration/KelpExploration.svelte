@@ -4,6 +4,7 @@
   import { Grid, Area, BgImg } from "$components/exploration";
   import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
   import Submarine from "$components/visual/Submarine.svelte";
+  import relics2 from "$assets/relics/relics_2.svg";
   import kelp from "$assets/chapter1/kelp.png";
 
   const xOffset = tweened(0, {
@@ -38,9 +39,10 @@
   onMount(() => {
     subCoords = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
   });
+  //#037ADE
 </script>
 
-<Grid xOffset={$xOffset} yOffset={$yOffset} class="grid-cols-1 w-full h-[200%]">
+<Grid xOffset={$xOffset} yOffset={$yOffset} class="grid-cols-1 w-full h-[300%]">
   <Submarine
     targetPosition={subCoords}
     x={subCoords.x}
@@ -49,38 +51,92 @@
   />
   <BgImg
     src={kelp}
-    class="absolute top-0 right-0 h-full pointer-events-none z-[1]"
+    class="absolute top-0 right-[-11%] h-2/3 pointer-events-none z-[1]"
   />
   {#snippet areas()}
     <Area
       active={activeArea === 0}
-      onmousedown={handleMouseDown}
       onDown={() => {
         activeArea = 1;
         moveToNextArea(0, -1);
       }}
-      class=""
+      onmousedown={handleMouseDown}
+      showInstruction={true}
     >
       <UnderwaterGradient
         class="absolute size-full"
         --color-top="#03E5B7"
-        --color-bottom="#037ADE"
+        --color-bottom="#08C8F6"
       />
+      <div class="absolute size-full z-[1] pointer-events-none">
+        <div class="absolute w-1/2 h-full left-0 overflow-clip">
+          <BgImg
+            src={relics2}
+            alt="relics-2"
+            class="bottom-[-42%] w-[200%] z-[2]"
+          />
+        </div>
+      </div>
     </Area>
     <Area
       active={activeArea === 1}
-      onmousedown={handleMouseDown}
       onUp={() => {
         activeArea = 0;
         moveToNextArea(0, 1);
       }}
-      class=""
+      onDown={() => {
+        activeArea = 2;
+        moveToNextArea(0, -1);
+      }}
+      onmousedown={handleMouseDown}
+    >
+      <UnderwaterGradient
+        class="absolute size-full"
+        --color-top="#08C8F6"
+        --color-bottom="#037ade"
+      />
+      <div class="absolute size-full z-[1] overflow-clip pointer-events-none">
+        <BgImg
+          src={relics2}
+          alt="relics-2"
+          class="rotate-90 left-[-60%] bottom-[-36%] w-[144%] z-[2]"
+        />
+        <div class="absolute h-full w-[11%] right-0 overflow-clip">
+          <BgImg
+            src={relics2}
+            alt="relics-2"
+            class="right-[-11px] bottom-[-22%] w-[777px] z-[2]"
+          />
+        </div>
+      </div>
+    </Area>
+    <Area
+      active={activeArea === 2}
+      onUp={() => {
+        activeArea = 1;
+        moveToNextArea(0, 1);
+      }}
+      onmousedown={handleMouseDown}
     >
       <UnderwaterGradient
         class="absolute size-full z-[-1]"
-        --color-top="#037ADE"
+        --color-top="#037ade"
         --color-bottom="#182b3a"
       />
+      <div class="absolute size-full z-[1] overflow-clip pointer-events-none">
+        <BgImg
+          src={relics2}
+          alt="relics-2"
+          class="rotate-90 left-[-65%] bottom-[-31%] w-[133%] z-[2]"
+        />
+        <div class="absolute top-0 right-0 h-[15%] w-[15%] overflow-clip">
+          <BgImg
+            src={relics2}
+            alt="relics-2"
+            class="-rotate-90 right-[-386px] bottom-[-459px] w-[888px] z-[2]"
+          />
+        </div>
+      </div>
     </Area>
   {/snippet}
 </Grid>

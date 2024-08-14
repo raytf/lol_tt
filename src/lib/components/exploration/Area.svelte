@@ -27,7 +27,7 @@
     children?: Snippet;
   } = $props();
 
-  let clicked = $state(!showInstruction);
+  let revealInstruction = $state(showInstruction);
 </script>
 
 <div
@@ -35,21 +35,25 @@
   role="button"
   tabindex="0"
   onmousedown={(e) => {
-    clicked = true;
+    revealInstruction = false;
     onmousedown?.(e);
   }}
   {...props}
 >
-  <div
-    class="absolute top-0 w-full flex justify-center pointer-events-none z-10"
-  ></div>
   {#if children}
     {@render children()}
   {/if}
-  <div class="text-instruction text-4xl pt-8 {clicked ? 'opacity-0' : ''}">
-    <CursorClick />
-    <p class="ml-2">Explore</p>
-  </div>
+
+  {#if revealInstruction}
+    <div
+      transition:fade={{ duration: 2000 }}
+      class="container-instruction text-4xl pt-8"
+    >
+      <CursorClick />
+      <p class="ml-2">Explore</p>
+    </div>
+  {/if}
+
   {#if active}
     <div in:fade={{ duration: 2000 }} class="container-nav">
       <div class="relative size-full">
@@ -91,11 +95,14 @@
 </div>
 
 <style>
-  .text-instruction {
+  .container-instruction {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+
     display: flex;
     flex-direction: row;
-    align-items: center;
-    transition: opacity 2s;
+    justify-content: center;
   }
   .container-nav {
     position: absolute;
