@@ -1,7 +1,7 @@
 <script lang="ts">
   import { gsap } from "gsap";
   import { Dialog } from "$components/dialog";
-  import Intro from "$components/characterIntro/Intro.svelte";
+  import { CharacterIntro } from "$lib/components/intro";
   import LanguageLoader from "$components/LanguageLoader.svelte";
   import encounterShell from "$assets/chapter1/encounter_shell.jpg";
   import introShell from "$assets/chapter1/intro_shell.jpg";
@@ -94,7 +94,7 @@
   <img src={encounterShell} alt="background" class="absolute w-full" />
   <img src={introShell} alt="background" class="intro-shell absolute w-full" />
 </div>
-<Intro
+<CharacterIntro
   nameKey="name_shell"
   descKey="desc_shell"
   activate={revealIntroText}

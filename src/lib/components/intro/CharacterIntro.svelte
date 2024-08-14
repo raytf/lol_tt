@@ -24,7 +24,7 @@
     : 'opacity-0 pointer-events-none'} {extraClass}"
 >
   <p class="text-name text-7xl font-bold">{lolApi.getText(nameKey)}</p>
-  <p class="text-desc text-4xl py-4">{lolApi.getText(descKey)}</p>
+  <p class="text-desc text-4xl py-4">{@html lolApi.getText(descKey)}</p>
 </button>
 
 <style>

@@ -2,7 +2,7 @@
   import { gsap } from "gsap";
   import LanguageLoader from "$components/LanguageLoader.svelte";
   import Dialog from "$components/dialog/Dialog.svelte";
-  import Intro from "$components/characterIntro/Intro.svelte";
+  import { CharacterIntro } from "$lib/components/intro";
   import encounterShark from "$assets/chapter1/encounter_shark.jpg";
   import introShark from "$assets/chapter1/intro_shark.jpg";
   import shark from "$assets/avatars/shark.png";
@@ -48,7 +48,7 @@
     class="absolute object-cover h-full w-full z-[1]"
   />
 </div>
-<Intro
+<CharacterIntro
   nameKey="name_shark"
   descKey="desc_shark"
   activate={revealIntroText}
