@@ -75,7 +75,7 @@
     revealTl.to(".grid-item", {
       opacity: 1,
       duration: 1,
-      stagger: 0.22,
+      stagger: 0.33,
     });
   });
 
@@ -93,7 +93,7 @@
     <div
       class="{itemClass} {activeIndex === i
         ? ''
-        : activeIndex >= 0
+        : activeIndex >= 0 && activeIndex < steps.length
           ? 'brightness-50'
           : ''} grid-item border-black {step.border} {step.bgColor}"
     >

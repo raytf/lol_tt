@@ -30,8 +30,7 @@
 <Area
   onRight={$shellEncountered
     ? () => {
-        console.log("yee");
-        // Go to Kelp exploration
+        gameApi.fadeScene("/ch1_exploration_kelp");
       }
     : undefined}
   showInstruction={true}

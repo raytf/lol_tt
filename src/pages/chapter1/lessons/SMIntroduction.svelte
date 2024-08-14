@@ -9,7 +9,7 @@
   import smile from "$assets/emoji/smile.svg";
   import neutral from "$assets/emoji/neutral.svg";
   import grin from "$assets/emoji/grin.svg";
-  import sweat from "$assets/emoji/sweat.svg";
+  import tongue from "$assets/emoji/tongue.svg";
   import shell from "$assets/avatars/shell.png";
   import { getGameApi } from "$apis/game.svelte";
   const gameApi = getGameApi();
@@ -68,11 +68,21 @@
       name: "dialog-name_shell",
       text: "ch1-dialog_sm-8",
     },
+    {
+      imgSrc: smile,
+      name: "dialog-name_explorer",
+      text: "ch1-dialog_sm-9",
+    },
+    {
+      imgSrc: smile,
+      name: "dialog-name_explorer",
+      text: "ch1-dialog_sm-10",
+    },
   ];
 
   const dialogKeysDiscovery = [
     {
-      imgSrc: smile,
+      imgSrc: grin,
       name: "dialog-name_explorer",
       text: "ch1-dialog_3-1",
     },
@@ -91,11 +101,6 @@
       name: "dialog-name_shell",
       text: "ch1-dialog_3-4",
     },
-    {
-      imgSrc: shell,
-      name: "dialog-name_shell",
-      text: "ch1-dialog_3-5",
-    },
   ];
 
   const dialogKeysGuide = [
@@ -105,7 +110,7 @@
       text: "ch1-dialog_4-1",
     },
     {
-      imgSrc: sweat,
+      imgSrc: grin,
       name: "dialog-name_explorer",
       text: "ch1-dialog_4-2",
     },
@@ -113,6 +118,11 @@
       imgSrc: shell,
       name: "dialog-name_shell",
       text: "ch1-dialog_4-3",
+    },
+    {
+      imgSrc: tongue,
+      name: "dialog-name_shell",
+      text: "ch1-dialog_4-4",
     },
   ];
 
@@ -188,7 +198,6 @@
     keys={dialogKeysSM}
     onProceed={() => {
       smStep += 1;
-      if (smStep > 5) smStep = -1;
     }}
     onFinished={() => {
       startDialogSM = false;

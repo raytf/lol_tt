@@ -39,7 +39,6 @@
   onMount(() => {
     subCoords = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
   });
-  //#037ADE
 </script>
 
 <Grid xOffset={$xOffset} yOffset={$yOffset} class="grid-cols-1 w-full h-[300%]">
@@ -129,11 +128,11 @@
           alt="relics-2"
           class="rotate-90 left-[-65%] bottom-[-31%] w-[133%] z-[2]"
         />
-        <div class="absolute top-0 right-0 h-[15%] w-[15%] overflow-clip">
+        <div class="absolute top-0 right-0 h-[25%] w-[15%] overflow-clip">
           <BgImg
             src={relics2}
             alt="relics-2"
-            class="-rotate-90 right-[-386px] bottom-[-459px] w-[888px] z-[2]"
+            class="-rotate-90 right-[-485px] bottom-[-576px] w-[1111px] z-[2]"
           />
         </div>
       </div>

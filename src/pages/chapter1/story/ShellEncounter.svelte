@@ -52,16 +52,6 @@
       name: "dialog-name_shell",
       text: "ch1-dialog_1-8",
     },
-    {
-      imgSrc: grin,
-      name: "dialog-name_explorer",
-      text: "ch1-dialog_1-9",
-    },
-    {
-      imgSrc: shell,
-      name: "dialog-name_shell",
-      text: "ch1-dialog_1-10",
-    },
   ];
 
   let panTl: gsap.core.Timeline = gsap.timeline({ paused: true });
