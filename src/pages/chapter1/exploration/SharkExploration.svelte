@@ -1,7 +1,8 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { tweened, spring } from "svelte/motion";
-  import { Grid, Area, BgImg } from "$components/exploration";
+  import { Area, BgImg } from "$components/exploration";
+  import Grid from "$components/exploration/GridOld.svelte";
   import Dialog from "$components/dialog/Dialog.svelte";
   import Wrecks from "./areas/Wrecks.svelte";
   import SharkLair from "./areas/SharkLair.svelte";

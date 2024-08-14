@@ -5,13 +5,13 @@
     xOffset = 0,
     yOffset = 0,
     class: extraClass,
-    characters,
+    children,
     areas,
   }: {
     xOffset?: number;
     yOffset?: number;
     class?: string;
-    characters: Snippet;
+    children: Snippet;
     areas: Snippet;
   } = $props();
 </script>
@@ -20,7 +20,7 @@
   class="grid {extraClass}"
   style="transform: translate({xOffset}px, {yOffset}px)"
 >
-  {@render characters()}
+  {@render children()}
   {@render areas()}
 </div>
 
