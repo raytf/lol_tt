@@ -4,12 +4,14 @@
   import kelp from "$assets/chapter1/kelp.png";
 </script>
 
-<div class="w-full h-[200%]">
-  <Area>
-    <UnderwaterGradient
-      class="absolute size-full"
-      --color-top="#03E5B7"
-      --color-bottom="#037ADE"
-    />
-  </Area>
-</div>
+<Grid class="grid-cols-1 w-full h-[200%]">
+  {#snippet areas()}
+    <Area>
+      <UnderwaterGradient
+        class="absolute size-full"
+        --color-top="#03E5B7"
+        --color-bottom="#037ADE"
+      />
+    </Area>
+  {/snippet}
+</Grid>

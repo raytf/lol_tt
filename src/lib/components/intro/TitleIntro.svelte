@@ -30,7 +30,7 @@
 </script>
 
 <div
-  class="container-title size-full flex flex-col justify-center items-center"
+  class="container-title bg-black size-full flex flex-col justify-center items-center"
 >
   <h1 class="intro-title text-4xl m-4">{lolApi.getText(titleKey)}:</h1>
   <h2 class="intro-desc text-xl">{lolApi.getText(descKey)}</h2>

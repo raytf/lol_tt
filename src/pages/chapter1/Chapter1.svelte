@@ -9,5 +9,5 @@
 <TitleIntro
   titleKey="title_chapter-1"
   descKey="desc_chapter-1"
-  onComplete={() => gameApi.fadeScene("/ch1_exploration_start")}
+  onComplete={() => gameApi.fadeScene("/ch1_exploration_wrecks")}
 />

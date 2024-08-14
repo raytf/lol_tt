@@ -75,7 +75,7 @@
     revealTl.to(".grid-item", {
       opacity: 1,
       duration: 1,
-      stagger: 0.44,
+      stagger: 0.22,
     });
   });
 
@@ -109,6 +109,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    user-select: none;
 
     transition: filter 1s;
   }

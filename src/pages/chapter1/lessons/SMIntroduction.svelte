@@ -210,7 +210,7 @@
   <Dialog
     keys={dialogKeysGuide}
     onFinished={() => {
-      gameApi.fadeScene("/ch1_exploration_shark");
+      gameApi.fadeScene("/ch1_exploration_wrecks");
     }}
   />
 {/if}

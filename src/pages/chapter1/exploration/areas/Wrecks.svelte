@@ -23,14 +23,12 @@
     --color-top="#03E5B7"
     --color-bottom="#037ADE"
   />
-  <div class="absolute size-full z-[1] pointer-events-none">
-    <BgImg
-      src={relics3}
-      alt="relics-3"
-      class="bottom-[-5%] right-[-11%] w-[144%] z-[1]"
-    />
-    <BgImg src={relics2} alt="relics-2" class="bottom-[-15%] z-[2]" />
-  </div>
+  <BgImg
+    src={relics3}
+    alt="relics-3"
+    class="bottom-[-5%] right-[-11%] w-[144%] z-[1]"
+  />
+  <BgImg src={relics2} alt="relics-2" class="bottom-[-15%] z-[11]" />
 
   {#if children}
     {@render children()}

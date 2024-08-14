@@ -153,12 +153,7 @@
   class="grid-cols-3 grid-rows-2 h-[200%] w-[300%]"
 >
   {#snippet characters()}
-    <Submarine
-      x={$subCoords.x}
-      y={$subCoords.y}
-      scaleX={subDirection}
-      class="z-[11]"
-    />
+    <Submarine x={$subCoords.x} y={$subCoords.y} class="z-[11]" />
     <Shark
       x={$sharkCoords.x}
       y={$sharkCoords.y}
