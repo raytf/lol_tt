@@ -27,14 +27,13 @@
   }
   onMount(() => {
     subCoords = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-    unlockShell = true;
     if ($shellEncountered) {
-      unlockShell = true;
+      unlockSM = true;
     }
   });
 
-  let unlockShell = $state(false);
   let unlockSM = $state(false);
+  let unlockShell = $state(false);
 </script>
 
 <LanguageLoader />
@@ -65,27 +64,11 @@
 </Area>
 
 <ItemUnlockScreen
-  reveal={unlockShell}
-  onclick={() => {
-    inventoryApi.unlockItem("conch");
-    unlockShell = false;
-    unlockSM = true;
-  }}
->
-  <ItemCard
-    imgSrc={itemMap["conch"].imgSrc}
-    nameKey={itemMap["conch"].nameKey}
-    descKey={itemMap["conch"].descKey}
-    actionKey={itemMap["conch"].actionKey}
-  />
-</ItemUnlockScreen>
-
-<ItemUnlockScreen
   reveal={unlockSM}
   onclick={() => {
     inventoryApi.unlockItem("sm");
     unlockSM = false;
-    inventoryApi.unlocked = true;
+    unlockShell = true;
   }}
 >
   <ItemCard
@@ -93,5 +76,21 @@
     nameKey={itemMap["sm"].nameKey}
     descKey={itemMap["sm"].descKey}
     actionKey={itemMap["sm"].actionKey}
+  />
+</ItemUnlockScreen>
+
+<ItemUnlockScreen
+  reveal={unlockShell}
+  onclick={() => {
+    inventoryApi.unlockItem("conch");
+    unlockShell = false;
+    inventoryApi.unlocked = true;
+  }}
+>
+  <ItemCard
+    imgSrc={itemMap["conch"].imgSrc}
+    nameKey={itemMap["conch"].nameKey}
+    descKey={itemMap["conch"].descKey}
+    actionKey={itemMap["conch"].actionKey}
   />
 </ItemUnlockScreen>

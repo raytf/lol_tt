@@ -21,17 +21,22 @@
   } = $props();
 </script>
 
-<Card img={imgSrc} {onclick} horizontal size="lg" class="text-left px-4 py-2">
-  <h2 class="mb-2 text-5xl font-bold tracking-tight text-gray-900">
-    {lolApi.getText(nameKey)}
-  </h2>
-  <p class="mb-3 text-2xl font-normal text-gray-700 leading-tight">
-    {lolApi.getText(descKey)}
-  </p>
-  {#if actionKey}
-    <div class="flex flex-row items-center text-lg">
-      <HandClick />
-      <p class="ml-2">{lolApi.getText(actionKey)}</p>
+<Card {onclick} size="lg" class="text-left py-2">
+  <div class="flex flex-row items-center">
+    <img src={imgSrc} alt="icon" class="mr-4 w-[111px] h-[111px]" />
+    <div class="flex flex-col">
+      <h2 class="mb-2 text-4xl font-bold tracking-tight text-gray-900">
+        {lolApi.getText(nameKey)}
+      </h2>
+      <p class="mb-3 text-2xl font-normal text-gray-700 leading-tight">
+        {lolApi.getText(descKey)}
+      </p>
+      {#if actionKey}
+        <div class="flex flex-row items-center text-lg">
+          <HandClick />
+          <p class="ml-2">{lolApi.getText(actionKey)}</p>
+        </div>
+      {/if}
     </div>
-  {/if}
+  </div>
 </Card>
