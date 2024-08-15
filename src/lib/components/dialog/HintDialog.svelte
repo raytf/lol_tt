@@ -2,9 +2,7 @@
   import Dialog from "./Dialog.svelte";
   import shell from "$assets/avatars/shell.png";
   import { getInventoryApi } from "$apis/inventory.svelte";
-  import { getGameApi } from "$apis/game.svelte";
   const inventoryApi = getInventoryApi();
-  const gameApi = getGameApi();
 </script>
 
 {#if inventoryApi.showHintDialog}
@@ -19,5 +17,6 @@
     onFinished={() => {
       inventoryApi.showHintDialog = false;
     }}
+    hint={true}
   />
 {/if}

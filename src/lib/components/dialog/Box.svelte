@@ -7,6 +7,7 @@
     avatar,
     name,
     text,
+    italic = false,
     ...props
   }: {
     onclick: (e: MouseEvent) => void;
@@ -14,6 +15,7 @@
     avatar: Snippet;
     name: Snippet;
     text: Snippet;
+    italic?: boolean;
   } = $props();
 </script>
 
@@ -26,7 +28,7 @@
     <div class="box-name text-2xl">
       <p>{@render name()}</p>
     </div>
-    <p class="text-2xl">{@render text()}</p>
+    <p class="text-2xl {italic ? 'italic' : ''}">{@render text()}</p>
   </div>
 </div>
 

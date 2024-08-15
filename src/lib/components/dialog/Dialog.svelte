@@ -11,10 +11,15 @@
 
   let {
     keys,
+    hint = false,
     onProceed,
     onFinished,
-  }: { keys: DialogKey[]; onProceed?: () => void; onFinished?: () => void } =
-    $props();
+  }: {
+    keys: DialogKey[];
+    hint?: boolean;
+    onProceed?: () => void;
+    onFinished?: () => void;
+  } = $props();
 
   let dialogIndex = $state(0);
 
@@ -35,7 +40,7 @@
 
 {#each keys as key, i}
   {#if i === dialogIndex}
-    <DialogBox onclick={nextDialog}>
+    <DialogBox onclick={nextDialog} italic={hint}>
       {#snippet avatar()}
         <div class="relative w-[111px] h-[111px]">
           {#if key.imgSrc}

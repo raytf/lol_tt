@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { location } from "svelte-spa-router";
   import { fade, fly } from "svelte/transition";
   import { Drawer } from "flowbite-svelte";
   import Backpack from "$components/svg/icons/Backpack.svelte";
@@ -7,9 +6,7 @@
   import close from "$assets/icons/close.svg";
   import info from "$assets/icons/info.svg";
   import { getInventoryApi, itemMap } from "$apis/inventory.svelte";
-  import { getGameApi } from "$apis/game.svelte";
   const inventoryApi = getInventoryApi();
-  const gameApi = getGameApi();
 
   let drawerHidden = $state(true);
   let selectedItem = $state("");

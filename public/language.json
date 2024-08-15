@@ -52,7 +52,8 @@
     "ch1-dialog_4-2": "Sure! Would be nice to have a companion.",
     "ch1-dialog_4-3": "I must warn you, though...",
     "ch1-dialog_4-4": "The deeper you go, the more unknown and dangerous things you may find.",
-    "hint_1": "Explore by clicking around the screen. Try to observe the environment and see if you can find anything interesting."
+    "ch2-info_1": "",
+    "hint_1": "Hint: Explore by clicking around the screen. Try to observe the environment and see if you can find anything interesting."
   },
   "es": {}
 }
