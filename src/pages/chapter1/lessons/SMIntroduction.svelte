@@ -2,6 +2,7 @@
   import { gsap } from "gsap";
   import BackupInit from "$lib/components/BackupInit.svelte";
   import { ScientificMethodDiagram } from "$components/scientificMethod";
+  import type { DialogKey } from "$components/dialog";
   import { Dialog } from "$components/dialog";
   import ocean1 from "$assets/chapter1/ocean_explore.jpg";
   import ocean2 from "$assets/chapter1/ocean_lively.jpg";
@@ -86,7 +87,7 @@
       text: "ch1-dialog_3-1",
     },
     {
-      imgSrc: grin,
+      imgSrc: smile,
       name: "dialog-name_explorer",
       text: "ch1-dialog_3-2",
     },
@@ -96,9 +97,14 @@
       text: "ch1-dialog_3-3",
     },
     {
+      imgSrc: grin,
+      name: "dialog-name_explorer",
+      text: "ch1-dialog_3-4",
+    },
+    {
       imgSrc: shell,
       name: "dialog-name_shell",
-      text: "ch1-dialog_3-4",
+      text: "ch1-dialog_3-5",
     },
   ];
 

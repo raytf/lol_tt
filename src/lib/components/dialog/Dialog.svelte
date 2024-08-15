@@ -1,21 +1,18 @@
 <script lang="ts">
+  import type { DialogKey } from "$components/dialog";
   import { DialogBox } from "$components/dialog";
   import { getLolApi } from "$apis/lol.svelte";
   const lolApi = getLolApi();
 
-  interface DialogKey {
-    imgSrc?: string;
-    name?: string;
-    text: string;
-  }
-
   let {
     keys,
     hint = false,
+    once = true,
     onProceed,
     onFinished,
   }: {
     keys: DialogKey[];
+    once?: boolean;
     hint?: boolean;
     onProceed?: () => void;
     onFinished?: () => void;
@@ -34,6 +31,7 @@
 
     if (onFinished) {
       onFinished();
+      if (!once) dialogIndex = 0;
     }
   }
 </script>

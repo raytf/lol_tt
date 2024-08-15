@@ -5,10 +5,16 @@
   import { Grid, Area, BgImg } from "$components/exploration";
   import Inventory from "$components/inventory";
   import { InfoMarker } from "$components/ui/buttons";
+  import type { DialogKey } from "$components/dialog";
+  import { Dialog } from "$components/dialog";
   import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
   import Submarine from "$components/visual/Submarine.svelte";
   import relics2 from "$assets/relics/relics_2.svg";
   import kelp from "$assets/chapter1/kelp.png";
+  // Emojis
+  import openMouth from "$assets/emoji/open-mouth.svg";
+  import neutral from "$assets/emoji/neutral.svg";
+  import smile from "$assets/emoji/smile.svg";
 
   const xOffset = tweened(0, {
     duration: 500,
@@ -42,16 +48,25 @@
   onMount(() => {
     subCoords = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
   });
+
+  let dialogKeys = $state<DialogKey[]>([]);
 </script>
 
 <BackupInit inventory={true} />
 <Inventory />
+<Dialog
+  once={false}
+  keys={dialogKeys}
+  onFinished={() => {
+    dialogKeys = [];
+  }}
+/>
 <Grid xOffset={$xOffset} yOffset={$yOffset} class="grid-cols-1 w-full h-[300%]">
   <Submarine
     targetPosition={subCoords}
     x={subCoords.x}
     y={subCoords.y}
-    class="z-10"
+    class="z-[21]"
   />
   <BgImg
     src={kelp}
@@ -72,9 +87,32 @@
         --color-top="#03E5B7"
         --color-bottom="#08C8F6"
       />
+      <InfoMarker
+        onclick={() => {
+          dialogKeys = [
+            {
+              imgSrc: openMouth,
+              name: "dialog-name_explorer",
+              text: "ch2-info_kelp-1",
+            },
+            {
+              imgSrc: smile,
+              name: "dialog-name_explorer",
+              text: "ch2-info_kelp-2",
+            },
+          ];
+        }}
+        class="absolute w-[55px] h-[55px] top-[200px] right-[111px] z-20"
+      />
       <div class="absolute size-full z-[1] pointer-events-none">
         <div class="absolute w-1/2 h-full left-0 overflow-clip">
           <BgImg src={relics2} class="bottom-[-42%] w-[200%] z-[2]" />
+        </div>
+        <div class="absolute w-[11%] h-full left-0 overflow-clip z-[1]">
+          <BgImg
+            src={relics2}
+            class="bottom-[28px] left-[-33px] w-[555px] z-[2]"
+          />
         </div>
       </div>
     </Area>
@@ -94,6 +132,18 @@
         class="absolute size-full"
         --color-top="#08C8F6"
         --color-bottom="#037ade"
+      />
+      <InfoMarker
+        onclick={() => {
+          dialogKeys = [
+            {
+              imgSrc: neutral,
+              name: "dialog-name_explorer",
+              text: "ch2-info_color-1",
+            },
+          ];
+        }}
+        class="absolute w-[55px] h-[55px] top-[50%] right-[33%] z-20"
       />
       <div class="absolute size-full z-[1] overflow-clip pointer-events-none">
         <BgImg
@@ -120,6 +170,30 @@
         class="absolute size-full z-[-1]"
         --color-top="#037ade"
         --color-bottom="#182b3a"
+      />
+      <InfoMarker
+        onclick={() => {
+          dialogKeys = [
+            {
+              imgSrc: neutral,
+              name: "dialog-name_explorer",
+              text: "ch2-info_foliage-1",
+            },
+          ];
+        }}
+        class="absolute w-[55px] h-[55px] top-[44px] left-[11px] z-20"
+      />
+      <InfoMarker
+        onclick={() => {
+          dialogKeys = [
+            {
+              imgSrc: openMouth,
+              name: "dialog-name_explorer",
+              text: "ch2-info_color-2",
+            },
+          ];
+        }}
+        class="absolute w-[55px] h-[55px] top-[50%] right-[33%] z-20"
       />
       <div class="absolute size-full z-[1] overflow-clip pointer-events-none">
         <BgImg

@@ -6,17 +6,19 @@
 </script>
 
 {#if inventoryApi.showHintDialog}
-  <Dialog
-    keys={[
-      {
-        imgSrc: shell,
-        name: "dialog-name_shell",
-        text: `hint_${inventoryApi.currentHintIndex}`,
-      },
-    ]}
-    onFinished={() => {
-      inventoryApi.showHintDialog = false;
-    }}
-    hint={true}
-  />
+  <div class="absolute size-full z-[22]">
+    <Dialog
+      keys={[
+        {
+          imgSrc: shell,
+          name: "dialog-name_shell",
+          text: `hint_${inventoryApi.currentHintIndex}`,
+        },
+      ]}
+      onFinished={() => {
+        inventoryApi.showHintDialog = false;
+      }}
+      hint={true}
+    />
+  </div>
 {/if}

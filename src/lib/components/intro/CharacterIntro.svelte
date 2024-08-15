@@ -19,7 +19,7 @@
 
 <button
   {onclick}
-  class="absolute top-0 size-full flex flex-col {activate
+  class="absolute top-0 size-full flex flex-col select-none {activate
     ? 'opacity-100 pointer-events-auto'
     : 'opacity-0 pointer-events-none'} {extraClass}"
 >
