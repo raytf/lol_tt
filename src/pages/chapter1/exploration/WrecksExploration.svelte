@@ -5,6 +5,7 @@
   import { ItemUnlockScreen, ItemCard } from "$components/inventory";
   import Wrecks from "./areas/Wrecks.svelte";
   import Submarine from "$components/visual/Submarine.svelte";
+  import { InfoMarker } from "$components/ui/buttons";
   import { shellEncountered } from "../store";
   import { getGameApi } from "$apis/game.svelte";
   import { getInventoryApi, itemMap } from "$apis/inventory.svelte";
@@ -54,12 +55,10 @@
   />
   <Wrecks />
   {#if !$shellEncountered}
-    <button
+    <InfoMarker
       onclick={() => gameApi.fadeScene("/ch1_story_shell-encounter")}
-      class="absolute w-[222px] h-[88px] bottom-[11%] right-[21%] z-20"
-    >
-      <p class="text-2xl">Wrecks</p>
-    </button>
+      class="absolute w-[55px] h-[55px] bottom-[15%] right-[30%] z-20"
+    />
   {/if}
 </Area>
 

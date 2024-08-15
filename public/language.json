@@ -12,10 +12,10 @@
     "item-unlocked": "Item Unlocked",
     "inventory-item_name_conch": "Conch Shell",
     "inventory-item_desc_conch": "Your new ocean friend. Grants you the ability to understand the language of the sea.",
-    "inventory-item_action_conch": "Receive hints on how to progress the game.",
+    "inventory-item_action_conch": "Use this to receive a hint whenever you are stuck.",
     "inventory-item_name_sm": "SM Diagram",
     "inventory-item_desc_sm": "A diagram of the Scientific Method.",
-    "inventory-item_action_sm": "Review the steps of the Scientific Method anytime.",
+    "inventory-item_action_sm": "Use this to review the Scientific Method steps.",
     "title_chapter-1": "Chapter One",
     "desc_chapter-1": "Science and Magic",
     "title_chapter-2": "Chapter Two",
@@ -51,7 +51,8 @@
     "ch1-dialog_4-1": "...very well. I will join you on your adventure.",
     "ch1-dialog_4-2": "Sure! Would be nice to have a companion.",
     "ch1-dialog_4-3": "I must warn you, though...",
-    "ch1-dialog_4-4": "The deeper you go, the more unknown and dangerous things you will find."
+    "ch1-dialog_4-4": "The deeper you go, the more unknown and dangerous things you may find.",
+    "ch2-dialog_1-1": "Let's try to look around and collect some data."
   },
   "es": {}
 }

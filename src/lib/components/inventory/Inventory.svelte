@@ -115,7 +115,4 @@
 
     pointer-events: auto;
   }
-
-  .button-grid {
-  }
 </style>
