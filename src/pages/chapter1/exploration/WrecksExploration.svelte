@@ -1,11 +1,15 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import LanguageLoader from "$components/LanguageLoader.svelte";
   import { Area } from "$components/exploration";
+  import { ItemUnlockScreen, ItemCard } from "$components/inventory";
   import Wrecks from "./areas/Wrecks.svelte";
   import Submarine from "$components/visual/Submarine.svelte";
   import { shellEncountered } from "../store";
   import { getGameApi } from "$apis/game.svelte";
+  import { getInventoryApi, itemMap } from "$apis/inventory.svelte";
   const gameApi = getGameApi();
+  const inventoryApi = getInventoryApi();
 
   let initialSubCoords = { x: 0, y: window.innerHeight / 2 };
   if ($shellEncountered) {
@@ -21,19 +25,26 @@
     const y = event.clientY;
     subCoords = { x: x, y: y };
   }
-
   onMount(() => {
     subCoords = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    unlockShell = true;
+    if ($shellEncountered) {
+      unlockShell = true;
+    }
   });
+
+  let unlockShell = $state(false);
+  let unlockSM = $state(false);
 </script>
 
+<LanguageLoader />
 <Area
   onRight={$shellEncountered
     ? () => {
         gameApi.fadeScene("/ch1_exploration_kelp");
       }
     : undefined}
-  showInstruction={true}
+  showInstruction={!$shellEncountered}
   onmousedown={handleMouseDown}
 >
   <Submarine
@@ -52,3 +63,35 @@
     </button>
   {/if}
 </Area>
+
+<ItemUnlockScreen
+  reveal={unlockShell}
+  onclick={() => {
+    inventoryApi.unlockItem("conch");
+    unlockShell = false;
+    unlockSM = true;
+  }}
+>
+  <ItemCard
+    imgSrc={itemMap["conch"].imgSrc}
+    nameKey={itemMap["conch"].nameKey}
+    descKey={itemMap["conch"].descKey}
+    actionKey={itemMap["conch"].actionKey}
+  />
+</ItemUnlockScreen>
+
+<ItemUnlockScreen
+  reveal={unlockSM}
+  onclick={() => {
+    inventoryApi.unlockItem("sm");
+    unlockSM = false;
+    inventoryApi.unlocked = true;
+  }}
+>
+  <ItemCard
+    imgSrc={itemMap["sm"].imgSrc}
+    nameKey={itemMap["sm"].nameKey}
+    descKey={itemMap["sm"].descKey}
+    actionKey={itemMap["sm"].actionKey}
+  />
+</ItemUnlockScreen>

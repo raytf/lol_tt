@@ -2,7 +2,8 @@
   import type { Snippet } from "svelte";
   import { fade } from "svelte/transition";
   import { Up, Down, Left, Right } from "$components/svg/icons/caret";
-  import { CursorClick } from "$components/svg/icons";
+  import { HandClick, CursorClick } from "$components/svg/icons";
+  import { getLolApi } from "$apis/lol.svelte";
 
   let {
     active = true,
@@ -49,8 +50,8 @@
       transition:fade={{ duration: 2000 }}
       class="container-instruction text-4xl pt-8"
     >
-      <CursorClick />
-      <p class="ml-2">Explore</p>
+      <HandClick />
+      <p class="ml-2">{getLolApi().getText("explore")}</p>
     </div>
   {/if}
 
@@ -97,12 +98,14 @@
 <style>
   .container-instruction {
     position: absolute;
-    height: 100%;
+    top: 0;
+    height: 11%;
     width: 100%;
 
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
   }
   .container-nav {
     position: absolute;
