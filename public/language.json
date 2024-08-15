@@ -9,7 +9,7 @@
     "subtitle": "A Scientific Method Adventure",
     "start": "Start",
     "title_chapter-1": "Chapter One",
-    "desc_chapter-1": "Light and Dark",
+    "desc_chapter-1": "Science and Magic",
     "dialog-name_explorer": "Explorer",
     "dialog-name_shell": "Conch",
     "dialog-name_shark": "Shark",
@@ -35,14 +35,14 @@
     "ch1-dialog_sm-8": "Wow, a lot of steps...",
     "ch1-dialog_sm-9": "Yeah, but this process allows us to have experiments that can be repeated and verified by others.",
     "ch1-dialog_sm-10": "If many come to the same conclusion, then we can be more confident that it's true.",
-    "ch1-dialog_3-1": "That is why I have come here for an adventure!",
-    "ch1-dialog_3-2": "By making new discoveries and sharing them with others, maybe we can understand the ocean better.",
-    "ch1-dialog_3-3": "That way, we'll not only learn how to use its resources more wisely, but also how to protect it.",
+    "ch1-dialog_3-1": "The ocean is a magical place full of mysteries and wonders. By making new discoveries and sharing them with others, maybe we can understand it better.",
+    "ch1-dialog_3-2": "That way, we'll not only learn how to use its resources more wisely, but also how to protect it.",
+    "ch1-dialog_3-3": "That is why I have come here for an adventure!",
     "ch1-dialog_3-4": "I see...",
     "ch1-dialog_4-1": "...very well. I will join you on your adventure.",
     "ch1-dialog_4-2": "Sure! Would be nice to have a talking shell as a companion.",
-    "ch1-dialog_4-3": "Do you have any idea where to go?",
-    "ch1-dialog_4-4": "No, but I will use the Scientific Method to guide me."
+    "ch1-dialog_4-3": "I must warn you, though...",
+    "ch1-dialog_4-4": "The deeper you go, the more unknown and dangerous things you will find."
   },
   "es": {}
 }

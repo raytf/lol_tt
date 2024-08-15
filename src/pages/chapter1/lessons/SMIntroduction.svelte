@@ -9,7 +9,6 @@
   import smile from "$assets/emoji/smile.svg";
   import neutral from "$assets/emoji/neutral.svg";
   import grin from "$assets/emoji/grin.svg";
-  import tongue from "$assets/emoji/tongue.svg";
   import shell from "$assets/avatars/shell.png";
   import { getGameApi } from "$apis/game.svelte";
   const gameApi = getGameApi();
@@ -82,12 +81,12 @@
 
   const dialogKeysDiscovery = [
     {
-      imgSrc: grin,
+      imgSrc: smile,
       name: "dialog-name_explorer",
       text: "ch1-dialog_3-1",
     },
     {
-      imgSrc: smile,
+      imgSrc: grin,
       name: "dialog-name_explorer",
       text: "ch1-dialog_3-2",
     },
@@ -120,7 +119,7 @@
       text: "ch1-dialog_4-3",
     },
     {
-      imgSrc: tongue,
+      imgSrc: shell,
       name: "dialog-name_shell",
       text: "ch1-dialog_4-4",
     },
