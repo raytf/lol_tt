@@ -3,6 +3,8 @@
   import { tweened } from "svelte/motion";
   import BackupInit from "$lib/components/BackupInit.svelte";
   import { Grid, Area, BgImg } from "$components/exploration";
+  import Inventory from "$components/inventory";
+  import { InfoMarker } from "$components/ui/buttons";
   import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
   import Submarine from "$components/visual/Submarine.svelte";
   import relics2 from "$assets/relics/relics_2.svg";
@@ -43,6 +45,7 @@
 </script>
 
 <BackupInit inventory={true} />
+<Inventory />
 <Grid xOffset={$xOffset} yOffset={$yOffset} class="grid-cols-1 w-full h-[300%]">
   <Submarine
     targetPosition={subCoords}

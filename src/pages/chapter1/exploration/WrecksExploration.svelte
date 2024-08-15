@@ -2,6 +2,7 @@
   import { onMount } from "svelte";
   import BackupInit from "$lib/components/BackupInit.svelte";
   import { Area } from "$components/exploration";
+  import Inventory from "$components/inventory";
   import { ItemUnlockScreen, ItemCard } from "$components/inventory";
   import Wrecks from "./areas/Wrecks.svelte";
   import Submarine from "$components/visual/Submarine.svelte";
@@ -38,6 +39,7 @@
 </script>
 
 <BackupInit />
+<Inventory />
 <Area
   onRight={$shellEncountered
     ? () => {

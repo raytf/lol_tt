@@ -34,6 +34,10 @@ export const itemMap: ItemMap = {
 export class InventoryApi {
   unlocked = $state(false);
   unlockedItems = $state<string[]>([]);
+  showSmModal = $state(false);
+  currentHintIndex = $state(1);
+  showHintDialog = $state(false);
+
   constructor() {}
 
   unlockItem(item: string) {

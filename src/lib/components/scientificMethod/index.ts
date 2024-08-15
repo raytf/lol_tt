@@ -1,2 +1,3 @@
 import Diagram from "./Diagram.svelte";
-export { Diagram as ScientificMethodDiagram };
+import Modal from "./Modal.svelte";
+export { Diagram as ScientificMethodDiagram, Modal as ScientificMethodModal };

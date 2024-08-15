@@ -2,7 +2,8 @@
   import Router from "svelte-spa-router";
   // Components
   import Fader from "$components/ui/Fader.svelte";
-  import Inventory from "$components/inventory";
+  import { ScientificMethodModal } from "$components/scientificMethod";
+  import { HintDialog } from "$components/dialog";
   // Apis
   import { createLolApi } from "$apis/lol.svelte";
   import { createGameApi } from "$apis/game.svelte";
@@ -27,7 +28,8 @@
   <div class="container">
     <div class="content">
       <Fader />
-      <Inventory />
+      <ScientificMethodModal />
+      <HintDialog />
       <Router {routes} />
     </div>
   </div>
