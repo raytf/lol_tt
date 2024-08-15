@@ -12,6 +12,7 @@
   let selectedItem = $state("");
 
   function onItemClicked(itemId: string) {
+    selectedItem = "";
     drawerHidden = true;
     if (itemId === "sm") {
       console.log("sm");
@@ -57,7 +58,7 @@
         <div class="grid grid-cols-4 gap-2">
           {#each inventoryApi.unlockedItems as item}
             <div
-              class="relative pointer-events-auto border-2 border-gray-900 rounded p-2"
+              class="relative pointer-events-auto flex justify-center items-center border-2 border-gray-900 rounded p-5"
             >
               <button onclick={() => onItemClicked(item)}>
                 <img
@@ -70,7 +71,7 @@
                 <img
                   src={info}
                   alt="info"
-                  class="absolute top-[-1%] right-[-1%] w-[22px] h-[22px]"
+                  class="absolute top-[-1%] right-[-1%] w-[33px] h-[33px]"
                 />
               </button>
             </div>
@@ -113,5 +114,8 @@
     padding: 0.44em;
 
     pointer-events: auto;
+  }
+
+  .button-grid {
   }
 </style>
