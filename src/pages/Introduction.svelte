@@ -3,7 +3,7 @@
   import { SplitText } from "gsap/SplitText";
   import { getLolApi } from "$apis/lol.svelte";
   import { getGameApi } from "$apis/game.svelte";
-  import LanguageLoader from "$lib/components/LanguageLoader.svelte";
+  import BackupInit from "$lib/components/BackupInit.svelte";
   import { Next } from "$components/svg/icons";
   import ocean from "$assets/ocean.jpg";
 
@@ -69,7 +69,7 @@
   });
 </script>
 
-<LanguageLoader />
+<BackupInit />
 <button onclick={() => (textIndex += 1)} class="size-full">
   <img src={ocean} alt="ocean" class="bg-image size-full" />
   <div class="bg-shadow size-full"></div>

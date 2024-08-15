@@ -1,9 +1,9 @@
 <script lang="ts">
   let {
     src,
-    alt,
+    alt = "bg",
     class: extraClass,
-  }: { src: string; alt: string; class: string } = $props();
+  }: { src: string; alt?: string; class: string } = $props();
 </script>
 
 <img {src} {alt} class="absolute max-w-none pointer-events-none {extraClass}" />

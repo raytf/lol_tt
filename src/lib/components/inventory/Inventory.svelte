@@ -13,6 +13,9 @@
 
   function onItemClicked(itemId: string) {
     drawerHidden = true;
+    if (itemId === "sm") {
+      console.log("sm");
+    }
     if (itemId === "conch") {
       console.log("conch");
     }

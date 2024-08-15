@@ -7,7 +7,7 @@
 
 <BackupInit />
 <TitleIntro
-  titleKey="title_chapter-1"
-  descKey="desc_chapter-1"
-  onComplete={() => gameApi.fadeScene("/ch1_exploration_wrecks")}
+  titleKey="title_chapter-2"
+  descKey="desc_chapter-2"
+  onComplete={() => gameApi.fadeScene("/ch2_exploration_kelp")}
 />

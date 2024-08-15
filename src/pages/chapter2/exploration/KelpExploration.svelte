@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { tweened } from "svelte/motion";
+  import BackupInit from "$lib/components/BackupInit.svelte";
   import { Grid, Area, BgImg } from "$components/exploration";
   import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
   import Submarine from "$components/visual/Submarine.svelte";
@@ -25,7 +26,7 @@
     subCoords = { x: x, y: y };
   }
 
-  function moveToNextArea(xDirection, yDirection) {
+  function moveToNextArea(xDirection: number, yDirection: number) {
     const newXOffset = $xOffset + window.innerWidth * xDirection;
     const newYOffset = $yOffset + window.innerHeight * yDirection;
     subCoords = {
@@ -41,6 +42,7 @@
   });
 </script>
 
+<BackupInit inventory={true} />
 <Grid xOffset={$xOffset} yOffset={$yOffset} class="grid-cols-1 w-full h-[300%]">
   <Submarine
     targetPosition={subCoords}
@@ -69,11 +71,7 @@
       />
       <div class="absolute size-full z-[1] pointer-events-none">
         <div class="absolute w-1/2 h-full left-0 overflow-clip">
-          <BgImg
-            src={relics2}
-            alt="relics-2"
-            class="bottom-[-42%] w-[200%] z-[2]"
-          />
+          <BgImg src={relics2} class="bottom-[-42%] w-[200%] z-[2]" />
         </div>
       </div>
     </Area>
@@ -97,13 +95,11 @@
       <div class="absolute size-full z-[1] overflow-clip pointer-events-none">
         <BgImg
           src={relics2}
-          alt="relics-2"
           class="rotate-90 left-[-60%] bottom-[-36%] w-[144%] z-[2]"
         />
         <div class="absolute h-full w-[11%] right-0 overflow-clip">
           <BgImg
             src={relics2}
-            alt="relics-2"
             class="right-[-11px] bottom-[-22%] w-[777px] z-[2]"
           />
         </div>
@@ -125,13 +121,11 @@
       <div class="absolute size-full z-[1] overflow-clip pointer-events-none">
         <BgImg
           src={relics2}
-          alt="relics-2"
           class="rotate-90 left-[-65%] bottom-[-31%] w-[133%] z-[2]"
         />
         <div class="absolute top-0 right-0 h-[25%] w-[15%] overflow-clip">
           <BgImg
             src={relics2}
-            alt="relics-2"
             class="-rotate-90 right-[-485px] bottom-[-576px] w-[1111px] z-[2]"
           />
         </div>

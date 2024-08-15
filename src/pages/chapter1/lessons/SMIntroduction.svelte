@@ -1,6 +1,6 @@
 <script lang="ts">
   import { gsap } from "gsap";
-  import LanguageLoader from "$components/LanguageLoader.svelte";
+  import BackupInit from "$lib/components/BackupInit.svelte";
   import { ScientificMethodDiagram } from "$components/scientificMethod";
   import { Dialog } from "$components/dialog";
   import ocean1 from "$assets/chapter1/ocean_explore.jpg";
@@ -168,7 +168,7 @@
   });
 </script>
 
-<LanguageLoader />
+<BackupInit />
 <div class="relative size-full flex flex-col items-center bg-black">
   <img id="ch1_ocean-1" src={ocean1} alt="ocean1" class="absolute" />
   <img id="ch1_ocean-2" src={ocean2} alt="ocean2" class="absolute" />

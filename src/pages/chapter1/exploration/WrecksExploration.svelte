@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import LanguageLoader from "$components/LanguageLoader.svelte";
+  import BackupInit from "$lib/components/BackupInit.svelte";
   import { Area } from "$components/exploration";
   import { ItemUnlockScreen, ItemCard } from "$components/inventory";
   import Wrecks from "./areas/Wrecks.svelte";
@@ -36,11 +36,11 @@
   let unlockShell = $state(false);
 </script>
 
-<LanguageLoader />
+<BackupInit />
 <Area
   onRight={$shellEncountered
     ? () => {
-        gameApi.fadeScene("/ch1_exploration_kelp");
+        gameApi.fadeScene("/ch2");
       }
     : undefined}
   showInstruction={!$shellEncountered}

@@ -2,7 +2,7 @@
   import { gsap } from "gsap";
   import { Dialog } from "$components/dialog";
   import { CharacterIntro } from "$lib/components/intro";
-  import LanguageLoader from "$components/LanguageLoader.svelte";
+  import BackupInit from "$lib/components/BackupInit.svelte";
   import encounterShell from "$assets/chapter1/encounter_shell.jpg";
   import introShell from "$assets/chapter1/intro_shell.jpg";
   import neutral from "$assets/emoji/neutral.svg";
@@ -80,7 +80,7 @@
   let startDialogue2 = $state(false);
 </script>
 
-<LanguageLoader />
+<BackupInit />
 <div class="bg-image absolute top-0 size-full z-[1]">
   <img src={encounterShell} alt="background" class="absolute w-full" />
   <img src={introShell} alt="background" class="intro-shell absolute w-full" />

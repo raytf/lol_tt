@@ -29,7 +29,7 @@
         {lolApi.getText(nameKey)}
       </h2>
       <p class="mb-3 text-2xl font-normal text-gray-700 leading-tight">
-        {lolApi.getText(descKey)}
+        {@html lolApi.getText(descKey)}
       </p>
       {#if actionKey}
         <div class="flex flex-row items-center text-lg">

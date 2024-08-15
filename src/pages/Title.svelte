@@ -1,6 +1,6 @@
 <script>
   import { gsap } from "gsap";
-  import LanguageLoader from "$lib/components/LanguageLoader.svelte";
+  import BackupInit from "$lib/components/BackupInit.svelte";
   import { getLolApi, LolApi } from "$apis/lol.svelte";
   import { getGameApi } from "$apis/game.svelte";
   import { getAudioApi } from "$apis/audio.svelte";
@@ -62,7 +62,7 @@
   });
 </script>
 
-<LanguageLoader />
+<BackupInit />
 <div class="size-full">
   <img id="title_bg-image" src={titleScreen} alt="bg" />
 

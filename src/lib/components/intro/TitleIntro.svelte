@@ -29,9 +29,22 @@
   });
 </script>
 
-<div
-  class="container-title bg-black size-full flex flex-col justify-center items-center"
->
+<div class="container-title">
   <h1 class="intro-title text-4xl m-4">{lolApi.getText(titleKey)}:</h1>
   <h2 class="intro-desc text-xl">{lolApi.getText(descKey)}</h2>
 </div>
+
+<style>
+  .container-title {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background: black;
+    z-index: 1000;
+  }
+</style>
