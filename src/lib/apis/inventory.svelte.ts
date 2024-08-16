@@ -45,6 +45,10 @@ export class InventoryApi {
 
     this.unlockedItems.push(item);
   }
+
+  isItemUnlocked(item: string): boolean {
+    return this.unlockedItems.includes(item);
+  }
 }
 
 const CONTEXT_KEY = Symbol("InventoryApi");

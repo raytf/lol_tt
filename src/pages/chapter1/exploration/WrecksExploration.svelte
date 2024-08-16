@@ -30,8 +30,9 @@
   onMount(() => {
     subCoords = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
     if ($shellEncountered) {
-      unlockSM = true;
+      if (!inventoryApi.isItemUnlocked("sm")) unlockSM = true;
     }
+    inventoryApi.currentHintIndex = 1;
   });
 
   let unlockSM = $state(false);
@@ -86,6 +87,7 @@
     inventoryApi.unlockItem("conch");
     unlockShell = false;
     inventoryApi.unlocked = true;
+    inventoryApi.showHintDialog = true;
   }}
 >
   <ItemCard

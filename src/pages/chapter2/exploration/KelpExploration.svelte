@@ -20,7 +20,9 @@
   import shell from "$assets/avatars/shell.png";
   // Apis
   import { getGameApi } from "$apis/game.svelte";
+  import { getInventoryApi } from "$apis/inventory.svelte";
   const gameApi = getGameApi();
+  const inventoryApi = getInventoryApi();
 
   const xOffset = tweened(0, {
     duration: 500,
@@ -53,6 +55,7 @@
 
   onMount(() => {
     subCoords = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    inventoryApi.currentHintIndex = 2;
     revealQuestion = true;
   });
 
