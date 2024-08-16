@@ -7,10 +7,12 @@
     targetPosition = { x: 0, y: 0 },
     x = 0,
     y = 0,
+    size = 111,
     class: extraClass = "",
     ...props
   }: {
     targetPosition?: { x: number; y: number };
+    size?: number;
     class: string;
     x: number;
     y: number;
@@ -38,7 +40,7 @@
   <img
     src={sub}
     alt="sub"
-    class="select-none w-[111px] h-[111px]"
+    class="select-none w-[{size}px] h-[{size}px]"
     style="transform: translate(-55px, -55px) scale({direction}, 1)"
   />
 </div>

@@ -6,5 +6,6 @@ export type DialogKey = {
 
 import Dialog from "./Dialog.svelte";
 import HintDialog from "./HintDialog.svelte";
+import QuestionDialog from "./QuestionDialog.svelte";
 import Box from "./Box.svelte";
-export { Dialog, HintDialog, Box as DialogBox };
+export { Dialog, HintDialog, QuestionDialog, Box as DialogBox };

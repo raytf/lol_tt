@@ -97,14 +97,9 @@
       text: "ch1-dialog_3-3",
     },
     {
-      imgSrc: grin,
-      name: "dialog-name_explorer",
-      text: "ch1-dialog_3-4",
-    },
-    {
       imgSrc: shell,
       name: "dialog-name_shell",
-      text: "ch1-dialog_3-5",
+      text: "ch1-dialog_3-4",
     },
   ];
 

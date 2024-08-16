@@ -6,7 +6,7 @@
   import Inventory from "$components/inventory";
   import { InfoMarker } from "$components/ui/buttons";
   import type { DialogKey } from "$components/dialog";
-  import { Dialog } from "$components/dialog";
+  import { Dialog, QuestionDialog } from "$components/dialog";
   import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
   import Submarine from "$components/visual/Submarine.svelte";
   import relics2 from "$assets/relics/relics_2.svg";
@@ -15,6 +15,12 @@
   import openMouth from "$assets/emoji/open-mouth.svg";
   import neutral from "$assets/emoji/neutral.svg";
   import smile from "$assets/emoji/smile.svg";
+  import grin from "$assets/emoji/grin.svg";
+  import thinking from "$assets/emoji/thinking.svg";
+  import shell from "$assets/avatars/shell.png";
+  // Apis
+  import { getGameApi } from "$apis/game.svelte";
+  const gameApi = getGameApi();
 
   const xOffset = tweened(0, {
     duration: 500,
@@ -47,13 +53,49 @@
 
   onMount(() => {
     subCoords = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    revealQuestion = true;
   });
 
+  let revealQuestion = $state(false);
   let dialogKeys = $state<DialogKey[]>([]);
 </script>
 
 <BackupInit inventory={true} />
 <Inventory />
+
+<QuestionDialog
+  reveal={revealQuestion}
+  questionKey="ch2-question"
+  option1Key="ch2-question_option-1"
+  option1DialogKeys={[
+    {
+      imgSrc: thinking,
+      name: "dialog-name_explorer",
+      text: "ch2-question_option-1-dialog",
+    },
+  ]}
+  onFinish1={() => gameApi.fadeScene("/ch1_exploration_wrecks")}
+  option2Key="ch2-question_option-2"
+  option2DialogKeys={[
+    {
+      imgSrc: thinking,
+      name: "dialog-name_explorer",
+      text: "ch2-question_option-2-dialog",
+    },
+  ]}
+  onFinish2={() => gameApi.fadeScene("/ch1_exploration_wrecks")}
+  option3Correct={true}
+  option3Key="ch2-question_option-3"
+  option3DialogKeys={[
+    {
+      imgSrc: grin,
+      name: "dialog-name_explorer",
+      text: "ch2-question_option-3-dialog",
+    },
+  ]}
+  onFinish3={() => (revealQuestion = false)}
+/>
+
 <Dialog
   once={false}
   keys={dialogKeys}
@@ -61,6 +103,7 @@
     dialogKeys = [];
   }}
 />
+
 <Grid xOffset={$xOffset} yOffset={$yOffset} class="grid-cols-1 w-full h-[300%]">
   <Submarine
     targetPosition={subCoords}
@@ -80,7 +123,7 @@
         moveToNextArea(0, -1);
       }}
       onmousedown={handleMouseDown}
-      showInstruction={true}
+      showInstruction={false}
     >
       <UnderwaterGradient
         class="absolute size-full"
@@ -96,8 +139,8 @@
               text: "ch2-info_kelp-1",
             },
             {
-              imgSrc: smile,
-              name: "dialog-name_explorer",
+              imgSrc: shell,
+              name: "dialog-name_shell",
               text: "ch2-info_kelp-2",
             },
           ];
@@ -175,8 +218,8 @@
         onclick={() => {
           dialogKeys = [
             {
-              imgSrc: neutral,
-              name: "dialog-name_explorer",
+              imgSrc: shell,
+              name: "dialog-name_shell",
               text: "ch2-info_foliage-1",
             },
           ];

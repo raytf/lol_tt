@@ -54,7 +54,7 @@
         {/if}
       {/snippet}
       {#snippet text()}
-        {lolApi.getText(key.text)}
+        {@html lolApi.getText(key.text)}
       {/snippet}
     </DialogBox>
   {/if}
