@@ -59,7 +59,7 @@
   <Wrecks />
   {#if !$shellEncountered}
     <InfoMarker
-      onclick={() => gameApi.fadeScene("/ch1_story_shell-encounter")}
+      onclick={() => gameApi.fadeScene("/ch1_encounter_shell")}
       class="absolute w-[55px] h-[55px] bottom-[15%] right-[30%] z-20"
     />
   {/if}

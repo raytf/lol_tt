@@ -54,7 +54,7 @@
     "ch1-dialog_4-4": "The deeper we go, the more unknown and dangerous things we may find.",
     "ch2-question": "What are the first few steps of the Scientific Method?",
     "ch2-question_option-1": "Observe the natural world, analyse the data, then form a hypothesis",
-    "ch2-question_option-1-dialog": "Observing the natural world first is correct, but we cannot analyse an experiment’s data before first forming a hypothesis, then conducting an experiment to test it.",
+    "ch2-question_option-1-dialog": "Observing the natural world first is correct, but we need to form a hypothesis and conduct an experiment before we have any data to analyze.",
     "ch2-question_option-2": "Ask a scientific question, conduct an experiment, then come up with a conclusion",
     "ch2-question_option-2-dialog": "The order is correct, but you’re missing too many steps in between.",
     "ch2-question_option-3": "Observe the natural world, ask a scientific question, then form a hypothesis",
