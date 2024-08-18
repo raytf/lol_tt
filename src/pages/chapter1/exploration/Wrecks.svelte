@@ -50,12 +50,7 @@
   showInstruction={!$shellEncountered}
   onmousedown={handleMouseDown}
 >
-  <Submarine
-    targetPosition={subCoords}
-    x={subCoords.x}
-    y={subCoords.y}
-    class="z-10"
-  />
+  <Submarine targetPosition={subCoords} class="z-10" />
   <Wrecks />
   {#if !$shellEncountered}
     <InfoMarker

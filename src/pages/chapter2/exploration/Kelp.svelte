@@ -9,6 +9,7 @@
   import { Dialog, QuestionDialog } from "$components/dialog";
   import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
   import Submarine from "$components/visual/Submarine.svelte";
+  import Otter from "$components/visual/Otter.svelte";
   import relics2 from "$assets/relics/relics_2.svg";
   import kelp from "$assets/chapter1/kelp.png";
   // Emojis
@@ -34,7 +35,15 @@
   });
 
   let initialSubCoords = { x: 0, y: window.innerHeight / 2 };
+  if ($otterEncountered) {
+    initialSubCoords = {
+      x: window.innerWidth / 2 + 222,
+      y: window.innerHeight / 2,
+    };
+  }
   let subCoords = $state(initialSubCoords);
+
+  let otterCoords = $derived({ x: subCoords.x + 44, y: subCoords.y });
 
   let activeArea = $state(0);
 
@@ -100,7 +109,9 @@
       text: "ch2-question_option-3-dialog",
     },
   ]}
-  onFinish3={() => (revealQuestion = false)}
+  onFinish3={() => {
+    revealQuestion = false;
+  }}
 />
 
 <Dialog
@@ -112,11 +123,12 @@
 />
 
 <Grid xOffset={$xOffset} yOffset={$yOffset} class="grid-cols-1 w-full h-[300%]">
-  <Submarine
-    targetPosition={subCoords}
-    x={subCoords.x}
-    y={subCoords.y}
-    class="z-[21]"
+  <Submarine targetPosition={subCoords} class="z-[21]" />
+  <Otter
+    targetPosition={$otterEncountered
+      ? otterCoords
+      : { x: window.innerWidth + 88, y: window.innerHeight / 2 }}
+    class="z-[20]"
   />
   <BgImg
     src={kelp}
@@ -142,7 +154,8 @@
       {#if !$otterEncountered}
         <InfoMarker
           onclick={() => {
-            gameApi.fadeScene("/ch2_encounter_otter");
+            $otterEncountered = true;
+            gameApi.fadeScene("/ch2_encounter_otter", 2);
           }}
           class="absolute w-[55px] h-[55px] top-[200px] right-[111px] z-20"
         />

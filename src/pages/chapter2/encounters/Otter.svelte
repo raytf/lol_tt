@@ -19,11 +19,15 @@
   });
   $effect(() => {
     gsap.set("#intro-otter", { opacity: 0 });
-    gsap.set(".encounter-bg", { scale: 1 });
+    gsap.set(".encounter-bg", { scale: 1, y: 111 });
 
-    panTl.to(".encounter-bg", { y: 622, scale: 1, duration: 4 });
+    panTl.to(".encounter-bg", {
+      y: 622,
+      scale: 1,
+      duration: 3,
+    });
 
-    introTl.to("#intro-otter", { opacity: 1, duration: 2 }, 2);
+    introTl.to("#intro-otter", { opacity: 1, duration: 2 }, 1);
   });
 
   let revealIntroText = $state(false);

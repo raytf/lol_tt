@@ -1,11 +1,11 @@
 <script lang="ts">
   import { untrack } from "svelte";
   import { spring } from "svelte/motion";
-  import sub from "$assets/sprites/sub.png";
+  import otter from "$assets/sprites/otter.png";
 
   let {
     targetPosition = { x: 0, y: 0 },
-    size = 111,
+    size = 55,
     class: extraClass = "",
     ...props
   }: {
@@ -17,14 +17,14 @@
   let direction = $state(1);
   let coords = spring(
     { x: targetPosition.x, y: targetPosition.y },
-    { stiffness: 0.01, damping: 0.8 },
+    { stiffness: 0.005, damping: 0.8 },
   );
 
   $effect(() => {
     coords.set(targetPosition);
 
     const dx = targetPosition.x - untrack(() => $coords.x);
-    direction = dx <= 0 ? -1 : 1;
+    direction = dx <= 0 ? 1 : -1;
   });
 </script>
 
@@ -34,11 +34,11 @@
   {...props}
 >
   <img
-    src={sub}
-    alt="sub"
+    src={otter}
+    alt="otter"
     height={size}
     width={size}
     class="select-none"
-    style="transform: translate(-55px, -55px) scale({direction}, 1)"
+    style="transform: translate(-88px, -88px) scale({direction}, 1)"
   />
 </div>
