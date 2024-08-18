@@ -18,6 +18,8 @@
   import grin from "$assets/emoji/grin.svg";
   import thinking from "$assets/emoji/thinking.svg";
   import shell from "$assets/avatars/shell.png";
+  // Stores
+  import { otterEncountered } from "../store";
   // Apis
   import { getGameApi } from "$apis/game.svelte";
   import { getInventoryApi } from "$apis/inventory.svelte";
@@ -56,7 +58,9 @@
   onMount(() => {
     subCoords = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
     inventoryApi.currentHintIndex = 2;
-    revealQuestion = true;
+    if (!$otterEncountered) {
+      revealQuestion = true;
+    }
   });
 
   let revealQuestion = $state(false);
@@ -121,10 +125,12 @@
   {#snippet areas()}
     <Area
       active={activeArea === 0}
-      onDown={() => {
-        activeArea = 1;
-        moveToNextArea(0, -1);
-      }}
+      onDown={$otterEncountered
+        ? () => {
+            activeArea = 1;
+            moveToNextArea(0, -1);
+          }
+        : undefined}
       onmousedown={handleMouseDown}
       showInstruction={false}
     >
@@ -133,23 +139,14 @@
         --color-top="#03E5B7"
         --color-bottom="#08C8F6"
       />
-      <InfoMarker
-        onclick={() => {
-          dialogKeys = [
-            {
-              imgSrc: openMouth,
-              name: "dialog-name_explorer",
-              text: "ch2-info_kelp-1",
-            },
-            {
-              imgSrc: shell,
-              name: "dialog-name_shell",
-              text: "ch2-info_kelp-2",
-            },
-          ];
-        }}
-        class="absolute w-[55px] h-[55px] top-[200px] right-[111px] z-20"
-      />
+      {#if !$otterEncountered}
+        <InfoMarker
+          onclick={() => {
+            gameApi.fadeScene("/ch2_encounter_otter");
+          }}
+          class="absolute w-[55px] h-[55px] top-[200px] right-[111px] z-20"
+        />
+      {/if}
       <div class="absolute size-full z-[1] pointer-events-none">
         <div class="absolute w-1/2 h-full left-0 overflow-clip">
           <BgImg src={relics2} class="bottom-[-42%] w-[200%] z-[2]" />
