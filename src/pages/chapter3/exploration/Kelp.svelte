@@ -32,6 +32,7 @@
     dialogQuestionVarDOption3,
     dialogDepth,
     dialogPressure,
+    dialogProcedure,
   } from "./dialogue";
   // Stores
   // Apis
@@ -98,7 +99,9 @@
   let startPlanning = $state(false);
   let startExploration = $state(false);
   let depthReady = $state(false);
-  let unlockPg = $state(false);
+  let pressureReady = $state(false);
+  let revealPg = $state(false);
+  let startExperiment = $state(false);
 </script>
 
 <BackupInit inventory={true} />
@@ -222,10 +225,14 @@
 />
 
 <ItemUnlockScreen
-  reveal={unlockPg}
+  reveal={revealPg}
   onclick={() => {
     inventoryApi.unlockItem("pg");
-    unlockPg = false;
+    revealPg = false;
+    dialogKeys = dialogProcedure;
+    onDialogFinish = () => {
+      startExperiment = true;
+    };
   }}
 >
   <ItemCard id="pg" />
@@ -233,15 +240,18 @@
 
 <Grid xOffset={$xOffset} yOffset={$yOffset} class="grid-cols-1 w-full h-[300%]">
   <Submarine targetPosition={subCoords} class="z-[21]">
-    {#if depthReady}
+    {#if depthReady && !startExperiment}
       <InfoMarker
         onclick={() => {
           dialogKeys = dialogPressure;
+          pressureReady = true;
           onDialogFinish = () => {
-            unlockPg = true;
+            revealPg = true;
           };
         }}
-        class="w-[44px] h-[44px] absolute top-[-44px] left-[-22px] pointer-events-auto"
+        class="{pressureReady
+          ? 'opacity-50'
+          : ''} w-[44px] h-[44px] absolute top-[-44px] left-[-22px] pointer-events-auto"
       />
     {/if}
   </Submarine>
@@ -287,7 +297,7 @@
         --color-top="#03E5B7"
         --color-bottom="#08C8F6"
       />
-      {#if startExploration}
+      {#if startExploration && !startExperiment}
         <InfoMarker
           onclick={() => {
             dialogKeys = dialogDepth;

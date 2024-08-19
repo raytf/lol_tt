@@ -204,3 +204,36 @@ export const dialogPressure = [
     text: "ch3-dialog_pressure-2",
   },
 ];
+
+export const dialogProcedure = [
+  {
+    imgSrc: otter,
+    name: "dialog-name_otter",
+    text: "ch3-dialog_procedure-1",
+  },
+  {
+    imgSrc: neutral,
+    name: "dialog-name_explorer",
+    text: "ch3-dialog_procedure-2",
+  },
+  {
+    imgSrc: neutral,
+    name: "dialog-name_explorer",
+    text: "ch3-dialog_procedure-3",
+  },
+  {
+    imgSrc: smile,
+    name: "dialog-name_explorer",
+    text: "ch3-dialog_procedure-4",
+  },
+  {
+    imgSrc: otter,
+    name: "dialog-name_otter",
+    text: "ch3-dialog_procedure-5",
+  },
+  {
+    imgSrc: grin,
+    name: "dialog-name_explorer",
+    text: "ch3-dialog_procedure-6",
+  },
+];
