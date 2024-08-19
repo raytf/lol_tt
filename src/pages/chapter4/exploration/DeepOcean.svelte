@@ -12,6 +12,7 @@
   import { SimpleButton } from "$components/ui/buttons";
   import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
   import Submarine from "$components/visual/Submarine.svelte";
+  import Squid from "$components/visual/Squid.svelte";
   // Dialog
   import {
     dialog1,
@@ -19,9 +20,15 @@
     dialogOption1,
     dialogOption2,
     dialogOption3,
+    dialog2,
   } from "./dialogue";
   // Stores
-  import { depthOffset, depthMultiplier, coords } from "$lib/stores/sub";
+  import {
+    depthOffset,
+    depthMultiplier,
+    nearVent,
+    coords,
+  } from "$lib/stores/sub";
   // Apis
   import { getGameApi } from "$apis/game.svelte";
   import { getInventoryApi } from "$apis/inventory.svelte";
@@ -70,6 +77,7 @@
   let startExperiment = $state(false);
   let revealQuestion = $state(false);
   let finishedExperiment = $state(false);
+  let startDialog2 = $state(false);
 </script>
 
 <BackupInit inventory={true} />
@@ -103,7 +111,7 @@
 >
   <ItemCard id="th" />
 </ItemUnlockScreen>
-{#if startExperiment}
+{#if startExperiment && !finishedExperiment}
   <div
     class="absolute size-full flex justify-end items-end pointer-events-none z-[2]"
   >
@@ -119,6 +127,7 @@
     onFinish1={() => {
       revealQuestion = false;
       finishedExperiment = true;
+      inventoryApi.currentHintKey = "hint_4";
     }}
     option2Key="ch4-question_option-2"
     option2DialogKeys={dialogOption2}
@@ -132,9 +141,22 @@
     }}
   />
 {/if}
+{#if startDialog2}
+  <Dialog
+    keys={dialog2}
+    onFinished={() => {
+      gameApi.fadeScene("/chapter-select");
+    }}
+  />
+{/if}
 
-<Grid xOffset={$xOffset} yOffset={$yOffset} class="grid-cols-1 w-full h-[200%]">
+<Grid xOffset={$xOffset} yOffset={$yOffset} class="grid-cols-1 w-full h-[300%]">
   <Submarine size={66} targetPosition={subCoords} class="z-[21]" />
+  <Squid
+    size={333}
+    targetPosition={subCoords}
+    class="{finishedExperiment ? 'opacity-20' : 'opacity-0'} z-[20]"
+  />
   {#snippet areas()}
     <Area
       active={activeArea === 0}
@@ -166,6 +188,13 @@
         activeArea = 0;
         moveToNextArea(0, 1);
       }}
+      onDown={finishedExperiment
+        ? () => {
+            activeArea = 2;
+            moveToNextArea(0, -1);
+            $nearVent = true;
+          }
+        : undefined}
       onmousedown={handleMouseDown}
     >
       <UnderwaterGradient
@@ -173,6 +202,28 @@
         class="absolute size-full"
         --color-top="#011e36"
         --color-bottom="#06121c"
+      />
+    </Area>
+    <Area
+      active={activeArea === 2}
+      onUp={() => {
+        activeArea = 1;
+        moveToNextArea(0, 1);
+        $nearVent = false;
+      }}
+      onmousedown={handleMouseDown}
+    >
+      <UnderwaterGradient
+        animated={true}
+        class="absolute size-full"
+        --color-top="#06121c"
+        --color-bottom="#000000"
+      />
+      <InfoMarker
+        onclick={() => {
+          startDialog2 = true;
+        }}
+        class="absolute bottom-[22%] left-[48%] w-[55px] h-[55px] z-[2]"
       />
     </Area>
   {/snippet}

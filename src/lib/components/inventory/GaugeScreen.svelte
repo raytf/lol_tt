@@ -1,5 +1,10 @@
 <script lang="ts">
-  import { coords, depthOffset, depthMultiplier } from "$lib/stores/sub";
+  import {
+    coords,
+    depthOffset,
+    depthMultiplier,
+    nearVent,
+  } from "$lib/stores/sub";
   import { getInventoryApi } from "$apis/inventory.svelte";
   const inventoryApi = getInventoryApi();
 
@@ -13,6 +18,9 @@
       Math.round((value.y / window.innerHeight) * 100 * $depthMultiplier);
     pressure = 1 + currentDepth / 10;
     temp = 18 - Math.log(currentDepth) * 2;
+    if ($nearVent) {
+      temp += Math.exp(currentDepth / 1000) / 5;
+    }
   });
 </script>
 
