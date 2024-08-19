@@ -6,4 +6,8 @@
   }: { src: string; alt?: string; class: string } = $props();
 </script>
 
-<img {src} {alt} class="absolute max-w-none pointer-events-none {extraClass}" />
+<img
+  {src}
+  {alt}
+  class="absolute max-w-none pointer-events-none select-none {extraClass}"
+/>

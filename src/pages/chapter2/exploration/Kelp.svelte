@@ -130,10 +130,15 @@
 
 <Grid xOffset={$xOffset} yOffset={$yOffset} class="grid-cols-1 w-full h-[300%]">
   <Submarine targetPosition={subCoords} class="z-[21]" />
-  <Otter targetPosition={otterCoords} class="z-[20]" />
+  <Otter targetPosition={otterCoords} class="z-[22]" />
   <BgImg
     src={kelp}
     class="absolute top-0 right-[-11%] h-2/3 pointer-events-none z-[1]"
+  />
+  <MeasuringLine
+    height={1111}
+    reveal={clickedInfoKelp}
+    values={[0, 50, 100, 150, 200]}
   />
   {#snippet areas()}
     <Area
@@ -152,7 +157,6 @@
         --color-top="#03E5B7"
         --color-bottom="#08C8F6"
       />
-      <MeasuringLine reveal={clickedInfoKelp} values={[100, 150, 200]} />
       {#if !$otterEncountered}
         <InfoMarker
           onclick={() => {
@@ -197,7 +201,6 @@
         --color-top="#08C8F6"
         --color-bottom="#037ade"
       />
-      <MeasuringLine reveal={clickedInfoKelp} values={[0, 50, 100]} />
       <InfoMarker
         onclick={() => {
           dialogKeys = dialogColor1;
