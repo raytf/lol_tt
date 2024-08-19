@@ -19,7 +19,7 @@
   $effect(() => {
     audioApi.playTrack({
       src: "music/theme_main.mp3",
-      volume: 0.5,
+      volume: 0.22,
       loop: true,
     });
     const entryTl = gsap.timeline();

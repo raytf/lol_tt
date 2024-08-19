@@ -163,7 +163,7 @@
             dialogKeys = dialogIntro;
             onDialogFinish = () => {
               $otterEncountered = true;
-              gameApi.fadeScene("/ch2_encounter_otter", 2);
+              gameApi.fadeScene("/ch2_encounter_otter");
             };
           }}
           class="absolute w-[55px] h-[55px] top-[200px] right-[111px] z-20"
