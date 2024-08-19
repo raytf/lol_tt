@@ -21,6 +21,8 @@
       inventoryApi.unlocked = true;
       inventoryApi.unlockItem("sm");
       inventoryApi.unlockItem("conch");
+      inventoryApi.unlockItem("pg");
+      inventoryApi.unlockItem("dg");
     }
   });
 

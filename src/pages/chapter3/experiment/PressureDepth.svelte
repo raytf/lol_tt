@@ -24,6 +24,7 @@
   // Apis
   import { getGameApi } from "$apis/game.svelte";
   import { getInventoryApi, itemMap } from "$apis/inventory.svelte";
+  import { coords } from "$lib/stores/sub";
   const gameApi = getGameApi();
   const inventoryApi = getInventoryApi();
 
@@ -250,6 +251,7 @@
       onDown={finishExperiment
         ? () => {
             gameApi.fadeScene("/ch4");
+            coords.set({ x: window.innerWidth / 2, y: 0 });
           }
         : undefined}
       onmousedown={handleMouseDown}

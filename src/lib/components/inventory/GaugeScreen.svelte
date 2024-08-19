@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { coords, depthOffset } from "$lib/stores/sub";
+  import { coords, depthOffset, depthMultiplier } from "$lib/stores/sub";
   import { getInventoryApi } from "$apis/inventory.svelte";
   const inventoryApi = getInventoryApi();
 
@@ -8,7 +8,8 @@
 
   coords.subscribe((value) => {
     currentDepth =
-      $depthOffset + Math.round((value.y / window.innerHeight) * 100);
+      $depthOffset +
+      Math.round((value.y / window.innerHeight) * 100 * $depthMultiplier);
     pressure = 1 + currentDepth / 10;
   });
 </script>
