@@ -24,10 +24,10 @@
     panTl.to(".encounter-bg", {
       y: 622,
       scale: 1,
-      duration: 3,
+      duration: 2,
     });
 
-    introTl.to("#intro-otter", { opacity: 1, duration: 2 }, 1);
+    introTl.to("#intro-otter", { opacity: 1, duration: 1 }, 1);
   });
 
   let revealIntroText = $state(false);

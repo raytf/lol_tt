@@ -17,7 +17,11 @@
   });
 
   $effect(() => {
-    audioApi.playTrack({ src: "music/theme_main.mp3", volume: 0.5 });
+    audioApi.playTrack({
+      src: "music/theme_main.mp3",
+      volume: 0.5,
+      loop: true,
+    });
     const entryTl = gsap.timeline();
     entryTl
       .to(
@@ -76,7 +80,7 @@
     <div class="grow w-full flex flex-col justify-end items-center">
       <button
         id="title_start-button"
-        onclick={() => gameApi.fadeScene("/chapter-select")}
+        onclick={() => gameApi.fadeScene("/ch1")}
         class="p-12"
       >
         <p class="text-2xl">{lolApi.getText("start")}</p>
