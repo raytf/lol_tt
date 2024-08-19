@@ -12,7 +12,7 @@
         {
           imgSrc: shell,
           name: "dialog-name_shell",
-          text: `hint_${inventoryApi.currentHintIndex}`,
+          text: inventoryApi.currentHintKey,
         },
       ]}
       onFinished={() => {

@@ -79,7 +79,7 @@
 
   onMount(() => {
     subCoords = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-    inventoryApi.currentHintIndex = 2;
+    inventoryApi.currentHintKey = "hint_2";
     if (!$otterEncountered) {
       revealQuestion = true;
     }

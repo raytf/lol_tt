@@ -82,7 +82,7 @@
 
   onMount(() => {
     subCoords = { x: window.innerWidth / 2, y: window.innerHeight * 1.5 };
-    inventoryApi.currentHintIndex = 3;
+    inventoryApi.currentHintKey = "hint_3";
     goTooDeep = false;
   });
 

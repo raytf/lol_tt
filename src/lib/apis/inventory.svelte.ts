@@ -3,6 +3,7 @@ import shell from "$assets/avatars/shell.png";
 import grid from "$assets/icons/grid-square.svg";
 import pressureGauge from "$assets/sprites/pressure-gauge.png";
 import depthGauge from "$assets/sprites/depth-gauge.png";
+import thermistor from "$assets/sprites/thermistor.png";
 
 interface ItemDetails {
   imgSrc: string;
@@ -43,13 +44,19 @@ export const itemMap: ItemMap = {
     nameKey: "inventory-item_name_dg",
     descKey: "inventory-item_desc_dg",
   },
+  th: {
+    imgSrc: thermistor,
+    id: "th",
+    nameKey: "inventory-item_name_th",
+    descKey: "inventory-item_desc_th",
+  },
 };
 
 export class InventoryApi {
   unlocked = $state(false);
   unlockedItems = $state<string[]>([]);
   showSmModal = $state(false);
-  currentHintIndex = $state(1);
+  currentHintKey = $state("hint_1");
   showHintDialog = $state(false);
   showGaugeScreen = $state(false);
 

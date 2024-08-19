@@ -95,7 +95,7 @@
   }
 
   onMount(() => {
-    inventoryApi.currentHintIndex = 3;
+    inventoryApi.currentHintKey = "hint_3";
     inventoryApi.showGaugeScreen = true;
     showTable = true;
   });
@@ -167,7 +167,7 @@
     inventoryApi.unlockItem("dg");
     showUnlockScreen = false;
     finishExperiment = true;
-    inventoryApi.currentHintIndex = 4;
+    inventoryApi.currentHintKey = "hint_4";
   }}
 >
   <ItemCard id="dg" />

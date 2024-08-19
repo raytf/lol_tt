@@ -5,12 +5,14 @@
 
   let currentDepth = $state(0);
   let pressure = $state(1);
+  let temp = $state(0);
 
   coords.subscribe((value) => {
     currentDepth =
       $depthOffset +
       Math.round((value.y / window.innerHeight) * 100 * $depthMultiplier);
     pressure = 1 + currentDepth / 10;
+    temp = 18 - Math.log(currentDepth) * 2;
   });
 </script>
 
@@ -18,6 +20,9 @@
   <div
     class="fixed size-full pointer-events-none select-none flex flex-col justify-end z-[30]"
   >
+    {#if inventoryApi.isItemUnlocked("th")}
+      <p class="m-2 text-4xl font-bold">{temp.toFixed(2)}°C</p>
+    {/if}
     {#if inventoryApi.isItemUnlocked("dg")}
       <p class="mx-2 text-4xl font-bold">{currentDepth}m</p>
     {/if}

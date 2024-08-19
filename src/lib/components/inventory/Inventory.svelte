@@ -55,7 +55,7 @@
           <img src={close} alt="close" class="w-[55px] h-[55px]" />
         </button>
         <p class="font-bold text-4xl p-4">Inventory</p>
-        <div class="grid grid-cols-4 gap-2">
+        <div class="grid grid-cols-5 gap-2">
           {#each inventoryApi.unlockedItems as item}
             <div
               class="relative pointer-events-auto flex justify-center items-center border-2 border-gray-900 rounded p-5"
@@ -82,7 +82,10 @@
         class="pointer-events-auto cursor-pointer w-full flex justify-center pb-8"
       >
         {#if selectedItem !== ""}
-          <ItemCard id={selectedItem} />
+          <ItemCard
+            onclick={() => onItemClicked(selectedItem)}
+            id={selectedItem}
+          />
         {/if}
       </div>
     </Drawer>

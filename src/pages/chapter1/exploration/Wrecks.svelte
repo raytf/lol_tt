@@ -32,7 +32,7 @@
     if ($shellEncountered) {
       if (!inventoryApi.isItemUnlocked("sm")) unlockSM = true;
     }
-    inventoryApi.currentHintIndex = 1;
+    inventoryApi.currentHintKey = "hint_1";
   });
 
   let unlockSM = $state(false);
