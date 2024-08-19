@@ -76,6 +76,10 @@ export class LolApi {
     }
     return "key doesn't exist";
   };
+
+  speakText = (key: string) => {
+    lol_send("speakText", { key: key });
+  };
 }
 
 const CONTEXT_KEY = Symbol("LolApi");

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import type { DialogKey } from "$components/dialog";
   import { DialogBox } from "$components/dialog";
   import { getLolApi } from "$apis/lol.svelte";
@@ -23,6 +24,7 @@
   function nextDialog() {
     dialogIndex++;
     if (dialogIndex < keys.length) {
+      lolApi.speakText(keys[dialogIndex].text);
       if (onProceed) {
         onProceed();
       }
@@ -34,6 +36,10 @@
       if (!once) dialogIndex = 0;
     }
   }
+
+  onMount(() => {
+    lolApi.speakText(keys[0].text);
+  });
 </script>
 
 {#each keys as key, i}
