@@ -22,6 +22,13 @@
     dialogQuestionHypOption1,
     dialogQuestionHypOption2,
     dialogQuestionHypOption3,
+    dialogVars,
+    dialogQuestionVarIOption1,
+    dialogQuestionVarIOption2,
+    dialogQuestionVarIOption3,
+    dialogQuestionVarDOption1,
+    dialogQuestionVarDOption2,
+    dialogQuestionVarDOption3,
   } from "./dialogue";
   // Stores
   // Apis
@@ -71,12 +78,14 @@
 
   onMount(() => {
     subCoords = { x: window.innerWidth / 2, y: window.innerHeight * 1.5 };
-    inventoryApi.currentHintIndex = 2;
+    inventoryApi.currentHintIndex = 3;
     goTooDeep = false;
   });
 
   let revealQuestionSQ = $state(false);
   let revealQuestionHyp = $state(false);
+  let revealQuestionVarI = $state(false);
+  let revealQuestionVarD = $state(false);
 
   let dialogKeys = $state<DialogKey[]>([]);
   let onDialogFinish: () => void;
@@ -119,6 +128,10 @@
   onFinish1={() => {
     revealQuestionHyp = false;
     startPlanning = true;
+    dialogKeys = dialogVars;
+    onDialogFinish = () => {
+      revealQuestionVarI = true;
+    };
   }}
   option2Key="ch3-question_hyp_option-2"
   option2DialogKeys={dialogQuestionHypOption2}
@@ -129,6 +142,63 @@
   option3DialogKeys={dialogQuestionHypOption3}
   onFinish3={() => {
     revealQuestionHyp = false;
+  }}
+/>
+<QuestionDialog
+  reveal={revealQuestionVarI}
+  questionKey="ch3-question_var-i"
+  option1Key="ch3-question_var-i_option-1"
+  option1DialogKeys={dialogQuestionVarIOption1}
+  onFinish1={() => {
+    revealQuestionVarI = false;
+    dialogKeys = dialogVars;
+    onDialogFinish = () => {
+      revealQuestionVarI = true;
+    };
+  }}
+  option2Correct={true}
+  option2Key="ch3-question_var-i_option-2"
+  option2DialogKeys={dialogQuestionVarIOption2}
+  onFinish2={() => {
+    revealQuestionVarI = false;
+    revealQuestionVarD = true;
+  }}
+  option3Key="ch3-question_var-i_option-3"
+  option3DialogKeys={dialogQuestionVarIOption3}
+  onFinish3={() => {
+    revealQuestionVarI = false;
+    dialogKeys = dialogVars;
+    onDialogFinish = () => {
+      revealQuestionVarI = true;
+    };
+  }}
+/>
+<QuestionDialog
+  reveal={revealQuestionVarD}
+  questionKey="ch3-question_var-d"
+  option1Correct={true}
+  option1Key="ch3-question_var-d_option-1"
+  option1DialogKeys={dialogQuestionVarDOption1}
+  onFinish1={() => {
+    revealQuestionVarD = false;
+  }}
+  option2Key="ch3-question_var-d_option-2"
+  option2DialogKeys={dialogQuestionVarDOption2}
+  onFinish2={() => {
+    revealQuestionVarD = false;
+    dialogKeys = dialogVars;
+    onDialogFinish = () => {
+      revealQuestionVarI = true;
+    };
+  }}
+  option3Key="ch3-question_var-d_option-3"
+  option3DialogKeys={dialogQuestionVarDOption3}
+  onFinish3={() => {
+    revealQuestionVarD = false;
+    dialogKeys = dialogVars;
+    onDialogFinish = () => {
+      revealQuestionVarI = true;
+    };
   }}
 />
 
@@ -198,11 +268,7 @@
         activeArea = 0;
         moveToNextArea(0, 1);
       }}
-      onDown={() => {
-        activeArea = 2;
-        moveToNextArea(0, -1);
-        goTooDeep = true;
-      }}
+      onDown={undefined}
       onmousedown={handleMouseDown}
     >
       <UnderwaterGradient
@@ -230,6 +296,7 @@
         moveToNextArea(0, 1);
         goTooDeep = false;
       }}
+      onDown={undefined}
       onmousedown={handleMouseDown}
     >
       <UnderwaterGradient
