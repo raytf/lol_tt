@@ -9,16 +9,21 @@
   import { Dialog, QuestionDialog } from "$components/dialog";
   import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
   import Submarine from "$components/visual/Submarine.svelte";
+  import MeasuringLine from "$components/visual/MeasuringLine.svelte";
   import Otter from "$components/visual/Otter.svelte";
   import relics2 from "$assets/relics/relics_2.svg";
   import kelp from "$assets/chapter1/kelp.png";
-  // Emojis
-  import openMouth from "$assets/emoji/open-mouth.svg";
-  import neutral from "$assets/emoji/neutral.svg";
-  import smile from "$assets/emoji/smile.svg";
-  import grin from "$assets/emoji/grin.svg";
-  import thinking from "$assets/emoji/thinking.svg";
-  import shell from "$assets/avatars/shell.png";
+  // Dialog
+  import {
+    dialogOption1,
+    dialogOption2,
+    dialogOption3,
+    dialogIntro,
+    dialogColor1,
+    dialogColor2,
+    dialogKelp1,
+    dialogKelp2,
+  } from "./dialogue";
   // Stores
   import { otterEncountered } from "../store";
   // Apis
@@ -43,7 +48,15 @@
   }
   let subCoords = $state(initialSubCoords);
 
-  let otterCoords = $derived({ x: subCoords.x + 44, y: subCoords.y });
+  let otterCoords = $derived.by(() => {
+    if ($otterEncountered) {
+      if (goTooDeep) {
+        return { x: window.innerWidth / 2, y: window.innerHeight * 1.5 };
+      }
+      return { x: subCoords.x + 44, y: subCoords.y };
+    }
+    return { x: window.innerWidth + 88, y: window.innerHeight / 2 };
+  });
 
   let activeArea = $state(0);
 
@@ -74,6 +87,13 @@
 
   let revealQuestion = $state(false);
   let dialogKeys = $state<DialogKey[]>([]);
+  let onDialogFinish: () => void;
+
+  let clickedInfoColor1 = $state(false);
+  let clickedInfoColor2 = $state(false);
+  let clickedInfoKelp = $state(false);
+
+  let goTooDeep = $state(false);
 </script>
 
 <BackupInit inventory={true} />
@@ -83,32 +103,14 @@
   reveal={revealQuestion}
   questionKey="ch2-question"
   option1Key="ch2-question_option-1"
-  option1DialogKeys={[
-    {
-      imgSrc: thinking,
-      name: "dialog-name_explorer",
-      text: "ch2-question_option-1-dialog",
-    },
-  ]}
+  option1DialogKeys={dialogOption1}
   onFinish1={() => gameApi.fadeScene("/ch1_exploration_wrecks")}
   option2Key="ch2-question_option-2"
-  option2DialogKeys={[
-    {
-      imgSrc: thinking,
-      name: "dialog-name_explorer",
-      text: "ch2-question_option-2-dialog",
-    },
-  ]}
+  option2DialogKeys={dialogOption2}
   onFinish2={() => gameApi.fadeScene("/ch1_exploration_wrecks")}
   option3Correct={true}
   option3Key="ch2-question_option-3"
-  option3DialogKeys={[
-    {
-      imgSrc: grin,
-      name: "dialog-name_explorer",
-      text: "ch2-question_option-3-dialog",
-    },
-  ]}
+  option3DialogKeys={dialogOption3}
   onFinish3={() => {
     revealQuestion = false;
   }}
@@ -119,17 +121,16 @@
   keys={dialogKeys}
   onFinished={() => {
     dialogKeys = [];
+    if (onDialogFinish) {
+      onDialogFinish();
+      onDialogFinish = () => {};
+    }
   }}
 />
 
 <Grid xOffset={$xOffset} yOffset={$yOffset} class="grid-cols-1 w-full h-[300%]">
   <Submarine targetPosition={subCoords} class="z-[21]" />
-  <Otter
-    targetPosition={$otterEncountered
-      ? otterCoords
-      : { x: window.innerWidth + 88, y: window.innerHeight / 2 }}
-    class="z-[20]"
-  />
+  <Otter targetPosition={otterCoords} class="z-[20]" />
   <BgImg
     src={kelp}
     class="absolute top-0 right-[-11%] h-2/3 pointer-events-none z-[1]"
@@ -151,11 +152,15 @@
         --color-top="#03E5B7"
         --color-bottom="#08C8F6"
       />
+      <MeasuringLine reveal={clickedInfoKelp} values={[100, 150, 200]} />
       {#if !$otterEncountered}
         <InfoMarker
           onclick={() => {
-            $otterEncountered = true;
-            gameApi.fadeScene("/ch2_encounter_otter", 2);
+            dialogKeys = dialogIntro;
+            onDialogFinish = () => {
+              $otterEncountered = true;
+              gameApi.fadeScene("/ch2_encounter_otter", 2);
+            };
           }}
           class="absolute w-[55px] h-[55px] top-[200px] right-[111px] z-20"
         />
@@ -178,10 +183,13 @@
         activeArea = 0;
         moveToNextArea(0, 1);
       }}
-      onDown={() => {
-        activeArea = 2;
-        moveToNextArea(0, -1);
-      }}
+      onDown={clickedInfoColor1 && clickedInfoKelp
+        ? () => {
+            activeArea = 2;
+            moveToNextArea(0, -1);
+            goTooDeep = true;
+          }
+        : undefined}
       onmousedown={handleMouseDown}
     >
       <UnderwaterGradient
@@ -189,17 +197,32 @@
         --color-top="#08C8F6"
         --color-bottom="#037ade"
       />
+      <MeasuringLine reveal={clickedInfoKelp} values={[0, 50, 100]} />
       <InfoMarker
         onclick={() => {
-          dialogKeys = [
-            {
-              imgSrc: neutral,
-              name: "dialog-name_explorer",
-              text: "ch2-info_color-1",
-            },
-          ];
+          dialogKeys = dialogColor1;
+          clickedInfoColor1 = true;
         }}
-        class="absolute w-[55px] h-[55px] top-[50%] right-[33%] z-20"
+        class="{clickedInfoColor1
+          ? 'opacity-50'
+          : ''} absolute w-[55px] h-[55px] top-[33%] right-[44%] z-20"
+      />
+      <InfoMarker
+        onclick={() => {
+          dialogKeys = dialogKelp1;
+
+          onDialogFinish = () => {
+            clickedInfoKelp = true;
+            dialogKeys = dialogKelp2;
+            setTimeout(() => {
+              activeArea = 0;
+              moveToNextArea(0, 1);
+            }, 1000);
+          };
+        }}
+        class="{clickedInfoKelp
+          ? 'opacity-50'
+          : ''} absolute w-[55px] h-[55px] bottom-[11%] right-[5%] z-20"
       />
       <div class="absolute size-full z-[1] overflow-clip pointer-events-none">
         <BgImg
@@ -217,8 +240,13 @@
     <Area
       active={activeArea === 2}
       onUp={() => {
+        if (clickedInfoColor2) {
+          gameApi.fadeScene("/ch3");
+          return;
+        }
         activeArea = 1;
         moveToNextArea(0, 1);
+        goTooDeep = false;
       }}
       onmousedown={handleMouseDown}
     >
@@ -229,27 +257,12 @@
       />
       <InfoMarker
         onclick={() => {
-          dialogKeys = [
-            {
-              imgSrc: shell,
-              name: "dialog-name_shell",
-              text: "ch2-info_foliage-1",
-            },
-          ];
+          clickedInfoColor2 = true;
+          dialogKeys = dialogColor2;
         }}
-        class="absolute w-[55px] h-[55px] top-[44px] left-[11px] z-20"
-      />
-      <InfoMarker
-        onclick={() => {
-          dialogKeys = [
-            {
-              imgSrc: openMouth,
-              name: "dialog-name_explorer",
-              text: "ch2-info_color-2",
-            },
-          ];
-        }}
-        class="absolute w-[55px] h-[55px] top-[50%] right-[33%] z-20"
+        class="{clickedInfoColor2
+          ? 'opacity-50'
+          : ''} absolute w-[55px] h-[55px] top-[55%] right-[44%] z-20"
       />
       <div class="absolute size-full z-[1] overflow-clip pointer-events-none">
         <BgImg
