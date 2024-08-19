@@ -17,13 +17,13 @@
       loadBackupLanguage();
     }
 
-    if (inventory) {
-      inventoryApi.unlocked = true;
-      inventoryApi.unlockItem("sm");
-      inventoryApi.unlockItem("conch");
-      inventoryApi.unlockItem("pg");
-      inventoryApi.unlockItem("dg");
-    }
+    // if (inventory) {
+    //   inventoryApi.unlocked = true;
+    //   inventoryApi.unlockItem("sm");
+    //   inventoryApi.unlockItem("conch");
+    //   inventoryApi.unlockItem("pg");
+    //   inventoryApi.unlockItem("dg");
+    // }
   });
 
   function loadBackupLanguage() {
