@@ -1,13 +1,14 @@
 import { setContext, getContext } from "svelte";
 import shell from "$assets/avatars/shell.png";
 import grid from "$assets/icons/grid-square.svg";
+import pressureGauge from "$assets/sprites/pressure-gauge.png";
 
 interface ItemDetails {
   imgSrc: string;
   id: string;
   nameKey: string;
   descKey: string;
-  actionKey: string;
+  actionKey?: string;
 }
 
 type ItemMap = {
@@ -28,6 +29,12 @@ export const itemMap: ItemMap = {
     nameKey: "inventory-item_name_sm",
     descKey: "inventory-item_desc_sm",
     actionKey: "inventory-item_action_sm",
+  },
+  pg: {
+    imgSrc: pressureGauge,
+    id: "pg",
+    nameKey: "inventory-item_name_pg",
+    descKey: "inventory-item_desc_pg",
   },
 };
 

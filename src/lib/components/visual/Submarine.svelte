@@ -1,4 +1,5 @@
 <script lang="ts">
+  import type { Snippet } from "svelte";
   import { untrack } from "svelte";
   import { spring } from "svelte/motion";
   import sub from "$assets/sprites/sub.png";
@@ -7,11 +8,13 @@
     targetPosition = { x: 0, y: 0 },
     size = 111,
     class: extraClass = "",
+    children,
     ...props
   }: {
     targetPosition?: { x: number; y: number };
     size?: number;
     class: string;
+    children?: Snippet;
   } = $props();
 
   let direction = $state(1);
@@ -41,4 +44,7 @@
     class="select-none"
     style="transform: translate(-55px, -55px) scale({direction}, 1)"
   />
+  {#if children}
+    {@render children()}
+  {/if}
 </div>

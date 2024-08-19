@@ -82,13 +82,7 @@
         class="pointer-events-auto cursor-pointer w-full flex justify-center pb-8"
       >
         {#if selectedItem !== ""}
-          <ItemCard
-            imgSrc={itemMap[selectedItem].imgSrc}
-            nameKey={itemMap[selectedItem].nameKey}
-            descKey={itemMap[selectedItem].descKey}
-            actionKey={itemMap[selectedItem].actionKey}
-            onclick={() => onItemClicked(selectedItem)}
-          />
+          <ItemCard id={selectedItem} />
         {/if}
       </div>
     </Drawer>

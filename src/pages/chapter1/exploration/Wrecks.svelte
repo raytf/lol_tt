@@ -9,7 +9,7 @@
   import { InfoMarker } from "$components/ui/buttons";
   import { shellEncountered } from "../store";
   import { getGameApi } from "$apis/game.svelte";
-  import { getInventoryApi, itemMap } from "$apis/inventory.svelte";
+  import { getInventoryApi } from "$apis/inventory.svelte";
   const gameApi = getGameApi();
   const inventoryApi = getInventoryApi();
 
@@ -68,12 +68,7 @@
     unlockShell = true;
   }}
 >
-  <ItemCard
-    imgSrc={itemMap["sm"].imgSrc}
-    nameKey={itemMap["sm"].nameKey}
-    descKey={itemMap["sm"].descKey}
-    actionKey={itemMap["sm"].actionKey}
-  />
+  <ItemCard id="sm" />
 </ItemUnlockScreen>
 
 <ItemUnlockScreen
@@ -85,10 +80,5 @@
     inventoryApi.showHintDialog = true;
   }}
 >
-  <ItemCard
-    imgSrc={itemMap["conch"].imgSrc}
-    nameKey={itemMap["conch"].nameKey}
-    descKey={itemMap["conch"].descKey}
-    actionKey={itemMap["conch"].actionKey}
-  />
+  <ItemCard id="conch" />
 </ItemUnlockScreen>

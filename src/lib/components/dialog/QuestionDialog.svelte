@@ -60,7 +60,7 @@
 </script>
 
 {#if reveal}
-  <div transition:blur class="container-question">
+  <div transition:blur class="container-question select-none">
     <h1 class="text-5xl font-bold mb-2">
       {lolApi.getText(questionKey)}
     </h1>

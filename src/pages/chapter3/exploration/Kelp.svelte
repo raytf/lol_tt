@@ -7,6 +7,7 @@
   import { InfoMarker } from "$components/ui/buttons";
   import type { DialogKey } from "$components/dialog";
   import { Dialog, QuestionDialog } from "$components/dialog";
+  import { ItemUnlockScreen, ItemCard } from "$components/inventory";
   import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
   import Submarine from "$components/visual/Submarine.svelte";
   import MeasuringLine from "$components/visual/MeasuringLine.svelte";
@@ -29,11 +30,13 @@
     dialogQuestionVarDOption1,
     dialogQuestionVarDOption2,
     dialogQuestionVarDOption3,
+    dialogDepth,
+    dialogPressure,
   } from "./dialogue";
   // Stores
   // Apis
   import { getGameApi } from "$apis/game.svelte";
-  import { getInventoryApi } from "$apis/inventory.svelte";
+  import { getInventoryApi, itemMap } from "$apis/inventory.svelte";
   const gameApi = getGameApi();
   const inventoryApi = getInventoryApi();
 
@@ -93,6 +96,9 @@
   let goTooDeep = $state(true);
 
   let startPlanning = $state(false);
+  let startExploration = $state(false);
+  let depthReady = $state(false);
+  let unlockPg = $state(false);
 </script>
 
 <BackupInit inventory={true} />
@@ -181,6 +187,7 @@
   option1DialogKeys={dialogQuestionVarDOption1}
   onFinish1={() => {
     revealQuestionVarD = false;
+    startExploration = true;
   }}
   option2Key="ch3-question_var-d_option-2"
   option2DialogKeys={dialogQuestionVarDOption2}
@@ -214,8 +221,30 @@
   }}
 />
 
+<ItemUnlockScreen
+  reveal={unlockPg}
+  onclick={() => {
+    inventoryApi.unlockItem("pg");
+    unlockPg = false;
+  }}
+>
+  <ItemCard id="pg" />
+</ItemUnlockScreen>
+
 <Grid xOffset={$xOffset} yOffset={$yOffset} class="grid-cols-1 w-full h-[300%]">
-  <Submarine targetPosition={subCoords} class="z-[21]" />
+  <Submarine targetPosition={subCoords} class="z-[21]">
+    {#if depthReady}
+      <InfoMarker
+        onclick={() => {
+          dialogKeys = dialogPressure;
+          onDialogFinish = () => {
+            unlockPg = true;
+          };
+        }}
+        class="w-[44px] h-[44px] absolute top-[-44px] left-[-22px] pointer-events-auto"
+      />
+    {/if}
+  </Submarine>
   <Otter targetPosition={otterCoords} class="z-[22]">
     {#if !startPlanning}
       <InfoMarker
@@ -233,7 +262,16 @@
     src={kelp}
     class="absolute top-0 right-[-11%] h-2/3 pointer-events-none z-[1]"
   />
-  <MeasuringLine height={1111} values={[0, 50, 100, 150, 200]} />
+  <MeasuringLine
+    reveal={depthReady}
+    height={1111}
+    values={[200, 150, 100, 50, 0]}
+  />
+  <MeasuringLine
+    reveal={!depthReady}
+    height={1111}
+    values={[0, 50, 100, 150, 200]}
+  />
   {#snippet areas()}
     <Area
       active={activeArea === 0}
@@ -249,7 +287,19 @@
         --color-top="#03E5B7"
         --color-bottom="#08C8F6"
       />
-      <!-- <MeasuringLine values={[100, 150, 200]} /> -->
+      {#if startExploration}
+        <InfoMarker
+          onclick={() => {
+            dialogKeys = dialogDepth;
+            onDialogFinish = () => {
+              depthReady = true;
+            };
+          }}
+          class="{depthReady
+            ? 'opacity-50'
+            : ''} absolute w-[55px] h-[55px] top-[11px] right-[222px] z-20"
+        />
+      {/if}
       <div class="absolute size-full z-[1] pointer-events-none">
         <div class="absolute w-1/2 h-full left-0 overflow-clip">
           <BgImg src={relics2} class="bottom-[-42%] w-[200%] z-[2]" />

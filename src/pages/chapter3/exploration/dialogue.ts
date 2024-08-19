@@ -178,3 +178,29 @@ export const dialogQuestionVarDOption3 = [
     text: "ch3-question_var_c-2",
   },
 ];
+
+export const dialogDepth = [
+  {
+    imgSrc: otter,
+    name: "dialog-name_otter",
+    text: "ch3-dialog_depth-1",
+  },
+  {
+    imgSrc: grin,
+    name: "dialog-name_explorer",
+    text: "ch3-dialog_depth-2",
+  },
+];
+
+export const dialogPressure = [
+  {
+    imgSrc: shell,
+    name: "dialog-name_shell",
+    text: "ch3-dialog_pressure-1",
+  },
+  {
+    imgSrc: grin,
+    name: "dialog-name_explorer",
+    text: "ch3-dialog_pressure-2",
+  },
+];

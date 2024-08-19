@@ -16,6 +16,8 @@
     "inventory-item_name_sm": "SM Diagram",
     "inventory-item_desc_sm": "A diagram of the Scientific Method.",
     "inventory-item_action_sm": "Use this to review the Scientific Method steps.",
+    "inventory-item_name_pg": "Pressure Gauge",
+    "inventory-item_desc_pg": "An instrument for measuring underwater pressure. Returns values in atm units, where 1 atm = the atmospheric pressure at sea level.",
     "title_chapter-1": "Chapter One",
     "desc_chapter-1": "Science and Magic",
     "title_chapter-2": "Chapter Two",
@@ -129,9 +131,14 @@
     "ch3-question_var-d_option-3": "The location of the experiment",
     "ch3-question_var_c-1": "No, the location is actually an example of a controlled variable.",
     "ch3-question_var_c-2": "A variable that we are keeping constant throughout the whole experiment.",
+    "ch3-dialog_depth-1": "If I change the measurements to start from the top, the giant kelp could maybe help us measure ocean depth.",
+    "ch3-dialog_depth-2": "That's a great idea! We can use the kelp as a reference point to measure the depth of the ocean.",
+    "ch3-dialog_pressure-1": "What about measuring pressure though?",
+    "ch3-dialog_pressure-2": "Don't worry, my submarine comes equipped with tools for that.",
     "hint_1": "Hint: Open the inventory by clicking on the backpack icon on the top right. <br>Click the arrow to move to the next area when you're ready.",
     "hint_2": "Hint: Explore by clicking around the screen. Try to observe the environment and see if you can find anything interesting.",
-    "hint_3": "Hint: Find and click on any markers with an 'i' on them. They might have some useful information for you."
+    "hint_3": "Hint: Find and click on any markers with an 'i' on them. They might have some useful information for you.",
+    "hint_4": "Hint: Go deeper. There is more to discover."
   },
   "es": {}
 }
