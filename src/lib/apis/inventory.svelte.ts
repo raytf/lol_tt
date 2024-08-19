@@ -2,6 +2,7 @@ import { setContext, getContext } from "svelte";
 import shell from "$assets/avatars/shell.png";
 import grid from "$assets/icons/grid-square.svg";
 import pressureGauge from "$assets/sprites/pressure-gauge.png";
+import depthGauge from "$assets/sprites/depth-gauge.png";
 
 interface ItemDetails {
   imgSrc: string;
@@ -36,6 +37,12 @@ export const itemMap: ItemMap = {
     nameKey: "inventory-item_name_pg",
     descKey: "inventory-item_desc_pg",
   },
+  dg: {
+    imgSrc: depthGauge,
+    id: "dg",
+    nameKey: "inventory-item_name_dg",
+    descKey: "inventory-item_desc_dg",
+  },
 };
 
 export class InventoryApi {
@@ -44,6 +51,7 @@ export class InventoryApi {
   showSmModal = $state(false);
   currentHintIndex = $state(1);
   showHintDialog = $state(false);
+  showGaugeScreen = $state(false);
 
   constructor() {}
 

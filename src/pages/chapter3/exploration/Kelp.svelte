@@ -237,7 +237,7 @@
   <ItemCard id="pg" />
 </ItemUnlockScreen>
 
-<Grid xOffset={$xOffset} yOffset={$yOffset} class="grid-cols-1 w-full h-[300%]">
+<Grid xOffset={$xOffset} yOffset={$yOffset} class="grid-cols-1 w-full h-[200%]">
   <Submarine targetPosition={subCoords} class="z-[21]">
     {#if depthReady}
       <InfoMarker
@@ -269,7 +269,7 @@
   </Otter>
   <BgImg
     src={kelp}
-    class="absolute top-0 right-[-11%] h-2/3 pointer-events-none z-[1]"
+    class="absolute top-0 right-[-11%] h-full pointer-events-none z-[1]"
   />
   <MeasuringLine
     reveal={depthReady}
@@ -327,7 +327,6 @@
         activeArea = 0;
         moveToNextArea(0, 1);
       }}
-      onDown={undefined}
       onmousedown={handleMouseDown}
     >
       <UnderwaterGradient
@@ -344,34 +343,6 @@
           <BgImg
             src={relics2}
             class="right-[-11px] bottom-[-22%] w-[777px] z-[2]"
-          />
-        </div>
-      </div>
-    </Area>
-    <Area
-      active={activeArea === 2}
-      onUp={() => {
-        activeArea = 1;
-        moveToNextArea(0, 1);
-        goTooDeep = false;
-      }}
-      onDown={undefined}
-      onmousedown={handleMouseDown}
-    >
-      <UnderwaterGradient
-        class="absolute size-full z-[-1]"
-        --color-top="#037ade"
-        --color-bottom="#182b3a"
-      />
-      <div class="absolute size-full z-[1] overflow-clip pointer-events-none">
-        <BgImg
-          src={relics2}
-          class="rotate-90 left-[-65%] bottom-[-31%] w-[133%] z-[2]"
-        />
-        <div class="absolute top-0 right-0 h-[25%] w-[15%] overflow-clip">
-          <BgImg
-            src={relics2}
-            class="-rotate-90 right-[-485px] bottom-[-576px] w-[1111px] z-[2]"
           />
         </div>
       </div>

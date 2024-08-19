@@ -1,5 +1,6 @@
 import neutral from "$assets/emoji/neutral.svg";
 import smile from "$assets/emoji/smile.svg";
+import thinking from "$assets/emoji/thinking.svg";
 import shell from "$assets/avatars/shell.png";
 import otter from "$assets/avatars/otter.png";
 
@@ -43,7 +44,7 @@ export const dialogExperiment = [
 
 export const dialogAnalysis = [
   {
-    imgSrc: neutral,
+    imgSrc: thinking,
     name: "dialog-name_explorer",
     text: "ch3-dialog_analysis-1",
   },

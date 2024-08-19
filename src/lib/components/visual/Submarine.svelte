@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
   import { untrack } from "svelte";
-  import { spring } from "svelte/motion";
+  import { coords } from "$lib/stores/sub";
   import sub from "$assets/sprites/sub.png";
 
   let {
@@ -18,10 +18,6 @@
   } = $props();
 
   let direction = $state(1);
-  let coords = spring(
-    { x: targetPosition.x, y: targetPosition.y },
-    { stiffness: 0.01, damping: 0.8 },
-  );
 
   $effect(() => {
     coords.set(targetPosition);

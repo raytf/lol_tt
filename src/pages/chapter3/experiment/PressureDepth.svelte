@@ -4,11 +4,9 @@
   import BackupInit from "$lib/components/BackupInit.svelte";
   import { Grid, Area, BgImg } from "$components/exploration";
   import Inventory from "$components/inventory";
-  import { InfoMarker } from "$components/ui/buttons";
-  import type { DialogKey } from "$components/dialog";
-  import { Dialog, QuestionDialog } from "$components/dialog";
+  import { Dialog } from "$components/dialog";
   import {
-    ToolScreen,
+    GaugeScreen,
     ItemUnlockScreen,
     ItemCard,
   } from "$components/inventory";
@@ -26,7 +24,6 @@
   // Apis
   import { getGameApi } from "$apis/game.svelte";
   import { getInventoryApi, itemMap } from "$apis/inventory.svelte";
-  import exp from "constants";
   const gameApi = getGameApi();
   const inventoryApi = getInventoryApi();
 
@@ -98,20 +95,25 @@
 
   onMount(() => {
     inventoryApi.currentHintIndex = 3;
+    inventoryApi.showGaugeScreen = true;
+    showTable = true;
   });
 
   let goTooDeep = $state(false);
 
   let experimentIndex = $state(0);
   let experimentData = $state<TableData[]>([]);
+  let showTable = $state(false);
   let drawLine = $state(false);
+  let showUnlockScreen = $state(false);
+  let finishExperiment = $state(false);
 
   let startDialogAnalysis = $state(false);
 </script>
 
 <BackupInit inventory={true} />
 <Inventory />
-<ToolScreen y={subCoords.y} />
+<GaugeScreen />
 
 <Dialog
   keys={dialogExperiment}
@@ -140,7 +142,9 @@
   <Dialog
     keys={dialogAnalysis}
     onFinished={() => {
-      gameApi.fadeScene("/ch4");
+      showTable = false;
+      drawLine = false;
+      showUnlockScreen = true;
     }}
   />
 {/if}
@@ -148,11 +152,25 @@
 <div
   class="absolute size-full flex flex-row space-x-24 pointer-events-none z-[2]"
 >
-  <Table data={experimentData} extraClass="m-4 w-[222px]" />
+  {#if showTable}
+    <Table data={experimentData} extraClass="m-4 w-[222px]" />
+  {/if}
   {#if drawLine}
     <Graph />
   {/if}
 </div>
+
+<ItemUnlockScreen
+  reveal={showUnlockScreen}
+  onclick={() => {
+    inventoryApi.unlockItem("dg");
+    showUnlockScreen = false;
+    finishExperiment = true;
+    inventoryApi.currentHintIndex = 4;
+  }}
+>
+  <ItemCard id="dg" />
+</ItemUnlockScreen>
 
 <Grid xOffset={$xOffset} yOffset={$yOffset} class="grid-cols-1 w-full h-[300%]">
   <Submarine targetPosition={subCoords} class="z-[21]" />
@@ -195,7 +213,13 @@
         activeArea = 0;
         moveToNextArea(0, 1);
       }}
-      onDown={undefined}
+      onDown={finishExperiment
+        ? () => {
+            activeArea = 2;
+            moveToNextArea(0, -1);
+            goTooDeep = true;
+          }
+        : undefined}
       onmousedown={handleMouseDown}
     >
       <UnderwaterGradient
@@ -223,7 +247,11 @@
         moveToNextArea(0, 1);
         goTooDeep = false;
       }}
-      onDown={undefined}
+      onDown={finishExperiment
+        ? () => {
+            gameApi.fadeScene("/ch4");
+          }
+        : undefined}
       onmousedown={handleMouseDown}
     >
       <UnderwaterGradient
