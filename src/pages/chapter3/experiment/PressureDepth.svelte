@@ -251,7 +251,6 @@
       onDown={finishExperiment
         ? () => {
             gameApi.fadeScene("/ch4");
-            coords.set({ x: window.innerWidth / 2, y: 0 });
           }
         : undefined}
       onmousedown={handleMouseDown}

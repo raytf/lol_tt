@@ -1,10 +1,11 @@
 <script>
   import BackupInit from "$lib/components/BackupInit.svelte";
   import { TitleIntro } from "$components/intro";
-  import { nearVent } from "$lib/stores/sub";
+  import { nearVent, coords } from "$lib/stores/sub";
   import { getGameApi } from "$apis/game.svelte";
   const gameApi = getGameApi();
 
+  coords.set({ x: window.innerWidth / 2, y: 0 });
   $nearVent = false;
 </script>
 
