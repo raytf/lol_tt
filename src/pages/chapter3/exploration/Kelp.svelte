@@ -101,7 +101,6 @@
   let depthReady = $state(false);
   let pressureReady = $state(false);
   let revealPg = $state(false);
-  let startExperiment = $state(false);
 </script>
 
 <BackupInit inventory={true} />
@@ -231,7 +230,7 @@
     revealPg = false;
     dialogKeys = dialogProcedure;
     onDialogFinish = () => {
-      startExperiment = true;
+      gameApi.fadeScene("/ch3_experiment");
     };
   }}
 >
@@ -240,7 +239,7 @@
 
 <Grid xOffset={$xOffset} yOffset={$yOffset} class="grid-cols-1 w-full h-[300%]">
   <Submarine targetPosition={subCoords} class="z-[21]">
-    {#if depthReady && !startExperiment}
+    {#if depthReady}
       <InfoMarker
         onclick={() => {
           dialogKeys = dialogPressure;
@@ -297,7 +296,7 @@
         --color-top="#03E5B7"
         --color-bottom="#08C8F6"
       />
-      {#if startExploration && !startExperiment}
+      {#if startExploration}
         <InfoMarker
           onclick={() => {
             dialogKeys = dialogDepth;

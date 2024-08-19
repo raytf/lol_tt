@@ -15,6 +15,7 @@ import Ch2_Encounter_Otter from "./pages/chapter2/encounters/Otter.svelte";
 // Chapter 3
 import Ch3 from "./pages/chapter3";
 import Ch3_Exploration_Kelp from "./pages/chapter3/exploration/Kelp.svelte";
+import Ch3_Experiment from "./pages/chapter3/experiment/PressureDepth.svelte";
 
 export default {
   "/": Init,
@@ -32,4 +33,5 @@ export default {
   "/ch2_encounter_otter": Ch2_Encounter_Otter,
   "/ch3": Ch3,
   "/ch3_exploration_kelp": Ch3_Exploration_Kelp,
+  "/ch3_experiment": Ch3_Experiment,
 };
