@@ -48,6 +48,15 @@
   let clicked2 = $state(false);
   let clicked3 = $state(false);
   let dialogKeys = $state<DialogKey[]>([]);
+
+  $effect(() => {
+    if (!reveal) {
+      dialogKeys = [];
+      clicked1 = false;
+      clicked2 = false;
+      clicked3 = false;
+    }
+  });
 </script>
 
 {#if reveal}

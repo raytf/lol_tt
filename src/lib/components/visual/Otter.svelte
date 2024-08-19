@@ -1,4 +1,5 @@
 <script lang="ts">
+  import type { Snippet } from "svelte";
   import { untrack } from "svelte";
   import { spring } from "svelte/motion";
   import otter from "$assets/sprites/otter.png";
@@ -7,11 +8,13 @@
     targetPosition = { x: 0, y: 0 },
     size = 55,
     class: extraClass = "",
+    children,
     ...props
   }: {
     targetPosition?: { x: number; y: number };
     size?: number;
     class: string;
+    children?: Snippet;
   } = $props();
 
   let direction = $state(1);
@@ -39,6 +42,9 @@
     height={size}
     width={size}
     class="select-none"
-    style="transform: translate(-88px, -88px) scale({direction}, 1)"
+    style="transform: translate(0px, 0px) scale({direction}, 1)"
   />
+  {#if children}
+    {@render children()}
+  {/if}
 </div>

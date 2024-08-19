@@ -53,7 +53,7 @@
       if (goTooDeep) {
         return { x: window.innerWidth / 2, y: window.innerHeight * 1.5 };
       }
-      return { x: subCoords.x + 44, y: subCoords.y };
+      return { x: subCoords.x + 22, y: subCoords.y };
     }
     return { x: window.innerWidth + 88, y: window.innerHeight / 2 };
   });

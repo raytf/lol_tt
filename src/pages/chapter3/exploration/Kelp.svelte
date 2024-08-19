@@ -14,7 +14,15 @@
   import relics2 from "$assets/relics/relics_2.svg";
   import kelp from "$assets/chapter1/kelp.png";
   // Dialog
-
+  import {
+    dialog1,
+    dialogQuestionSqOption1,
+    dialogQuestionSqOption2,
+    dialogQuestionSqOption3,
+    dialogQuestionHypOption1,
+    dialogQuestionHypOption2,
+    dialogQuestionHypOption3,
+  } from "./dialogue";
   // Stores
   // Apis
   import { getGameApi } from "$apis/game.svelte";
@@ -39,7 +47,7 @@
     if (goTooDeep) {
       return { x: window.innerWidth / 2, y: window.innerHeight * 1.5 };
     }
-    return { x: subCoords.x + 44, y: subCoords.y };
+    return { x: subCoords.x + 22, y: subCoords.y };
   });
 
   let activeArea = $state(1);
@@ -63,19 +71,66 @@
 
   onMount(() => {
     subCoords = { x: window.innerWidth / 2, y: window.innerHeight * 1.5 };
-    //inventoryApi.currentHintIndex = 2;
+    inventoryApi.currentHintIndex = 2;
     goTooDeep = false;
   });
 
-  let revealQuestion = $state(false);
+  let revealQuestionSQ = $state(false);
+  let revealQuestionHyp = $state(false);
+
   let dialogKeys = $state<DialogKey[]>([]);
   let onDialogFinish: () => void;
 
   let goTooDeep = $state(true);
+
+  let startPlanning = $state(false);
 </script>
 
 <BackupInit inventory={true} />
 <Inventory />
+
+<QuestionDialog
+  reveal={revealQuestionSQ}
+  questionKey="ch3-question_sq"
+  option1Key="ch3-question_sq_option-1"
+  option1DialogKeys={dialogQuestionSqOption1}
+  onFinish1={() => {
+    revealQuestionSQ = false;
+  }}
+  option2Correct={true}
+  option2Key="ch3-question_sq_option-2"
+  option2DialogKeys={dialogQuestionSqOption2}
+  onFinish2={() => {
+    revealQuestionSQ = false;
+    revealQuestionHyp = true;
+  }}
+  option3Key="ch3-question_sq_option-3"
+  option3DialogKeys={dialogQuestionSqOption3}
+  onFinish3={() => {
+    revealQuestionSQ = false;
+  }}
+/>
+<QuestionDialog
+  reveal={revealQuestionHyp}
+  questionKey="ch3-question_hyp"
+  option1Correct={true}
+  option1Key="ch3-question_hyp_option-1"
+  option1DialogKeys={dialogQuestionHypOption1}
+  onFinish1={() => {
+    revealQuestionHyp = false;
+    startPlanning = true;
+  }}
+  option2Key="ch3-question_hyp_option-2"
+  option2DialogKeys={dialogQuestionHypOption2}
+  onFinish2={() => {
+    revealQuestionHyp = false;
+  }}
+  option3Key="ch3-question_hyp_option-3"
+  option3DialogKeys={dialogQuestionHypOption3}
+  onFinish3={() => {
+    revealQuestionHyp = false;
+  }}
+/>
 
 <Dialog
   once={false}
@@ -91,7 +146,19 @@
 
 <Grid xOffset={$xOffset} yOffset={$yOffset} class="grid-cols-1 w-full h-[300%]">
   <Submarine targetPosition={subCoords} class="z-[21]" />
-  <Otter targetPosition={otterCoords} class="z-[22]" />
+  <Otter targetPosition={otterCoords} class="z-[22]">
+    {#if !startPlanning}
+      <InfoMarker
+        onclick={() => {
+          dialogKeys = dialog1;
+          onDialogFinish = () => {
+            revealQuestionSQ = true;
+          };
+        }}
+        class="w-[44px] h-[44px] absolute bottom-8 left-2 pointer-events-auto"
+      />
+    {/if}
+  </Otter>
   <BgImg
     src={kelp}
     class="absolute top-0 right-[-11%] h-2/3 pointer-events-none z-[1]"
