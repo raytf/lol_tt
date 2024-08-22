@@ -46,7 +46,7 @@
   if ($otterEncountered) {
     initialSubCoords = {
       x: width / 2 + 222,
-      y: width / 2,
+      y: height / 2,
     };
   }
   let subCoords = $state(initialSubCoords);

@@ -26,7 +26,7 @@
 
 {#if inventoryApi.showGaugeScreen}
   <div
-    class="fixed size-full pointer-events-none select-none flex flex-col justify-end z-[30]"
+    class="absolute size-full pointer-events-none select-none flex flex-col justify-end z-[30]"
   >
     {#if inventoryApi.isItemUnlocked("th")}
       <p class="m-2 text-4xl font-bold">{temp.toFixed(2)}°C</p>

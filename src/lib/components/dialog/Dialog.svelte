@@ -24,7 +24,7 @@
   function nextDialog() {
     dialogIndex++;
     if (dialogIndex < keys.length) {
-      lolApi.speakText(keys[dialogIndex].text);
+      //lolApi.speakText(keys[dialogIndex].text);
       if (onProceed) {
         onProceed();
       }
@@ -38,7 +38,7 @@
   }
 
   onMount(() => {
-    lolApi.speakText(keys[0].text);
+    //lolApi.speakText(keys[0].text);
   });
 </script>
 
