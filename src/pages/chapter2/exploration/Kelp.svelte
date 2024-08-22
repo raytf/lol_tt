@@ -32,6 +32,9 @@
   const gameApi = getGameApi();
   const inventoryApi = getInventoryApi();
 
+  const width = 1024;
+  const height = 576;
+
   const xOffset = tweened(0, {
     duration: 500,
   });
@@ -39,11 +42,11 @@
     duration: 500,
   });
 
-  let initialSubCoords = { x: 0, y: window.innerHeight / 2 };
+  let initialSubCoords = { x: 0, y: height / 2 };
   if ($otterEncountered) {
     initialSubCoords = {
-      x: window.innerWidth / 2 + 222,
-      y: window.innerHeight / 2,
+      x: width / 2 + 222,
+      y: width / 2,
     };
   }
   let subCoords = $state(initialSubCoords);
@@ -51,11 +54,11 @@
   let otterCoords = $derived.by(() => {
     if ($otterEncountered) {
       if (goTooDeep) {
-        return { x: window.innerWidth / 2, y: window.innerHeight * 1.5 };
+        return { x: width / 2, y: height * 1.5 };
       }
       return { x: subCoords.x + 22, y: subCoords.y };
     }
-    return { x: window.innerWidth + 88, y: window.innerHeight / 2 };
+    return { x: width + 88, y: height / 2 };
   });
 
   let activeArea = $state(0);
@@ -67,18 +70,18 @@
   }
 
   function moveToNextArea(xDirection: number, yDirection: number) {
-    const newXOffset = $xOffset + window.innerWidth * xDirection;
-    const newYOffset = $yOffset + window.innerHeight * yDirection;
+    const newXOffset = $xOffset + width * xDirection;
+    const newYOffset = $yOffset + height * yDirection;
     subCoords = {
-      x: window.innerWidth / 2 - newXOffset,
-      y: window.innerHeight / 2 - newYOffset,
+      x: width / 2 - newXOffset,
+      y: height / 2 - newYOffset,
     };
     $xOffset = newXOffset;
     $yOffset = newYOffset;
   }
 
   onMount(() => {
-    subCoords = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    subCoords = { x: width / 2, y: height / 2 };
     inventoryApi.currentHintKey = "hint_2";
     if (!$otterEncountered) {
       revealQuestion = true;

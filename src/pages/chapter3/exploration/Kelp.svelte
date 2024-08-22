@@ -41,22 +41,25 @@
   const gameApi = getGameApi();
   const inventoryApi = getInventoryApi();
 
+  const width = 1024;
+  const height = 576;
+
   const xOffset = tweened(0, {
     duration: 500,
   });
-  const yOffset = tweened(-window.innerHeight, {
+  const yOffset = tweened(-height, {
     duration: 500,
   });
 
   let initialSubCoords = {
-    x: window.innerWidth / 2,
-    y: window.innerHeight * 2.2,
+    x: width / 2,
+    y: height * 2.2,
   };
   let subCoords = $state(initialSubCoords);
 
   let otterCoords = $derived.by(() => {
     if (goTooDeep) {
-      return { x: window.innerWidth / 2, y: window.innerHeight * 1.5 };
+      return { x: width / 2, y: height * 1.5 };
     }
     return { x: subCoords.x + 22, y: subCoords.y };
   });
@@ -70,18 +73,18 @@
   }
 
   function moveToNextArea(xDirection: number, yDirection: number) {
-    const newXOffset = $xOffset + window.innerWidth * xDirection;
-    const newYOffset = $yOffset + window.innerHeight * yDirection;
+    const newXOffset = $xOffset + width * xDirection;
+    const newYOffset = $yOffset + height * yDirection;
     subCoords = {
-      x: window.innerWidth / 2 - newXOffset,
-      y: window.innerHeight / 2 - newYOffset,
+      x: width / 2 - newXOffset,
+      y: height / 2 - newYOffset,
     };
     $xOffset = newXOffset;
     $yOffset = newYOffset;
   }
 
   onMount(() => {
-    subCoords = { x: window.innerWidth / 2, y: window.innerHeight * 1.5 };
+    subCoords = { x: width / 2, y: height * 1.5 };
     inventoryApi.currentHintKey = "hint_3";
     goTooDeep = false;
   });

@@ -13,11 +13,14 @@
   const gameApi = getGameApi();
   const inventoryApi = getInventoryApi();
 
-  let initialSubCoords = { x: 0, y: window.innerHeight / 2 };
+  const width = 1024;
+  const height = 576;
+
+  let initialSubCoords = { x: 0, y: height / 2 };
   if ($shellEncountered) {
     initialSubCoords = {
-      x: window.innerWidth / 2 + 88,
-      y: window.innerHeight - 88,
+      x: width / 2 + 88,
+      y: height - 88,
     };
   }
   let subCoords = $state(initialSubCoords);
@@ -28,7 +31,7 @@
     subCoords = { x: x, y: y };
   }
   onMount(() => {
-    subCoords = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    subCoords = { x: width / 2, y: height / 2 };
     if ($shellEncountered) {
       if (!inventoryApi.isItemUnlocked("sm")) unlockSM = true;
     }
