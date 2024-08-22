@@ -49,6 +49,13 @@ export class LolApi {
   init = () => {
     this.gameIsReady();
     this.requestLoadState();
+    // Public only - load backup language
+    fetch("language.json")
+      .then((response) => response.json())
+      .then((payload) => {
+        this.languageData = payload["en"];
+        this.languageLoaded = true;
+      });
   };
 
   gameIsReady = () => {
