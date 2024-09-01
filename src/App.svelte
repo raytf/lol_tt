@@ -18,10 +18,12 @@
   gsap.registerPlugin(SplitText);
   gsap.registerPlugin(TextPlugin);
 
-  createLolApi();
+  const lolApi = createLolApi();
   createGameApi();
   createAudioApi();
   createInventoryApi();
+
+  lolApi.init();
 </script>
 
 <main>

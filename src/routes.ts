@@ -3,6 +3,7 @@ import Introduction from "./pages/Introduction.svelte";
 import Prologue from "./pages/Prologue.svelte";
 import Title from "./pages/Title.svelte";
 import ChapterSelect from "./pages/ChapterSelect.svelte";
+import Exploration from "./pages/Exploration.svelte";
 // Chapter 1
 import Ch1 from "./pages/chapter1";
 import Ch1_Exploration_Wrecks from "./pages/chapter1/exploration/Wrecks.svelte";
@@ -27,6 +28,7 @@ export default {
   "/prologue": Prologue,
   "/title": Title,
   "/chapter-select": ChapterSelect,
+  "/exploration": Exploration,
   "/ch1": Ch1,
   "/ch1_exploration_wrecks": Ch1_Exploration_Wrecks,
   "/ch1_encounter_shell": Ch1_Encounter_Shell,
