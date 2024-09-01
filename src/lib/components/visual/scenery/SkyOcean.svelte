@@ -1,3 +1,7 @@
+<script>
+  import ocean from "$assets/ocean_waves.jpg";
+</script>
+
 <div id="scenery">
   <div class="sky-container">
     <div class="sun"></div>
@@ -7,21 +11,38 @@
     <div class="sun-reflection">
       <div class="sun"></div>
     </div>
+    <img id="ocean-image" src={ocean} alt="ocean" />
+    <svg>
+      <filter id="turbulence" x="0" y="0" width="100%" height="100%">
+        <feTurbulence
+          id="ocean-filter"
+          numOctaves="3"
+          seed="2"
+          baseFrequency="0.02 0.05"
+        />
+        <feDisplacementMap scale="20" in="SourceGraphic" />
+        <animate
+          xlink:href="#ocean-filter"
+          attributeName="baseFrequency"
+          dur="22s"
+          keyTimes="0;1"
+          values="0.02 0.06;0.04 0.08"
+          repeatCount="indefinite"
+        />
+      </filter>
+    </svg>
   </div>
 </div>
 
 <style>
   #scenery {
-    /* --v1: #be91c6; */
     --v1: #61d0cf;
-    /* --v2: #4bc7cf; */
     --v2: #12a1c0;
     --v3: #5e30d9;
     --transparentv3: #5e30d900;
     --v4: #3b1895;
-    /* --s1: #fea798; */
     --s1: #efeebc;
-    --s2: #fee154;
+    --s2: #e8ed92;
     --cloud: #fea798;
 
     position: absolute;
@@ -40,16 +61,18 @@
   }
   .sun {
     top: 100%;
-    right: 44%;
+    left: 50%;
+    translate: -50% 0;
 
-    background: white;
+    background: #ffe;
     border-radius: 50%;
     width: 88px;
     height: 88px;
-    box-shadow: 0px 0px 11px 11px white;
+    box-shadow: 0px 0px 11px 11px #ffe;
 
     transform: translate3d(0, 0, 0);
-    animation: rise 11s infinite;
+    animation: rise 11s;
+    animation-fill-mode: forwards;
   }
   .ambient {
     width: 100%;
@@ -57,29 +80,36 @@
     background: radial-gradient(circle at 50% 100%, var(--s2), transparent);
     mix-blend-mode: color-burn;
 
-    animation: fade 11s infinite;
+    animation: fade 11s;
+    animation-fill-mode: forwards;
   }
   @keyframes fade {
-    24% {
-      opacity: 1;
-    }
-    66%,
-    88% {
+    0% {
       opacity: 0;
+    }
+    88% {
+      opacity: 1;
     }
   }
   .ocean-container {
     bottom: 0;
     width: 100%;
     height: 50%;
-    background: linear-gradient(transparent, var(--v2));
+    background: linear-gradient(#98b0fe55, var(--v2));
     box-shadow: inset 0 1px 4px -3px white;
+  }
+  #ocean-image {
+    left: -1%;
+    max-width: none;
+    width: 102%;
+    height: 100%;
+    opacity: 0.1;
+    filter: url(#turbulence);
   }
   .sun-reflection {
     width: 100%;
     height: 100%;
     background: radial-gradient(circle at 50% 0%, var(--s2), transparent);
-    animation: fade 11s infinite;
   }
   .sun-reflection .sun {
     top: 0;
