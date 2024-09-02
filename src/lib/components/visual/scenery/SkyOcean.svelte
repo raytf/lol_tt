@@ -1,5 +1,47 @@
 <script>
+  import { onMount } from "svelte";
+  import { gsap } from "gsap";
   import ocean from "$assets/ocean_waves.jpg";
+
+  const sunRiseTl = gsap.timeline();
+  onMount(() => {
+    sunRiseTl.to(
+      ".ambient",
+      {
+        opacity: 1,
+        duration: 11,
+      },
+      0,
+    );
+    sunRiseTl.to(
+      ".sky-container .sun",
+      {
+        x: 0,
+        y: "-88vmin",
+        z: "20vmin",
+        duration: 11,
+      },
+      0,
+    );
+    sunRiseTl.to(
+      ".sun-reflection .sun",
+      {
+        x: 0,
+        y: "88vmin",
+        z: "20vmin",
+        duration: 11,
+      },
+      0,
+    );
+    sunRiseTl.to(
+      ".sun-reflection .sun",
+      {
+        opacity: 0.22,
+        duration: 2,
+      },
+      1,
+    );
+  });
 </script>
 
 <div id="scenery">
@@ -24,7 +66,7 @@
         <animate
           xlink:href="#ocean-filter"
           attributeName="baseFrequency"
-          dur="22s"
+          dur="11s"
           keyTimes="0;1"
           values="0.02 0.06;0.04 0.08"
           repeatCount="indefinite"
@@ -71,25 +113,13 @@
     box-shadow: 0px 0px 11px 11px #ffe;
 
     transform: translate3d(0, 0, 0);
-    animation: rise 11s;
-    animation-fill-mode: forwards;
   }
   .ambient {
     width: 100%;
     height: 100%;
     background: radial-gradient(circle at 50% 100%, var(--s2), transparent);
     mix-blend-mode: color-burn;
-
-    animation: fade 11s;
-    animation-fill-mode: forwards;
-  }
-  @keyframes fade {
-    0% {
-      opacity: 0;
-    }
-    88% {
-      opacity: 1;
-    }
+    opacity: 0;
   }
   .ocean-container {
     bottom: 0;
@@ -117,28 +147,5 @@
     opacity: 0;
 
     transform: translate3d(0, -20vmin, 0);
-    animation-name: rise-reflection;
-  }
-  @keyframes rise {
-    0% {
-      opacity: 0;
-    }
-    22% {
-      opacity: 1;
-    }
-    100% {
-      transform: translate3d(0, -88vmin, 20vmin);
-    }
-  }
-  @keyframes rise-reflection {
-    11% {
-      opacity: 0;
-    }
-    22% {
-      opacity: 0.44;
-    }
-    100% {
-      transform: translate3d(0, 88vmin, 20vmin);
-    }
   }
 </style>
