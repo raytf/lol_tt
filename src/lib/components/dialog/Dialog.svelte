@@ -38,7 +38,7 @@
   }
 
   onMount(() => {
-    lolApi.speakText(keys[0].text);
+    if (keys.length > 0) lolApi.speakText(keys[0].text);
   });
 </script>
 

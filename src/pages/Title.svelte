@@ -6,8 +6,10 @@
   import sub from "$assets/sprites/sub.png";
   import { getGameApi } from "$apis/game.svelte";
   import { getLolApi } from "$apis/lol.svelte";
+  import { getAudioApi } from "$apis/audio.svelte";
   const gameApi = getGameApi();
   const lolApi = getLolApi();
+  const audioApi = getAudioApi();
 
   function revealText(vars?: gsap.TimelineVars) {
     const textTl = gsap.timeline(vars);
@@ -59,8 +61,18 @@
       },
     );
 
-    revealText();
-    surfaceSub({ delay: 3 });
+    audioApi.loadTrack({
+      src: "music/theme_main.mp3",
+      onload: () => {
+        audioApi.playTrack({
+          src: "music/theme_main.mp3",
+          volume: 0.44,
+          loop: true,
+        });
+        revealText({ delay: 1 });
+        surfaceSub({ delay: 4 });
+      },
+    });
   });
 
   let startIntro = $state(false);

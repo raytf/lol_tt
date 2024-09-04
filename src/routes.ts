@@ -1,5 +1,4 @@
 import Init from "./pages/Init.svelte";
-import Introduction from "./pages/Introduction.svelte";
 import Prologue from "./pages/Prologue.svelte";
 import Title from "./pages/Title.svelte";
 import ChapterSelect from "./pages/ChapterSelect.svelte";
@@ -22,9 +21,8 @@ import Ch4 from "./pages/chapter4";
 import Ch4_Exploration from "./pages/chapter4/exploration/DeepOcean.svelte";
 
 export default {
-  "/": Init,
+  "/": Title,
   "/init/:from?": Init,
-  "/intro": Introduction,
   "/prologue": Prologue,
   "/title": Title,
   "/chapter-select": ChapterSelect,

@@ -18,7 +18,6 @@
   } = $props();
 
   let direction = $state(1);
-
   $effect(() => {
     coords.set(targetPosition);
 

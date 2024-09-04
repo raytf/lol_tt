@@ -7,19 +7,24 @@
   import Wrecks from "./areas/Wrecks.svelte";
   import Submarine from "$components/visual/Submarine.svelte";
   import { InfoMarker } from "$components/ui/buttons";
+  import { coords } from "$lib/stores/sub";
   import { shellEncountered } from "../store";
   import { getGameApi } from "$apis/game.svelte";
   import { getInventoryApi } from "$apis/inventory.svelte";
   const gameApi = getGameApi();
   const inventoryApi = getInventoryApi();
 
-  let initialSubCoords = { x: 0, y: window.innerHeight / 2 };
+  let initialSubCoords = {
+    x: window.innerWidth / 2,
+    y: 0,
+  };
   if ($shellEncountered) {
     initialSubCoords = {
       x: window.innerWidth / 2 + 88,
       y: window.innerHeight - 88,
     };
   }
+  coords.set(initialSubCoords, { hard: true });
   let subCoords = $state(initialSubCoords);
 
   function handleMouseDown(event: MouseEvent) {

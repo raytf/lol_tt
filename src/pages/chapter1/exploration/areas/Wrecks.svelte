@@ -1,9 +1,10 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
-  import { Area, BgImg } from "$components/exploration";
+  import { Area, BgImg, TurbulentImg } from "$components/exploration";
   import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
   import relics2 from "$assets/relics/relics_2.svg";
   import relics3 from "$assets/relics/relics_3.svg";
+  import underwater from "$assets/underwater.jpg";
 
   let {
     showInstruction = false,
@@ -23,6 +24,7 @@
     --color-top="#03E5B7"
     --color-bottom="#037ADE"
   />
+  <TurbulentImg src={underwater} class="size-full opacity-20" />
   <BgImg
     src={relics3}
     alt="relics-3"
