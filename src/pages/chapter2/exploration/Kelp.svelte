@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import { tweened } from "svelte/motion";
   import BackupInit from "$lib/components/BackupInit.svelte";
-  import { Grid, Area, BgImg } from "$components/exploration";
+  import { Grid, Area, BgImg, TurbulentImg } from "$components/exploration";
   import Inventory from "$components/inventory";
   import { InfoMarker } from "$components/ui/buttons";
   import type { DialogKey } from "$components/dialog";
@@ -13,6 +13,7 @@
   import Otter from "$components/visual/Otter.svelte";
   import relics2 from "$assets/relics/relics_2.svg";
   import kelp from "$assets/chapter1/kelp.png";
+  import underwater from "$assets/underwater.jpg";
   // Dialog
   import {
     dialogOption1,
@@ -157,6 +158,7 @@
         --color-top="#03E5B7"
         --color-bottom="#08C8F6"
       />
+      <TurbulentImg src={underwater} class="absolute size-full opacity-10" />
       {#if !$otterEncountered}
         <InfoMarker
           onclick={() => {
@@ -169,7 +171,7 @@
           class="absolute w-[55px] h-[55px] top-[200px] right-[111px] z-20"
         />
       {/if}
-      <div class="absolute size-full z-[1] pointer-events-none">
+      <div class="absolute size-full top-0 z-[1] pointer-events-none">
         <div class="absolute w-1/2 h-full left-0 overflow-clip">
           <BgImg src={relics2} class="bottom-[-42%] w-[200%] z-[2]" />
         </div>
@@ -198,7 +200,7 @@
     >
       <UnderwaterGradient
         class="absolute size-full"
-        --color-top="#08C8F6"
+        --color-top="#07BBE5"
         --color-bottom="#037ade"
       />
       <InfoMarker

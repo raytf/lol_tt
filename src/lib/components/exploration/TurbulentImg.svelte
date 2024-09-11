@@ -25,6 +25,14 @@
 
 <style>
   .image-turbulent {
+    position: absolute;
+    left: -1%;
+    max-width: none;
+    width: 102%;
+    height: 100%;
     filter: url(#turbulence);
+  }
+  svg {
+    position: absolute;
   }
 </style>

@@ -24,7 +24,7 @@
     --color-top="#03E5B7"
     --color-bottom="#037ADE"
   />
-  <TurbulentImg src={underwater} class="size-full opacity-20" />
+  <TurbulentImg src={underwater} class="opacity-20" />
   <BgImg
     src={relics3}
     alt="relics-3"
