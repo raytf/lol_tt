@@ -13,7 +13,7 @@
   import Otter from "$components/visual/Otter.svelte";
   import relics2 from "$assets/relics/relics_2.svg";
   import kelp from "$assets/chapter1/kelp.png";
-  import underwater from "$assets/underwater.jpg";
+  import underwater from "$assets/underwater_surface.jpg";
   // Dialog
   import {
     dialogOption1,

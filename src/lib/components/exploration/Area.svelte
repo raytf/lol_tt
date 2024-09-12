@@ -113,6 +113,7 @@
     height: 100%;
     width: 100%;
     pointer-events: none;
+    z-index: 20;
   }
   .button-nav {
     position: absolute;

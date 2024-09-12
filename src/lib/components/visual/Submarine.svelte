@@ -1,7 +1,6 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
-  import { untrack } from "svelte";
-  import { coords } from "$lib/stores/sub";
+  import { coords, direction } from "$lib/stores/sub";
   import sub from "$assets/sprites/sub.png";
 
   let {
@@ -16,14 +15,6 @@
     class: string;
     children?: Snippet;
   } = $props();
-
-  let direction = $state(1);
-  $effect(() => {
-    coords.set(targetPosition);
-
-    const dx = targetPosition.x - untrack(() => $coords.x);
-    direction = dx <= 0 ? -1 : 1;
-  });
 </script>
 
 <div
@@ -37,7 +28,7 @@
     height={size}
     width={size}
     class="select-none"
-    style="transform: translate(-55px, -55px) scale({direction}, 1)"
+    style="transform: translate(-55px, -55px) scale({$direction}, 1)"
   />
   {#if children}
     {@render children()}
