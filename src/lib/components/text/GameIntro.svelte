@@ -12,7 +12,14 @@
     onFinished,
   }: { class: string; textIndex: number; onFinished: () => void } = $props();
 
-  const textKeys = ["intro_1", "intro_2", "intro_3", "intro_4", "intro_5"];
+  const textKeys = [
+    "intro_1",
+    "intro_2",
+    "intro_3",
+    "intro_4",
+    "intro_5",
+    "intro_6",
+  ];
 
   const tls: gsap.core.Timeline[] = [];
   $effect(() => {
@@ -45,7 +52,9 @@
   {#each textKeys as key, i}
     <p
       id="text-intro_{i}"
-      class="text-intro {i === 4 ? 'text-2xl font-bold' : 'text-xl'} p-4"
+      class="text-intro {i === textKeys.length - 1
+        ? 'text-2xl font-bold'
+        : 'text-xl'} p-4"
     >
       {lolApi.getText(key)}
     </p>
