@@ -41,7 +41,9 @@
   main {
     position: relative;
     /* Magic css number for enforcing 16:9 aspect ratio */
-    padding-bottom: 56.25%;
+    /* padding-bottom: 56.25%; */
+    width: 1024px;
+    height: 576px;
     overflow: hidden;
   }
   .container {

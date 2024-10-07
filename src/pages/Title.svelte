@@ -64,11 +64,11 @@
     audioApi.loadTrack({
       src: "music/theme_main.mp3",
       onload: () => {
-        audioApi.playTrack({
-          src: "music/theme_main.mp3",
-          volume: 0.44,
-          loop: true,
-        });
+        // audioApi.playTrack({
+        //   src: "music/theme_main.mp3",
+        //   volume: 0.44,
+        //   loop: true,
+        // });
         revealText({ delay: 1 });
         surfaceSub({ delay: 4 });
       },

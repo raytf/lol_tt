@@ -67,10 +67,10 @@
 
     gsap.to(".bg-image", {
       scale: 1,
-      duration: 10,
+      duration: 4,
     });
 
-    panTl.to(".bg-image", { y: -500, duration: 10 }, 0);
+    panTl.to(".bg-image", { y: -500, duration: 4 }, 0);
 
     introTl.to(".intro-shell", { opacity: 1, duration: 1 });
   });

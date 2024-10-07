@@ -31,8 +31,10 @@
     width: 102%;
     height: 100%;
     filter: url(#turbulence);
+    pointer-events: none;
   }
   svg {
     position: absolute;
+    pointer-events: none;
   }
 </style>

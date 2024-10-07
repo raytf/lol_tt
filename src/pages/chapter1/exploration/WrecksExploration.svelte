@@ -1,8 +1,8 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { Grid, Area } from "$components/exploration";
-  import Inventory from "$components/inventory";
-  import { ItemUnlockScreen, ItemCard } from "$components/inventory";
+  import { Grid, Area, TurbulentImg } from "$components/exploration";
+  import Inventory, { ItemUnlockScreen, ItemCard } from "$components/inventory";
+  import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
   import { UpperOcean, LowerOcean, Shipwreck } from "./backgrounds";
   import Submarine from "$components/visual/Submarine.svelte";
   import { InfoMarker } from "$components/ui/buttons";
@@ -16,34 +16,41 @@
     moveScreen,
     moveSub,
   } from "$lib/stores/exploration";
+  import { windowWidth, windowHeight } from "$lib/stores/game";
   import { shellEncountered } from "../store";
+  import underwater from "$assets/underwater_surface.jpg";
   import { getGameApi } from "$apis/game.svelte";
   import { getInventoryApi } from "$apis/inventory.svelte";
   const gameApi = getGameApi();
   const inventoryApi = getInventoryApi();
 
   let initialSubCoords = {
-    x: window.innerWidth / 2,
+    x: $windowWidth / 2,
     y: 0,
   };
   if ($shellEncountered) {
     initialSubCoords = {
-      x: window.innerWidth / 2 + 88,
-      y: window.innerHeight - 88,
+      x: $windowWidth / 2 + 88,
+      y: $windowHeight - 88,
     };
   }
 
-  setSubPosition(initialSubCoords);
+  let activeArea = $state(0);
+  if (!$shellEncountered) {
+    setSubPosition(initialSubCoords);
+  }
   onMount(() => {
-    // moveScreen(-1, -1);
-    // activeArea = 3;
-    setSubTarget({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
+    setSubTarget({
+      x: $windowWidth / 2 - $xOffset,
+      y: $windowHeight / 2 - $yOffset,
+    });
+
     if ($shellEncountered) {
+      activeArea = 1;
       if (!inventoryApi.isItemUnlocked("sm")) unlockSM = true;
     }
     inventoryApi.currentHintKey = "hint_1";
   });
-  let activeArea = $state(0);
 
   let unlockSM = $state(false);
   let unlockShell = $state(false);
@@ -53,66 +60,58 @@
 <Grid
   xOffset={$xOffset}
   yOffset={$yOffset}
-  class="grid-cols-2 grid-rows-2 w-[200%] h-[200%]"
+  class="grid-cols-1 grid-rows-3 w-full h-[300%]"
 >
-  <div class="absolute top-0 w-full h-1/2">
-    <UpperOcean />
-  </div>
-  <div class="absolute top-1/2 w-full h-1/2">
-    <LowerOcean />
-  </div>
+  <TurbulentImg src={underwater} class="opacity-20 z-[1]" />
+
   <Submarine class="z-10" />
   {#snippet areas()}
     <Area
       active={activeArea === 0}
-      onRight={() => {
-        activeArea = 1;
-        moveScreen(-1, 0);
-      }}
       onDown={() => {
-        activeArea = 2;
+        activeArea = 1;
         moveScreen(0, -1);
       }}
       showInstruction={true}
       onmousedown={moveSub}
-    ></Area>
+    >
+      <UnderwaterGradient
+        class="absolute size-full"
+        --color-top="#03E5B7"
+        --color-bottom="#00C1EF"
+      />
+    </Area>
     <Area
       active={activeArea === 1}
-      onLeft={() => {
-        activeArea = 0;
-        moveScreen(1, 0);
-      }}
-      onDown={() => {
-        activeArea = 3;
-        moveScreen(0, -1);
-      }}
-      showInstruction={false}
-      onmousedown={moveSub}
-    ></Area>
-    <Area
-      active={activeArea === 2}
-      onRight={() => {
-        activeArea = 3;
-        moveScreen(-1, 0);
-      }}
       onUp={() => {
         activeArea = 0;
         moveScreen(0, 1);
       }}
-      onmousedown={moveSub}
-    ></Area>
-    <Area
-      active={activeArea === 3}
-      onLeft={() => {
+      onDown={() => {
         activeArea = 2;
-        moveScreen(1, 0);
+        moveScreen(0, -1);
       }}
+      onmousedown={moveSub}
+    >
+      <UnderwaterGradient
+        class="absolute size-full"
+        --color-top="#00C1EF"
+        --color-bottom="#037ADE"
+      />
+    </Area>
+    <Area
+      active={activeArea === 2}
       onUp={() => {
         activeArea = 1;
         moveScreen(0, 1);
       }}
       onmousedown={moveSub}
     >
+      <UnderwaterGradient
+        class="absolute size-full"
+        --color-top="#037ADE"
+        --color-bottom="#182B3A"
+      />
       <Shipwreck />
       {#if !$shellEncountered}
         <InfoMarker

@@ -7,7 +7,7 @@
   import underwater from "$assets/underwater_surface.jpg";
 </script>
 
-<div class="absolute size-full overflow-hidden">
+<div class="absolute size-full">
   <div class="absolute h-full w-[88%] overflow-hidden">
     <BgImg
       src={relics2}
@@ -18,7 +18,7 @@
   <BgImg
     src={relics3}
     alt="relics-3"
-    class="bottom-[-4%] left-[-22%] w-[155%] z-[1]"
+    class="bottom-[-22%] left-[-66%] w-[333%] blur-[1px] z-[1]"
   />
   <BgImg
     src={relics2}
