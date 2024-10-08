@@ -26,10 +26,11 @@
 <style>
   .image-turbulent {
     position: absolute;
+    top: -1%;
     left: -1%;
     max-width: none;
     width: 102%;
-    height: 100%;
+    height: 102%;
     filter: url(#turbulence);
     pointer-events: none;
   }

@@ -18,7 +18,7 @@
   } from "$lib/stores/exploration";
   import { windowWidth, windowHeight } from "$lib/stores/game";
   import { shellEncountered } from "../store";
-  import underwater from "$assets/underwater_surface.jpg";
+  import underwater from "$assets/underwater_1by3.jpg";
   import { getGameApi } from "$apis/game.svelte";
   import { getInventoryApi } from "$apis/inventory.svelte";
   const gameApi = getGameApi();
@@ -40,6 +40,9 @@
     setSubPosition(initialSubCoords);
   }
   onMount(() => {
+    inventoryApi.unlockItem("sm");
+    inventoryApi.unlocked = true;
+
     setSubTarget({
       x: $windowWidth / 2 - $xOffset,
       y: $windowHeight / 2 - $yOffset,
@@ -62,7 +65,7 @@
   yOffset={$yOffset}
   class="grid-cols-1 grid-rows-3 w-full h-[300%]"
 >
-  <TurbulentImg src={underwater} class="opacity-20 z-[1]" />
+  <TurbulentImg src={underwater} class="opacity-35 z-[1]" />
 
   <Submarine class="z-10" />
   {#snippet areas()}

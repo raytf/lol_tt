@@ -18,7 +18,7 @@
   <BgImg
     src={relics3}
     alt="relics-3"
-    class="bottom-[-22%] left-[-66%] w-[333%] blur-[1px] z-[1]"
+    class="bottom-[-22%] left-[-66%] w-[333%] blur-[2px] z-[1]"
   />
   <BgImg
     src={relics2}

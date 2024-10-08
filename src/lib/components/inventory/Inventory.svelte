@@ -94,7 +94,7 @@
 
 <style>
   .container-inventory {
-    position: fixed;
+    position: absolute;
     top: 0;
     height: 100%;
     width: 100%;
