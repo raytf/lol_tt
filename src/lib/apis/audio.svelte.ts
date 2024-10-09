@@ -4,7 +4,7 @@ import type { HowlOptions } from "howler";
 
 interface Track {
   sound: Howl;
-  instances: number[];
+  volume?: number;
 }
 
 export interface TrackOptions {
@@ -16,7 +16,7 @@ export interface TrackOptions {
 
 export class AudioApi {
   soundEnabled = $state(true);
-  tracks = new Map<string, Howl>();
+  tracks = new Map<string, Track>();
   constructor() {}
 
   loadTrack = ({
@@ -37,7 +37,10 @@ export class AudioApi {
       loop: loop,
       onload: onload,
     });
-    this.tracks.set(src, sound);
+    this.tracks.set(src, {
+      sound: sound,
+      volume: volume,
+    });
     console.log(this.tracks);
   };
 
@@ -47,7 +50,8 @@ export class AudioApi {
     loop = false,
     onload = () => {},
   }: TrackOptions) => {
-    const sound = this.tracks.get(src);
+    const track = this.tracks.get(src);
+    const sound = track?.sound;
     if (sound) {
       console.log("sound state: " + sound.state());
       if (sound.playing()) {
@@ -59,18 +63,21 @@ export class AudioApi {
 
       const id = sound.play();
       sound.fade(0, volume, 1000, id);
+      track.volume = volume;
       console.log(this.tracks);
     }
   };
 
   stopTrack = (src: string, fade: boolean = false) => {
-    const sound = this.tracks.get(src);
+    const track = this.tracks.get(src);
+    const sound = track?.sound;
     if (sound) {
       if (fade) {
+        const currentVolume: number = track.volume ?? 0;
         sound.once("fade", () => {
           sound.stop();
         });
-        sound.fade(sound.volume(), 0, 1000);
+        sound.fade(currentVolume, 0, 1000);
       } else {
         sound.stop();
       }

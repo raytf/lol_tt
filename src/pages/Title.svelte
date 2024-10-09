@@ -97,6 +97,8 @@
         onclick={() => {
           hideText({
             onComplete: () => {
+              audioApi.stopTrack("music/theme_song.mp3", true);
+
               submergeSub({
                 delay: 1,
                 onComplete: () => gameApi.fadeScene("/ch1"),
