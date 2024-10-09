@@ -65,6 +65,15 @@ export class AudioApi {
       sound.fade(0, volume, 1000, id);
       track.volume = volume;
       console.log(this.tracks);
+    } else {
+      this.loadTrack({
+        src,
+        volume,
+        loop,
+        onload: () => {
+          this.playTrack({ src, volume, loop });
+        },
+      });
     }
   };
 

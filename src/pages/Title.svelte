@@ -18,8 +18,8 @@
   }
   function revealText(vars?: gsap.TimelineVars) {
     const textTl = gsap.timeline(vars);
-    textTl.to("#title-screen_header", { opacity: 1, duration: 2 });
-    textTl.to("#title-screen_subheader", { opacity: 1, duration: 1 });
+    textTl.to("#title-screen_header", { opacity: 1, duration: 4 });
+    textTl.to("#title-screen_subheader", { opacity: 1, duration: 2 }, 2);
     textTl.to("#title-screen_start-button", { opacity: 1, duration: 1 });
     return textTl;
   }
@@ -105,6 +105,9 @@
               });
             },
           });
+          audioApi.loadTrack({
+            src: "music/theme_underwater.mp3",
+          });
         }}
         class="text-title p-12"
       >
@@ -130,8 +133,8 @@
               startIntro = false;
 
               startTitle = true;
-              revealText({ delay: 4 });
-              surfaceSub({ delay: 2 });
+              revealText({ delay: 2 });
+              surfaceSub({ delay: 1 });
               audioApi.playTrack({
                 src: "music/theme_song.mp3",
                 volume: 0.44,
