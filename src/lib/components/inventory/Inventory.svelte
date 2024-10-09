@@ -42,6 +42,7 @@
       width="w-full"
       transitionType="fly"
       transitionParams={{ y: -222 }}
+      class="absolute"
       divClass="bg-white bg-opacity-70"
     >
       <div class="flex flex-col items-center text-black p-4">
