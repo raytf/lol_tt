@@ -59,7 +59,7 @@
       {lolApi.getText(key)}
     </p>
   {/each}
-  <Next class="button-next m-4 w-[44px] h-[44px] opacity-0" />
+  <!-- <Next class="button-next m-4 w-[44px] h-[44px] opacity-0" /> -->
 </div>
 
 <style>

@@ -11,9 +11,14 @@
   const lolApi = getLolApi();
   const audioApi = getAudioApi();
 
+  function hideIntro(vars?: gsap.TimelineVars) {
+    const introTl = gsap.timeline(vars);
+    introTl.to("#title-screen_intro-text", { opacity: 0, duration: 1 });
+    return introTl;
+  }
   function revealText(vars?: gsap.TimelineVars) {
     const textTl = gsap.timeline(vars);
-    textTl.to("#title-screen_header", { opacity: 1, duration: 1 }, 1);
+    textTl.to("#title-screen_header", { opacity: 1, duration: 2 });
     textTl.to("#title-screen_subheader", { opacity: 1, duration: 1 });
     textTl.to("#title-screen_start-button", { opacity: 1, duration: 1 });
     return textTl;
@@ -49,6 +54,10 @@
     return subTl;
   }
 
+  let startIntro = $state(false);
+  let introIndex = $state(-1);
+  let backdropOpacity = $state(100);
+  let startTitle = $state(false);
   onMount(() => {
     gsap.set(
       [
@@ -61,22 +70,14 @@
       },
     );
 
+    startIntro = true;
+    introIndex = 0;
+    backdropOpacity = 44;
+
     audioApi.loadTrack({
-      src: "music/theme_main.mp3",
-      onload: () => {
-        // audioApi.playTrack({
-        //   src: "music/theme_main.mp3",
-        //   volume: 0.44,
-        //   loop: true,
-        // });
-        revealText({ delay: 1 });
-        surfaceSub({ delay: 4 });
-      },
+      src: "music/theme_song.mp3",
     });
   });
-
-  let startIntro = $state(false);
-  let introIndex = $state(-1);
 </script>
 
 <div id="title-screen" class="size-full">
@@ -96,8 +97,10 @@
         onclick={() => {
           hideText({
             onComplete: () => {
-              startIntro = true;
-              introIndex = 0;
+              submergeSub({
+                delay: 1,
+                onComplete: () => gameApi.fadeScene("/ch1"),
+              });
             },
           });
         }}
@@ -107,7 +110,7 @@
       </button>
     </div>
     <button
-      id="title-screen_game-intro"
+      id="title-screen_intro-text"
       onclick={() => {
         introIndex++;
       }}
@@ -115,20 +118,30 @@
         ? 'opacity-100 pointer-events-auto'
         : 'opacity-0 pointer-events-none'}"
     >
+      <div class="backdrop" style="opacity: {backdropOpacity}%"></div>
       <GameIntro
-        class="absolute top-0 p-12"
+        class="absolute size-full top-0 p-12"
         textIndex={introIndex}
         onFinished={() => {
-          startIntro = false;
-          submergeSub({
-            delay: 1,
-            onComplete: () => gameApi.fadeScene("/ch1"),
+          hideIntro({
+            onComplete: () => {
+              startIntro = false;
+
+              startTitle = true;
+              revealText({ delay: 4 });
+              surfaceSub({ delay: 2 });
+              audioApi.playTrack({
+                src: "music/theme_song.mp3",
+                volume: 0.44,
+                loop: true,
+              });
+            },
           });
         }}
       />
     </button>
   </div>
-  <SkyOcean />
+  <SkyOcean start={startTitle} />
   <div
     class="absolute left-1/2 -translate-x-1/2 bottom-[22%] w-[111px] h-[111px] overflow-hidden"
   >
@@ -143,12 +156,16 @@
 
     z-index: 1;
   }
-  #title-screen_game-intro {
-    background-color: rgba(0, 0, 0, 0.22);
-    transition: opacity 1s;
-  }
   .text-title {
     text-shadow: 1px 1px 2px black;
+  }
+  .backdrop {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background: black;
+    transition: opacity 11s;
   }
   #sub-image {
     bottom: -100%;

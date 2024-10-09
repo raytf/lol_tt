@@ -3,7 +3,9 @@
   import { gsap } from "gsap";
   import ocean from "$assets/ocean_waves.jpg";
 
-  const sunRiseTl = gsap.timeline();
+  let { start = false } = $props();
+
+  const sunRiseTl = gsap.timeline({ paused: true });
   onMount(() => {
     sunRiseTl.to(
       ".ambient",
@@ -41,6 +43,12 @@
       },
       1,
     );
+  });
+
+  $effect(() => {
+    if (start) {
+      sunRiseTl.play();
+    }
   });
 </script>
 
@@ -87,12 +95,16 @@
     --s2: #e8ed92;
     --cloud: #fea798;
 
+    /* --n-sky1: #5b2c83;
+    --n-sky2: #d1628b; */
+
     position: absolute;
     top: 0;
     width: 100%;
     height: 100%;
 
     background: linear-gradient(var(--v1), var(--s1), var(--v1));
+    /* background: linear-gradient(var(--n-sky1), var(--n-sky2), var(--n-sky1)); */
   }
   #scenery * {
     position: absolute;
@@ -104,7 +116,7 @@
   .sun {
     top: 100%;
     left: 50%;
-    translate: -50% 0;
+    translate: -50% 10%;
 
     background: #ffe;
     border-radius: 50%;
@@ -130,9 +142,10 @@
   }
   #ocean-image {
     left: -1%;
+    top: -1%;
     max-width: none;
     width: 102%;
-    height: 100%;
+    height: 102%;
     opacity: 0.1;
     filter: url(#turbulence);
   }
