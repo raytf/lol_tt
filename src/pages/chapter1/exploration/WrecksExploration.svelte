@@ -6,6 +6,7 @@
   import { UpperOcean, LowerOcean, Shipwreck } from "./backgrounds";
   import Submarine from "$components/visual/Submarine.svelte";
   import { InfoMarker } from "$components/ui/buttons";
+  import { MissionBriefDialog } from "../dialogs";
   import {
     setTarget as setSubTarget,
     setPosition as setSubPosition,
@@ -60,6 +61,7 @@
 </script>
 
 <Inventory />
+<MissionBriefDialog />
 <Grid
   xOffset={$xOffset}
   yOffset={$yOffset}

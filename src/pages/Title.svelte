@@ -19,7 +19,7 @@
   function revealText(vars?: gsap.TimelineVars) {
     const textTl = gsap.timeline(vars);
     textTl.to("#title-screen_header", { opacity: 1, duration: 4 });
-    textTl.to("#title-screen_subheader", { opacity: 1, duration: 2 }, 2);
+    textTl.to("#title-screen_subheader", { opacity: 1, duration: 1 });
     textTl.to("#title-screen_start-button", { opacity: 1, duration: 1 });
     return textTl;
   }
@@ -97,11 +97,12 @@
         onclick={() => {
           hideText({
             onComplete: () => {
-              audioApi.stopTrack("music/theme_song.mp3", true);
-
               submergeSub({
                 delay: 1,
-                onComplete: () => gameApi.fadeScene("/ch1"),
+                onComplete: () => {
+                  audioApi.stopTrack("music/theme_song.mp3", true);
+                  gameApi.fadeScene("/ch1");
+                },
               });
             },
           });
@@ -134,7 +135,7 @@
 
               startTitle = true;
               revealText({ delay: 2 });
-              surfaceSub({ delay: 1 });
+              surfaceSub({ delay: 4 });
               audioApi.playTrack({
                 src: "music/theme_song.mp3",
                 volume: 0.44,

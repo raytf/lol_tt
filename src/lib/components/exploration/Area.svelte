@@ -48,7 +48,7 @@
   {#if revealInstruction}
     <div
       transition:fade={{ duration: 2000 }}
-      class="container-instruction text-4xl pt-8"
+      class="container-instruction text-4xl pt-14"
     >
       <HandClick />
       <p class="ml-2">{getLolApi().getText("explore")}</p>

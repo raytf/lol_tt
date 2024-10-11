@@ -8,6 +8,7 @@
     name,
     text,
     italic = false,
+    top = false,
     ...props
   }: {
     onclick: (e: MouseEvent) => void;
@@ -16,11 +17,16 @@
     name: Snippet;
     text: Snippet;
     italic?: boolean;
+    top?: boolean;
   } = $props();
 </script>
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
-<div {onclick} class="container size-full {extraClass}" {...props}>
+<div
+  {onclick}
+  class="container {top ? 'items-start' : 'items-end'} {extraClass}"
+  {...props}
+>
   <div class="mr-2">
     {@render avatar()}
   </div>
@@ -36,12 +42,14 @@
   .container {
     cursor: pointer;
     position: absolute;
+    height: 100%;
+    width: 100%;
     bottom: 0;
+    padding-top: 44px;
     padding-bottom: 22px;
 
     display: flex;
     justify-content: center;
-    align-items: flex-end;
 
     z-index: 10;
   }
