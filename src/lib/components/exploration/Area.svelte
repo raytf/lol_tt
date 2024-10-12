@@ -106,6 +106,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    z-index: 20;
   }
   .container-nav {
     position: absolute;

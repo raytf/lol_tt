@@ -18,7 +18,10 @@
   }
   function revealText(vars?: gsap.TimelineVars) {
     const textTl = gsap.timeline(vars);
-    textTl.to("#title-screen_header", { opacity: 1, duration: 4 });
+    textTl.to("#title-screen_header", {
+      opacity: 1,
+      duration: 4,
+    });
     textTl.to("#title-screen_subheader", { opacity: 1, duration: 1 });
     textTl.to("#title-screen_start-button", { opacity: 1, duration: 1 });
     return textTl;
@@ -101,9 +104,9 @@
                 delay: 1,
                 onComplete: () => {
                   audioApi.stopTrack("music/theme_song.mp3", true);
-                  gameApi.fadeScene("/ch1");
                 },
               });
+              gameApi.fadeScene("/ch1", 3);
             },
           });
           audioApi.loadTrack({
@@ -138,7 +141,7 @@
               surfaceSub({ delay: 4 });
               audioApi.playTrack({
                 src: "music/theme_song.mp3",
-                volume: 0.44,
+                volume: 0.66,
                 loop: true,
               });
             },
