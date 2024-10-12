@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { DialogOption, DialogKey } from "$components/dialog";
+  import type { DialogKey } from "$components/dialog";
   import { getLolApi } from "$apis/lol.svelte";
   const lolApi = getLolApi();
 
@@ -12,9 +12,9 @@
   } = $props();
 </script>
 
-{#if key.options}
-  <div class="container-options">
-    {#each key.options as option, i}
+<div class="container-options">
+  {#if key.options}
+    {#each key.options as option}
       <button
         class="button-option"
         onclick={() => {
@@ -31,15 +31,15 @@
         {lolApi.getText(option.text)}
       </button>
     {/each}
-  </div>
-{/if}
+  {/if}
+</div>
 
 <style>
   .container-options {
     position: absolute;
     height: 100%;
     width: 100%;
-    background: rgba(0, 0, 0, 0.22);
+    background: rgba(0, 0, 0, 0.44);
     padding: 2em;
     padding-top: 222px;
 
@@ -48,6 +48,7 @@
     justify-content: flex-start;
     align-items: center;
     text-align: center;
+    user-select: none;
     z-index: 100;
   }
   .button-option {

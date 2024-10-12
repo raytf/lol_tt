@@ -8,28 +8,27 @@
   let {
     keys,
     hint = false,
-    once = true,
     top = false,
     onProceed,
     onFinished,
   }: {
     keys: DialogKey[];
-    once?: boolean;
     hint?: boolean;
     top?: boolean;
     onProceed?: () => void;
-    onFinished?: (nextDialog: DialogKey[]) => void;
+    onFinished?: () => void;
   } = $props();
 
+  let dialogArray = $state([...keys]);
   let dialogIndex = $state(0);
   let showDialog = $state(true);
   let showOptions = $state(false);
 
-  function proceed(nextDialog: DialogKey[] = []) {
+  function proceed() {
     dialogIndex++;
-    if (dialogIndex < keys.length) {
-      // Add alreadyRead functionality here
-      lolApi.speakText(keys[dialogIndex].text);
+    showOptions = false;
+    if (dialogIndex < dialogArray.length) {
+      lolApi.speakText(dialogArray[dialogIndex].text);
       if (onProceed) {
         onProceed();
       }
@@ -37,23 +36,26 @@
     }
 
     if (onFinished) {
-      onFinished(nextDialog);
-      showOptions = false;
-      if (!once) dialogIndex = 0;
+      onFinished();
     }
   }
 
+  function insertDialog(dialog: DialogKey[] = []) {
+    dialogArray.splice(dialogIndex + 1, 0, ...dialog);
+  }
+
   onMount(() => {
-    if (keys.length > 0) lolApi.speakText(keys[0].text);
+    // Speak the first dialog
+    if (dialogArray.length > 0) lolApi.speakText(dialogArray[0].text);
   });
 </script>
 
-{#each keys as key, i}
+{#each dialogArray as key, i}
   {#if i === dialogIndex}
     {#if showDialog}
       <DialogBox
-        onclick={key.options ? () => (showOptions = true) : () => proceed()}
-        italic={hint}
+        onclick={key.options ? () => (showOptions = true) : proceed}
+        italic={hint || key.italic}
         {top}
       >
         {#snippet avatar()}
@@ -80,7 +82,13 @@
       </DialogBox>
     {/if}
     {#if key.options && (key.alreadyRead || showOptions)}
-      <Options {key} onclickOption={proceed} />
+      <Options
+        {key}
+        onclickOption={(nextDialog) => {
+          insertDialog(nextDialog);
+          proceed();
+        }}
+      />
     {/if}
   {/if}
 {/each}

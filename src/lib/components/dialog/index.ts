@@ -4,6 +4,7 @@ export type DialogKey = {
   text: string;
   options?: DialogOption[];
   alreadyRead?: boolean;
+  italic?: boolean;
 };
 
 export type DialogOption = {

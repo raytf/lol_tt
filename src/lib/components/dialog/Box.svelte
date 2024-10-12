@@ -50,6 +50,7 @@
 
     display: flex;
     justify-content: center;
+    user-select: none;
 
     z-index: 10;
   }
