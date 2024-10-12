@@ -28,6 +28,7 @@
   function proceed(nextDialog: DialogKey[] = []) {
     dialogIndex++;
     if (dialogIndex < keys.length) {
+      // Add alreadyRead functionality here
       lolApi.speakText(keys[dialogIndex].text);
       if (onProceed) {
         onProceed();
@@ -51,7 +52,7 @@
   {#if i === dialogIndex}
     {#if showDialog}
       <DialogBox
-        onclick={key.options ? () => (showOptions = true) : () => proceed([])}
+        onclick={key.options ? () => (showOptions = true) : () => proceed()}
         italic={hint}
         {top}
       >
@@ -78,8 +79,8 @@
         {/snippet}
       </DialogBox>
     {/if}
-    {#if showOptions && key.options}
-      <Options options={key.options} onclickOption={proceed} />
+    {#if key.options && (key.alreadyRead || showOptions)}
+      <Options {key} onclickOption={proceed} />
     {/if}
   {/if}
 {/each}

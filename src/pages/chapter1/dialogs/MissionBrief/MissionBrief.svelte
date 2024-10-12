@@ -61,6 +61,7 @@
               text: "ch1_2-4_o1",
             },
           ],
+          repeat: true,
         },
       ],
     },

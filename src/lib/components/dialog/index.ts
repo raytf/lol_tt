@@ -3,11 +3,13 @@ export type DialogKey = {
   name?: string;
   text: string;
   options?: DialogOption[];
+  alreadyRead?: boolean;
 };
 
 export type DialogOption = {
   text: string;
   nextDialog: DialogKey[];
+  repeat?: boolean;
 };
 
 import Dialog from "./Dialog.svelte";

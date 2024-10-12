@@ -1,30 +1,38 @@
 <script lang="ts">
   import type { DialogOption, DialogKey } from "$components/dialog";
-  import { Dialog } from "$components/dialog";
   import { getLolApi } from "$apis/lol.svelte";
   const lolApi = getLolApi();
 
   let {
-    options,
+    key,
     onclickOption,
   }: {
-    options: DialogOption[];
+    key: DialogKey;
     onclickOption: (nextDialog: DialogKey[]) => void;
   } = $props();
 </script>
 
-<div class="container-options">
-  {#each options as option, i}
-    <button
-      class="button-option"
-      onclick={() => {
-        onclickOption(options[i].nextDialog);
-      }}
-    >
-      {lolApi.getText(option.text)}
-    </button>
-  {/each}
-</div>
+{#if key.options}
+  <div class="container-options">
+    {#each key.options as option, i}
+      <button
+        class="button-option"
+        onclick={() => {
+          const nextDialog = [...option.nextDialog];
+          if (option.repeat) {
+            const originalDialog = { ...key };
+            originalDialog.alreadyRead = true;
+            nextDialog.push(originalDialog);
+          }
+
+          onclickOption(nextDialog);
+        }}
+      >
+        {lolApi.getText(option.text)}
+      </button>
+    {/each}
+  </div>
+{/if}
 
 <style>
   .container-options {
