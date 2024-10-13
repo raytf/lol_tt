@@ -31,7 +31,7 @@
         duration: 1,
         y: 11,
         opacity: 0,
-        stagger: 0.05,
+        stagger: 0.04,
       });
       tls.push(tl);
     });
