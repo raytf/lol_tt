@@ -1,5 +1,17 @@
 <script lang="ts">
-  let { src, class: extraClass }: { src: string; class: string } = $props();
+  let {
+    src,
+    minFrequency = [0.02, 0.06],
+    maxFrequency = [0.04, 0.08],
+    duration = 11,
+    class: extraClass,
+  }: {
+    src: string;
+    duration?: number;
+    minFrequency?: number[];
+    maxFrequency?: number[];
+    class: string;
+  } = $props();
 </script>
 
 <img {src} alt="" class="image-turbulent {extraClass}" />
@@ -15,9 +27,9 @@
     <animate
       xlink:href="#ocean-filter"
       attributeName="baseFrequency"
-      dur="11s"
+      dur="{duration}s"
       keyTimes="0;1"
-      values="0.02 0.06;0.04 0.08"
+      values="{minFrequency[0]} {minFrequency[1]};{maxFrequency[0]} {maxFrequency[1]}"
       repeatCount="indefinite"
     />
   </filter>
