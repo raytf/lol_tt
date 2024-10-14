@@ -38,18 +38,10 @@
     if (textIndex < keys.length) {
       tls[textIndex].play();
       lolApi.speakText(keys[textIndex]);
+    } else {
+      if (onFinished) onFinished();
     }
   }
-
-  $effect(() => {
-    // if (textIndex < 0) return;
-    // if (textIndex < keys.length) {
-    //   tls[textIndex].play();
-    //   lolApi.speakText(keys[textIndex]);
-    // } else {
-    //   if (onFinished) onFinished();
-    // }
-  });
 </script>
 
 <button

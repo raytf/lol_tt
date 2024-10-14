@@ -3,6 +3,8 @@
   import { TextOverlay } from "$lib/components/text";
   import TurbulentImg from "$components/exploration/TurbulentImg.svelte";
   import ocean from "$assets/prologue/tritons-triangle.jpg";
+  import { getGameApi } from "$apis/game.svelte";
+  const gameApi = getGameApi();
 </script>
 
 <div class="size-full">
@@ -16,6 +18,7 @@
   <div class="absolute size-full bg-black opacity-50"></div>
   <TextOverlay
     keys={["intro_1-1", "intro_1-2", "intro_1-3", "intro_1-4", "intro_1-5"]}
+    onFinished={() => gameApi.fadeScene("/title")}
   />
 </div>
 
