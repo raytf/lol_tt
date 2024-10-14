@@ -1,2 +1,2 @@
-import GameIntro from "./GameIntro.svelte";
-export { GameIntro };
+import Overlay from "./Overlay.svelte";
+export { Overlay as TextOverlay };

@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import { gsap } from "gsap";
   import { SkyOcean } from "$components/visual/scenery";
-  import { GameIntro } from "$components/text";
+  import { TextOverlay } from "$components/text";
   import sub from "$assets/sprites/sub.png";
   import { getGameApi } from "$apis/game.svelte";
   import { getLolApi } from "$apis/lol.svelte";
@@ -128,7 +128,7 @@
         : 'opacity-0 pointer-events-none'}"
     >
       <div class="backdrop" style="opacity: {backdropOpacity}%"></div>
-      <GameIntro
+      <!-- <GameIntro
         class="absolute size-full top-0 p-12"
         textIndex={introIndex}
         onFinished={() => {
@@ -147,7 +147,7 @@
             },
           });
         }}
-      />
+      /> -->
     </button>
   </div>
   <SkyOcean start={startTitle} />
