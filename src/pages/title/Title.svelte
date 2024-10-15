@@ -4,7 +4,7 @@
   import { gsap } from "gsap";
   import { TurbulentImg } from "$components/ui/img";
   import { TextOverlay } from "$components/text";
-  import ocean from "$assets/prologue/tritons-triangle.jpg";
+  import ocean from "$assets/title/tritons-triangle.jpg";
   import { getGameApi, getLolApi, getAudioApi } from "$apis";
   const gameApi = getGameApi();
   const lolApi = getLolApi();
@@ -65,12 +65,12 @@
     <div transition:fade class="absolute size-full z-10">
       <TextOverlay
         keys={[
-          "intro_1-1",
-          "intro_1-2",
-          "intro_1-3",
-          "intro_1-4",
-          "intro_1-5",
-          "intro_1-6",
+          "intro_1",
+          "intro_2",
+          "intro_3",
+          "intro_4",
+          "intro_5",
+          "intro_6",
         ]}
         onFinished={() => {
           startIntro = false;

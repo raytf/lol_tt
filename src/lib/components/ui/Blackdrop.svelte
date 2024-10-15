@@ -1,6 +1,16 @@
 <script lang="ts">
-  let { id, class: extraClass = "" }: { id?: string; class?: string } =
-    $props();
+  let {
+    opacity = 100,
+    transitionDuration = 1,
+    class: extraClass = "",
+  }: {
+    opacity?: number;
+    transitionDuration?: number;
+    class?: string;
+  } = $props();
 </script>
 
-<div {id} class="absolute size-full bg-black {extraClass}"></div>
+<div
+  class="absolute size-full bg-black {extraClass}"
+  style="transition-property: opacity; transition-duration: {transitionDuration}s; opacity: {opacity}%"
+></div>

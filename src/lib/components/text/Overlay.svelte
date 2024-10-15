@@ -49,9 +49,9 @@
     textIndex++;
     playLine();
   }}
-  class="absolute size-full"
+  class="absolute size-full {extraClass}"
 >
-  <div class="container-text {extraClass}">
+  <div class="container-text">
     {#each keys as key, i}
       <p id="text-overlay_{i}" class="text-overlay text-xl p-4">
         {lolApi.getText(key)}
@@ -68,5 +68,6 @@
     align-items: center;
 
     text-align: center;
+    padding: 1em;
   }
 </style>
