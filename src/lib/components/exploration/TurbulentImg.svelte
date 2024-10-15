@@ -4,14 +4,21 @@
     minFrequency = [0.02, 0.06],
     maxFrequency = [0.04, 0.08],
     duration = 11,
+    yoyo = false,
     class: extraClass,
   }: {
     src: string;
     duration?: number;
     minFrequency?: number[];
     maxFrequency?: number[];
+    yoyo?: boolean;
     class: string;
   } = $props();
+
+  const freqKeyTimes = `0;${yoyo ? "0.5;" : ""}1`;
+  const freqValues = `${minFrequency[0]} ${minFrequency[1]};${maxFrequency[0]} ${maxFrequency[1]}${
+    yoyo ? `;${minFrequency[0]} ${minFrequency[1]}` : ""
+  }`;
 </script>
 
 <img {src} alt="" class="image-turbulent {extraClass}" />
@@ -28,8 +35,8 @@
       xlink:href="#ocean-filter"
       attributeName="baseFrequency"
       dur="{duration}s"
-      keyTimes="0;1"
-      values="{minFrequency[0]} {minFrequency[1]};{maxFrequency[0]} {maxFrequency[1]}"
+      keyTimes={freqKeyTimes}
+      values={freqValues}
       repeatCount="indefinite"
     />
   </filter>
