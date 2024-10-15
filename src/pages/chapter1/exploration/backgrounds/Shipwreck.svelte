@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
-  import { Area, BgImg, TurbulentImg } from "$components/exploration";
+  import { BgImg, TurbulentImg } from "$components/ui/img";
+  import { Area } from "$components/exploration";
   import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
   import relics2 from "$assets/relics/relics_2.svg";
   import relics3 from "$assets/relics/relics_3.svg";

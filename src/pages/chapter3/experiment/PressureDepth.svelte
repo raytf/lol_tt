@@ -2,7 +2,8 @@
   import { onMount } from "svelte";
   import { tweened } from "svelte/motion";
   import BackupInit from "$lib/components/BackupInit.svelte";
-  import { Grid, Area, BgImg } from "$components/exploration";
+  import { BgImg } from "$components/ui/img";
+  import { Grid, Area } from "$components/exploration";
   import Inventory from "$components/inventory";
   import { Dialog } from "$components/dialog";
   import {

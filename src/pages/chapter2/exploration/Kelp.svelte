@@ -1,10 +1,11 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { tweened } from "svelte/motion";
+  import { BgImg, TurbulentImg } from "$lib/components/ui/img";
   import BackupInit from "$lib/components/BackupInit.svelte";
-  import { Grid, Area, BgImg, TurbulentImg } from "$components/exploration";
+  import { Grid, Area } from "$components/exploration";
   import Inventory from "$components/inventory";
-  import { InfoMarker } from "$components/ui/buttons";
+  import { InfoMarker } from "$lib/components/ui/button";
   import type { DialogKey } from "$components/dialog";
   import { Dialog, QuestionDialog } from "$components/dialog";
   import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
@@ -118,7 +119,6 @@
 />
 
 <Dialog
-  once={false}
   keys={dialogKeys}
   onFinished={() => {
     dialogKeys = [];

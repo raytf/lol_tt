@@ -2,14 +2,15 @@
   import { onMount } from "svelte";
   import { tweened } from "svelte/motion";
   import BackupInit from "$lib/components/BackupInit.svelte";
-  import { Grid, Area, BgImg } from "$components/exploration";
+  import { BgImg } from "$components/ui/img";
+  import { Grid, Area } from "$components/exploration";
   import Inventory from "$components/inventory";
   import type { DialogKey } from "$components/dialog";
-  import { InfoMarker } from "$components/ui/buttons";
+  import { InfoMarker } from "$lib/components/ui/button";
   import { Dialog, QuestionDialog } from "$components/dialog";
   import { ItemUnlockScreen, ItemCard } from "$components/inventory";
   import { GaugeScreen } from "$components/inventory";
-  import { SimpleButton } from "$components/ui/buttons";
+  import { SimpleButton } from "$lib/components/ui/button";
   import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
   import Submarine from "$components/visual/Submarine.svelte";
   import Squid from "$components/visual/Squid.svelte";

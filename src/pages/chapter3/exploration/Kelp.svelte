@@ -2,9 +2,10 @@
   import { onMount } from "svelte";
   import { tweened } from "svelte/motion";
   import BackupInit from "$lib/components/BackupInit.svelte";
-  import { Grid, Area, BgImg } from "$components/exploration";
+  import { BgImg } from "$components/ui/img";
+  import { Grid, Area } from "$components/exploration";
   import Inventory from "$components/inventory";
-  import { InfoMarker } from "$components/ui/buttons";
+  import { InfoMarker } from "$lib/components/ui/button";
   import type { DialogKey } from "$components/dialog";
   import { Dialog, QuestionDialog } from "$components/dialog";
   import { ItemUnlockScreen, ItemCard } from "$components/inventory";
@@ -212,7 +213,6 @@
 />
 
 <Dialog
-  once={false}
   keys={dialogKeys}
   onFinished={() => {
     dialogKeys = [];

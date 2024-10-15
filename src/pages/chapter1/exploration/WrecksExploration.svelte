@@ -1,11 +1,12 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { Grid, Area, TurbulentImg } from "$components/exploration";
+  import { TurbulentImg } from "$lib/components/ui/img";
+  import { Grid, Area } from "$components/exploration";
   import Inventory, { ItemUnlockScreen, ItemCard } from "$components/inventory";
   import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
-  import { UpperOcean, LowerOcean, Shipwreck } from "./backgrounds";
+  import { Shipwreck } from "./backgrounds";
   import Submarine from "$components/visual/Submarine.svelte";
-  import { InfoMarker } from "$components/ui/buttons";
+  import { InfoMarker } from "$lib/components/ui/button";
   import { Dialog } from "$components/dialog";
   import { missionBriefDialog } from "../dialog";
   import {
