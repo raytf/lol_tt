@@ -52,6 +52,8 @@
     height: 102%;
     filter: url(#turbulence);
     pointer-events: none;
+
+    will-change: transform;
   }
   svg {
     position: absolute;

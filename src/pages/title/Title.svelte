@@ -2,7 +2,6 @@
   import { onMount } from "svelte";
   import { fade, blur } from "svelte/transition";
   import { gsap } from "gsap";
-  import { Blackdrop } from "$components/ui";
   import { TurbulentImg } from "$components/ui/img";
   import { TextOverlay } from "$components/text";
   import ocean from "$assets/prologue/tritons-triangle.jpg";
@@ -13,7 +12,13 @@
 
   function zoomIn(vars?: gsap.TimelineVars) {
     const zoomTl = gsap.timeline(vars);
-    zoomTl.to(".pg-title_bg", { scale: 1.2, duration: 8 });
+    zoomTl.to(".pg-title_bg", { scale: 1.2, duration: 6 });
+    return zoomTl;
+  }
+
+  function zoomInMore(vars?: gsap.TimelineVars) {
+    const zoomTl = gsap.timeline(vars);
+    zoomTl.to(".pg-title_bg", { scale: 1.4, duration: 2 });
     return zoomTl;
   }
 
@@ -29,7 +34,7 @@
   }
 
   let startIntro = $state(true);
-  let startTitle = $state(false);
+  let startTitle = $state(true);
   let blackdropOpacity = $state(100);
   onMount(() => {
     gsap.set(
@@ -69,8 +74,6 @@
         ]}
         onFinished={() => {
           startIntro = false;
-          startTitle = true;
-
           blackdropOpacity = 0;
           zoomIn();
           revealText({ delay: 2 });
@@ -83,25 +86,34 @@
       />
     </div>
   {/if}
-  <div class="relative size-full flex flex-col items-center">
-    <h1 id="pg-title_header" class="text-title text-8xl font-bold mt-24">
-      {lolApi.getText("title")}
-    </h1>
-    <p id="pg-title_subheader" class="text-title text-4xl font-bold p-4">
-      {lolApi.getText("subtitle")}
-    </p>
-    <div class="grow w-full flex flex-col justify-end items-center">
-      <button
-        id="pg-title_button-start"
-        onclick={() => {
-          console.log("start");
-        }}
-        class="text-title p-12"
-      >
-        <p class="text-2xl">{lolApi.getText("start")}</p>
-      </button>
+  {#if startTitle}
+    <div out:blur class="relative size-full flex flex-col items-center">
+      <h1 id="pg-title_header" class="text-title text-8xl font-bold mt-24">
+        {lolApi.getText("title")}
+      </h1>
+      <p id="pg-title_subheader" class="text-title text-4xl font-bold p-4">
+        {lolApi.getText("subtitle")}
+      </p>
+      <div class="grow w-full flex flex-col justify-end items-center">
+        <button
+          id="pg-title_button-start"
+          onclick={() => {
+            startTitle = false;
+
+            gameApi.fadeScene("/prologue", 2.5);
+            zoomInMore({
+              onComplete: () => {
+                audioApi.stopTrack("music/theme_song.mp3", true);
+              },
+            });
+          }}
+          class="text-title p-12"
+        >
+          <p class="text-2xl">{lolApi.getText("start")}</p>
+        </button>
+      </div>
     </div>
-  </div>
+  {/if}
 </div>
 
 <style>
