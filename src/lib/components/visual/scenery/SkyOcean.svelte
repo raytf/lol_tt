@@ -5,13 +5,13 @@
 
   let { start = false } = $props();
 
-  const sunRiseTl = gsap.timeline({ paused: true });
+  const sunRiseTl = gsap.timeline({ paused: true, repeat: -1 });
   onMount(() => {
     sunRiseTl.to(
       ".ambient",
       {
         opacity: 1,
-        duration: 11,
+        duration: 222,
       },
       0,
     );
@@ -21,7 +21,7 @@
         x: 0,
         y: "-88vmin",
         z: "20vmin",
-        duration: 11,
+        duration: 222,
       },
       0,
     );
@@ -31,7 +31,7 @@
         x: 0,
         y: "88vmin",
         z: "20vmin",
-        duration: 11,
+        duration: 222,
       },
       0,
     );
@@ -39,7 +39,7 @@
       ".sun-reflection .sun",
       {
         opacity: 0.22,
-        duration: 2,
+        duration: 22,
       },
       1,
     );
