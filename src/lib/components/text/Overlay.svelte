@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import { onMount, untrack } from "svelte";
   import { gsap } from "gsap";
   import { SplitText } from "gsap/SplitText";
   import { getLolApi } from "$apis/lol.svelte";
@@ -36,12 +36,6 @@
     });
   });
 
-  $effect(() => {
-    if (active) {
-      playLine();
-    }
-  });
-
   function playLine() {
     if (textIndex < keys.length) {
       tls[textIndex].play();
@@ -53,6 +47,12 @@
       }
     }
   }
+
+  $effect(() => {
+    if (active) {
+      untrack(() => playLine());
+    }
+  });
 </script>
 
 <button

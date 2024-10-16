@@ -102,9 +102,7 @@
             onComplete: () => {
               submergeSub({
                 delay: 1,
-                onComplete: () => {
-                  audioApi.stopTrack("music/theme_song.mp3", true);
-                },
+                onComplete: () => {},
               });
               gameApi.fadeScene("/ch1", 3);
             },

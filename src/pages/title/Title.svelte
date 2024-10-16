@@ -12,13 +12,13 @@
 
   function zoomIn(vars?: gsap.TimelineVars) {
     const zoomTl = gsap.timeline(vars);
-    zoomTl.to(".pg-title_bg", { scale: 1.2, duration: 6 });
+    zoomTl.to(".pg-title_bg", { scale: 1.22, duration: 6 });
     return zoomTl;
   }
 
   function zoomInMore(vars?: gsap.TimelineVars) {
     const zoomTl = gsap.timeline(vars);
-    zoomTl.to(".pg-title_bg", { scale: 1.4, duration: 2 });
+    zoomTl.to(".pg-title_bg", { scale: 1.33, duration: 2 });
     return zoomTl;
   }
 
@@ -81,6 +81,7 @@
             src: "music/into-the-blue.mp3",
             volume: 0.66,
             loop: true,
+            fadeTime: 2222,
           });
         }}
       />
