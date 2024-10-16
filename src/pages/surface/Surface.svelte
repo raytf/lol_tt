@@ -43,16 +43,14 @@
         tlHeading.reverse();
         setTimeout(() => {
           startDialog = true;
-        }, 1000);
+        }, 1500);
       },
     });
   });
 </script>
 
 {#if startDialog}
-  <div transition:fade>
-    <Dialog top={true} keys={missionBrief} />
-  </div>
+  <Dialog top={true} keys={missionBrief} />
 {/if}
 <div class="relative size-full">
   <div class="absolute size-full z-[1]">

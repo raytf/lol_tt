@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import { fade } from "svelte/transition";
   import type { DialogKey } from "$components/dialog";
   import { DialogBox, Options } from "$components/dialog";
   import { getLolApi } from "$apis/lol.svelte";
@@ -21,6 +22,12 @@
 
   let dialogArray = $state([...keys]);
   let dialogIndex = $state(0);
+  let currentKey = $derived.by(() => {
+    if (dialogIndex >= dialogArray.length) {
+      return null;
+    }
+    return dialogArray[dialogIndex];
+  });
   let showOptions = $state(false);
 
   function proceed() {
@@ -51,39 +58,41 @@
   });
 </script>
 
-{#each dialogArray as key, i}
-  {#if i === dialogIndex}
-    <DialogBox
-      onclick={key.options ? () => (showOptions = true) : proceed}
-      italic={hint || key.italic}
-      {top}
-    >
-      {#snippet avatar()}
-        <div class="relative w-[111px] h-[111px]">
-          {#if key.imgSrc}
-            <img src={key.imgSrc} alt="avatar" class="size-full select-none" />
-          {/if}
-        </div>
-      {/snippet}
-      {#snippet name()}
-        {#if key.name}
-          {lolApi.getText(key.name)}
-        {:else}
-          ???
+{#if currentKey}
+  <DialogBox
+    onclick={currentKey.options ? () => (showOptions = true) : proceed}
+    italic={hint || currentKey.italic}
+    {top}
+  >
+    {#snippet avatar()}
+      <div class="relative w-[111px] h-[111px]">
+        {#if currentKey.imgSrc}
+          <img
+            src={currentKey.imgSrc}
+            alt="avatar"
+            class="size-full select-none"
+          />
         {/if}
-      {/snippet}
-      {#snippet text()}
-        {@html lolApi.getText(key.text)}
-      {/snippet}
-    </DialogBox>
-    {#if key.options && (key.alreadyRead || showOptions)}
-      <Options
-        {key}
-        onclickOption={(nextDialog) => {
-          insertDialog(nextDialog);
-          proceed();
-        }}
-      />
-    {/if}
+      </div>
+    {/snippet}
+    {#snippet name()}
+      {#if currentKey.name}
+        {lolApi.getText(currentKey.name)}
+      {:else}
+        ???
+      {/if}
+    {/snippet}
+    {#snippet text()}
+      {@html lolApi.getText(currentKey.text)}
+    {/snippet}
+  </DialogBox>
+  {#if currentKey.options && (currentKey.alreadyRead || showOptions)}
+    <Options
+      key={currentKey}
+      onclickOption={(nextDialog) => {
+        insertDialog(nextDialog);
+        proceed();
+      }}
+    />
   {/if}
-{/each}
+{/if}

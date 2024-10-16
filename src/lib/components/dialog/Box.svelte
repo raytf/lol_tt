@@ -1,5 +1,8 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
+  import { onMount } from "svelte";
+  import { gsap } from "gsap";
+  import { fade } from "svelte/transition";
 
   let {
     onclick,
@@ -19,12 +22,20 @@
     italic?: boolean;
     top?: boolean;
   } = $props();
+
+  onMount(() => {
+    gsap.to(".container_dialog-box", {
+      opacity: 1,
+      duration: 1,
+    });
+  });
 </script>
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div
+  out:fade|global
   {onclick}
-  class="container {top ? 'items-start' : 'items-end'} {extraClass}"
+  class="container_dialog-box {top ? 'items-start' : 'items-end'} {extraClass}"
   {...props}
 >
   <div class="mr-2">
@@ -39,7 +50,7 @@
 </div>
 
 <style>
-  .container {
+  .container_dialog-box {
     cursor: pointer;
     position: absolute;
     height: 100%;
@@ -53,6 +64,8 @@
     user-select: none;
 
     z-index: 10;
+
+    opacity: 0;
   }
   .box {
     position: relative;

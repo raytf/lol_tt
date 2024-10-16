@@ -1,5 +1,8 @@
 <script lang="ts">
   import type { DialogKey } from "$components/dialog";
+  import { onMount } from "svelte";
+  import { fade } from "svelte/transition";
+  import { gsap } from "gsap";
   import { getLolApi } from "$apis/lol.svelte";
   const lolApi = getLolApi();
 
@@ -10,9 +13,16 @@
     key: DialogKey;
     onclickOption: (nextDialog: DialogKey[]) => void;
   } = $props();
+
+  onMount(() => {
+    gsap.to(".container-options", {
+      opacity: 1,
+      duration: 1,
+    });
+  });
 </script>
 
-<div class="container-options">
+<div transition:fade|global class="container-options">
   {#if key.options}
     {#each key.options as option}
       <button
@@ -50,6 +60,7 @@
     text-align: center;
     user-select: none;
     z-index: 100;
+    opacity: 0;
   }
   .button-option {
     padding: 1em;
@@ -57,5 +68,13 @@
     border: 1px solid black;
     border-radius: 0.5em;
     background: rgba(0, 0, 0, 0.55);
+    transition: transform 0.5s;
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    -webkit-font-smoothing: subpixel-antialiased;
+  }
+  .button-option:hover {
+    transform: scale(1.022);
   }
 </style>
