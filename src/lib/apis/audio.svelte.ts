@@ -14,6 +14,14 @@ export interface TrackOptions {
   onload?: () => void;
 }
 
+export interface PlayTrackOptions {
+  src: string;
+  volume?: number;
+  loop?: boolean;
+  fade?: boolean;
+  fadeTime?: number;
+}
+
 export interface StopTrackOptions {
   src: string;
   fade?: boolean;
@@ -26,12 +34,7 @@ export class AudioApi {
   tracks = new Map<string, Track>();
   constructor() {}
 
-  loadTrack = ({
-    src,
-    volume = 1.0,
-    loop = false,
-    onload = () => {},
-  }: TrackOptions) => {
+  loadTrack = ({ src, onload = () => {} }: TrackOptions) => {
     if (src in this.tracks) {
       console.log("Track already loaded");
       return;
@@ -40,18 +43,24 @@ export class AudioApi {
     const fullSrc = `${import.meta.env.BASE_URL}${src}`;
     const sound = new Howl({
       src: [fullSrc],
-      volume: volume,
-      loop: loop,
+      volume: 0,
+      loop: false,
       onload: onload,
     });
     this.tracks.set(src, {
       sound: sound,
-      volume: volume,
+      volume: 0,
     });
     console.log("loaded new track", this.tracks);
   };
 
-  playTrack = ({ src, volume = 1.0, loop = false }: TrackOptions) => {
+  playTrack = ({
+    src,
+    volume = 1.0,
+    loop = false,
+    fade = true,
+    fadeTime = 1000,
+  }: PlayTrackOptions) => {
     const track = this.tracks.get(src);
     const sound = track?.sound;
     if (sound) {
@@ -63,7 +72,7 @@ export class AudioApi {
       sound.volume(0);
 
       const id = sound.play();
-      sound.fade(0, volume, 1000, id);
+      if (fade) sound.fade(0, volume, fadeTime, id);
       track.volume = volume;
       console.log("played track", this.tracks);
     } else {
