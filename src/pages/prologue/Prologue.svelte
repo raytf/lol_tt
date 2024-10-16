@@ -25,6 +25,7 @@
     }
     if (currentSequence >= textSequence.length) {
       gameApi.fadeScene("/surface", 2.4);
+      audioApi.stopTrack({ src: "music/tritons-triangle.mp3" });
     }
   }
 

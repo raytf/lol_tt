@@ -107,7 +107,7 @@
             gameApi.fadeScene("/prologue", 2.4);
             zoomInMore({
               onComplete: () => {
-                audioApi.stopTrack("music/into-the-blue.mp3", true);
+                audioApi.stopTrack({ src: "music/into-the-blue.mp3" });
               },
             });
           }}

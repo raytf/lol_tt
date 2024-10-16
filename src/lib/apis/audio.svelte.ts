@@ -14,6 +14,13 @@ export interface TrackOptions {
   onload?: () => void;
 }
 
+export interface StopTrackOptions {
+  src: string;
+  fade?: boolean;
+  fadeTime?: number;
+  unload?: boolean;
+}
+
 export class AudioApi {
   soundEnabled = $state(true);
   tracks = new Map<string, Track>();
@@ -41,19 +48,13 @@ export class AudioApi {
       sound: sound,
       volume: volume,
     });
-    console.log(this.tracks);
+    console.log("loaded new track", this.tracks);
   };
 
-  playTrack = ({
-    src,
-    volume = 1.0,
-    loop = false,
-    onload = () => {},
-  }: TrackOptions) => {
+  playTrack = ({ src, volume = 1.0, loop = false }: TrackOptions) => {
     const track = this.tracks.get(src);
     const sound = track?.sound;
     if (sound) {
-      console.log("sound state: " + sound.state());
       if (sound.playing()) {
         // Only one instance of sound at a time
         sound.stop();
@@ -64,7 +65,7 @@ export class AudioApi {
       const id = sound.play();
       sound.fade(0, volume, 1000, id);
       track.volume = volume;
-      console.log(this.tracks);
+      console.log("played track", this.tracks);
     } else {
       this.loadTrack({
         src,
@@ -77,7 +78,12 @@ export class AudioApi {
     }
   };
 
-  stopTrack = (src: string, fade: boolean = false) => {
+  stopTrack = ({
+    src,
+    fade = true,
+    fadeTime = 1000,
+    unload = true,
+  }: StopTrackOptions) => {
     const track = this.tracks.get(src);
     const sound = track?.sound;
     if (sound) {
@@ -85,11 +91,22 @@ export class AudioApi {
         const currentVolume: number = track.volume ?? 0;
         sound.once("fade", () => {
           sound.stop();
+          if (unload) this.unloadTrack(src);
         });
-        sound.fade(currentVolume, 0, 1000);
+        sound.fade(currentVolume, 0, fadeTime);
       } else {
         sound.stop();
+        if (unload) this.unloadTrack(src);
       }
+    }
+  };
+
+  unloadTrack = (src: string) => {
+    const track = this.tracks.get(src);
+    const sound = track?.sound;
+    if (sound) {
+      this.tracks.delete(src);
+      console.log("unloaded track", this.tracks);
     }
   };
 }
