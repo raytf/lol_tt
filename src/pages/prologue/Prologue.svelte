@@ -1,19 +1,18 @@
 <script>
   import { onMount } from "svelte";
+  import { fade, blur } from "svelte/transition";
   import { gsap } from "gsap";
   import { TextOverlay } from "$components/text";
   import { Blackdrop } from "$components/ui";
   import { TurbulentImg } from "$components/ui/img";
-  import expedition_full from "$assets/prologue/expedition_full.jpg";
+  import ocean from "$assets/prologue/expedition_ocean.jpg";
   import ship from "$assets/prologue/expedition_ship.png";
   import shadow from "$assets/prologue/expedition_shadow.png";
-  import { getGameApi } from "$apis";
+  import { getGameApi, getAudioApi } from "$apis";
   const gameApi = getGameApi();
+  const audioApi = getAudioApi();
 
-  const textSequence = [
-    ["pl_1", "pl_2", "pl_3"],
-    ["pl_4", "pl_5"],
-  ];
+  const textSequence = [["pl_1", "pl_2", "pl_3"], ["pl_4", "pl_5"], ["pl_6"]];
   let currentSequence = $state(0);
   let blackdropOpacity = $state(100);
   let shadowOpacity = $state(0);
@@ -21,26 +20,33 @@
   function nextSequence() {
     currentSequence += 1;
     if (currentSequence == 1) {
-      shadowOpacity = 88;
+      blackdropOpacity = 22;
+      shadowOpacity = 77;
     }
     if (currentSequence >= textSequence.length) {
-      console.log("Prologue finished");
+      gameApi.fadeScene("/surface", 2.4);
     }
   }
 
   onMount(() => {
-    blackdropOpacity = 22;
-    gsap.to("#pg-prologue_bg", { scale: 1.2, duration: 8 });
+    blackdropOpacity = 44;
+    gsap.to("#pg-prologue_bg", { scale: 1.4, duration: 44 });
+    audioApi.playTrack({
+      src: "music/tritons-triangle.mp3",
+      volume: 0.66,
+      loop: true,
+    });
   });
 </script>
 
 <div id="pg-prologue" class="relative size-full">
   <div id="pg-prologue_bg" class="absolute size-full">
     <TurbulentImg
-      src={expedition_full}
+      src={ocean}
       duration={44}
       minFrequency={[0.01, 0.01]}
       maxFrequency={[0.015, 0.02]}
+      yoyo={true}
       class="w-full h-full object-cover"
     />
     <img
@@ -54,14 +60,17 @@
 
   <Blackdrop opacity={blackdropOpacity} transitionDuration={8} class="z-[5]" />
   {#each textSequence as sequence, i}
-    {#if i === currentSequence}
-      <TextOverlay keys={sequence} onFinished={nextSequence} class="z-10" />
-    {/if}
+    <TextOverlay
+      active={i === currentSequence}
+      keys={sequence}
+      onFinished={nextSequence}
+      class="z-10"
+    />
   {/each}
 </div>
 
 <style>
   .shadow {
-    transition: opacity 8s;
+    transition: opacity 22s;
   }
 </style>

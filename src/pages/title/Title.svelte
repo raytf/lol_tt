@@ -45,7 +45,7 @@
     );
 
     audioApi.loadTrack({
-      src: "music/theme_song.mp3",
+      src: "music/into-the-blue.mp3",
     });
     blackdropOpacity = 55;
   });
@@ -78,7 +78,7 @@
           zoomIn();
           revealText({ delay: 2 });
           audioApi.playTrack({
-            src: "music/theme_song.mp3",
+            src: "music/into-the-blue.mp3",
             volume: 0.66,
             loop: true,
           });
@@ -100,10 +100,14 @@
           onclick={() => {
             startTitle = false;
 
-            gameApi.fadeScene("/prologue", 2.5);
+            // Preload
+            audioApi.loadTrack({
+              src: "music/tritons-triangle.mp3",
+            });
+            gameApi.fadeScene("/prologue", 2.4);
             zoomInMore({
               onComplete: () => {
-                audioApi.stopTrack("music/theme_song.mp3", true);
+                audioApi.stopTrack("music/into-the-blue.mp3", true);
               },
             });
           }}

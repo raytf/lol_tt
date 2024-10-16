@@ -6,10 +6,12 @@
   const lolApi = getLolApi();
 
   let {
+    active = true,
     keys,
     class: extraClass = "",
     onFinished,
   }: {
+    active?: boolean;
     keys: string[];
     class?: string;
     onFinished?: () => void;
@@ -17,9 +19,10 @@
 
   const tls: gsap.core.Timeline[] = [];
   let textIndex = $state(0);
+  let rootElement: HTMLElement;
 
   onMount(() => {
-    const paragraphs = document.querySelectorAll(".text-overlay");
+    const paragraphs = rootElement.querySelectorAll(".text-overlay");
     paragraphs.forEach((paragraph) => {
       const split = new SplitText(paragraph, { type: "chars,words" });
       const tl = gsap.timeline({ paused: true });
@@ -31,7 +34,12 @@
       });
       tls.push(tl);
     });
-    playLine();
+  });
+
+  $effect(() => {
+    if (active) {
+      playLine();
+    }
   });
 
   function playLine() {
@@ -39,29 +47,37 @@
       tls[textIndex].play();
       lolApi.speakText(keys[textIndex]);
     } else {
-      if (onFinished) onFinished();
+      if (onFinished) {
+        active = false;
+        onFinished();
+      }
     }
   }
 </script>
 
 <button
+  bind:this={rootElement}
   onclick={() => {
     textIndex++;
     playLine();
   }}
-  class="absolute size-full {extraClass}"
+  class="container-text {extraClass} {active
+    ? 'opacity-100 pointer-events-auto'
+    : 'opacity-0 pointer-events-none'}"
 >
-  <div class="container-text">
-    {#each keys as key, i}
-      <p id="text-overlay_{i}" class="text-overlay text-xl p-4">
-        {lolApi.getText(key)}
-      </p>
-    {/each}
-  </div>
+  {#each keys as key, i}
+    <p id="text-overlay_{i}" class="text-overlay text-xl p-4">
+      {lolApi.getText(key)}
+    </p>
+  {/each}
 </button>
 
 <style>
   .container-text {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -69,5 +85,6 @@
 
     text-align: center;
     padding: 1em;
+    transition: opacity 1s;
   }
 </style>
