@@ -63,13 +63,13 @@
 </script>
 
 <Inventory />
-<Dialog
+<!-- <Dialog
   top={true}
   keys={missionBriefDialog}
   onFinished={() => {
     console.log("finished");
   }}
-/>
+/> -->
 <Grid
   xOffset={$xOffset}
   yOffset={$yOffset}

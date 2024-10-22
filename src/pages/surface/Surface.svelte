@@ -2,10 +2,14 @@
   import { onMount } from "svelte";
   import { fade } from "svelte/transition";
   import { gsap } from "gsap";
+  import { Area } from "$components/exploration";
   import { Dialog } from "$components/dialog";
   import { SkyOcean } from "$components/visual/scenery";
-  import sub from "$assets/sprites/sub.png";
+  import { Submarine } from "$components/gameObjects";
+  import { moveSub } from "$lib/stores/exploration";
   import { missionBrief } from "./dialogue";
+  import { windowWidth, windowHeight } from "$lib/stores/game";
+  import { setPosition as setSubPosition } from "$lib/stores/sub";
   import { getLolApi, getAudioApi } from "$apis";
   const lolApi = getLolApi();
   const audioApi = getAudioApi();
@@ -16,18 +20,14 @@
     return tl;
   }
 
-  function surfaceSub(vars?: gsap.TimelineVars) {
-    const subTl = gsap.timeline(vars);
-    subTl.to("#sub-image", {
-      bottom: "-44%",
-      duration: 1,
-      ease: "back.out",
-    });
-    return subTl;
-  }
-
+  let surfaceSub = $state(false);
   let startDialog = $state(false);
   let tlHeading: GSAPTimeline;
+  let initialSubCoords = {
+    x: $windowWidth / 2,
+    y: $windowHeight / 2 + 111,
+  };
+  setSubPosition(initialSubCoords);
   onMount(() => {
     gsap.set("#surface-heading", { opacity: 0 });
     audioApi.playTrack({
@@ -37,15 +37,13 @@
     });
 
     tlHeading = revealHeading();
-    surfaceSub({
-      delay: 1,
-      onComplete: () => {
-        tlHeading.reverse();
-        setTimeout(() => {
-          startDialog = true;
-        }, 1500);
-      },
-    });
+    setTimeout(() => {
+      surfaceSub = true;
+      tlHeading.reverse();
+      setTimeout(() => {
+        // startDialog = true;
+      }, 1500);
+    }, 1500);
   });
 </script>
 
@@ -54,32 +52,26 @@
 {/if}
 <div class="relative size-full">
   <div class="absolute size-full z-[1]">
-    <p id="surface-heading" class="text-2xl font-bold p-4">
+    <p id="surface-heading" class="text-3xl font-bold p-4">
       {lolApi.getText("surface-heading")}
     </p>
   </div>
   <SkyOcean start={true} />
-  <div
-    class="absolute left-1/2 -translate-x-1/2 bottom-[22%] w-[111px] h-[111px] overflow-hidden"
-  >
-    <img id="sub-image" src={sub} alt="sub" class="absolute" />
+  <div class="absolute w-full h-1/2 bottom-0 z-10">
+    <Area onmousedown={moveSub}></Area>
   </div>
+  <Submarine
+    size={111}
+    offset={{ x: 111 / 2, y: 111 }}
+    class="overflow-hidden"
+    imgClass="bottom-[-44%]"
+    bob={true}
+    emerge={surfaceSub}
+  />
+  <!-- <div class="absolute bg-blue-200 w-[111px] h-[88px] overflow-hidden">
+    <img id="sub-image" src={sub} alt="sub" class="absolute" />
+  </div> -->
 </div>
 
 <style>
-  #sub-image {
-    bottom: -100%;
-    animation: bob 11s linear infinite;
-  }
-  @keyframes bob {
-    0% {
-      transform: rotate(0);
-    }
-    50% {
-      transform: rotate(-8deg);
-    }
-    100% {
-      transform: rotate(0);
-    }
-  }
 </style>
