@@ -7,12 +7,14 @@
   import { SkyOcean } from "$components/visual/scenery";
   import { Submarine } from "$components/gameObjects";
   import { moveSub } from "$lib/stores/exploration";
+  import { ItemUnlockScreen, ItemCard } from "$components/inventory";
   import { missionBrief } from "./dialogue";
   import { windowWidth, windowHeight } from "$lib/stores/game";
   import { setPosition as setSubPosition } from "$lib/stores/sub";
-  import { getLolApi, getAudioApi } from "$apis";
+  import { getLolApi, getAudioApi, getInventoryApi } from "$apis";
   const lolApi = getLolApi();
   const audioApi = getAudioApi();
+  const inventoryApi = getInventoryApi();
 
   function revealHeading(vars?: gsap.TimelineVars) {
     const tl = gsap.timeline(vars);
@@ -45,10 +47,20 @@
       }, 1500);
     }, 1500);
   });
+
+  let unlockRadio = $state(false);
+  let unlockSM = $state(false);
 </script>
 
 {#if startDialog}
-  <Dialog top={true} keys={missionBrief} />
+  <Dialog
+    top={true}
+    keys={missionBrief}
+    onFinished={() => {
+      inventoryApi.activated = true;
+      unlockRadio = true;
+    }}
+  />
 {/if}
 <div class="relative size-full">
   <div class="absolute size-full z-[1]">
@@ -69,3 +81,23 @@
     reveal={surfaceSub}
   />
 </div>
+
+<ItemUnlockScreen
+  reveal={unlockRadio}
+  onclick={() => {
+    inventoryApi.unlockItem("radio");
+    unlockRadio = false;
+    unlockSM = true;
+  }}
+>
+  <ItemCard id="radio" />
+</ItemUnlockScreen>
+<ItemUnlockScreen
+  reveal={unlockSM}
+  onclick={() => {
+    inventoryApi.unlockItem("sm");
+    unlockSM = false;
+  }}
+>
+  <ItemCard id="sm" />
+</ItemUnlockScreen>

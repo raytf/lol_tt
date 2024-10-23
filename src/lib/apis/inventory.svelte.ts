@@ -1,4 +1,5 @@
 import { setContext, getContext } from "svelte";
+import radio from "$assets/icons/radio.svg";
 import shell from "$assets/avatars/shell.png";
 import grid from "$assets/icons/grid-square.svg";
 import pressureGauge from "$assets/sprites/pressure-gauge.png";
@@ -24,6 +25,13 @@ export const itemMap: ItemMap = {
     nameKey: "inventory-item_name_conch",
     descKey: "inventory-item_desc_conch",
     actionKey: "inventory-item_action_conch",
+  },
+  radio: {
+    imgSrc: radio,
+    id: "radio",
+    nameKey: "inventory-item_name_radio",
+    descKey: "inventory-item_desc_radio",
+    actionKey: "inventory-item_action_radio",
   },
   sm: {
     imgSrc: grid,
@@ -53,7 +61,7 @@ export const itemMap: ItemMap = {
 };
 
 export class InventoryApi {
-  unlocked = $state(false);
+  activated = $state(false);
   unlockedItems = $state<string[]>([]);
   showSmModal = $state(false);
   currentHintKey = $state("hint_1");

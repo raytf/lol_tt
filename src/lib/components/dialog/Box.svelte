@@ -75,7 +75,7 @@
     color: black;
     text-align: left;
 
-    padding: 22px 22px 33px 22px;
+    padding: 33px 22px;
     border-radius: 22px;
     transition: box-shadow 0.4s;
   }

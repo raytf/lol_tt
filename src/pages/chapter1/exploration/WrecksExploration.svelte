@@ -44,7 +44,7 @@
   }
   onMount(() => {
     inventoryApi.unlockItem("sm");
-    inventoryApi.unlocked = true;
+    inventoryApi.activated = true;
 
     setSubTarget({
       x: $windowWidth / 2 - $xOffset,
@@ -62,7 +62,6 @@
   let unlockShell = $state(false);
 </script>
 
-<Inventory />
 <!-- <Dialog
   top={true}
   keys={missionBriefDialog}
@@ -152,7 +151,7 @@
   onclick={() => {
     inventoryApi.unlockItem("conch");
     unlockShell = false;
-    inventoryApi.unlocked = true;
+    inventoryApi.activated = true;
     inventoryApi.showHintDialog = true;
   }}
 >

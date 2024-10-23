@@ -23,7 +23,7 @@
   }
 </script>
 
-{#if inventoryApi.unlocked}
+{#if inventoryApi.activated}
   <div transition:fade class="container-inventory">
     {#if drawerHidden}
       <button
