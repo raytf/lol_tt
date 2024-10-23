@@ -41,7 +41,7 @@
       surfaceSub = true;
       tlHeading.reverse();
       setTimeout(() => {
-        // startDialog = true;
+        startDialog = true;
       }, 1500);
     }, 1500);
   });
@@ -66,12 +66,6 @@
     class="overflow-hidden"
     imgClass="bottom-[-44%]"
     bob={true}
-    emerge={surfaceSub}
+    reveal={surfaceSub}
   />
-  <!-- <div class="absolute bg-blue-200 w-[111px] h-[88px] overflow-hidden">
-    <img id="sub-image" src={sub} alt="sub" class="absolute" />
-  </div> -->
 </div>
-
-<style>
-</style>

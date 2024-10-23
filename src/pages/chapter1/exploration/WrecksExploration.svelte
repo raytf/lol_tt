@@ -5,7 +5,7 @@
   import Inventory, { ItemUnlockScreen, ItemCard } from "$components/inventory";
   import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
   import { Shipwreck } from "./backgrounds";
-  import Submarine from "$components/visual/Submarine.svelte";
+  import { Submarine } from "$components/gameObjects";
   import { InfoMarker } from "$lib/components/ui/button";
   import { Dialog } from "$components/dialog";
   import { missionBriefDialog } from "../dialog";

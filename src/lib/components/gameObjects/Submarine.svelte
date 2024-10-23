@@ -12,7 +12,7 @@
     class: extraClass = "",
     imgClass = "",
     bob = false,
-    emerge = false,
+    reveal = true,
     children,
     ...props
   }: {
@@ -21,19 +21,19 @@
     offset?: { x: number; y: number };
     class?: string;
     bob?: boolean;
-    emerge?: boolean;
+    reveal?: boolean;
     imgClass?: string;
     children?: Snippet;
   } = $props();
 </script>
 
 <div
-  class="absolute {extraClass} pointer-events-none"
+  class="container-sub {extraClass}"
   style="transform: translate({$coords.x - offset.x}px, {$coords.y -
     offset.y}px); width: {size}px; height: {size}px"
   {...props}
 >
-  {#if emerge}
+  {#if reveal}
     <img
       in:fly|global={{ y: 111, duration: 1111, easing: backOut }}
       out:fly|global={{ y: 111, duration: 1111, easing: backIn }}
@@ -51,6 +51,10 @@
 </div>
 
 <style>
+  .container-sub {
+    position: absolute;
+    pointer-events: none;
+  }
   .anim-bob {
     animation: bob 11s linear infinite;
   }
