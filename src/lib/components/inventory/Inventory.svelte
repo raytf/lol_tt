@@ -3,7 +3,7 @@
   import { Drawer } from "flowbite-svelte";
   import Backpack from "$components/svg/icons/Backpack.svelte";
   import ItemCard from "./ItemCard.svelte";
-  import close from "$assets/icons/close.svg";
+  import { Close } from "$components/svg/icons";
   import info from "$assets/icons/info.svg";
   import { getInventoryApi, itemMap } from "$apis/inventory.svelte";
   const inventoryApi = getInventoryApi();
@@ -53,7 +53,7 @@
           }}
           class="button-toggle"
         >
-          <img src={close} alt="close" class="w-[55px] h-[55px]" />
+          <Close class="w-[55px] h-[55px]" />
         </button>
         <p class="font-bold text-4xl p-4">Inventory</p>
         <div class="grid grid-cols-5 gap-2">
