@@ -3,7 +3,6 @@
   import { onMount } from "svelte";
   import { gsap } from "gsap";
   import { fade } from "svelte/transition";
-  import { Chat, HandClick } from "$components/svg/icons";
   import { Down } from "$components/svg/icons/caret";
 
   let {
