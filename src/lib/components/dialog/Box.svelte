@@ -47,7 +47,9 @@
       <p>{@render name()}</p>
     </div>
     <p class="text-2xl {italic ? 'italic' : ''}">{@render text()}</p>
-    <Down class="absolute bottom-4 right-4 w-[24px] h-[24px]" />
+    <div class="action">
+      <Down class="absolute bottom-4 right-4 w-[24px] h-[24px]" />
+    </div>
   </button>
 </div>
 
@@ -71,16 +73,24 @@
   .box {
     cursor: pointer;
     position: relative;
-    background: white;
+    background: rgba(255, 255, 255, 0.88);
     color: black;
     text-align: left;
 
     padding: 33px 22px;
     border-radius: 22px;
-    transition: box-shadow 0.4s;
+    transition: all 0.44s;
   }
   .box:hover {
-    box-shadow: 0 0 22px rgba(44, 44, 44, 0.2);
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 0 22px rgba(44, 44, 44, 0.22);
+  }
+  .action {
+    opacity: 0.44;
+    transition: all 0.44s;
+  }
+  .box:hover .action {
+    opacity: 1;
   }
   .box-name {
     position: absolute;

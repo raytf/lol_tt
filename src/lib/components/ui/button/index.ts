@@ -1,3 +1,3 @@
 import InfoMarker from "./InfoMarker.svelte";
-import Simple from "./Simple.svelte";
-export { InfoMarker, Simple as SimpleButton };
+import Button from "./Button.svelte";
+export { InfoMarker, Button };

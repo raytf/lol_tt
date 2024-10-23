@@ -9,7 +9,7 @@
 </script>
 
 {#if inventoryApi.showSmModal}
-  <div transition:fade={{ duration: 1111 }} class="container-smModal">
+  <div transition:fade={{ duration: 888 }} class="container-smModal">
     <button
       onclick={() => (inventoryApi.showSmModal = false)}
       class="absolute top-4 right-4"

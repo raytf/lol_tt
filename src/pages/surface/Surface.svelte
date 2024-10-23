@@ -3,6 +3,9 @@
   import { fade } from "svelte/transition";
   import { gsap } from "gsap";
   import { Area } from "$components/exploration";
+  import { Lol } from "$components/text";
+  import { Dive } from "$components/svg/icons";
+  import { Button } from "$components/ui/button";
   import { Dialog } from "$components/dialog";
   import { SkyOcean } from "$components/visual/scenery";
   import { Submarine } from "$components/gameObjects";
@@ -11,10 +14,11 @@
   import { missionBrief } from "./dialogue";
   import { windowWidth, windowHeight } from "$lib/stores/game";
   import { setPosition as setSubPosition } from "$lib/stores/sub";
-  import { getLolApi, getAudioApi, getInventoryApi } from "$apis";
+  import { getLolApi, getAudioApi, getInventoryApi, getGameApi } from "$apis";
   const lolApi = getLolApi();
   const audioApi = getAudioApi();
   const inventoryApi = getInventoryApi();
+  const gameApi = getGameApi();
 
   function revealHeading(vars?: gsap.TimelineVars) {
     const tl = gsap.timeline(vars);
@@ -50,6 +54,7 @@
 
   let unlockRadio = $state(false);
   let unlockSM = $state(false);
+  let readyToStart = $state(false);
 </script>
 
 {#if startDialog}
@@ -63,10 +68,34 @@
   />
 {/if}
 <div class="relative size-full">
-  <div class="absolute size-full z-[1]">
-    <p id="surface-heading" class="text-3xl font-bold p-4">
-      {lolApi.getText("surface-heading")}
-    </p>
+  <div class="absolute size-full z-[11] pointer-events-none">
+    <div id="surface-heading">
+      <Lol key="surface-heading" class="text-3xl font-bold p-4" />
+    </div>
+    <div
+      class="absolute bottom-0 w-full h-[222px] flex justify-center items-end pb-11"
+    >
+      {#if readyToStart}
+        <div transition:fade>
+          <Button
+            onclick={() => {
+              readyToStart = false;
+              surfaceSub = false;
+              setTimeout(() => {
+                gameApi.fadeScene("/ch1");
+                audioApi.stopTrack({
+                  src: "sound/ocean-loop.mp3",
+                });
+              }, 1000);
+            }}
+            class="w-[111px] h-[88px] flex-col items-center pointer-events-auto"
+          >
+            <Lol key="dive" class="text-2xl" />
+            <Dive class="w-[33px] h-[33px]" />
+          </Button>
+        </div>
+      {/if}
+    </div>
   </div>
   <SkyOcean start={true} />
   <div class="absolute w-full h-1/2 bottom-0 z-10">
@@ -97,6 +126,9 @@
   onclick={() => {
     inventoryApi.unlockItem("sm");
     unlockSM = false;
+    setTimeout(() => {
+      readyToStart = true;
+    }, 1000);
   }}
 >
   <ItemCard id="sm" />

@@ -9,7 +9,7 @@
 
   onMount(() => {
     audioApi.playTrack({
-      src: "music/theme_underwater.mp3",
+      src: "music/deep-echoes.mp3",
       volume: 0.66,
       loop: true,
     });

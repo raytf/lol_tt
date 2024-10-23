@@ -10,7 +10,7 @@
   import { Dialog, QuestionDialog } from "$components/dialog";
   import { ItemUnlockScreen, ItemCard } from "$components/inventory";
   import { GaugeScreen } from "$components/inventory";
-  import { SimpleButton } from "$lib/components/ui/button";
+  import { Button } from "$lib/components/ui/button";
   import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
   import Submarine from "$components/visual/Submarine.svelte";
   import Squid from "$components/visual/Squid.svelte";
@@ -116,7 +116,7 @@
   <div
     class="absolute size-full flex justify-end items-end pointer-events-none z-[2]"
   >
-    <SimpleButton onclick={() => (revealQuestion = true)} key="ready" />
+    <Button onclick={() => (revealQuestion = true)} />
   </div>
 {/if}
 {#if revealQuestion}

@@ -3,6 +3,7 @@
   import { onMount } from "svelte";
   import { fade } from "svelte/transition";
   import { gsap } from "gsap";
+  import { Button } from "$components/ui/button";
   import { getLolApi } from "$apis/lol.svelte";
   const lolApi = getLolApi();
 
@@ -25,8 +26,8 @@
 <div transition:fade|global class="container-options">
   {#if key.options}
     {#each key.options as option}
-      <button
-        class="button-option"
+      <Button
+        class="m-2"
         onclick={() => {
           const nextDialog = [...option.nextDialog];
           if (option.repeat) {
@@ -39,7 +40,7 @@
         }}
       >
         {lolApi.getText(option.text)}
-      </button>
+      </Button>
     {/each}
   {/if}
 </div>
@@ -61,20 +62,5 @@
     user-select: none;
     z-index: 100;
     opacity: 0;
-  }
-  .button-option {
-    padding: 1em;
-    margin: 0.5em;
-    border: 1px solid black;
-    border-radius: 0.5em;
-    background: rgba(0, 0, 0, 0.55);
-    transition: transform 0.5s;
-    will-change: transform;
-    backface-visibility: hidden;
-    transform: translateZ(0);
-    -webkit-font-smoothing: subpixel-antialiased;
-  }
-  .button-option:hover {
-    transform: scale(1.022);
   }
 </style>
