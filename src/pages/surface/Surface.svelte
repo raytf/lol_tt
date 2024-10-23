@@ -14,8 +14,7 @@
   import { missionBrief } from "./dialogue";
   import { windowWidth, windowHeight } from "$lib/stores/game";
   import { setPosition as setSubPosition } from "$lib/stores/sub";
-  import { getLolApi, getAudioApi, getInventoryApi, getGameApi } from "$apis";
-  const lolApi = getLolApi();
+  import { getAudioApi, getInventoryApi, getGameApi } from "$apis";
   const audioApi = getAudioApi();
   const inventoryApi = getInventoryApi();
   const gameApi = getGameApi();
@@ -126,9 +125,7 @@
   onclick={() => {
     inventoryApi.unlockItem("sm");
     unlockSM = false;
-    setTimeout(() => {
-      readyToStart = true;
-    }, 1000);
+    readyToStart = true;
   }}
 >
   <ItemCard id="sm" />
