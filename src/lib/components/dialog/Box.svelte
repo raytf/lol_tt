@@ -3,6 +3,8 @@
   import { onMount } from "svelte";
   import { gsap } from "gsap";
   import { fade } from "svelte/transition";
+  import { Chat, HandClick } from "$components/svg/icons";
+  import { Down } from "$components/svg/icons/caret";
 
   let {
     onclick,
@@ -10,6 +12,7 @@
     avatar,
     name,
     text,
+    options = false,
     italic = false,
     top = false,
     ...props
@@ -19,6 +22,7 @@
     avatar: Snippet;
     name: Snippet;
     text: Snippet;
+    options?: boolean;
     italic?: boolean;
     top?: boolean;
   } = $props();
@@ -31,27 +35,25 @@
   });
 </script>
 
-<!-- svelte-ignore a11y_no_static_element_interactions -->
 <div
   out:fade|global
-  {onclick}
   class="container_dialog-box {top ? 'items-start' : 'items-end'} {extraClass}"
   {...props}
 >
   <div class="mr-2">
     {@render avatar()}
   </div>
-  <div class="box w-[55%]">
+  <button {onclick} class="box w-[55%]">
     <div class="box-name text-2xl">
       <p>{@render name()}</p>
     </div>
     <p class="text-2xl {italic ? 'italic' : ''}">{@render text()}</p>
-  </div>
+    <Down class="absolute bottom-4 right-4 w-[24px] h-[24px]" />
+  </button>
 </div>
 
 <style>
   .container_dialog-box {
-    cursor: pointer;
     position: absolute;
     height: 100%;
     width: 100%;
@@ -68,13 +70,18 @@
     opacity: 0;
   }
   .box {
+    cursor: pointer;
     position: relative;
     background: white;
     color: black;
+    text-align: left;
 
-    padding: 22px;
-
+    padding: 22px 22px 33px 22px;
     border-radius: 22px;
+    transition: box-shadow 0.4s;
+  }
+  .box:hover {
+    box-shadow: 0 0 22px rgba(44, 44, 44, 0.2);
   }
   .box-name {
     position: absolute;

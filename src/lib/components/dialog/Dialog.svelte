@@ -1,6 +1,5 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { fade } from "svelte/transition";
   import type { DialogKey } from "$components/dialog";
   import { DialogBox, Options } from "$components/dialog";
   import { getLolApi } from "$apis/lol.svelte";
@@ -61,6 +60,7 @@
 {#if currentKey}
   <DialogBox
     onclick={currentKey.options ? () => (showOptions = true) : proceed}
+    options={currentKey.options ? true : false}
     italic={hint || currentKey.italic}
     {top}
   >
