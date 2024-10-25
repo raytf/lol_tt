@@ -45,14 +45,9 @@
       surfaceSub = true;
       tlHeading.reverse();
       setTimeout(() => {
-        //startDialog = true;
+        startDialog = true;
       }, 1500);
     }, 1500);
-
-    // Remove later
-    $hudApi.startObjective("objective_prepare");
-    $inventoryApi.unlockItem("sm");
-    $inventoryApi.activated = true;
   });
 
   let unlockRadio = $state(false);
@@ -127,9 +122,12 @@
 <ItemUnlockScreen
   reveal={unlockSM}
   onclick={() => {
+    $hudApi.activated = true;
     $inventoryApi.unlockItem("sm");
     unlockSM = false;
-    readyToStart = true;
+    $hudApi.startObjective("objective_prepare", () => {
+      readyToStart = true;
+    });
   }}
 >
   <ItemCard id="sm" />

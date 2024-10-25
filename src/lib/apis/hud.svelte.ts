@@ -5,6 +5,10 @@ interface Todo {
   counterTarget?: number;
 }
 
+type ObjectiveMap = {
+  [key: string]: Todo[];
+};
+
 export interface Task {
   key: string;
   counter?: number;
@@ -13,35 +17,46 @@ export interface Task {
 }
 
 type Objective = {
-  [key: string]: Todo[];
+  key: string;
+  completed: boolean;
 };
 
-export const objectiveMap: Objective = {
+export const objectiveMap: ObjectiveMap = {
   objective_prepare: [{ key: "task_openInventory" }, { key: "task_reviewSM" }],
 };
 
 class HudApi {
   activated = $state(false);
-  showObjectives = $state(false);
-  currentObjective = $state<string>("");
+  currentObjective = $state<Objective>();
   currentTasks = $state<Task[]>([]);
+  onFinishObjective = () => {};
 
-  startObjective = (objectiveKey: string) => {
+  startObjective = (objectiveKey: string, onFinished: () => void) => {
     if (!objectiveMap[objectiveKey]) return;
 
-    this.currentObjective = objectiveKey;
+    this.currentObjective = { key: objectiveKey, completed: false };
     this.currentTasks = objectiveMap[objectiveKey].map((todo) => ({
       key: todo.key,
       completed: false,
     }));
-    this.showObjectives = true;
+    this.onFinishObjective = onFinished;
   };
 
   completeTask = (taskKey: string) => {
     const task = this.currentTasks.find((task) => task.key === taskKey);
     if (task) {
       task.completed = true;
+      if (this.getNumRemainingTasks() === 0) {
+        if (this.currentObjective) {
+          this.currentObjective.completed = true;
+        }
+        this.onFinishObjective();
+      }
     }
+  };
+
+  getNumRemainingTasks = () => {
+    return this.currentTasks.filter((task) => !task.completed).length;
   };
 }
 

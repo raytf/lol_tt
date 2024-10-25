@@ -1,4 +1,3 @@
-import { setContext, getContext } from "svelte";
 import { writable } from "svelte/store";
 import radio from "$assets/icons/radio.svg";
 import shell from "$assets/avatars/shell.png";

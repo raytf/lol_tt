@@ -3,16 +3,19 @@
   import { fade } from "svelte/transition";
   import Objectives from "./objectives";
   import Inventory from "./inventory";
+  import { hudApi } from "$apis";
   let { children }: { children?: Snippet } = $props();
 </script>
 
-<div transition:fade class="container-hud">
-  <Objectives class="left-0" />
-  <Inventory />
-  {#if children}
-    {@render children()}
-  {/if}
-</div>
+{#if $hudApi.activated}
+  <div transition:fade class="container-hud">
+    <Objectives class="left-0" />
+    <Inventory />
+    {#if children}
+      {@render children()}
+    {/if}
+  </div>
+{/if}
 
 <style>
   .container-hud {

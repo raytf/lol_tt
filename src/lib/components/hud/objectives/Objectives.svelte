@@ -9,14 +9,19 @@
   let showTodos = $state(true);
 </script>
 
-{#if $hudApi.showObjectives}
+{#if $hudApi.currentObjective}
   <div class="hud-objectives {extraClass}">
     <button
       onclick={() => (showTodos = !showTodos)}
       class="button-hud flex flex-row"
     >
       <Goal class="w-[33px] h-[33px]" />
-      <Lol key={$hudApi.currentObjective} class="text-bold text-2xl mx-2" />
+      <Lol
+        key={$hudApi.currentObjective.key}
+        class="text-bold text-2xl mx-2 {$hudApi.currentObjective.completed
+          ? 'line-through'
+          : ''}"
+      />
     </button>
     <ul class="p-2">
       {#if showTodos}
