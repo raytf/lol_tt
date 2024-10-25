@@ -29,29 +29,46 @@
 
   let initialSubCoords = {
     x: $windowWidth / 2,
-    y: -111,
+    y: 0,
   };
+  if ($shellEncountered) {
+    initialSubCoords = {
+      x: $windowWidth / 2 + 88,
+      y: $windowHeight - 88,
+    };
+  }
 
   let activeArea = $state(0);
-  setSubPosition(initialSubCoords);
+  if (!$shellEncountered) {
+    setSubPosition(initialSubCoords);
+  }
   onMount(() => {
-    const newTarget = {
+    inventoryApi.unlockItem("sm");
+    inventoryApi.activated = true;
+
+    setSubTarget({
       x: $windowWidth / 2 - $xOffset,
       y: $windowHeight / 2 - $yOffset,
-    };
-    setTimeout(() => {
-      setSubTarget(newTarget);
-    }, 1000);
+    });
+
+    if ($shellEncountered) {
+      activeArea = 1;
+      if (!inventoryApi.isItemUnlocked("sm")) unlockSM = true;
+    }
+    inventoryApi.currentHintKey = "hint_1";
   });
+
+  let unlockSM = $state(false);
+  let unlockShell = $state(false);
 </script>
 
 <!-- <Dialog
-  top={true}
-  keys={missionBriefDialog}
-  onFinished={() => {
-    console.log("finished");
-  }}
-/> -->
+    top={true}
+    keys={missionBriefDialog}
+    onFinished={() => {
+      console.log("finished");
+    }}
+  /> -->
 <Grid
   xOffset={$xOffset}
   yOffset={$yOffset}
@@ -117,3 +134,26 @@
     </Area>
   {/snippet}
 </Grid>
+
+<ItemUnlockScreen
+  reveal={unlockSM}
+  onclick={() => {
+    inventoryApi.unlockItem("sm");
+    unlockSM = false;
+    unlockShell = true;
+  }}
+>
+  <ItemCard id="sm" />
+</ItemUnlockScreen>
+
+<ItemUnlockScreen
+  reveal={unlockShell}
+  onclick={() => {
+    inventoryApi.unlockItem("conch");
+    unlockShell = false;
+    inventoryApi.activated = true;
+    inventoryApi.showHintDialog = true;
+  }}
+>
+  <ItemCard id="conch" />
+</ItemUnlockScreen>
