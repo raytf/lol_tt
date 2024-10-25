@@ -1,6 +1,5 @@
 <script>
   import { onMount } from "svelte";
-  import BackupInit from "$lib/components/BackupInit.svelte";
   import { TitleIntro } from "$components/intro";
   import { getGameApi } from "$apis/game.svelte";
   import { getAudioApi } from "$apis/audio.svelte";
@@ -16,7 +15,6 @@
   });
 </script>
 
-<BackupInit />
 <TitleIntro
   titleKey="title_chapter-1"
   descKey="desc_chapter-1"

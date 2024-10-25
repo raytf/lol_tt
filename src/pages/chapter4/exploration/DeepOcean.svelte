@@ -1,10 +1,8 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { tweened } from "svelte/motion";
-  import BackupInit from "$lib/components/BackupInit.svelte";
   import { BgImg } from "$components/ui/img";
   import { Grid, Area } from "$components/exploration";
-  import Inventory from "$components/inventory";
   import type { DialogKey } from "$components/dialog";
   import { InfoMarker } from "$lib/components/ui/button";
   import { Dialog, QuestionDialog } from "$components/dialog";
@@ -31,10 +29,9 @@
     coords,
   } from "$lib/stores/sub";
   // Apis
+  import { inventoryApi } from "$apis";
   import { getGameApi } from "$apis/game.svelte";
-  import { getInventoryApi } from "$apis/inventory.svelte";
   const gameApi = getGameApi();
-  const inventoryApi = getInventoryApi();
 
   const xOffset = tweened(0, {
     duration: 500,
@@ -68,8 +65,8 @@
     $depthOffset = 1000;
     $depthMultiplier = 10;
     subCoords = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-    inventoryApi.currentHintKey = "hint_4";
-    inventoryApi.showGaugeScreen = true;
+    $inventoryApi.currentHintKey = "hint_4";
+    $inventoryApi.showGaugeScreen = true;
   });
 
   let startDialog1 = $state(false);
@@ -81,8 +78,6 @@
   let startDialog2 = $state(false);
 </script>
 
-<BackupInit inventory={true} />
-<Inventory />
 <GaugeScreen />
 {#if startDialog1}
   <Dialog
@@ -97,7 +92,7 @@
     keys={dialogExperiment}
     onFinished={() => {
       startExperiment = true;
-      inventoryApi.currentHintKey = "hint_5";
+      $inventoryApi.currentHintKey = "hint_5";
     }}
     hint={true}
   />
@@ -105,7 +100,7 @@
 <ItemUnlockScreen
   reveal={revealUnlockScreen}
   onclick={() => {
-    inventoryApi.unlockItem("th");
+    $inventoryApi.unlockItem("th");
     startDialogExperiment = true;
     revealUnlockScreen = false;
   }}
@@ -128,7 +123,7 @@
     onFinish1={() => {
       revealQuestion = false;
       finishedExperiment = true;
-      inventoryApi.currentHintKey = "hint_4";
+      $inventoryApi.currentHintKey = "hint_4";
     }}
     option2Key="ch4-question_option-2"
     option2DialogKeys={dialogOption2}

@@ -1,10 +1,8 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { tweened } from "svelte/motion";
-  import BackupInit from "$lib/components/BackupInit.svelte";
   import { BgImg } from "$components/ui/img";
   import { Grid, Area } from "$components/exploration";
-  import Inventory from "$components/inventory";
   import { Dialog } from "$components/dialog";
   import {
     GaugeScreen,
@@ -24,10 +22,9 @@
   // Stores
   // Apis
   import { getGameApi } from "$apis/game.svelte";
-  import { getInventoryApi, itemMap } from "$apis/inventory.svelte";
+  import { inventoryApi } from "$apis";
   import { coords } from "$lib/stores/sub";
   const gameApi = getGameApi();
-  const inventoryApi = getInventoryApi();
 
   interface TableData {
     depth: number;
@@ -96,8 +93,8 @@
   }
 
   onMount(() => {
-    inventoryApi.currentHintKey = "hint_3";
-    inventoryApi.showGaugeScreen = true;
+    $inventoryApi.currentHintKey = "hint_3";
+    $inventoryApi.showGaugeScreen = true;
     showTable = true;
   });
 
@@ -113,8 +110,6 @@
   let startDialogAnalysis = $state(false);
 </script>
 
-<BackupInit inventory={true} />
-<Inventory />
 <GaugeScreen />
 
 <Dialog
@@ -165,10 +160,10 @@
 <ItemUnlockScreen
   reveal={showUnlockScreen}
   onclick={() => {
-    inventoryApi.unlockItem("dg");
+    $inventoryApi.unlockItem("dg");
     showUnlockScreen = false;
     finishExperiment = true;
-    inventoryApi.currentHintKey = "hint_4";
+    $inventoryApi.currentHintKey = "hint_4";
   }}
 >
   <ItemCard id="dg" />

@@ -2,16 +2,15 @@
   import { fade } from "svelte/transition";
   import { ScientificMethodDiagram } from "$components/scientificMethod";
   import { Close } from "$components/svg/icons";
-  import { getInventoryApi } from "$apis/inventory.svelte";
-  const inventoryApi = getInventoryApi();
+  import { inventoryApi } from "$apis/inventory.svelte";
 
   let activeIndex = $state(-1);
 </script>
 
-{#if inventoryApi.showSmModal}
+{#if $inventoryApi.showSmModal}
   <div transition:fade={{ duration: 888 }} class="container-smModal">
     <button
-      onclick={() => (inventoryApi.showSmModal = false)}
+      onclick={() => ($inventoryApi.showSmModal = false)}
       class="absolute top-4 right-4"
     >
       <Close class="w-[55px] h-[55px] text-white" />

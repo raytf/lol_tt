@@ -14,9 +14,8 @@
   import { missionBrief } from "./dialogue";
   import { windowWidth, windowHeight } from "$lib/stores/game";
   import { setPosition as setSubPosition } from "$lib/stores/sub";
-  import { getAudioApi, getInventoryApi, getGameApi } from "$apis";
+  import { getAudioApi, getGameApi, hudApi, inventoryApi } from "$apis";
   const audioApi = getAudioApi();
-  const inventoryApi = getInventoryApi();
   const gameApi = getGameApi();
 
   function revealHeading(vars?: gsap.TimelineVars) {
@@ -46,9 +45,14 @@
       surfaceSub = true;
       tlHeading.reverse();
       setTimeout(() => {
-        startDialog = true;
+        //startDialog = true;
       }, 1500);
     }, 1500);
+
+    // Remove later
+    $hudApi.startObjective("objective_prepare");
+    $inventoryApi.unlockItem("sm");
+    $inventoryApi.activated = true;
   });
 
   let unlockRadio = $state(false);
@@ -61,7 +65,7 @@
     top={true}
     keys={missionBrief}
     onFinished={() => {
-      inventoryApi.activated = true;
+      $inventoryApi.activated = true;
       unlockRadio = true;
     }}
   />
@@ -113,7 +117,7 @@
 <ItemUnlockScreen
   reveal={unlockRadio}
   onclick={() => {
-    inventoryApi.unlockItem("radio");
+    $inventoryApi.unlockItem("radio");
     unlockRadio = false;
     unlockSM = true;
   }}
@@ -123,7 +127,7 @@
 <ItemUnlockScreen
   reveal={unlockSM}
   onclick={() => {
-    inventoryApi.unlockItem("sm");
+    $inventoryApi.unlockItem("sm");
     unlockSM = false;
     readyToStart = true;
   }}

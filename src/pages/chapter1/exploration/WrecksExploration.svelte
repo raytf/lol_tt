@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import { TurbulentImg } from "$lib/components/ui/img";
   import { Grid, Area } from "$components/exploration";
-  import Inventory, { ItemUnlockScreen, ItemCard } from "$components/inventory";
+  import { ItemUnlockScreen, ItemCard } from "$components/inventory";
   import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
   import { Shipwreck } from "./backgrounds";
   import { Submarine } from "$components/gameObjects";
@@ -23,9 +23,8 @@
   import { shellEncountered } from "../store";
   import underwater from "$assets/underwater_1by3.jpg";
   import { getGameApi } from "$apis/game.svelte";
-  import { getInventoryApi } from "$apis/inventory.svelte";
+  import { inventoryApi } from "$apis";
   const gameApi = getGameApi();
-  const inventoryApi = getInventoryApi();
 
   let initialSubCoords = {
     x: $windowWidth / 2,

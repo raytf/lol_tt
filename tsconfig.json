@@ -19,12 +19,14 @@
     "paths": {
       "$assets": ["./src/assets"],
       "$assets/*": ["./src/assets/*"],
-      "$lib": ["./src/lib"],
-      "$lib/*": ["./src/lib/*"],
       "$apis": ["./src/lib/apis"],
       "$apis/*": ["./src/lib/apis/*"],
+      "$stores": ["./src/lib/stores"],
+      "$stores/*": ["./src/lib/stores/*"],
       "$components": ["./src/lib/components"],
-      "$components/*": ["./src/lib/components/*"]
+      "$components/*": ["./src/lib/components/*"],
+      "$lib": ["./src/lib"],
+      "$lib/*": ["./src/lib/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.js", "src/**/*.svelte"],

@@ -5,8 +5,7 @@
     depthMultiplier,
     nearVent,
   } from "$lib/stores/sub";
-  import { getInventoryApi } from "$apis/inventory.svelte";
-  const inventoryApi = getInventoryApi();
+  import { inventoryApi } from "$apis";
 
   let currentDepth = $state(0);
   let pressure = $state(1);
@@ -24,14 +23,14 @@
   });
 </script>
 
-{#if inventoryApi.showGaugeScreen}
+{#if $inventoryApi.showGaugeScreen}
   <div
     class="fixed size-full pointer-events-none select-none flex flex-col justify-end z-[30]"
   >
-    {#if inventoryApi.isItemUnlocked("th")}
+    {#if $inventoryApi.isItemUnlocked("th")}
       <p class="m-2 text-4xl font-bold">{temp.toFixed(2)}°C</p>
     {/if}
-    {#if inventoryApi.isItemUnlocked("dg")}
+    {#if $inventoryApi.isItemUnlocked("dg")}
       <p class="mx-2 text-4xl font-bold">{currentDepth}m</p>
     {/if}
     <p class="m-2 text-4xl font-bold">{pressure}atm</p>

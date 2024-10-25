@@ -2,9 +2,7 @@
   import { onMount } from "svelte";
   import { tweened } from "svelte/motion";
   import { BgImg, TurbulentImg } from "$lib/components/ui/img";
-  import BackupInit from "$lib/components/BackupInit.svelte";
   import { Grid, Area } from "$components/exploration";
-  import Inventory from "$components/inventory";
   import { InfoMarker } from "$lib/components/ui/button";
   import type { DialogKey } from "$components/dialog";
   import { Dialog, QuestionDialog } from "$components/dialog";
@@ -30,9 +28,8 @@
   import { otterEncountered } from "../store";
   // Apis
   import { getGameApi } from "$apis/game.svelte";
-  import { getInventoryApi } from "$apis/inventory.svelte";
+  import { inventoryApi } from "$apis";
   const gameApi = getGameApi();
-  const inventoryApi = getInventoryApi();
 
   const xOffset = tweened(0, {
     duration: 500,
@@ -81,7 +78,7 @@
 
   onMount(() => {
     subCoords = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-    inventoryApi.currentHintKey = "hint_2";
+    $inventoryApi.currentHintKey = "hint_2";
     if (!$otterEncountered) {
       revealQuestion = true;
     }
@@ -97,9 +94,6 @@
 
   let goTooDeep = $state(false);
 </script>
-
-<BackupInit inventory={true} />
-<Inventory />
 
 <QuestionDialog
   reveal={revealQuestion}

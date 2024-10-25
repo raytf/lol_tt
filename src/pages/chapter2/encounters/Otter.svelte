@@ -2,7 +2,6 @@
   import { gsap } from "gsap";
   import { CharacterIntro } from "$components/intro";
   import { Dialog } from "$lib/components/dialog";
-  import BackupInit from "$lib/components/BackupInit.svelte";
   import encounterOtter from "$assets/chapter2/encounter_otter.jpg";
   import introOtter from "$assets/chapter2/intro_otter.jpg";
   import otter from "$assets/avatars/otter.png";
@@ -34,7 +33,6 @@
   let startDialog = $state(false);
 </script>
 
-<BackupInit />
 <div class="encounter-bg">
   <img
     src={encounterOtter}

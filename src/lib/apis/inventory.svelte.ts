@@ -1,4 +1,5 @@
 import { setContext, getContext } from "svelte";
+import { writable } from "svelte/store";
 import radio from "$assets/icons/radio.svg";
 import shell from "$assets/avatars/shell.png";
 import grid from "$assets/icons/grid-square.svg";
@@ -70,6 +71,10 @@ export class InventoryApi {
 
   constructor() {}
 
+  getItem(key: string) {
+    return itemMap[key];
+  }
+
   unlockItem(item: string) {
     if (this.unlockedItems.includes(item)) return;
 
@@ -81,12 +86,8 @@ export class InventoryApi {
   }
 }
 
-const CONTEXT_KEY = Symbol("InventoryApi");
+export const inventoryApi = writable<InventoryApi>(undefined);
 
-export function createInventoryApi() {
-  return setContext(CONTEXT_KEY, new InventoryApi());
-}
-
-export function getInventoryApi() {
-  return getContext<ReturnType<typeof createInventoryApi>>(CONTEXT_KEY);
+export function initializeInventoryApi() {
+  inventoryApi.set(new InventoryApi());
 }

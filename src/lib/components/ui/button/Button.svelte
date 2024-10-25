@@ -16,6 +16,7 @@
 
 <style>
   .button {
+    pointer-events: auto;
     display: flex;
     padding: 1em;
     background: rgba(0, 0, 0, 0.44);

@@ -1,5 +1,4 @@
 <script>
-  import BackupInit from "$lib/components/BackupInit.svelte";
   import { TitleIntro } from "$components/intro";
   import { nearVent, coords } from "$lib/stores/sub";
   import { getGameApi } from "$apis/game.svelte";
@@ -9,7 +8,6 @@
   $nearVent = false;
 </script>
 
-<BackupInit />
 <TitleIntro
   titleKey="title_chapter-4"
   descKey="desc_chapter-4"
