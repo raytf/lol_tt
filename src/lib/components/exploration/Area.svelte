@@ -48,7 +48,7 @@
   {#if revealInstruction}
     <div
       transition:fade={{ duration: 2000 }}
-      class="container-instruction text-4xl pt-8"
+      class="container-instruction text-4xl pt-14"
     >
       <HandClick />
       <p class="ml-2">{getLolApi().getText("explore")}</p>
@@ -106,6 +106,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    z-index: 20;
   }
   .container-nav {
     position: absolute;
@@ -113,6 +114,7 @@
     height: 100%;
     width: 100%;
     pointer-events: none;
+    z-index: 20;
   }
   .button-nav {
     position: absolute;

@@ -1,4 +1,5 @@
 import { onDestroy, setContext, getContext } from "svelte";
+import backupLanguageData from "$assets/language.json";
 
 interface LanguageData {
   [key: string]: string;
@@ -47,6 +48,8 @@ export class LolApi {
   };
 
   init = () => {
+    // load backup first
+    this.languageData = backupLanguageData["en"];
     this.gameIsReady();
     this.requestLoadState();
     // Public only - load backup language

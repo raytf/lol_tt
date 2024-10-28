@@ -2,7 +2,6 @@
   import { gsap } from "gsap";
   import { Dialog } from "$components/dialog";
   import { CharacterIntro } from "$lib/components/intro";
-  import BackupInit from "$lib/components/BackupInit.svelte";
   import encounterShell from "$assets/chapter1/encounter_shell.jpg";
   import introShell from "$assets/chapter1/intro_shell.jpg";
   import neutral from "$assets/emoji/neutral.svg";
@@ -67,10 +66,10 @@
 
     gsap.to(".bg-image", {
       scale: 1,
-      duration: 10,
+      duration: 4,
     });
 
-    panTl.to(".bg-image", { y: -500, duration: 10 }, 0);
+    panTl.to(".bg-image", { y: -500, duration: 4 }, 0);
 
     introTl.to(".intro-shell", { opacity: 1, duration: 1 });
   });
@@ -80,7 +79,6 @@
   let startDialogue2 = $state(false);
 </script>
 
-<BackupInit />
 <div class="bg-image absolute top-0 size-full z-[1]">
   <img src={encounterShell} alt="background" class="absolute w-full" />
   <img src={introShell} alt="background" class="intro-shell absolute w-full" />

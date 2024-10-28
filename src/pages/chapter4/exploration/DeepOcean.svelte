@@ -1,15 +1,14 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { tweened } from "svelte/motion";
-  import BackupInit from "$lib/components/BackupInit.svelte";
-  import { Grid, Area, BgImg } from "$components/exploration";
-  import Inventory from "$components/inventory";
+  import { BgImg } from "$components/ui/img";
+  import { Grid, Area } from "$components/exploration";
   import type { DialogKey } from "$components/dialog";
-  import { InfoMarker } from "$components/ui/buttons";
+  import { InfoMarker } from "$lib/components/ui/button";
   import { Dialog, QuestionDialog } from "$components/dialog";
   import { ItemUnlockScreen, ItemCard } from "$components/inventory";
   import { GaugeScreen } from "$components/inventory";
-  import { SimpleButton } from "$components/ui/buttons";
+  import { Button } from "$lib/components/ui/button";
   import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
   import Submarine from "$components/visual/Submarine.svelte";
   import Squid from "$components/visual/Squid.svelte";
@@ -30,13 +29,9 @@
     coords,
   } from "$lib/stores/sub";
   // Apis
+  import { inventoryApi } from "$apis";
   import { getGameApi } from "$apis/game.svelte";
-  import { getInventoryApi } from "$apis/inventory.svelte";
   const gameApi = getGameApi();
-  const inventoryApi = getInventoryApi();
-
-  const width = 1024;
-  const height = 576;
 
   const xOffset = tweened(0, {
     duration: 500,
@@ -69,9 +64,9 @@
   onMount(() => {
     $depthOffset = 1000;
     $depthMultiplier = 10;
-    subCoords = { x: width / 2, y: height / 2 };
-    inventoryApi.currentHintKey = "hint_4";
-    inventoryApi.showGaugeScreen = true;
+    subCoords = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    $inventoryApi.currentHintKey = "hint_4";
+    $inventoryApi.showGaugeScreen = true;
   });
 
   let startDialog1 = $state(false);
@@ -83,8 +78,6 @@
   let startDialog2 = $state(false);
 </script>
 
-<BackupInit inventory={true} />
-<Inventory />
 <GaugeScreen />
 {#if startDialog1}
   <Dialog
@@ -99,7 +92,7 @@
     keys={dialogExperiment}
     onFinished={() => {
       startExperiment = true;
-      inventoryApi.currentHintKey = "hint_5";
+      $inventoryApi.currentHintKey = "hint_5";
     }}
     hint={true}
   />
@@ -107,7 +100,7 @@
 <ItemUnlockScreen
   reveal={revealUnlockScreen}
   onclick={() => {
-    inventoryApi.unlockItem("th");
+    $inventoryApi.unlockItem("th");
     startDialogExperiment = true;
     revealUnlockScreen = false;
   }}
@@ -118,7 +111,7 @@
   <div
     class="absolute size-full flex justify-end items-end pointer-events-none z-[2]"
   >
-    <SimpleButton onclick={() => (revealQuestion = true)} key="ready" />
+    <Button onclick={() => (revealQuestion = true)} />
   </div>
 {/if}
 {#if revealQuestion}
@@ -130,7 +123,7 @@
     onFinish1={() => {
       revealQuestion = false;
       finishedExperiment = true;
-      inventoryApi.currentHintKey = "hint_4";
+      $inventoryApi.currentHintKey = "hint_4";
     }}
     option2Key="ch4-question_option-2"
     option2DialogKeys={dialogOption2}

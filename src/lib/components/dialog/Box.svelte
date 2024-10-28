@@ -1,5 +1,9 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
+  import { onMount } from "svelte";
+  import { gsap } from "gsap";
+  import { fade } from "svelte/transition";
+  import { Down } from "$components/svg/icons/caret";
 
   let {
     onclick,
@@ -7,7 +11,9 @@
     avatar,
     name,
     text,
+    options = false,
     italic = false,
+    top = false,
     ...props
   }: {
     onclick: (e: MouseEvent) => void;
@@ -15,44 +21,76 @@
     avatar: Snippet;
     name: Snippet;
     text: Snippet;
+    options?: boolean;
     italic?: boolean;
+    top?: boolean;
   } = $props();
+
+  onMount(() => {
+    gsap.to(".container_dialog-box", {
+      opacity: 1,
+      duration: 1,
+    });
+  });
 </script>
 
-<!-- svelte-ignore a11y_no_static_element_interactions -->
-<div {onclick} class="container size-full {extraClass}" {...props}>
+<div
+  out:fade|global
+  class="container_dialog-box {top ? 'items-start' : 'items-end'} {extraClass}"
+  {...props}
+>
   <div class="mr-2">
     {@render avatar()}
   </div>
-  <div class="box w-[55%]">
+  <button {onclick} class="box w-[55%]">
     <div class="box-name text-2xl">
       <p>{@render name()}</p>
     </div>
     <p class="text-2xl {italic ? 'italic' : ''}">{@render text()}</p>
-  </div>
+    <div class="action">
+      <Down class="absolute bottom-4 right-4 w-[24px] h-[24px]" />
+    </div>
+  </button>
 </div>
 
 <style>
-  .container {
-    cursor: pointer;
+  .container_dialog-box {
     position: absolute;
+    height: 100%;
+    width: 100%;
     bottom: 0;
+    padding-top: 44px;
     padding-bottom: 22px;
 
     display: flex;
     justify-content: center;
-    align-items: flex-end;
+    user-select: none;
 
     z-index: 10;
+
+    opacity: 0;
   }
   .box {
+    cursor: pointer;
     position: relative;
-    background: white;
+    background: rgba(255, 255, 255, 0.88);
     color: black;
+    text-align: left;
 
-    padding: 22px;
-
+    padding: 33px 22px;
     border-radius: 22px;
+    transition: all 0.44s;
+  }
+  .box:hover {
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 0 22px rgba(44, 44, 44, 0.22);
+  }
+  .action {
+    opacity: 0.44;
+    transition: all 0.44s;
+  }
+  .box:hover .action {
+    opacity: 1;
   }
   .box-name {
     position: absolute;

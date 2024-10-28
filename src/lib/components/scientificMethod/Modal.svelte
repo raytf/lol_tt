@@ -1,24 +1,19 @@
 <script lang="ts">
+  import { fade } from "svelte/transition";
   import { ScientificMethodDiagram } from "$components/scientificMethod";
-  import close from "$assets/icons/close.svg";
-  import { getInventoryApi } from "$apis/inventory.svelte";
-  const inventoryApi = getInventoryApi();
+  import { Close } from "$components/svg/icons";
+  import { inventoryApi } from "$apis/inventory.svelte";
 
   let activeIndex = $state(-1);
 </script>
 
-{#if inventoryApi.showSmModal}
-  <div class="container-smModal">
+{#if $inventoryApi.showSmModal}
+  <div transition:fade={{ duration: 888 }} class="container-smModal">
     <button
-      onclick={() => (inventoryApi.showSmModal = false)}
+      onclick={() => ($inventoryApi.showSmModal = false)}
       class="absolute top-4 right-4"
     >
-      <img
-        src={close}
-        alt="close"
-        class="w-[55px] h-[55px]"
-        style="color:white;"
-      />
+      <Close class="w-[55px] h-[55px] text-white" />
     </button>
     <ScientificMethodDiagram
       {activeIndex}
@@ -36,7 +31,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.66);
+    background: rgba(0, 0, 0, 0.88);
     z-index: 101;
   }
 </style>

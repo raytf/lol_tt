@@ -1,6 +1,5 @@
 <script lang="ts">
   import { gsap } from "gsap";
-  import BackupInit from "$lib/components/BackupInit.svelte";
   import { ScientificMethodDiagram } from "$components/scientificMethod";
   import type { DialogKey } from "$components/dialog";
   import { Dialog } from "$components/dialog";
@@ -169,7 +168,6 @@
   });
 </script>
 
-<BackupInit />
 <div class="relative size-full flex flex-col items-center bg-black">
   <img id="ch1_ocean-1" src={ocean1} alt="ocean1" class="absolute" />
   <img id="ch1_ocean-2" src={ocean2} alt="ocean2" class="absolute" />

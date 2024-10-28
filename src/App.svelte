@@ -2,13 +2,14 @@
   import Router from "svelte-spa-router";
   // Components
   import Fader from "$components/ui/Fader.svelte";
+  import { Hud } from "$components/hud";
   import { ScientificMethodModal } from "$components/scientificMethod";
   import { HintDialog } from "$components/dialog";
   // Apis
   import { createLolApi } from "$apis/lol.svelte";
   import { createGameApi } from "$apis/game.svelte";
   import { createAudioApi } from "$apis/audio.svelte";
-  import { createInventoryApi } from "$apis/inventory.svelte";
+  import { initializeHudApi, initializeInventoryApi } from "$apis";
   import routes from "./routes";
 
   import { gsap } from "gsap";
@@ -18,16 +19,21 @@
   gsap.registerPlugin(SplitText);
   gsap.registerPlugin(TextPlugin);
 
-  createLolApi();
+  const lolApi = createLolApi();
   createGameApi();
   createAudioApi();
-  createInventoryApi();
+
+  initializeHudApi();
+  initializeInventoryApi();
+
+  lolApi.init();
 </script>
 
 <main>
   <div class="container">
     <div class="content">
       <Fader />
+      <Hud></Hud>
       <ScientificMethodModal />
       <HintDialog />
       <Router {routes} />

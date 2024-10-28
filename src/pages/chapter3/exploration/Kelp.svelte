@@ -1,10 +1,9 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { tweened } from "svelte/motion";
-  import BackupInit from "$lib/components/BackupInit.svelte";
-  import { Grid, Area, BgImg } from "$components/exploration";
-  import Inventory from "$components/inventory";
-  import { InfoMarker } from "$components/ui/buttons";
+  import { BgImg } from "$components/ui/img";
+  import { Grid, Area } from "$components/exploration";
+  import { InfoMarker } from "$lib/components/ui/button";
   import type { DialogKey } from "$components/dialog";
   import { Dialog, QuestionDialog } from "$components/dialog";
   import { ItemUnlockScreen, ItemCard } from "$components/inventory";
@@ -37,12 +36,8 @@
   // Stores
   // Apis
   import { getGameApi } from "$apis/game.svelte";
-  import { getInventoryApi, itemMap } from "$apis/inventory.svelte";
+  import { inventoryApi } from "$apis";
   const gameApi = getGameApi();
-  const inventoryApi = getInventoryApi();
-
-  const width = 1024;
-  const height = 576;
 
   const xOffset = tweened(0, {
     duration: 500,
@@ -84,8 +79,8 @@
   }
 
   onMount(() => {
-    subCoords = { x: width / 2, y: height * 1.5 };
-    inventoryApi.currentHintKey = "hint_3";
+    subCoords = { x: window.innerWidth / 2, y: window.innerHeight * 1.5 };
+    $inventoryApi.currentHintKey = "hint_3";
     goTooDeep = false;
   });
 
@@ -105,9 +100,6 @@
   let pressureReady = $state(false);
   let revealPg = $state(false);
 </script>
-
-<BackupInit inventory={true} />
-<Inventory />
 
 <QuestionDialog
   reveal={revealQuestionSQ}
@@ -215,7 +207,6 @@
 />
 
 <Dialog
-  once={false}
   keys={dialogKeys}
   onFinished={() => {
     dialogKeys = [];
@@ -229,7 +220,7 @@
 <ItemUnlockScreen
   reveal={revealPg}
   onclick={() => {
-    inventoryApi.unlockItem("pg");
+    $inventoryApi.unlockItem("pg");
     revealPg = false;
     dialogKeys = dialogProcedure;
     onDialogFinish = () => {

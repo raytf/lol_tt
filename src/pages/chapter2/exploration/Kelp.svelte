@@ -1,10 +1,9 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { tweened } from "svelte/motion";
-  import BackupInit from "$lib/components/BackupInit.svelte";
-  import { Grid, Area, BgImg } from "$components/exploration";
-  import Inventory from "$components/inventory";
-  import { InfoMarker } from "$components/ui/buttons";
+  import { BgImg, TurbulentImg } from "$lib/components/ui/img";
+  import { Grid, Area } from "$components/exploration";
+  import { InfoMarker } from "$lib/components/ui/button";
   import type { DialogKey } from "$components/dialog";
   import { Dialog, QuestionDialog } from "$components/dialog";
   import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
@@ -13,6 +12,7 @@
   import Otter from "$components/visual/Otter.svelte";
   import relics2 from "$assets/relics/relics_2.svg";
   import kelp from "$assets/chapter1/kelp.png";
+  import underwater from "$assets/underwater_surface.jpg";
   // Dialog
   import {
     dialogOption1,
@@ -28,12 +28,8 @@
   import { otterEncountered } from "../store";
   // Apis
   import { getGameApi } from "$apis/game.svelte";
-  import { getInventoryApi } from "$apis/inventory.svelte";
+  import { inventoryApi } from "$apis";
   const gameApi = getGameApi();
-  const inventoryApi = getInventoryApi();
-
-  const width = 1024;
-  const height = 576;
 
   const xOffset = tweened(0, {
     duration: 500,
@@ -81,8 +77,8 @@
   }
 
   onMount(() => {
-    subCoords = { x: width / 2, y: height / 2 };
-    inventoryApi.currentHintKey = "hint_2";
+    subCoords = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    $inventoryApi.currentHintKey = "hint_2";
     if (!$otterEncountered) {
       revealQuestion = true;
     }
@@ -98,9 +94,6 @@
 
   let goTooDeep = $state(false);
 </script>
-
-<BackupInit inventory={true} />
-<Inventory />
 
 <QuestionDialog
   reveal={revealQuestion}
@@ -120,7 +113,6 @@
 />
 
 <Dialog
-  once={false}
   keys={dialogKeys}
   onFinished={() => {
     dialogKeys = [];
@@ -160,6 +152,7 @@
         --color-top="#03E5B7"
         --color-bottom="#08C8F6"
       />
+      <TurbulentImg src={underwater} class="absolute size-full opacity-10" />
       {#if !$otterEncountered}
         <InfoMarker
           onclick={() => {
@@ -172,7 +165,7 @@
           class="absolute w-[55px] h-[55px] top-[200px] right-[111px] z-20"
         />
       {/if}
-      <div class="absolute size-full z-[1] pointer-events-none">
+      <div class="absolute size-full top-0 z-[1] pointer-events-none">
         <div class="absolute w-1/2 h-full left-0 overflow-clip">
           <BgImg src={relics2} class="bottom-[-42%] w-[200%] z-[2]" />
         </div>
@@ -201,7 +194,7 @@
     >
       <UnderwaterGradient
         class="absolute size-full"
-        --color-top="#08C8F6"
+        --color-top="#07BBE5"
         --color-bottom="#037ade"
       />
       <InfoMarker

@@ -1,4 +1,5 @@
-import { setContext, getContext } from "svelte";
+import { writable } from "svelte/store";
+import radio from "$assets/icons/radio.svg";
 import shell from "$assets/avatars/shell.png";
 import grid from "$assets/icons/grid-square.svg";
 import pressureGauge from "$assets/sprites/pressure-gauge.png";
@@ -24,6 +25,13 @@ export const itemMap: ItemMap = {
     nameKey: "inventory-item_name_conch",
     descKey: "inventory-item_desc_conch",
     actionKey: "inventory-item_action_conch",
+  },
+  radio: {
+    imgSrc: radio,
+    id: "radio",
+    nameKey: "inventory-item_name_radio",
+    descKey: "inventory-item_desc_radio",
+    actionKey: "inventory-item_action_radio",
   },
   sm: {
     imgSrc: grid,
@@ -53,7 +61,7 @@ export const itemMap: ItemMap = {
 };
 
 export class InventoryApi {
-  unlocked = $state(false);
+  activated = $state(false);
   unlockedItems = $state<string[]>([]);
   showSmModal = $state(false);
   currentHintKey = $state("hint_1");
@@ -61,6 +69,10 @@ export class InventoryApi {
   showGaugeScreen = $state(false);
 
   constructor() {}
+
+  getItem(key: string) {
+    return itemMap[key];
+  }
 
   unlockItem(item: string) {
     if (this.unlockedItems.includes(item)) return;
@@ -73,12 +85,8 @@ export class InventoryApi {
   }
 }
 
-const CONTEXT_KEY = Symbol("InventoryApi");
+export const inventoryApi = writable<InventoryApi>(undefined);
 
-export function createInventoryApi() {
-  return setContext(CONTEXT_KEY, new InventoryApi());
-}
-
-export function getInventoryApi() {
-  return getContext<ReturnType<typeof createInventoryApi>>(CONTEXT_KEY);
+export function initializeInventoryApi() {
+  inventoryApi.set(new InventoryApi());
 }
