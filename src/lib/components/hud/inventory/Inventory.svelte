@@ -16,7 +16,6 @@
     selectedItem = "";
     drawerHidden = true;
     if (itemId === "sm") {
-      $hudApi.completeTask("task_reviewSM");
       $inventoryApi.showSmModal = true;
     }
     if (itemId === "conch") {
