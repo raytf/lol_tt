@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import { fade } from "svelte/transition";
   import { gsap } from "gsap";
-  import { Area } from "$components/exploration";
+  import { Area } from "$components/explorationOld";
   import { Lol } from "$components/text";
   import { Dive } from "$components/svg/icons";
   import { Button } from "$components/ui/button";

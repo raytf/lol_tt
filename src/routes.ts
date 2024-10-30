@@ -2,6 +2,8 @@ import Title from "./pages/title";
 import Prologue from "./pages/prologue";
 import Surface from "./pages/surface";
 import ChapterSelect from "./pages/ChapterSelect.svelte";
+// Exploration
+import { Wrecks } from "./pages/exploration";
 // Chapter 1
 import Ch1 from "./pages/chapter1";
 import Ch1_Exploration_Wrecks from "./pages/chapter1/exploration/WrecksExploration.svelte";
@@ -23,6 +25,7 @@ export default {
   "/": Title,
   "/prologue": Prologue,
   "/surface": Surface,
+  "/exploration_wrecks": Wrecks,
   "/chapter-select": ChapterSelect,
   "/ch1": Ch1,
   "/ch1_exploration_wrecks": Ch1_Exploration_Wrecks,

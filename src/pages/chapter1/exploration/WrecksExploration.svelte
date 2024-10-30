@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { TurbulentImg } from "$lib/components/ui/img";
-  import { Grid, Area } from "$components/exploration";
+  import { Grid, Area } from "$components/explorationOld";
   import { ItemUnlockScreen, ItemCard } from "$components/inventory";
   import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
   import { Shipwreck } from "./backgrounds";

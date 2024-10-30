@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import { tweened } from "svelte/motion";
   import { BgImg } from "$components/ui/img";
-  import { Grid, Area } from "$components/exploration";
+  import { Grid, Area } from "$components/explorationOld";
   import type { DialogKey } from "$components/dialog";
   import { InfoMarker } from "$lib/components/ui/button";
   import { Dialog, QuestionDialog } from "$components/dialog";

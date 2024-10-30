@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import { tweened } from "svelte/motion";
   import { BgImg } from "$components/ui/img";
-  import { Grid, Area } from "$components/exploration";
+  import { Grid, Area } from "$components/explorationOld";
   import { Dialog } from "$components/dialog";
   import {
     GaugeScreen,
