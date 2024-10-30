@@ -33,6 +33,11 @@
     offset.y}px); width: {size}px; height: {size}px"
   {...props}
 >
+  <div
+    class="flashlight"
+    style="transform: translate({-offset.x}px, {-offset.y}px); width: {size *
+      2}px; height: {size * 2}px"
+  ></div>
   {#if reveal}
     <img
       in:fly|global={{ y: 111, duration: 1111, easing: backOut }}
@@ -54,6 +59,12 @@
   .container-sub {
     position: absolute;
     pointer-events: none;
+  }
+  .flashlight {
+    position: absolute;
+    border-radius: 50%;
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.4);
+    filter: blur(22px);
   }
   .anim-bob {
     animation: bob 11s linear infinite;
