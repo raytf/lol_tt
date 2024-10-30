@@ -1,11 +1,14 @@
 <script lang="ts">
   import { spring } from "svelte/motion";
+  import { TurbulentImg } from "$lib/components/ui/img";
+  import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
   import { Grid, Area } from "$components/exploration";
   import { Submarine } from "$components/gameObjects";
   import { windowWidth, windowHeight } from "$stores/game";
   import { setTarget as setSubTarget } from "$stores/sub";
+  import underwater from "$assets/underwater_1by3.jpg";
 
-  const gridWidth = $windowWidth * 2;
+  const gridWidth = $windowWidth * 1.5;
   const gridHeight = $windowHeight * 3;
   const gridOffset = spring({ x: 0, y: 0 }, { stiffness: 0.01, damping: 0.8 });
 
@@ -40,6 +43,7 @@
   yOffset={$gridOffset.y}
   class="bg-blue-800"
 >
+  <TurbulentImg src={underwater} class="opacity-35 z-[1]" />
   <Submarine class="z-10" />
   {#snippet areas()}
     <Area
@@ -47,13 +51,25 @@
       onmousedown={moveSub}
       class="flex flex-row"
     >
-      <div class="bg-blue-200 h-full w-1/2"></div>
+      <UnderwaterGradient
+        class="absolute w-full h-[101%]"
+        --color-top="#03E5B7"
+        --color-bottom="#00C1EF"
+      />
     </Area>
     <Area size={[gridWidth, $windowHeight]} onmousedown={moveSub}>
-      <div class="bg-red-200 size-full"></div>
+      <UnderwaterGradient
+        class="absolute w-full h-[101%]"
+        --color-top="#00C1EF"
+        --color-bottom="#037ADE"
+      />
     </Area>
     <Area size={[gridWidth, $windowHeight]} onmousedown={moveSub}>
-      <div class="bg-green-200 size-full"></div>
+      <UnderwaterGradient
+        class="absolute size-full"
+        --color-top="#037ADE"
+        --color-bottom="#182B3A"
+      />
     </Area>
   {/snippet}
 </Grid>
