@@ -2,7 +2,7 @@
   import type { Snippet } from "svelte";
   import { fly } from "svelte/transition";
   import { backOut, backIn } from "svelte/easing";
-  import { coords, direction } from "$lib/stores/sub";
+  import { coords, direction } from "$stores/sub";
   import sub from "$assets/sprites/sub.png";
 
   let {
@@ -13,8 +13,6 @@
     imgClass = "",
     bob = false,
     reveal = true,
-    flashlight = true,
-    lightLevel = 1,
     children,
     ...props
   }: {
@@ -24,19 +22,11 @@
     class?: string;
     bob?: boolean;
     reveal?: boolean;
-    flashlight?: boolean;
-    lightLevel?: number;
     imgClass?: string;
     children?: Snippet;
   } = $props();
 </script>
 
-<div
-  class="flashlight"
-  style="transform: translate({$coords.x - 2 * offset.x}px, {$coords.y -
-    2 * offset.y}px); width: {size * 2}px; height: {size *
-    2}px; box-shadow: 0 0 0 9999px rgba(0, 0, 0, {1 - lightLevel});"
-></div>
 <div
   class="container-sub {extraClass}"
   style="transform: translate({$coords.x - offset.x}px, {$coords.y -
@@ -64,12 +54,6 @@
   .container-sub {
     position: absolute;
     pointer-events: none;
-  }
-  .flashlight {
-    position: fixed;
-    border-radius: 50%;
-    filter: blur(22px);
-    z-index: 50;
   }
   .anim-bob {
     animation: bob 11s linear infinite;

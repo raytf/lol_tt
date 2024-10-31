@@ -1,11 +1,11 @@
 <script lang="ts">
   import { spring } from "svelte/motion";
   import { TurbulentImg, BgImg } from "$lib/components/ui/img";
-  import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
+  import { Darkness, UnderwaterGradient } from "$components/visual";
   import { Grid, Area } from "$components/exploration";
   import { Submarine } from "$components/gameObjects";
   import { windowWidth, windowHeight } from "$stores/game";
-  import { setTarget as setSubTarget } from "$stores/sub";
+  import { setTarget as setSubTarget, coords as subCoords } from "$stores/sub";
   import underwater from "$assets/underwater_1by3.jpg";
   import wrecks_1 from "$assets/wrecks/wrecks_1.png";
   import wrecks_2 from "$assets/wrecks/wrecks_2.png";
@@ -56,7 +56,7 @@
     style="transform: translateX({$gridOffset.x / 10}px)"
     class="w-[115%] bottom-0 z-[9]"
   />
-  <Submarine lightLevel={1.6 - $gridOffset.y / minYOffset} class="z-10" />
+  <Submarine class="z-10" />
   <BgImg
     src={wrecks_kelp}
     style="filter: brightness({1.2 - $gridOffset.y / minYOffset})"
@@ -71,6 +71,14 @@
     src={wrecks_1}
     style="transform: translateX({$gridOffset.x / 5}px)"
     class="w-[111%] bottom-0 z-[13]"
+  />
+  <Darkness
+    level={$gridOffset.y / minYOffset - 0.5}
+    lights={[
+      { x: $subCoords.x, y: $subCoords.y, unit: "px", radius: 8 },
+      { x: 88, y: 88, unit: "%", radius: 11 },
+    ]}
+    class="z-50"
   />
   {#snippet areas()}
     <Area
