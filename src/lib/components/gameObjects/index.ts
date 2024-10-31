@@ -1,2 +1,3 @@
 import Submarine from "./Submarine.svelte";
-export { Submarine };
+import Conch from "./Conch.svelte";
+export { Submarine, Conch };

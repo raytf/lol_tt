@@ -4,6 +4,7 @@
     alt = "bg",
     class: extraClass,
     style: extraStyle,
+    ...props
   }: { src: string; alt?: string; class?: string; style?: string } = $props();
 </script>
 
@@ -12,4 +13,5 @@
   {alt}
   class="absolute max-w-none pointer-events-none select-none {extraClass}"
   style={extraStyle}
+  {...props}
 />

@@ -1,9 +1,9 @@
 <script lang="ts">
   import { spring } from "svelte/motion";
-  import { TurbulentImg, BgImg } from "$lib/components/ui/img";
+  import { TurbulentImg, BgImg, InteractiveImg } from "$lib/components/ui/img";
   import { Darkness, UnderwaterGradient } from "$components/visual";
   import { Grid, Area } from "$components/exploration";
-  import { Submarine } from "$components/gameObjects";
+  import { Submarine, Conch } from "$components/gameObjects";
   import { windowWidth, windowHeight } from "$stores/game";
   import { setTarget as setSubTarget, coords as subCoords } from "$stores/sub";
   import underwater from "$assets/underwater_1by3.jpg";
@@ -20,7 +20,6 @@
   const minYOffset = -gridHeight + $windowHeight;
   const minXOffset = -gridWidth + $windowWidth;
   function moveSub(e: MouseEvent) {
-    //console.log(e.clientX, e.clientY);
     const currentOffset = $gridOffset;
 
     const halfWidth = $windowWidth / 2;
@@ -36,7 +35,6 @@
     const newOffset = { x: newXOffset, y: newYOffset };
 
     gridOffset.set(newOffset);
-    console.log(newOffset);
     const x = e.clientX - $gridOffset.x;
     const y = e.clientY - $gridOffset.y;
     setSubTarget({ x, y });
@@ -56,6 +54,21 @@
     style="transform: translateX({$gridOffset.x / 10}px)"
     class="w-[115%] bottom-0 z-[9]"
   />
+  <!-- <InteractiveImg
+    src={conch}
+    style="transform: translateX({$gridOffset.x / 10}px)"
+    class="absolute w-[88px] h-[111px] top-[88%] left-[82%] z-[9]"
+    onmouseenter={() => {
+      console.log("conch");
+    }}
+    onmouseleave={() => {
+      console.log("conch leave");
+    }}
+  /> -->
+  <Conch
+    class="absolute w-[111px] h-[111px] top-[86%] left-[82%] z-[9]"
+    style="transform: translateX({$gridOffset.x / 10}px)"
+  />
   <Submarine class="z-10" />
   <BgImg
     src={wrecks_kelp}
@@ -73,10 +86,10 @@
     class="w-[111%] bottom-0 z-[13]"
   />
   <Darkness
-    level={$gridOffset.y / minYOffset - 0.5}
+    level={$gridOffset.y / minYOffset - 0.4}
     lights={[
       { x: $subCoords.x, y: $subCoords.y, unit: "px", radius: 8 },
-      { x: 88, y: 88, unit: "%", radius: 11 },
+      { x: 86, y: 92, unit: "%", radius: 11 },
     ]}
     class="z-50"
   />

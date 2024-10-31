@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { coords as subCoords } from "$stores/sub";
   type Light = {
     x: number;
     y: number;
