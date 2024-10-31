@@ -23,15 +23,15 @@
     //console.log(e.clientX, e.clientY);
     const currentOffset = $gridOffset;
 
-    const halfHeight = $windowHeight / 2;
     const halfWidth = $windowWidth / 2;
-    const halfHeightDiff = e.clientY - halfHeight;
+    const halfHeight = $windowHeight / 2;
     const halfWidthDiff = e.clientX - halfWidth;
+    const halfHeightDiff = e.clientY - halfHeight;
     let newXOffset = currentOffset.x - halfWidthDiff;
     let newYOffset = currentOffset.y - halfHeightDiff;
     if (newXOffset > 0) newXOffset = 0;
-    if (newXOffset < minXOffset) newXOffset = minXOffset;
     if (newYOffset > 0) newYOffset = 0;
+    if (newXOffset < minXOffset) newXOffset = minXOffset;
     if (newYOffset < minYOffset) newYOffset = minYOffset;
     const newOffset = { x: newXOffset, y: newYOffset };
 
@@ -56,7 +56,7 @@
     style="transform: translateX({$gridOffset.x / 10}px)"
     class="w-[115%] bottom-0 z-[9]"
   />
-  <Submarine class="z-10" />
+  <Submarine lightLevel={1.6 - $gridOffset.y / minYOffset} class="z-10" />
   <BgImg
     src={wrecks_kelp}
     style="filter: brightness({1.2 - $gridOffset.y / minYOffset})"

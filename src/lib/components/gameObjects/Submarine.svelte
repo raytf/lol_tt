@@ -13,7 +13,8 @@
     imgClass = "",
     bob = false,
     reveal = true,
-    flashlight = false,
+    flashlight = true,
+    lightLevel = 1,
     children,
     ...props
   }: {
@@ -24,24 +25,24 @@
     bob?: boolean;
     reveal?: boolean;
     flashlight?: boolean;
+    lightLevel?: number;
     imgClass?: string;
     children?: Snippet;
   } = $props();
 </script>
 
 <div
+  class="flashlight"
+  style="transform: translate({$coords.x - 2 * offset.x}px, {$coords.y -
+    2 * offset.y}px); width: {size * 2}px; height: {size *
+    2}px; box-shadow: 0 0 0 9999px rgba(0, 0, 0, {1 - lightLevel});"
+></div>
+<div
   class="container-sub {extraClass}"
   style="transform: translate({$coords.x - offset.x}px, {$coords.y -
     offset.y}px); width: {size}px; height: {size}px"
   {...props}
 >
-  {#if flashlight}
-    <div
-      class="flashlight"
-      style="transform: translate({-offset.x}px, {-offset.y}px); width: {size *
-        2}px; height: {size * 2}px"
-    ></div>
-  {/if}
   {#if reveal}
     <img
       in:fly|global={{ y: 111, duration: 1111, easing: backOut }}
@@ -65,10 +66,10 @@
     pointer-events: none;
   }
   .flashlight {
-    position: absolute;
+    position: fixed;
     border-radius: 50%;
-    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.4);
     filter: blur(22px);
+    z-index: 50;
   }
   .anim-bob {
     animation: bob 11s linear infinite;
