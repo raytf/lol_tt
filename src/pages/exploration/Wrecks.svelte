@@ -35,6 +35,7 @@
     const newOffset = { x: newXOffset, y: newYOffset };
 
     gridOffset.set(newOffset);
+    console.log(newOffset);
     const x = e.clientX - $gridOffset.x;
     const y = e.clientY - $gridOffset.y;
     setSubTarget({ x, y });
@@ -55,12 +56,9 @@
     class="w-[111%] bottom-0 z-[9]"
   />
   <Submarine class="z-10" />
-  <TurbulentImg
-    minFrequency={[0.02, 0.02]}
-    maxFrequency={[0.04, 0.04]}
-    duration={22}
-    scale={10}
+  <BgImg
     src={wrecks_kelp}
+    style="filter: brightness({1.2 - $gridOffset.y / minYOffset})"
     class="opacity-80 z-[11]"
   />
   <BgImg

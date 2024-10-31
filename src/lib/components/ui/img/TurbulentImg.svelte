@@ -18,7 +18,6 @@
   } = $props();
 
   const randId = Math.floor(Math.random() * 100);
-  console.log("random", randId);
 
   const freqKeyTimes = `0;${yoyo ? "0.5;" : ""}1`;
   const freqValues = `${minFrequency[0]} ${minFrequency[1]};${maxFrequency[0]} ${maxFrequency[1]}${
