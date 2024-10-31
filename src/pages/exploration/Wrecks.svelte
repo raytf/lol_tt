@@ -48,11 +48,11 @@
   class="bg-blue-800"
 >
   <TurbulentImg src={underwater} class="opacity-35 z-[1]" />
-  <BgImg src={wrecks_3} class="z-[7]" />
+  <BgImg src={wrecks_3} class="w-[111%] bottom-0 z-[7]" />
   <BgImg
     src={wrecks_2}
     style="transform: translateX({$gridOffset.x / 10}px)"
-    class="z-[9]"
+    class="w-[111%] bottom-0 z-[9]"
   />
   <Submarine class="z-10" />
   <TurbulentImg
@@ -61,7 +61,7 @@
     duration={22}
     scale={10}
     src={wrecks_kelp}
-    class="opacity-50 z-[11]"
+    class="opacity-80 z-[11]"
   />
   <BgImg
     src={wrecks_1}
