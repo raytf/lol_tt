@@ -11,6 +11,7 @@
   import wrecks_2 from "$assets/wrecks/wrecks_2.png";
   import wrecks_3 from "$assets/wrecks/wrecks_3.png";
   import wrecks_kelp from "$assets/wrecks/wrecks_kelp.png";
+  import wrecks_secret from "$assets/wrecks/wrecks_secret.png";
 
   const gridWidth = $windowWidth * 1.5;
   const gridHeight = $windowHeight * 3;
@@ -49,11 +50,11 @@
   class="bg-blue-800"
 >
   <TurbulentImg src={underwater} class="opacity-35 z-[1]" />
-  <BgImg src={wrecks_3} class="w-[111%] bottom-0 z-[7]" />
+  <BgImg src={wrecks_3} class="w-[122%] bottom-0 z-[7]" />
   <BgImg
     src={wrecks_2}
     style="transform: translateX({$gridOffset.x / 10}px)"
-    class="w-[111%] bottom-0 z-[9]"
+    class="w-[115%] bottom-0 z-[9]"
   />
   <Submarine class="z-10" />
   <BgImg
@@ -62,9 +63,14 @@
     class="opacity-80 z-[11]"
   />
   <BgImg
-    src={wrecks_1}
+    src={wrecks_secret}
     style="transform: translateX({$gridOffset.x / 5}px)"
     class="w-[111%] bottom-0 z-[12]"
+  />
+  <BgImg
+    src={wrecks_1}
+    style="transform: translateX({$gridOffset.x / 5}px)"
+    class="w-[111%] bottom-0 z-[13]"
   />
   {#snippet areas()}
     <Area
