@@ -13,6 +13,7 @@
     imgClass = "",
     bob = false,
     reveal = true,
+    flashlight = false,
     children,
     ...props
   }: {
@@ -22,6 +23,7 @@
     class?: string;
     bob?: boolean;
     reveal?: boolean;
+    flashlight?: boolean;
     imgClass?: string;
     children?: Snippet;
   } = $props();
@@ -33,11 +35,13 @@
     offset.y}px); width: {size}px; height: {size}px"
   {...props}
 >
-  <div
-    class="flashlight"
-    style="transform: translate({-offset.x}px, {-offset.y}px); width: {size *
-      2}px; height: {size * 2}px"
-  ></div>
+  {#if flashlight}
+    <div
+      class="flashlight"
+      style="transform: translate({-offset.x}px, {-offset.y}px); width: {size *
+        2}px; height: {size * 2}px"
+    ></div>
+  {/if}
   {#if reveal}
     <img
       in:fly|global={{ y: 111, duration: 1111, easing: backOut }}

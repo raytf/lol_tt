@@ -1,12 +1,16 @@
 <script lang="ts">
   import { spring } from "svelte/motion";
-  import { TurbulentImg } from "$lib/components/ui/img";
+  import { TurbulentImg, BgImg } from "$lib/components/ui/img";
   import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
   import { Grid, Area } from "$components/exploration";
   import { Submarine } from "$components/gameObjects";
   import { windowWidth, windowHeight } from "$stores/game";
   import { setTarget as setSubTarget } from "$stores/sub";
   import underwater from "$assets/underwater_1by3.jpg";
+  import wrecks_1 from "$assets/wrecks/wrecks_1.png";
+  import wrecks_2 from "$assets/wrecks/wrecks_2.png";
+  import wrecks_3 from "$assets/wrecks/wrecks_3.png";
+  import wrecks_kelp from "$assets/wrecks/wrecks_kelp.png";
 
   const gridWidth = $windowWidth * 1.5;
   const gridHeight = $windowHeight * 3;
@@ -44,7 +48,26 @@
   class="bg-blue-800"
 >
   <TurbulentImg src={underwater} class="opacity-35 z-[1]" />
+  <BgImg src={wrecks_3} class="z-[7]" />
+  <BgImg
+    src={wrecks_2}
+    style="transform: translateX({$gridOffset.x / 10}px)"
+    class="z-[9]"
+  />
   <Submarine class="z-10" />
+  <TurbulentImg
+    minFrequency={[0.02, 0.02]}
+    maxFrequency={[0.04, 0.04]}
+    duration={22}
+    scale={10}
+    src={wrecks_kelp}
+    class="opacity-50 z-[11]"
+  />
+  <BgImg
+    src={wrecks_1}
+    style="transform: translateX({$gridOffset.x / 5}px)"
+    class="w-[111%] bottom-0 z-[12]"
+  />
   {#snippet areas()}
     <Area
       size={[gridWidth, $windowHeight]}
