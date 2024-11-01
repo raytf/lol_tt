@@ -52,6 +52,7 @@
 
   let unlockRadio = $state(false);
   let unlockSM = $state(false);
+  let equipmentChecked = $state(false);
   let readyToStart = $state(false);
 </script>
 
@@ -61,7 +62,7 @@
     keys={missionBrief}
     onFinished={() => {
       $inventoryApi.activated = true;
-      unlockRadio = true;
+      unlockSM = true;
     }}
   />
 {/if}
@@ -97,7 +98,14 @@
   </div>
   <SkyOcean start={true} />
   <div class="absolute w-full h-1/2 bottom-0 z-10">
-    <Area onmousedown={moveSub}></Area>
+    <Area
+      onmousedown={(e) => {
+        if (equipmentChecked) {
+          $hudApi.completeTask("task_move-sub");
+        }
+        moveSub(e);
+      }}
+    ></Area>
   </div>
   <Submarine
     size={111}
@@ -110,25 +118,38 @@
 </div>
 
 <ItemUnlockScreen
-  reveal={unlockRadio}
-  onclick={() => {
-    $inventoryApi.unlockItem("radio");
-    unlockRadio = false;
-    unlockSM = true;
-  }}
->
-  <ItemCard id="radio" />
-</ItemUnlockScreen>
-<ItemUnlockScreen
   reveal={unlockSM}
   onclick={() => {
-    $hudApi.activated = true;
     $inventoryApi.unlockItem("sm");
     unlockSM = false;
-    $hudApi.startObjective("objective_prepare", () => {
-      readyToStart = true;
-    });
+    unlockRadio = true;
   }}
 >
   <ItemCard id="sm" />
+</ItemUnlockScreen>
+<ItemUnlockScreen
+  reveal={unlockRadio}
+  onclick={() => {
+    $hudApi.activated = true;
+    $inventoryApi.unlockItem("radio");
+    unlockRadio = false;
+    $hudApi.startChapter("tutorial", [
+      {
+        key: "obj_check-equipment",
+        completed: false,
+        onFinished: () => {
+          equipmentChecked = true;
+        },
+      },
+      {
+        key: "obj_learn-controls",
+        completed: false,
+        onFinished: () => {
+          readyToStart = true;
+        },
+      },
+    ]);
+  }}
+>
+  <ItemCard id="radio" />
 </ItemUnlockScreen>

@@ -8,10 +8,10 @@
 </script>
 
 {#if $inventoryApi.showSmModal}
-  <div transition:fade={{ duration: 888 }} class="container-smModal">
+  <div transition:fade={{ duration: 444 }} class="container-smModal">
     <button
       onclick={() => {
-        $hudApi.completeTask("task_reviewSM");
+        $hudApi.completeTask("task_review-SM");
         $inventoryApi.showSmModal = false;
       }}
       class="absolute top-4 right-4"

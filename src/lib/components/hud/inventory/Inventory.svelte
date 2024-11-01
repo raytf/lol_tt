@@ -18,6 +18,10 @@
     if (itemId === "sm") {
       $inventoryApi.showSmModal = true;
     }
+    if (itemId === "radio") {
+      // Remove later
+      $hudApi.completeTask("task_call-radio");
+    }
     if (itemId === "conch") {
       $inventoryApi.showHintDialog = true;
     }
@@ -30,7 +34,7 @@
       transition:fly={{ y: -222 }}
       onclick={() => {
         drawerHidden = false;
-        $hudApi.completeTask("task_openInventory");
+        $hudApi.completeTask("task_open-inventory");
       }}
       class="button-toggle"
     >

@@ -45,7 +45,6 @@
   size={[gridWidth, gridHeight]}
   xOffset={$gridOffset.x}
   yOffset={$gridOffset.y}
-  class="bg-blue-800"
 >
   <TurbulentImg src={underwater} class="opacity-35 z-[1]" />
   <BgImg src={wrecks_3} class="w-[122%] bottom-0 z-[7]" />
