@@ -148,6 +148,7 @@
     height: 102%;
     opacity: 0.1;
     filter: url(#turbulence);
+    user-select: none;
   }
   .sun-reflection {
     width: 100%;
