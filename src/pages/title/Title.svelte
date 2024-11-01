@@ -18,7 +18,7 @@
 
   function zoomInMore(vars?: gsap.TimelineVars) {
     const zoomTl = gsap.timeline(vars);
-    zoomTl.to(".pg-title_bg", { scale: 1.33, duration: 2 });
+    zoomTl.to(".pg-title_bg", { scale: 1.44, duration: 2 });
     return zoomTl;
   }
 
@@ -29,6 +29,7 @@
       duration: 2,
     });
     textTl.to("#pg-title_subheader", { opacity: 1, duration: 1 });
+
     textTl.to("#pg-title_button-start", { opacity: 1, duration: 1 });
     return textTl;
   }
@@ -76,7 +77,7 @@
           startIntro = false;
           blackdropOpacity = 0;
           zoomIn();
-          revealText({ delay: 2 });
+          revealText({ delay: 4 });
           audioApi.playTrack({
             src: "music/into-the-blue.mp3",
             volume: 0.66,

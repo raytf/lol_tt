@@ -12,7 +12,11 @@
   const gameApi = getGameApi();
   const audioApi = getAudioApi();
 
-  const textSequence = [["pl_1", "pl_2", "pl_3"], ["pl_4", "pl_5"], ["pl_6"]];
+  const textSequence = [
+    ["pl_1", "pl_2"],
+    ["pl_3", "pl_4"],
+    ["pl_5", "pl_6"],
+  ];
   let currentSequence = $state(0);
   let blackdropOpacity = $state(100);
   let shadowOpacity = $state(0);
