@@ -54,19 +54,8 @@
     style="transform: translateX({$gridOffset.x / 10}px)"
     class="w-[115%] bottom-0 z-[9]"
   />
-  <!-- <InteractiveImg
-    src={conch}
-    style="transform: translateX({$gridOffset.x / 10}px)"
-    class="absolute w-[88px] h-[111px] top-[88%] left-[82%] z-[9]"
-    onmouseenter={() => {
-      console.log("conch");
-    }}
-    onmouseleave={() => {
-      console.log("conch leave");
-    }}
-  /> -->
   <Conch
-    class="absolute w-[111px] h-[111px] top-[86%] left-[82%] z-[9]"
+    class="absolute w-[111px] h-[111px] top-[89%] left-[82%] z-[9]"
     style="transform: translateX({$gridOffset.x / 10}px)"
   />
   <Submarine class="z-10" />
@@ -89,7 +78,7 @@
     level={$gridOffset.y / minYOffset - 0.4}
     lights={[
       { x: $subCoords.x, y: $subCoords.y, unit: "px", radius: 8 },
-      { x: 86, y: 92, unit: "%", radius: 11 },
+      { x: 84, y: 93, unit: "%", radius: 8 },
     ]}
     class="z-50"
   />

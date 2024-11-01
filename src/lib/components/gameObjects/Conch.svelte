@@ -4,7 +4,14 @@
   let {
     class: extraClass,
     style: extraStyle,
-  }: { class?: string; style?: string } = $props();
+    onmouseenter,
+    onmouseleave,
+  }: {
+    class?: string;
+    style?: string;
+    onmouseenter?: () => void;
+    onmouseleave?: () => void;
+  } = $props();
 
   let revealFace = $state(false);
 </script>
@@ -13,19 +20,19 @@
   class="absolute {extraClass}"
   style={extraStyle}
   onmouseenter={() => {
-    console.log("conch");
     revealFace = true;
+    onmouseenter && onmouseenter();
   }}
   onmouseleave={() => {
-    console.log("conch leave");
     revealFace = false;
+    onmouseleave && onmouseleave();
   }}
 >
-  <img src={conch} alt="conch" class="absolute object-fill z-0" />
+  <img src={conch} alt="conch" class="absolute bottom-0 object-fill z-0" />
   <img
     src={conch_face}
     alt="conch_face"
-    class="conch-face absolute object-fill z-[1] {revealFace
+    class="conch-face absolute bottom-0 object-fill z-[1] {revealFace
       ? 'opacity-100'
       : 'opacity-0'}"
   />
