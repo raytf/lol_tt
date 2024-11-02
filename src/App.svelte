@@ -3,10 +3,6 @@
   // Components
   import Fader from "$components/ui/Fader.svelte";
   import { Hud } from "$components/hud";
-  // Apis
-  import { createLolApi } from "$apis/lol.svelte";
-  import { createGameApi } from "$apis/game.svelte";
-  import { createAudioApi } from "$apis/audio.svelte";
   import routes from "./routes";
 
   import { gsap } from "gsap";
@@ -15,12 +11,6 @@
 
   gsap.registerPlugin(SplitText);
   gsap.registerPlugin(TextPlugin);
-
-  const lolApi = createLolApi();
-  createGameApi();
-  createAudioApi();
-
-  lolApi.init();
 </script>
 
 <main>

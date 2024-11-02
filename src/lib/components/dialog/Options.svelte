@@ -4,8 +4,7 @@
   import { fade } from "svelte/transition";
   import { gsap } from "gsap";
   import { Button } from "$components/ui/button";
-  import { getLolApi } from "$apis/lol.svelte";
-  const lolApi = getLolApi();
+  import { lolApi } from "$apis/lol.svelte";
 
   let {
     key,
@@ -39,7 +38,7 @@
           onclickOption(nextDialog);
         }}
       >
-        {lolApi.getText(option.text)}
+        {$lolApi.getText(option.text)}
       </Button>
     {/each}
   {/if}

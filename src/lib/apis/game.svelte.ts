@@ -1,4 +1,4 @@
-import { setContext, getContext } from "svelte";
+import { writable } from "svelte/store";
 import { push } from "svelte-spa-router";
 import { gsap } from "gsap";
 
@@ -40,12 +40,4 @@ export class GameApi {
   };
 }
 
-const CONTEXT_KEY = Symbol("GameApi");
-
-export function createGameApi() {
-  return setContext(CONTEXT_KEY, new GameApi());
-}
-
-export function getGameApi() {
-  return getContext<ReturnType<typeof createGameApi>>(CONTEXT_KEY);
-}
+export const gameApi = writable<GameApi>(new GameApi());

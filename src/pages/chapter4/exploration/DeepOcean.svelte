@@ -30,8 +30,7 @@
   } from "$lib/stores/sub";
   // Apis
   import { inventoryApi } from "$apis";
-  import { getGameApi } from "$apis/game.svelte";
-  const gameApi = getGameApi();
+  import { gameApi } from "$apis";
 
   const xOffset = tweened(0, {
     duration: 500,
@@ -141,7 +140,7 @@
   <Dialog
     keys={dialog2}
     onFinished={() => {
-      gameApi.fadeScene("/chapter-select");
+      $gameApi.fadeScene("/chapter-select");
     }}
   />
 {/if}

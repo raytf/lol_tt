@@ -33,11 +33,7 @@
     dialogPressure,
     dialogProcedure,
   } from "./dialogue";
-  // Stores
-  // Apis
-  import { getGameApi } from "$apis/game.svelte";
-  import { inventoryApi } from "$apis";
-  const gameApi = getGameApi();
+  import { inventoryApi, gameApi } from "$apis";
 
   const xOffset = tweened(0, {
     duration: 500,
@@ -224,7 +220,7 @@
     revealPg = false;
     dialogKeys = dialogProcedure;
     onDialogFinish = () => {
-      gameApi.fadeScene("/ch3_experiment");
+      $gameApi.fadeScene("/ch3_experiment");
     };
   }}
 >

@@ -10,8 +10,7 @@
   import neutral from "$assets/emoji/neutral.svg";
   import grin from "$assets/emoji/grin.svg";
   import shell from "$assets/avatars/shell.png";
-  import { getGameApi } from "$apis/game.svelte";
-  const gameApi = getGameApi();
+  import { gameApi } from "$apis";
 
   const dialogKeysIntro = [
     {
@@ -217,7 +216,7 @@
   <Dialog
     keys={dialogKeysGuide}
     onFinished={() => {
-      gameApi.fadeScene("/ch1_exploration_wrecks");
+      $gameApi.fadeScene("/ch1_exploration_wrecks");
     }}
   />
 {/if}

@@ -7,8 +7,7 @@
   import otter from "$assets/avatars/otter.png";
   import smile from "$assets/emoji/smile.svg";
   import { otterEncountered } from "../store";
-  import { getGameApi } from "$apis/game.svelte";
-  const gameApi = getGameApi();
+  import { gameApi } from "$apis";
 
   let panTl: gsap.core.Timeline = gsap.timeline();
   let introTl: gsap.core.Timeline = gsap.timeline({
@@ -78,7 +77,7 @@
     ]}
     onFinished={() => {
       otterEncountered.set(true);
-      gameApi.fadeScene("/ch2_exploration_kelp");
+      $gameApi.fadeScene("/ch2_exploration_kelp");
     }}
   />
 {/if}

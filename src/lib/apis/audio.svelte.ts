@@ -1,4 +1,4 @@
-import { setContext, getContext } from "svelte";
+import { writable } from "svelte/store";
 import { Howl, Howler } from "howler";
 import type { HowlOptions } from "howler";
 
@@ -120,12 +120,4 @@ export class AudioApi {
   };
 }
 
-const CONTEXT_KEY = Symbol("AudioApi");
-
-export function createAudioApi() {
-  return setContext(CONTEXT_KEY, new AudioApi());
-}
-
-export function getAudioApi() {
-  return getContext<ReturnType<typeof createAudioApi>>(CONTEXT_KEY);
-}
+export const audioApi = writable<AudioApi>(new AudioApi());

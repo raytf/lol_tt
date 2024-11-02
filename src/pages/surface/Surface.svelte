@@ -15,14 +15,12 @@
   import { windowWidth, windowHeight } from "$lib/stores/game";
   import { setPosition as setSubPosition } from "$lib/stores/sub";
   import {
-    getAudioApi,
-    getGameApi,
+    audioApi,
+    gameApi,
     hudApi,
     inventoryApi,
     objectivesApi,
   } from "$apis";
-  const audioApi = getAudioApi();
-  const gameApi = getGameApi();
 
   function revealHeading(vars?: gsap.TimelineVars) {
     const tl = gsap.timeline(vars);
@@ -40,7 +38,7 @@
   setSubPosition(initialSubCoords);
   onMount(() => {
     gsap.set("#surface-heading", { opacity: 0 });
-    audioApi.playTrack({
+    $audioApi.playTrack({
       src: "sound/ocean-loop.mp3",
       volume: 0.08,
       loop: true,
@@ -86,8 +84,8 @@
               readyToStart = false;
               surfaceSub = false;
               setTimeout(() => {
-                gameApi.fadeScene("/ch1");
-                audioApi.stopTrack({
+                $gameApi.fadeScene("/ch1");
+                $audioApi.stopTrack({
                   src: "sound/ocean-loop.mp3",
                 });
               }, 1000);

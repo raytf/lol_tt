@@ -2,8 +2,7 @@
   import { onMount, untrack } from "svelte";
   import { gsap } from "gsap";
   import { SplitText } from "gsap/SplitText";
-  import { getLolApi } from "$apis/lol.svelte";
-  const lolApi = getLolApi();
+  import { lolApi } from "$apis/lol.svelte";
 
   let {
     active = true,
@@ -39,7 +38,7 @@
   function playLine() {
     if (textIndex < keys.length) {
       tls[textIndex].play();
-      lolApi.speakText(keys[textIndex]);
+      $lolApi.speakText(keys[textIndex]);
     } else {
       if (onFinished) {
         active = false;
@@ -67,7 +66,7 @@
 >
   {#each keys as key, i}
     <p id="text-overlay_{i}" class="text-overlay text-xl p-4">
-      {lolApi.getText(key)}
+      {$lolApi.getText(key)}
     </p>
   {/each}
 </button>

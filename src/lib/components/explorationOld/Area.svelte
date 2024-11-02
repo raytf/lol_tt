@@ -3,7 +3,7 @@
   import { fade } from "svelte/transition";
   import { Up, Down, Left, Right } from "$components/svg/icons/caret";
   import { HandClick, CursorClick } from "$components/svg/icons";
-  import { getLolApi } from "$apis/lol.svelte";
+  import { lolApi } from "$apis/lol.svelte";
 
   let {
     active = true,
@@ -51,7 +51,7 @@
       class="container-instruction text-4xl pt-14"
     >
       <HandClick />
-      <p class="ml-2">{getLolApi().getText("explore")}</p>
+      <p class="ml-2">{$lolApi.getText("explore")}</p>
     </div>
   {/if}
 

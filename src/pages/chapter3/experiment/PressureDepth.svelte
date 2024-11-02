@@ -19,12 +19,8 @@
   import kelp from "$assets/chapter1/kelp.png";
   // Dialog
   import { dialogExperiment, dialogAnalysis } from "./dialogue";
-  // Stores
-  // Apis
-  import { getGameApi } from "$apis/game.svelte";
-  import { inventoryApi } from "$apis";
+  import { inventoryApi, gameApi } from "$apis";
   import { coords } from "$lib/stores/sub";
-  const gameApi = getGameApi();
 
   interface TableData {
     depth: number;
@@ -246,7 +242,7 @@
       }}
       onDown={finishExperiment
         ? () => {
-            gameApi.fadeScene("/ch4");
+            $gameApi.fadeScene("/ch4");
           }
         : undefined}
       onmousedown={handleMouseDown}

@@ -10,8 +10,7 @@
   import grin from "$assets/emoji/grin.svg";
   import shell from "$assets/avatars/shell.png";
   import { shellEncountered } from "../store";
-  import { getGameApi } from "$apis/game.svelte";
-  const gameApi = getGameApi();
+  import { gameApi } from "$apis/game.svelte";
 
   const dialogKeys1 = [
     {
@@ -110,7 +109,7 @@
     keys={dialogKeys2}
     onFinished={() => {
       $shellEncountered = true;
-      gameApi.fadeScene("/ch1_lesson_sm-intro");
+      $gameApi.fadeScene("/ch1_lesson_sm-intro");
     }}
   />
 {/if}

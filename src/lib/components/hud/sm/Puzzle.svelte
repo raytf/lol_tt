@@ -3,8 +3,7 @@
   import { Lol } from "$components/text";
   import { Reset, Close } from "$components/svg/icons";
   import { steps } from "$components/scientificMethod";
-  import { getLolApi, hudApi } from "$apis";
-  const lolApi = getLolApi();
+  import { lolApi, hudApi } from "$apis";
 
   let {
     onCorrect,
@@ -37,7 +36,7 @@
   let isCorrect = $state(false);
 
   function getLolFirstLetter(titleKey: string): string {
-    const title = lolApi.getText(titleKey);
+    const title = $lolApi.getText(titleKey);
     return title[0];
   }
 

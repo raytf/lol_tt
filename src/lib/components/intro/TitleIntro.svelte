@@ -1,7 +1,6 @@
 <script lang="ts">
   import { gsap } from "gsap";
-  import { getLolApi } from "$apis/lol.svelte";
-  const lolApi = getLolApi();
+  import { lolApi } from "$apis/lol.svelte";
 
   let {
     titleKey,
@@ -30,8 +29,8 @@
 </script>
 
 <div class="container-title">
-  <h1 class="intro-title text-4xl m-4">{lolApi.getText(titleKey)}:</h1>
-  <h2 class="intro-desc text-xl">{lolApi.getText(descKey)}</h2>
+  <h1 class="intro-title text-4xl m-4">{$lolApi.getText(titleKey)}:</h1>
+  <h2 class="intro-desc text-xl">{$lolApi.getText(descKey)}</h2>
 </div>
 
 <style>

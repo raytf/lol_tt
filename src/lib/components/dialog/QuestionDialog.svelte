@@ -3,8 +3,7 @@
   import { blur } from "svelte/transition";
   import type { DialogKey } from "$components/dialog";
   import { Dialog } from "$components/dialog";
-  import { getLolApi } from "$apis/lol.svelte";
-  const lolApi = getLolApi();
+  import { lolApi } from "$apis/lol.svelte";
 
   let {
     reveal = true,
@@ -62,7 +61,7 @@
 {#if reveal}
   <div transition:blur class="container-question select-none">
     <h1 class="text-5xl font-bold mb-2">
-      {lolApi.getText(questionKey)}
+      {$lolApi.getText(questionKey)}
     </h1>
     <div class="flex flex-col justify-evenly text-2xl">
       <button
@@ -77,7 +76,7 @@
             : 'line-through text-red-500'
           : ''}"
       >
-        {lolApi.getText(option1Key)}
+        {$lolApi.getText(option1Key)}
       </button>
       <button
         onclick={() => {
@@ -91,7 +90,7 @@
             : 'line-through text-red-500'
           : ''}"
       >
-        {lolApi.getText(option2Key)}
+        {$lolApi.getText(option2Key)}
       </button>
       <button
         onclick={() => {
@@ -105,7 +104,7 @@
             : 'line-through text-red-500'
           : ''}"
       >
-        {lolApi.getText(option3Key)}
+        {$lolApi.getText(option3Key)}
       </button>
     </div>
     {#if clicked1}

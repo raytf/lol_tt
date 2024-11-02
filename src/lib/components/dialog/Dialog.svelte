@@ -2,8 +2,7 @@
   import { onMount } from "svelte";
   import type { DialogKey } from "$components/dialog";
   import { DialogBox, Options } from "$components/dialog";
-  import { getLolApi } from "$apis/lol.svelte";
-  const lolApi = getLolApi();
+  import { lolApi } from "$apis/lol.svelte";
 
   let {
     keys,
@@ -33,7 +32,7 @@
     dialogIndex++;
     showOptions = false;
     if (dialogIndex < dialogArray.length) {
-      lolApi.speakText(dialogArray[dialogIndex].text);
+      $lolApi.speakText(dialogArray[dialogIndex].text);
       if (onProceed) {
         onProceed();
       }
@@ -52,7 +51,7 @@
   onMount(() => {
     // Speak the first dialog
     if (dialogArray.length > 0) {
-      lolApi.speakText(dialogArray[0].text);
+      $lolApi.speakText(dialogArray[0].text);
     }
   });
 </script>
@@ -77,13 +76,13 @@
     {/snippet}
     {#snippet name()}
       {#if currentKey.name}
-        {lolApi.getText(currentKey.name)}
+        {$lolApi.getText(currentKey.name)}
       {:else}
         ???
       {/if}
     {/snippet}
     {#snippet text()}
-      {@html lolApi.getText(currentKey.text)}
+      {@html $lolApi.getText(currentKey.text)}
     {/snippet}
   </DialogBox>
   {#if currentKey.options && (currentKey.alreadyRead || showOptions)}

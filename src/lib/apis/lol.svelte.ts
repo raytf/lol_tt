@@ -1,4 +1,5 @@
-import { onDestroy, setContext, getContext } from "svelte";
+import { onDestroy } from "svelte";
+import { writable } from "svelte/store";
 import backupLanguageData from "$assets/language.json";
 
 interface LanguageData {
@@ -22,10 +23,11 @@ export class LolApi {
   languageData = $state<LanguageData>({});
 
   constructor() {
+    this.init();
     window.addEventListener("message", this.handleMessage);
-    onDestroy(() => {
-      window.removeEventListener("message", this.handleMessage);
-    });
+    // onDestroy(() => {
+    //   window.removeEventListener("message", this.handleMessage);
+    // });
   }
 
   handleMessage = (event: MessageEvent) => {
@@ -85,12 +87,4 @@ export class LolApi {
   };
 }
 
-const CONTEXT_KEY = Symbol("LolApi");
-
-export function createLolApi() {
-  return setContext(CONTEXT_KEY, new LolApi());
-}
-
-export function getLolApi() {
-  return getContext<ReturnType<typeof createLolApi>>(CONTEXT_KEY);
-}
+export const lolApi = writable<LolApi>(new LolApi());
