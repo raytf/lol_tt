@@ -84,7 +84,7 @@
               readyToStart = false;
               surfaceSub = false;
               setTimeout(() => {
-                $gameApi.fadeScene("/ch1");
+                $gameApi.fadeScene("/exploration_wrecks");
                 $audioApi.stopTrack({
                   src: "sound/ocean-loop.mp3",
                 });

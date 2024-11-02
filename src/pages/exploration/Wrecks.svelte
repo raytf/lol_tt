@@ -1,11 +1,16 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import { spring } from "svelte/motion";
   import { TurbulentImg, BgImg, InteractiveImg } from "$lib/components/ui/img";
   import { Darkness, UnderwaterGradient } from "$components/visual";
   import { Grid, Area } from "$components/exploration";
   import { Submarine, Conch } from "$components/gameObjects";
   import { windowWidth, windowHeight } from "$stores/game";
-  import { setTarget as setSubTarget, coords as subCoords } from "$stores/sub";
+  import {
+    setTarget as setSubTarget,
+    setPosition as setSubPosition,
+    coords as subCoords,
+  } from "$stores/sub";
   import underwater from "$assets/underwater_1by3.jpg";
   import wrecks_1 from "$assets/wrecks/wrecks_1.png";
   import wrecks_2 from "$assets/wrecks/wrecks_2.png";
@@ -39,6 +44,11 @@
     const y = e.clientY - $gridOffset.y;
     setSubTarget({ x, y });
   }
+
+  onMount(() => {
+    setSubPosition({ x: $windowWidth / 2, y: -222 });
+    setSubTarget({ x: $windowWidth / 2, y: $windowHeight / 2 });
+  });
 </script>
 
 <Grid
