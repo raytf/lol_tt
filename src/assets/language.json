@@ -62,6 +62,7 @@
     "subtitle": "A Scientific Method Adventure",
     "start": "Start",
     "dive": "Dive",
+    "inventory": "Inventory",
     "tutorial": "Tutorial",
     "obj_check-equipment": "Double check equipment",
     "task_open-inventory": "Open your inventory",

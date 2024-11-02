@@ -14,7 +14,13 @@
   import { missionBrief } from "./dialogue";
   import { windowWidth, windowHeight } from "$lib/stores/game";
   import { setPosition as setSubPosition } from "$lib/stores/sub";
-  import { getAudioApi, getGameApi, hudApi, inventoryApi } from "$apis";
+  import {
+    getAudioApi,
+    getGameApi,
+    hudApi,
+    inventoryApi,
+    objectivesApi,
+  } from "$apis";
   const audioApi = getAudioApi();
   const gameApi = getGameApi();
 
@@ -61,7 +67,6 @@
     top={true}
     keys={missionBrief}
     onFinished={() => {
-      $inventoryApi.activated = true;
       unlockSM = true;
     }}
   />
@@ -101,7 +106,7 @@
     <Area
       onmousedown={(e) => {
         if (equipmentChecked) {
-          $hudApi.completeTask("task_move-sub");
+          $objectivesApi.completeTask("task_move-sub");
         }
         moveSub(e);
       }}
@@ -133,7 +138,7 @@
     $hudApi.activated = true;
     $inventoryApi.unlockItem("radio");
     unlockRadio = false;
-    $hudApi.startChapter("tutorial", [
+    $objectivesApi.startChapter("tutorial", [
       {
         key: "obj_check-equipment",
         completed: false,
@@ -149,6 +154,9 @@
         },
       },
     ]);
+
+    $hudApi.showInventory = true;
+    $hudApi.showObjectives = true;
   }}
 >
   <ItemCard id="radio" />

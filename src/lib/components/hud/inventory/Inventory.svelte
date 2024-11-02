@@ -2,10 +2,11 @@
   import { fade, fly } from "svelte/transition";
   import { Drawer } from "flowbite-svelte";
   import { ItemCard } from "$components/inventory";
+  import { Lol } from "$components/text";
   import { Close } from "$components/svg/icons";
   import { InfoButton } from "$components/ui/button";
   import { Backpack } from "$components/svg/icons/hud";
-  import { hudApi, inventoryApi } from "$apis";
+  import { hudApi, inventoryApi, objectivesApi } from "$apis";
 
   let { class: extraClass }: { class?: string } = $props();
 
@@ -16,11 +17,12 @@
     selectedItem = "";
     drawerHidden = true;
     if (itemId === "sm") {
-      $inventoryApi.showSmModal = true;
+      $hudApi.showSmModal = true;
     }
     if (itemId === "radio") {
+      $hudApi.showSmPuzzle = true;
       // Remove later
-      $hudApi.completeTask("task_call-radio");
+      // $hudApi.completeTask("task_call-radio");
     }
     if (itemId === "conch") {
       $inventoryApi.showHintDialog = true;
@@ -34,7 +36,7 @@
       transition:fly={{ y: -222 }}
       onclick={() => {
         drawerHidden = false;
-        $hudApi.completeTask("task_open-inventory");
+        $objectivesApi.completeTask("task_open-inventory");
       }}
       class="button-toggle"
     >
@@ -61,7 +63,7 @@
       >
         <Close class="w-[55px] h-[55px]" />
       </button>
-      <p class="font-bold text-4xl p-4">Inventory</p>
+      <Lol key="inventory" class="font-bold text-4xl p-4" />
       <div class="grid grid-cols-5 gap-2">
         {#each $inventoryApi.unlockedItems as item}
           <div
@@ -103,8 +105,6 @@
     height: 100%;
     width: 100%;
     pointer-events: none;
-
-    z-index: 100;
   }
   .button-toggle {
     pointer-events: auto;

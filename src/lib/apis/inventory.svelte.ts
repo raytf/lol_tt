@@ -61,9 +61,7 @@ export const itemMap: ItemMap = {
 };
 
 export class InventoryApi {
-  activated = $state(false);
   unlockedItems = $state<string[]>([]);
-  showSmModal = $state(false);
   currentHintKey = $state("hint_1");
   showHintDialog = $state(false);
   showGaugeScreen = $state(false);
@@ -85,8 +83,4 @@ export class InventoryApi {
   }
 }
 
-export const inventoryApi = writable<InventoryApi>(undefined);
-
-export function initializeInventoryApi() {
-  inventoryApi.set(new InventoryApi());
-}
+export const inventoryApi = writable<InventoryApi>(new InventoryApi());

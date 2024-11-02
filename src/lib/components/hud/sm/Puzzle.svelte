@@ -1,14 +1,20 @@
 <script lang="ts">
-  import steps from "./steps";
+  import { fade } from "svelte/transition";
   import { Lol } from "$components/text";
-  import { Reset } from "$components/svg/icons";
-  import { getLolApi } from "$apis";
+  import { Reset, Close } from "$components/svg/icons";
+  import { steps } from "$components/scientificMethod";
+  import { getLolApi, hudApi } from "$apis";
   const lolApi = getLolApi();
 
   let {
     onCorrect,
     onIncorrect,
-  }: { onCorrect?: () => void; onIncorrect?: () => void } = $props();
+    class: extraClass,
+  }: {
+    onCorrect?: () => void;
+    onIncorrect?: () => void;
+    class?: string;
+  } = $props();
 
   function shuffleArray(array: any[]): any[] {
     const shuffledArray = [...array];
@@ -68,11 +74,22 @@
   let currentIndex = $state(0);
 </script>
 
-<div class="container-puzzle bg-black">
+<div
+  transition:fade|global={{ duration: 222 }}
+  class="container-puzzle pointer-events-auto {extraClass}"
+>
   <h1 class="text-4xl font-bold mt-8">Enter password</h1>
   <p class="text-xl m-2">
-    Hint: click the Scientific Method steps in the right order.
+    Click the Scientific Method steps in the right order.
   </p>
+  <button
+    onclick={() => {
+      $hudApi.showSmPuzzle = false;
+    }}
+    class="absolute top-4 right-4"
+  >
+    <Close class="w-[55px] h-[55px] text-white" />
+  </button>
   <div class="puzzle-grid">
     {#each randomSteps as step, i}
       <button
@@ -85,7 +102,7 @@
             checkPassword();
           }
         }}
-        class="puzzle-item m-2 p-6 {step.bgColor} {clicked[i]
+        class="puzzle-item m-2 p-4 {step.bgColor} {clicked[i]
           ? 'opacity-50 pointer-events-none'
           : ''}"
       >
@@ -115,12 +132,14 @@
 
 <style>
   .container-puzzle {
+    position: absolute;
     height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background: rgba(0, 0, 0, 0.88);
   }
   .puzzle-grid {
     display: grid;
@@ -135,7 +154,7 @@
     align-items: center;
 
     border: black 1px solid;
-    border-radius: 44%;
+    border-radius: 22%;
 
     user-select: none;
   }
