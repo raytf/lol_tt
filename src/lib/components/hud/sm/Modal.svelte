@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { onMount } from "svelte";
+  import { gsap } from "gsap";
   import { fade } from "svelte/transition";
   import { SMDiagram } from "$components/scientificMethod";
   import { Close } from "$components/svg/icons";
@@ -7,6 +9,11 @@
   let { class: extraClass }: { class?: string } = $props();
 
   let activeIndex = $state(-1);
+
+  onMount(() => {
+    gsap.set(".container-smModal", { opacity: 0 });
+    gsap.to(".container-smModal", { opacity: 1, duration: 1 });
+  });
 </script>
 
 <div

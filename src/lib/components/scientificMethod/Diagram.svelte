@@ -1,6 +1,7 @@
 <script lang="ts">
   import { gsap } from "gsap";
   import steps from "./steps";
+  import { lolApi } from "$apis";
 
   let {
     visible = true,
@@ -43,7 +44,9 @@
           ? 'brightness-50'
           : ''} grid-item border-black {step.border} {step.bgColor}"
     >
-      <p class="text-2xl font-bold text-black">{i + 1}. {step.titleKey}</p>
+      <p class="text-2xl font-bold text-black">
+        {i + 1}. {$lolApi.getText(step.titleKey)}
+      </p>
       <img src={step.image} alt="icon" class="w-[55px] h-[55px] m-2" />
     </div>
   {/each}

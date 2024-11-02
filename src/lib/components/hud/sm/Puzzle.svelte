@@ -1,7 +1,10 @@
 <script lang="ts">
+  import { onMount } from "svelte";
+  import { gsap } from "gsap";
   import { fade } from "svelte/transition";
   import { Lol } from "$components/text";
   import { Reset, Close } from "$components/svg/icons";
+  import radio from "$assets/icons/radio.svg";
   import { steps } from "$components/scientificMethod";
   import { lolApi, hudApi } from "$apis";
 
@@ -71,16 +74,17 @@
   }
 
   let currentIndex = $state(0);
+
+  onMount(() => {
+    gsap.set(".container-smPuzzle", { opacity: 0 });
+    gsap.to(".container-smPuzzle", { opacity: 1, duration: 1 });
+  });
 </script>
 
 <div
-  transition:fade|global={{ duration: 222 }}
-  class="container-puzzle pointer-events-auto {extraClass}"
+  transition:fade|global={{ duration: 555 }}
+  class="container-smPuzzle pointer-events-auto {extraClass}"
 >
-  <h1 class="text-4xl font-bold mt-8">Enter password</h1>
-  <p class="text-xl m-2">
-    Click the Scientific Method steps in the right order.
-  </p>
   <button
     onclick={() => {
       $hudApi.showSmPuzzle = false;
@@ -89,7 +93,22 @@
   >
     <Close class="w-[55px] h-[55px] text-white" />
   </button>
-  <div class="puzzle-grid">
+  <h1 class="text-4xl font-bold mt-4">{$lolApi.getText("sm-puzzle_title")}</h1>
+  <div class="container-password">
+    {#each password as char, i}
+      <span
+        class="text-8xl mx-4 w-[55px] text-center {isIncorrect
+          ? 'text-red-500'
+          : isCorrect
+            ? 'text-green-500'
+            : ''}">{char}</span
+      >
+    {/each}
+    <button onclick={resetPassword} class="absolute right-44">
+      <Reset class="w-[55px] h-[55px]" />
+    </button>
+  </div>
+  <div class="puzzle-grid mt-8">
     {#each randomSteps as step, i}
       <button
         onclick={() => {
@@ -113,24 +132,13 @@
       </button>
     {/each}
   </div>
-  <div class="container-password">
-    {#each password as char, i}
-      <span
-        class="text-8xl mx-4 w-[55px] text-center {isIncorrect
-          ? 'text-red-500'
-          : isCorrect
-            ? 'text-green-500'
-            : ''}">{char}</span
-      >
-    {/each}
-    <button onclick={resetPassword} class="absolute right-44">
-      <Reset class="w-[55px] h-[55px]" />
-    </button>
-  </div>
+  <p class="text-xl mt-2">
+    {$lolApi.getText("sm-puzzle_instructions")}
+  </p>
 </div>
 
 <style>
-  .container-puzzle {
+  .container-smPuzzle {
     position: absolute;
     height: 100%;
     width: 100%;
@@ -161,7 +169,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 4rem;
     user-select: none;
   }
 </style>
