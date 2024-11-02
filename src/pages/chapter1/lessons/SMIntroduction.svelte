@@ -1,6 +1,6 @@
 <script lang="ts">
   import { gsap } from "gsap";
-  import { ScientificMethodDiagram } from "$components/scientificMethod";
+  import { SMDiagram } from "$components/scientificMethod";
   import type { DialogKey } from "$components/dialog";
   import { Dialog } from "$components/dialog";
   import ocean1 from "$assets/chapter1/ocean_explore.jpg";
@@ -178,7 +178,7 @@
     class="absolute object-cover"
   />
 
-  <ScientificMethodDiagram
+  <SMDiagram
     visible={startDialogSM}
     activeIndex={smStep}
     class="w-[666px] h-[222px] mt-14 z-[1]"

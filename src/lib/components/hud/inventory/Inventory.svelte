@@ -3,7 +3,7 @@
   import { Drawer } from "flowbite-svelte";
   import { ItemCard } from "$components/inventory";
   import { Close } from "$components/svg/icons";
-  import info from "$assets/icons/info.svg";
+  import { InfoButton } from "$components/ui/button";
   import { Backpack } from "$components/svg/icons/hud";
   import { hudApi, inventoryApi } from "$apis";
 
@@ -49,7 +49,7 @@
     transitionType="fly"
     transitionParams={{ y: -222 }}
     class="absolute"
-    divClass="bg-white bg-opacity-70"
+    divClass="bg-white bg-opacity-90"
   >
     <div class="flex flex-col items-center text-black p-4">
       <button
@@ -74,13 +74,11 @@
                 class="w-[55px] h-[55px]"
               />
             </button>
-            <button onclick={() => (selectedItem = item)}>
-              <img
-                src={info}
-                alt="info"
-                class="absolute top-[-1%] right-[-1%] w-[33px] h-[33px]"
-              />
-            </button>
+            <InfoButton
+              onclick={() => (selectedItem = item)}
+              buttonClass="absolute top-[-1%] right-[-1%]"
+              imgClass="w-[33px] h-[33px]"
+            ></InfoButton>
           </div>
         {/each}
       </div>

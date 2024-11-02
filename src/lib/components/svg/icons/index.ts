@@ -5,5 +5,7 @@ import Dive from "./Dive.svelte";
 import Chat from "./Chat.svelte";
 import Next from "./Next.svelte";
 import Done from "./Done.svelte";
+import Info from "./Info.svelte";
+import Reset from "./Reset.svelte";
 
-export { HandClick, CursorClick, Close, Dive, Chat, Next, Done };
+export { HandClick, CursorClick, Close, Dive, Chat, Next, Done, Info, Reset };

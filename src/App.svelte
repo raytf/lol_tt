@@ -3,7 +3,7 @@
   // Components
   import Fader from "$components/ui/Fader.svelte";
   import { Hud } from "$components/hud";
-  import { ScientificMethodModal } from "$components/scientificMethod";
+  import { SMModal } from "$components/scientificMethod";
   import { HintDialog } from "$components/dialog";
   // Apis
   import { createLolApi } from "$apis/lol.svelte";
@@ -34,7 +34,7 @@
     <div class="content">
       <Fader />
       <Hud></Hud>
-      <ScientificMethodModal />
+      <SMModal />
       <HintDialog />
       <Router {routes} />
     </div>

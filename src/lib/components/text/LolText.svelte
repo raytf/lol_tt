@@ -3,6 +3,7 @@
   const lolApi = getLolApi();
 
   let { key, class: extraClass }: { key: string; class?: string } = $props();
+  let text = $state(lolApi.getText(key));
 </script>
 
-<p class={extraClass}>{lolApi.getText(key)}</p>
+<p class={extraClass}>{text}</p>

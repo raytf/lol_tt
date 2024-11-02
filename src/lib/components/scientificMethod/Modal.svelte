@@ -1,6 +1,6 @@
 <script lang="ts">
   import { fade } from "svelte/transition";
-  import { ScientificMethodDiagram } from "$components/scientificMethod";
+  import { SMDiagram } from "$components/scientificMethod";
   import { Close } from "$components/svg/icons";
   import { inventoryApi, hudApi } from "$apis";
 
@@ -18,7 +18,7 @@
     >
       <Close class="w-[55px] h-[55px] text-white" />
     </button>
-    <ScientificMethodDiagram
+    <SMDiagram
       {activeIndex}
       class="w-[666px] h-[222px] mt-14 z-[1]"
       itemClass="h-[111px]"

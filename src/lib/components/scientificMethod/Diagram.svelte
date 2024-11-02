@@ -43,7 +43,7 @@
           ? 'brightness-50'
           : ''} grid-item border-black {step.border} {step.bgColor}"
     >
-      <p class="text-2xl font-bold text-black">{i + 1}. {step.title}</p>
+      <p class="text-2xl font-bold text-black">{i + 1}. {step.titleKey}</p>
       <img src={step.image} alt="icon" class="w-[55px] h-[55px] m-2" />
     </div>
   {/each}
@@ -51,6 +51,7 @@
 
 <style>
   .grid-item {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
