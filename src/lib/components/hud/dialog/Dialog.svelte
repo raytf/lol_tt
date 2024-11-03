@@ -1,21 +1,20 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import type { DialogKey } from "$components/dialog";
-  import { DialogBox, Options } from "$components/dialog";
+  import { fade } from "svelte/transition";
+  import type { DialogKey } from "$components/hud/dialog";
+  import { DialogBox, Options } from "$components/hud/dialog";
   import { lolApi } from "$apis/lol.svelte";
 
   let {
     keys,
-    hint = false,
     top = false,
-    onProceed,
     onFinished,
+    class: extraClass,
   }: {
     keys: DialogKey[];
-    hint?: boolean;
     top?: boolean;
-    onProceed?: () => void;
     onFinished?: () => void;
+    class?: string;
   } = $props();
 
   let dialogArray = $state([...keys]);
@@ -28,20 +27,34 @@
   });
   let showOptions = $state(false);
 
-  function proceed() {
+  function onclickNext() {
+    if (!currentKey) return;
+    if (currentKey.options) {
+      showOptions = true;
+      return;
+    }
+
+    if (currentKey.onProceed) currentKey.onProceed();
+    nextLine();
+  }
+
+  function onclickOption(nextDialog: DialogKey[]) {
+    if (!currentKey) return;
+    insertDialog(nextDialog);
+
+    if (currentKey.onProceed) currentKey.onProceed();
+    nextLine();
+  }
+
+  function nextLine() {
     dialogIndex++;
     showOptions = false;
     if (dialogIndex < dialogArray.length) {
       $lolApi.speakText(dialogArray[dialogIndex].text);
-      if (onProceed) {
-        onProceed();
-      }
       return;
     }
 
-    if (onFinished) {
-      onFinished();
-    }
+    if (onFinished) onFinished();
   }
 
   function insertDialog(dialog: DialogKey[] = []) {
@@ -58,10 +71,10 @@
 
 {#if currentKey}
   <DialogBox
-    onclick={currentKey.options ? () => (showOptions = true) : proceed}
+    onclick={onclickNext}
     options={currentKey.options ? true : false}
-    italic={hint || currentKey.italic}
     {top}
+    class={extraClass}
   >
     {#snippet avatar()}
       <div class="relative w-[111px] h-[111px]">
@@ -86,12 +99,6 @@
     {/snippet}
   </DialogBox>
   {#if currentKey.options && (currentKey.alreadyRead || showOptions)}
-    <Options
-      key={currentKey}
-      onclickOption={(nextDialog) => {
-        insertDialog(nextDialog);
-        proceed();
-      }}
-    />
+    <Options key={currentKey} {onclickOption} />
   {/if}
 {/if}

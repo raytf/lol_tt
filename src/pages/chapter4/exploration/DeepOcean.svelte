@@ -3,9 +3,9 @@
   import { tweened } from "svelte/motion";
   import { BgImg } from "$components/ui/img";
   import { Grid, Area } from "$components/explorationOld";
-  import type { DialogKey } from "$components/dialog";
+  import type { DialogKey } from "$components/hud/dialog";
   import { InfoMarker } from "$lib/components/ui/button";
-  import { Dialog, QuestionDialog } from "$components/dialog";
+  import { Dialog, QuestionDialog } from "$components/hud/dialog";
   import { ItemUnlockScreen, ItemCard } from "$components/inventory";
   import { GaugeScreen } from "$components/inventory";
   import { Button } from "$lib/components/ui/button";

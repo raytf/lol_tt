@@ -1,8 +1,8 @@
 <script lang="ts">
   import { gsap } from "gsap";
   import { SMDiagram } from "$components/scientificMethod";
-  import type { DialogKey } from "$components/dialog";
-  import { Dialog } from "$components/dialog";
+  import type { DialogKey } from "$components/hud/dialog";
+  import { Dialog } from "$components/hud/dialog";
   import ocean1 from "$assets/chapter1/ocean_explore.jpg";
   import ocean2 from "$assets/chapter1/ocean_lively.jpg";
   import ocean3 from "$assets/chapter1/ocean_dark.jpg";

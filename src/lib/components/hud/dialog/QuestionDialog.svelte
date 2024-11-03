@@ -1,8 +1,8 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
   import { blur } from "svelte/transition";
-  import type { DialogKey } from "$components/dialog";
-  import { Dialog } from "$components/dialog";
+  import type { DialogKey } from "$components/hud/dialog";
+  import { Dialog } from "$components/hud/dialog";
   import { lolApi } from "$apis/lol.svelte";
 
   let {

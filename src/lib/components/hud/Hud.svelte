@@ -1,26 +1,45 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
   import { fade } from "svelte/transition";
-  import Objectives from "./objectives";
+  import Objectives from "$components/hud/objectives";
+  import { HudDialog } from "$components/hud/dialog";
   import { SmModal, SmPuzzle } from "$components/hud/sm";
   import Inventory from "./inventory";
   import { hudApi, objectivesApi } from "$apis";
   let { children }: { children?: Snippet } = $props();
+
+  const disableHideClass = "disabled opacity-50";
 </script>
 
 {#if $hudApi.activated}
   <div transition:fade class="container-hud">
     {#if $hudApi.showObjectives}
-      <Objectives class="left-0" />
+      <Objectives
+        class="z-100 left-0 {($hudApi.showDialog ||
+          $hudApi.showSmModal ||
+          $hudApi.showSmPuzzle) &&
+          disableHideClass}"
+      />
+    {/if}
+    {#if $hudApi.showDialog}
+      <HudDialog class="z-[101]" />
     {/if}
     {#if $hudApi.showInventory}
-      <Inventory class="z-[101]" />
+      <Inventory
+        class="z-[101] {($hudApi.showDialog ||
+          $hudApi.showSmModal ||
+          $hudApi.showSmPuzzle) &&
+          disableHideClass}"
+      />
     {/if}
     {#if $hudApi.showSmModal}
       <SmModal class="z-[102] pointer-events-auto" />
     {/if}
     {#if $hudApi.showSmPuzzle}
       <SmPuzzle
+        onClose={() => {
+          $hudApi.showSmPuzzle = false;
+        }}
         onCorrect={() => {
           setTimeout(() => {
             $hudApi.showSmPuzzle = false;
@@ -37,6 +56,10 @@
 {/if}
 
 <style>
+  :global(.disabled *) {
+    pointer-events: none !important;
+  }
+
   .container-hud {
     position: absolute;
     top: 0;

@@ -6,7 +6,6 @@
   import { Lol } from "$components/text";
   import { Dive } from "$components/svg/icons";
   import { Button } from "$components/ui/button";
-  import { Dialog } from "$components/dialog";
   import { SkyOcean } from "$components/visual/scenery";
   import { Submarine } from "$components/gameObjects";
   import { moveSub } from "$lib/stores/exploration";
@@ -29,7 +28,6 @@
   }
 
   let surfaceSub = $state(false);
-  let startDialog = $state(false);
   let tlHeading: GSAPTimeline;
   let initialSubCoords = {
     x: $windowWidth / 2,
@@ -49,7 +47,13 @@
       surfaceSub = true;
       tlHeading.reverse();
       setTimeout(() => {
-        startDialog = true;
+        $hudApi.activated = true;
+        $hudApi.startDialog({
+          keys: missionBrief,
+          onFinished: () => {
+            unlockSM = true;
+          },
+        });
       }, 1500);
     }, 1500);
   });
@@ -60,15 +64,6 @@
   let readyToStart = $state(false);
 </script>
 
-{#if startDialog}
-  <Dialog
-    top={true}
-    keys={missionBrief}
-    onFinished={() => {
-      unlockSM = true;
-    }}
-  />
-{/if}
 <div class="relative size-full">
   <div class="absolute size-full z-[11] pointer-events-none">
     <div id="surface-heading">
@@ -133,9 +128,9 @@
 <ItemUnlockScreen
   reveal={unlockRadio}
   onclick={() => {
-    $hudApi.activated = true;
     $inventoryApi.unlockItem("radio");
     unlockRadio = false;
+
     $objectivesApi.startChapter("tutorial", [
       {
         key: "obj_check-equipment",

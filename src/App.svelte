@@ -8,9 +8,11 @@
   import { gsap } from "gsap";
   import { SplitText } from "gsap/SplitText";
   import { TextPlugin } from "gsap/TextPlugin";
+  import { Flip } from "gsap/Flip";
 
   gsap.registerPlugin(SplitText);
   gsap.registerPlugin(TextPlugin);
+  gsap.registerPlugin(Flip);
 </script>
 
 <main>

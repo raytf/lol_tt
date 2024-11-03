@@ -1,18 +1,21 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { gsap } from "gsap";
+  import { Flip } from "gsap/Flip";
   import { fade } from "svelte/transition";
   import { Lol } from "$components/text";
   import { Reset, Close } from "$components/svg/icons";
-  import radio from "$assets/icons/radio.svg";
+  import { Radio } from "$components/svg/icons";
   import { steps } from "$components/scientificMethod";
   import { lolApi, hudApi } from "$apis";
 
   let {
+    onClose,
     onCorrect,
     onIncorrect,
     class: extraClass,
   }: {
+    onClose?: () => void;
     onCorrect?: () => void;
     onIncorrect?: () => void;
     class?: string;
@@ -74,26 +77,47 @@
   }
 
   let currentIndex = $state(0);
-
   onMount(() => {
     gsap.set(".container-smPuzzle", { opacity: 0 });
     gsap.to(".container-smPuzzle", { opacity: 1, duration: 1 });
   });
+
+  function moveRadio() {
+    const radio = document.querySelector(".radio") as HTMLElement | null,
+      parentContainer = document.querySelector(".container-smPuzzle");
+    if (radio && parentContainer) {
+      const initialRadioState = Flip.getState(radio);
+      radio.style.position = "absolute";
+      radio.style.width = "555px";
+      radio.style.height = "555px";
+      parentContainer.appendChild(radio);
+
+      Flip.from(initialRadioState, { absolute: true, duration: 1 });
+    }
+  }
 </script>
 
 <div
   transition:fade|global={{ duration: 555 }}
-  class="container-smPuzzle pointer-events-auto {extraClass}"
+  class="container-smPuzzle text-black {extraClass}"
 >
   <button
     onclick={() => {
-      $hudApi.showSmPuzzle = false;
+      //Remove later
+      moveRadio();
+      onClose?.();
     }}
     class="absolute top-4 right-4"
   >
-    <Close class="w-[55px] h-[55px] text-white" />
+    <Close class="w-[55px] h-[55px]" />
   </button>
-  <h1 class="text-4xl font-bold mt-4">{$lolApi.getText("sm-puzzle_title")}</h1>
+  <div class="flex flex-row justify-center items-center">
+    <Radio class="radio" style="width: 88px; height: 88px;" />
+    <h1 class="text-4xl font-bold mt-4 mx-4">
+      {$lolApi.getText("sm-puzzle_title")}
+    </h1>
+  </div>
+
   <div class="container-password">
     {#each password as char, i}
       <span
@@ -146,7 +170,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: rgba(0, 0, 0, 0.88);
+    background: rgba(255, 255, 255, 0.55);
   }
   .puzzle-grid {
     display: grid;

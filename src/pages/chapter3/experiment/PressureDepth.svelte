@@ -3,7 +3,7 @@
   import { tweened } from "svelte/motion";
   import { BgImg } from "$components/ui/img";
   import { Grid, Area } from "$components/explorationOld";
-  import { Dialog } from "$components/dialog";
+  import { Dialog } from "$components/hud/dialog";
   import {
     GaugeScreen,
     ItemUnlockScreen,

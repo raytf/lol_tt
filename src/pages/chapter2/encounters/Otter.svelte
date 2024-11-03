@@ -1,7 +1,7 @@
 <script lang="ts">
   import { gsap } from "gsap";
   import { CharacterIntro } from "$components/intro";
-  import { Dialog } from "$lib/components/dialog";
+  import { Dialog } from "$components/hud/dialog";
   import encounterOtter from "$assets/chapter2/encounter_otter.jpg";
   import introOtter from "$assets/chapter2/intro_otter.jpg";
   import otter from "$assets/avatars/otter.png";

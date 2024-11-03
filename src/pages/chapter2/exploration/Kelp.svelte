@@ -4,8 +4,8 @@
   import { BgImg, TurbulentImg } from "$lib/components/ui/img";
   import { Grid, Area } from "$components/explorationOld";
   import { InfoMarker } from "$lib/components/ui/button";
-  import type { DialogKey } from "$components/dialog";
-  import { Dialog, QuestionDialog } from "$components/dialog";
+  import type { DialogKey } from "$components/hud/dialog";
+  import { Dialog, QuestionDialog } from "$components/hud/dialog";
   import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
   import Submarine from "$components/visual/Submarine.svelte";
   import MeasuringLine from "$components/visual/MeasuringLine.svelte";

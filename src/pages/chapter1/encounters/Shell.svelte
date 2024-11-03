@@ -1,6 +1,6 @@
 <script lang="ts">
   import { gsap } from "gsap";
-  import { Dialog } from "$components/dialog";
+  import { Dialog } from "$components/hud/dialog";
   import { CharacterIntro } from "$lib/components/intro";
   import encounterShell from "$assets/chapter1/encounter_shell.jpg";
   import introShell from "$assets/chapter1/intro_shell.jpg";
