@@ -133,7 +133,9 @@
             duration: 1,
             onComplete: () => {
               onClose?.();
-              onCorrect?.();
+              setTimeout(() => {
+                onCorrect?.();
+              }, 1111);
             },
           });
         },

@@ -1,6 +1,6 @@
 import { writable, get } from "svelte/store";
 import type { Objective } from "$apis/objectives.svelte";
-import type { DialogKey } from "$components/hud/dialog";
+import type { DialogKey, DialogOption } from "$components/hud/dialog";
 import { objectivesApi, dialogApi, inventoryApi } from "$apis";
 
 interface StartObjectivesParams {
@@ -54,8 +54,14 @@ class HudApi {
 
     const dApi = get(dialogApi);
     dApi.currentDialog = [...keys];
-    dApi.onDialogFinished = () => {};
     if (onFinished) dApi.onDialogFinished = onFinished;
+
+    this.showDialog = true;
+  }
+  startHintDialog() {
+    const dApi = get(dialogApi);
+    const oApi = get(objectivesApi);
+    dApi.currentDialog = oApi.getCurrentHintDialog();
 
     this.showDialog = true;
   }
@@ -65,6 +71,7 @@ class HudApi {
     const dApi = get(dialogApi);
     dApi.currentDialog = [];
     dApi.onDialogFinished();
+    dApi.onDialogFinished = () => {};
   }
 
   startItemUnlock(params: StartItemUnlockParams) {

@@ -56,6 +56,7 @@
         }}
         onCorrect={() => {
           $objectivesApi.completeTask("task_call-radio");
+          $hudApi.startHintDialog();
         }}
         class="z-[102] pointer-events-auto"
       />

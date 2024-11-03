@@ -10,6 +10,7 @@ import smile from "$assets/emoji/smile.svg";
 import neutral from "$assets/emoji/neutral.svg";
 import hushed from "$assets/emoji/hushed.svg";
 import heartEyes from "$assets/emoji/heart-eyes.svg";
+import tongue from "$assets/emoji/tongue.svg";
 
 const missionBrief = [
   {

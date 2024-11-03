@@ -1,4 +1,6 @@
 import { writable } from "svelte/store";
+import type { DialogOption } from "$components/hud/dialog";
+import { defaultHint } from "./dialog.svelte";
 
 interface Todo {
   key: string;
@@ -31,6 +33,14 @@ const objectiveMap: ObjectiveMap = {
   "obj_learn-controls": [{ key: "task_move-sub" }],
 };
 
+type HintMap = {
+  [key: string]: DialogOption[];
+};
+
+const hintOptionsMap: HintMap = {
+  "obj_check-equipment": [],
+};
+
 class ObjectivesApi {
   currentChapter = $state<string>("");
   currentObjectives = $state<Objective[]>([]);
@@ -42,6 +52,19 @@ class ObjectivesApi {
 
   getNumRemainingTasks = () => {
     return this.currentTasks.filter((task) => !task.completed).length;
+  };
+
+  getCurrentHintDialog = () => {
+    if (this.currentObjective) {
+      const key = this.currentObjective.key;
+      if (key in hintOptionsMap) {
+        const hintOptions = hintOptionsMap[key];
+        let hint = { ...defaultHint };
+        if (hint.options) hint.options.push(...hintOptions);
+        return [hint];
+      }
+    }
+    return [defaultHint];
   };
 
   startObjective = () => {
