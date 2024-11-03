@@ -8,6 +8,7 @@ import Done from "./Done.svelte";
 import Info from "./Info.svelte";
 import Reset from "./Reset.svelte";
 import Radio from "./Radio.svelte";
+import Celebrate from "./Celebrate.svelte";
 
 export {
   HandClick,
@@ -20,4 +21,5 @@ export {
   Info,
   Reset,
   Radio,
+  Celebrate,
 };

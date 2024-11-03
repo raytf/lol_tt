@@ -47,7 +47,9 @@
 
   onMount(() => {
     setSubPosition({ x: $windowWidth / 2, y: -222 });
-    setSubTarget({ x: $windowWidth / 2, y: $windowHeight / 2 });
+    setTimeout(() => {
+      setSubTarget({ x: $windowWidth / 2, y: $windowHeight / 2 });
+    }, 1000);
   });
 </script>
 

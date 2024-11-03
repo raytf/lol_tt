@@ -2,6 +2,7 @@
   import { fly, fade } from "svelte/transition";
   import { Confetti } from "svelte-confetti";
   import Todo from "./Todo.svelte";
+  import { Celebrate } from "$components/svg/icons";
   import { Goal } from "$components/svg/icons/hud";
   import { Lol } from "$components/text";
   import { objectivesApi } from "$apis";
@@ -11,10 +12,20 @@
   let showTodos = $state(true);
 </script>
 
-{#if $objectivesApi.currentObjective}
-  <div transition:fade class="hud-objectives {extraClass}">
-    <Lol key={$objectivesApi.currentChapter} class="text-4xl font-bold p-2" />
-
+<div transition:fade|global class="hud-objectives {extraClass}">
+  <div class="flex flex-row items-center text-4xl font-bold">
+    <Lol key={$objectivesApi.currentChapter} class="p-2" />
+    {#if $objectivesApi.chapterFinished}
+      <Lol key="complete" />
+      <Celebrate class="w-[55px] h-[55px]" />
+    {:else}
+      <p class="text-3xl">
+        ({$objectivesApi.currentObjectiveIndex + 1}/{$objectivesApi
+          .currentObjectives.length})
+      </p>
+    {/if}
+  </div>
+  {#if $objectivesApi.currentObjective}
     {#key $objectivesApi.currentObjective}
       <div
         transition:fly={{ x: -55, duration: 555 }}
@@ -44,8 +55,8 @@
         </ul>
       </div>
     {/key}
-  </div>
-{/if}
+  {/if}
+</div>
 
 <style>
   button {

@@ -89,11 +89,11 @@
         {
           key: "obj_learn-controls",
           completed: false,
-          onFinished: () => {
-            readyToDive = true;
-          },
         },
       ],
+      onFinished: () => {
+        readyToDive = true;
+      },
     });
   }
 

@@ -6,6 +6,7 @@ import { objectivesApi, dialogApi, inventoryApi } from "$apis";
 interface StartObjectivesParams {
   chapterKey: string;
   objectives: Objective[];
+  onFinished?: () => void;
 }
 
 interface StartDialogParams {
@@ -28,18 +29,21 @@ class HudApi {
   showSmPuzzle = $state(false);
 
   startChapter(params: StartObjectivesParams) {
-    const { chapterKey, objectives } = params;
+    const { chapterKey, objectives, onFinished } = params;
 
     const oApi = get(objectivesApi);
+    oApi.chapterFinished = false;
     oApi.currentChapter = chapterKey;
     oApi.currentObjectives = [...objectives];
     oApi.currentObjectiveIndex = 0;
+    if (onFinished)
+      oApi.onChapterFinished = () => {
+        this.showObjectives = false;
+        onFinished();
+      };
     oApi.startObjective();
 
     this.showObjectives = true;
-  }
-  endChapter() {
-    console.log("chapter finished");
   }
 
   startDialog(params: StartDialogParams) {

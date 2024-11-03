@@ -37,6 +37,8 @@ class ObjectivesApi {
   currentObjectiveIndex = $state(0);
   currentObjective = $state<Objective>();
   currentTasks = $state<Task[]>([]);
+  chapterFinished = $state(false);
+  onChapterFinished = () => {};
 
   getNumRemainingTasks = () => {
     return this.currentTasks.filter((task) => !task.completed).length;
@@ -72,8 +74,18 @@ class ObjectivesApi {
       this.currentObjective.onFinished?.();
     }
 
+    const nextIndex = this.currentObjectiveIndex + 1;
+
+    if (nextIndex >= this.currentObjectives.length) {
+      this.chapterFinished = true;
+      setTimeout(() => {
+        this.onChapterFinished();
+      }, 4444);
+      return;
+    }
+
     setTimeout(() => {
-      this.currentObjectiveIndex++;
+      this.currentObjectiveIndex = nextIndex;
       this.startObjective();
     }, 2222);
   };
