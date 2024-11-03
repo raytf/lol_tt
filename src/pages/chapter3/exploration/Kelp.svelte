@@ -6,7 +6,7 @@
   import { InfoMarker } from "$lib/components/ui/button";
   import type { DialogKey } from "$components/hud/dialog";
   import { Dialog, QuestionDialog } from "$components/hud/dialog";
-  import { ItemUnlockScreen, ItemCard } from "$components/inventory";
+  import { ItemUnlockScreen, ItemCard } from "$components/hud/inventory";
   import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
   import Submarine from "$components/visual/Submarine.svelte";
   import MeasuringLine from "$components/visual/MeasuringLine.svelte";
@@ -213,7 +213,7 @@
   }}
 />
 
-<ItemUnlockScreen
+<!-- <ItemUnlockScreen
   reveal={revealPg}
   onclick={() => {
     $inventoryApi.unlockItem("pg");
@@ -225,7 +225,7 @@
   }}
 >
   <ItemCard id="pg" />
-</ItemUnlockScreen>
+</ItemUnlockScreen> -->
 
 <Grid xOffset={$xOffset} yOffset={$yOffset} class="grid-cols-1 w-full h-[200%]">
   <Submarine targetPosition={subCoords} class="z-[21]">

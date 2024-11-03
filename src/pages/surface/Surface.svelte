@@ -9,17 +9,10 @@
   import { SkyOcean } from "$components/visual/scenery";
   import { Submarine } from "$components/gameObjects";
   import { moveSub } from "$lib/stores/exploration";
-  import { ItemUnlockScreen, ItemCard } from "$components/inventory";
   import { missionBrief } from "./dialogue";
   import { windowWidth, windowHeight } from "$lib/stores/game";
   import { setPosition as setSubPosition } from "$lib/stores/sub";
-  import {
-    audioApi,
-    gameApi,
-    hudApi,
-    inventoryApi,
-    objectivesApi,
-  } from "$apis";
+  import { audioApi, gameApi, hudApi, objectivesApi } from "$apis";
 
   function revealHeading(vars?: gsap.TimelineVars) {
     const tl = gsap.timeline(vars);
@@ -46,22 +39,66 @@
     setTimeout(() => {
       surfaceSub = true;
       tlHeading.reverse();
+
       setTimeout(() => {
         $hudApi.activated = true;
-        $hudApi.startDialog({
-          keys: missionBrief,
-          onFinished: () => {
-            unlockSM = true;
-          },
+        startMissionBriefDialog(() => {
+          unlockSmItem(() => {
+            unlockRadioItem(() => {
+              $hudApi.showInventory = true;
+              startTutorial();
+            });
+          });
         });
       }, 1500);
     }, 1500);
   });
 
-  let unlockRadio = $state(false);
-  let unlockSM = $state(false);
+  function startMissionBriefDialog(onFinished?: () => void) {
+    $hudApi.startDialog({
+      keys: missionBrief,
+      onFinished: onFinished,
+    });
+  }
+
+  function unlockSmItem(onFinished?: () => void) {
+    $hudApi.startItemUnlock({
+      itemId: "sm",
+      onFinished: onFinished,
+    });
+  }
+
+  function unlockRadioItem(onFinished?: () => void) {
+    $hudApi.startItemUnlock({
+      itemId: "radio",
+      onFinished: onFinished,
+    });
+  }
+
+  function startTutorial() {
+    $hudApi.startChapter({
+      chapterKey: "tutorial",
+      objectives: [
+        {
+          key: "obj_check-equipment",
+          completed: false,
+          onFinished: () => {
+            equipmentChecked = true;
+          },
+        },
+        {
+          key: "obj_learn-controls",
+          completed: false,
+          onFinished: () => {
+            readyToDive = true;
+          },
+        },
+      ],
+    });
+  }
+
   let equipmentChecked = $state(false);
-  let readyToStart = $state(false);
+  let readyToDive = $state(false);
 </script>
 
 <div class="relative size-full">
@@ -72,11 +109,11 @@
     <div
       class="absolute bottom-0 w-full h-[222px] flex justify-center items-end pb-11"
     >
-      {#if readyToStart}
+      {#if readyToDive}
         <div transition:fade>
           <Button
             onclick={() => {
-              readyToStart = false;
+              readyToDive = false;
               surfaceSub = false;
               setTimeout(() => {
                 $gameApi.fadeScene("/exploration_wrecks");
@@ -114,43 +151,3 @@
     reveal={surfaceSub}
   />
 </div>
-
-<ItemUnlockScreen
-  reveal={unlockSM}
-  onclick={() => {
-    $inventoryApi.unlockItem("sm");
-    unlockSM = false;
-    unlockRadio = true;
-  }}
->
-  <ItemCard id="sm" />
-</ItemUnlockScreen>
-<ItemUnlockScreen
-  reveal={unlockRadio}
-  onclick={() => {
-    $inventoryApi.unlockItem("radio");
-    unlockRadio = false;
-
-    $objectivesApi.startChapter("tutorial", [
-      {
-        key: "obj_check-equipment",
-        completed: false,
-        onFinished: () => {
-          equipmentChecked = true;
-        },
-      },
-      {
-        key: "obj_learn-controls",
-        completed: false,
-        onFinished: () => {
-          readyToStart = true;
-        },
-      },
-    ]);
-
-    $hudApi.showInventory = true;
-    $hudApi.showObjectives = true;
-  }}
->
-  <ItemCard id="radio" />
-</ItemUnlockScreen>

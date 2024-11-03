@@ -1,12 +1,10 @@
 <script lang="ts">
-  import type { Snippet } from "svelte";
   import { fade } from "svelte/transition";
   import Objectives from "$components/hud/objectives";
-  import { HudDialog } from "$components/hud/dialog";
+  import { Dialog } from "$components/hud/dialog";
   import { SmModal, SmPuzzle } from "$components/hud/sm";
-  import Inventory from "./inventory";
-  import { hudApi, objectivesApi } from "$apis";
-  let { children }: { children?: Snippet } = $props();
+  import Inventory, { ItemUnlockScreen } from "$components/hud/inventory";
+  import { hudApi, dialogApi, objectivesApi, inventoryApi } from "$apis";
 
   const disableHideClass = "disabled opacity-50";
 </script>
@@ -22,7 +20,14 @@
       />
     {/if}
     {#if $hudApi.showDialog}
-      <HudDialog class="z-[101]" />
+      <Dialog
+        top={true}
+        keys={$dialogApi.currentDialog}
+        onFinished={() => {
+          $hudApi.endDialog();
+        }}
+        class="z-[101]"
+      />
     {/if}
     {#if $hudApi.showInventory}
       <Inventory
@@ -30,6 +35,15 @@
           $hudApi.showSmModal ||
           $hudApi.showSmPuzzle) &&
           disableHideClass}"
+      />
+    {/if}
+    {#if $hudApi.showItemUnlock}
+      <ItemUnlockScreen
+        itemId={$inventoryApi.newItemUnlock}
+        onFinish={() => {
+          $hudApi.endItemUnlock();
+        }}
+        class="z-[102] pointer-events-auto"
       />
     {/if}
     {#if $hudApi.showSmModal}
@@ -48,9 +62,6 @@
         }}
         class="z-[102] pointer-events-auto"
       />
-    {/if}
-    {#if children}
-      {@render children()}
     {/if}
   </div>
 {/if}

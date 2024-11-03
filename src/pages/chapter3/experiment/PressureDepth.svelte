@@ -8,7 +8,7 @@
     GaugeScreen,
     ItemUnlockScreen,
     ItemCard,
-  } from "$components/inventory";
+  } from "$components/hud/inventory";
   import Table from "./Table.svelte";
   import Graph from "./Graph.svelte";
   import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
@@ -108,24 +108,24 @@
 
 <GaugeScreen />
 
+<!-- onProceed={() => {
+  if (experimentIndex > 4) return;
+  const newY = (window.innerHeight / 2) * experimentIndex;
+  subCoords = {
+    x: window.innerWidth / 2,
+    y: newY,
+  };
+
+  if (newY > window.innerHeight && newY < window.innerHeight * 2) {
+    activeArea = 1;
+    moveToNextArea(0, -1);
+  }
+
+  experimentIndex++;
+  experimentData = dpData.slice(0, experimentIndex);
+}} -->
 <Dialog
   keys={dialogExperiment}
-  onProceed={() => {
-    if (experimentIndex > 4) return;
-    const newY = (window.innerHeight / 2) * experimentIndex;
-    subCoords = {
-      x: window.innerWidth / 2,
-      y: newY,
-    };
-
-    if (newY > window.innerHeight && newY < window.innerHeight * 2) {
-      activeArea = 1;
-      moveToNextArea(0, -1);
-    }
-
-    experimentIndex++;
-    experimentData = dpData.slice(0, experimentIndex);
-  }}
   onFinished={() => {
     startDialogAnalysis = true;
     drawLine = true;
@@ -153,7 +153,7 @@
   {/if}
 </div>
 
-<ItemUnlockScreen
+<!-- <ItemUnlockScreen
   reveal={showUnlockScreen}
   onclick={() => {
     $inventoryApi.unlockItem("dg");
@@ -163,7 +163,7 @@
   }}
 >
   <ItemCard id="dg" />
-</ItemUnlockScreen>
+</ItemUnlockScreen> -->
 
 <Grid xOffset={$xOffset} yOffset={$yOffset} class="grid-cols-1 w-full h-[300%]">
   <Submarine targetPosition={subCoords} class="z-[21]" />

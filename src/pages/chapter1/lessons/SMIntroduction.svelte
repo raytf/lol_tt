@@ -191,11 +191,11 @@
   }}
 />
 {#if startDialogSM}
+  <!-- onProceed={() => {
+  smStep += 1;
+}} -->
   <Dialog
     keys={dialogKeysSM}
-    onProceed={() => {
-      smStep += 1;
-    }}
     onFinished={() => {
       startDialogSM = false;
       startDialogDiscovery = true;

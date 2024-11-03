@@ -16,7 +16,7 @@ interface Task {
   completed?: boolean;
 }
 
-type Objective = {
+export type Objective = {
   key: string;
   completed: boolean;
   onFinished?: () => void;
@@ -40,14 +40,6 @@ class ObjectivesApi {
 
   getNumRemainingTasks = () => {
     return this.currentTasks.filter((task) => !task.completed).length;
-  };
-
-  startChapter = (chapterKey: string, objectives: Objective[]) => {
-    this.currentChapter = chapterKey;
-    this.currentObjectives = [...objectives];
-
-    this.currentObjectiveIndex = 0;
-    this.startObjective();
   };
 
   startObjective = () => {

@@ -95,11 +95,6 @@
 />
 <Dialog
   keys={dialogKeys1}
-  onProceed={() => {
-    if (startedPan) return;
-    panTl.play();
-    startedPan = true;
-  }}
   onFinished={() => {
     introTl.play();
   }}

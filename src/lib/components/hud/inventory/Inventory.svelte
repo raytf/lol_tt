@@ -1,7 +1,7 @@
 <script lang="ts">
   import { fade, fly } from "svelte/transition";
   import { Drawer } from "flowbite-svelte";
-  import { ItemCard } from "$components/inventory";
+  import ItemCard from "./ItemCard.svelte";
   import { Lol } from "$components/text";
   import { Close } from "$components/svg/icons";
   import { InfoButton } from "$components/ui/button";

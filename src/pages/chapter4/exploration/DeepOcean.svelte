@@ -6,8 +6,11 @@
   import type { DialogKey } from "$components/hud/dialog";
   import { InfoMarker } from "$lib/components/ui/button";
   import { Dialog, QuestionDialog } from "$components/hud/dialog";
-  import { ItemUnlockScreen, ItemCard } from "$components/inventory";
-  import { GaugeScreen } from "$components/inventory";
+  import {
+    ItemUnlockScreen,
+    ItemCard,
+    GaugeScreen,
+  } from "$components/hud/inventory";
   import { Button } from "$lib/components/ui/button";
   import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
   import Submarine from "$components/visual/Submarine.svelte";
@@ -93,10 +96,9 @@
       startExperiment = true;
       $inventoryApi.currentHintKey = "hint_5";
     }}
-    hint={true}
   />
 {/if}
-<ItemUnlockScreen
+<!-- <ItemUnlockScreen
   reveal={revealUnlockScreen}
   onclick={() => {
     $inventoryApi.unlockItem("th");
@@ -105,7 +107,7 @@
   }}
 >
   <ItemCard id="th" />
-</ItemUnlockScreen>
+</ItemUnlockScreen> -->
 {#if startExperiment && !finishedExperiment}
   <div
     class="absolute size-full flex justify-end items-end pointer-events-none z-[2]"

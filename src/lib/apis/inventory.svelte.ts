@@ -65,6 +65,9 @@ export class InventoryApi {
   currentHintKey = $state("hint_1");
   showHintDialog = $state(false);
   showGaugeScreen = $state(false);
+  // Item Unlock Screen
+  newItemUnlock = $state("");
+  onItemUnlockFinished = () => {};
 
   constructor() {}
 
@@ -73,7 +76,7 @@ export class InventoryApi {
   }
 
   unlockItem(item: string) {
-    if (this.unlockedItems.includes(item)) return;
+    if (this.isItemUnlocked(item)) return;
 
     this.unlockedItems.push(item);
   }
