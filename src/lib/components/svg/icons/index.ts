@@ -9,6 +9,7 @@ import Info from "./Info.svelte";
 import Reset from "./Reset.svelte";
 import Radio from "./Radio.svelte";
 import Celebrate from "./Celebrate.svelte";
+import Pulse from "./animated/Pulse.svelte";
 
 export {
   HandClick,
@@ -22,4 +23,5 @@ export {
   Reset,
   Radio,
   Celebrate,
+  Pulse,
 };

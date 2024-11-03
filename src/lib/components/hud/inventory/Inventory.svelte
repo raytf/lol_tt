@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { fade, fly } from "svelte/transition";
+  import { fly } from "svelte/transition";
   import { Drawer } from "flowbite-svelte";
   import ItemCard from "./ItemCard.svelte";
   import { Lol } from "$components/text";
@@ -12,6 +12,8 @@
 
   let drawerHidden = $state(true);
   let selectedItem = $state("");
+  let smallIconElement = $state<HTMLElement>();
+  let bigIconElement = $state<HTMLElement>();
 
   function onItemClicked(itemId: string) {
     selectedItem = "";
@@ -20,9 +22,13 @@
       $hudApi.showSmModal = true;
     }
     if (itemId === "radio") {
+      if (smallIconElement) {
+        $hudApi.flipElement = smallIconElement;
+      }
+      if (bigIconElement) {
+        $hudApi.flipElement = bigIconElement;
+      }
       $hudApi.showSmPuzzle = true;
-      // Remove later
-      // $hudApi.completeTask("task_call-radio");
     }
     if (itemId === "conch") {
       $inventoryApi.showHintDialog = true;
@@ -69,11 +75,15 @@
           <div
             class="relative pointer-events-auto flex justify-center items-center border-2 border-gray-900 rounded p-5"
           >
-            <button onclick={() => onItemClicked(item)}>
+            <button
+              onclick={() => onItemClicked(item)}
+              class="w-[55px] h-[55px]"
+            >
               <img
+                bind:this={smallIconElement}
                 src={$inventoryApi.getItem(item).imgSrc}
                 alt={item}
-                class="w-[55px] h-[55px]"
+                class="size-full"
               />
             </button>
             <InfoButton
@@ -90,6 +100,7 @@
     >
       {#if selectedItem !== ""}
         <ItemCard
+          bind:imgRef={bigIconElement}
           onclick={() => onItemClicked(selectedItem)}
           id={selectedItem}
         />
@@ -109,7 +120,9 @@
   .button-toggle {
     pointer-events: auto;
     position: absolute;
+    top: 0;
     right: 0;
+    margin: 0.44em;
     opacity: 0.88;
   }
   .button-backpack:hover {

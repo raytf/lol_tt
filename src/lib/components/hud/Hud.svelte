@@ -55,10 +55,7 @@
           $hudApi.showSmPuzzle = false;
         }}
         onCorrect={() => {
-          setTimeout(() => {
-            $hudApi.showSmPuzzle = false;
-            $objectivesApi.completeTask("task_call-radio");
-          }, 555);
+          $objectivesApi.completeTask("task_call-radio");
         }}
         class="z-[102] pointer-events-auto"
       />

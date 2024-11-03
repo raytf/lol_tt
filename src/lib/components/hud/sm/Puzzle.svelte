@@ -1,11 +1,12 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import { Popover } from "flowbite-svelte";
   import { gsap } from "gsap";
   import { Flip } from "gsap/Flip";
   import { fade } from "svelte/transition";
   import { Lol } from "$components/text";
-  import { Reset, Close } from "$components/svg/icons";
-  import { Radio } from "$components/svg/icons";
+  import { Reset, Close, Pulse } from "$components/svg/icons";
+  import { InfoButton } from "$components/ui/button";
   import { steps } from "$components/scientificMethod";
   import { lolApi, hudApi } from "$apis";
 
@@ -60,7 +61,7 @@
 
   function passwordCorrect() {
     isCorrect = true;
-    onCorrect && onCorrect();
+    playEndAnimation();
   }
 
   function passwordIncorrect() {
@@ -77,22 +78,55 @@
   }
 
   let currentIndex = $state(0);
+  let startContainerElement: HTMLElement;
+  let endContainerElement: HTMLElement;
   onMount(() => {
-    gsap.set(".container-smPuzzle", { opacity: 0 });
+    gsap.set(
+      [".container-smPuzzle", ".anim_start-1", ".anim_start-2", ".anim_end"],
+      {
+        opacity: 0,
+      },
+    );
     gsap.to(".container-smPuzzle", { opacity: 1, duration: 1 });
+    playStartAnimation();
   });
 
-  function moveRadio() {
-    const radio = document.querySelector(".radio") as HTMLElement | null,
-      parentContainer = document.querySelector(".container-smPuzzle");
-    if (radio && parentContainer) {
-      const initialRadioState = Flip.getState(radio);
-      radio.style.position = "absolute";
-      radio.style.width = "555px";
-      radio.style.height = "555px";
-      parentContainer.appendChild(radio);
+  function playStartAnimation() {
+    if ($hudApi.flipElement && startContainerElement) {
+      const initialState = Flip.getState($hudApi.flipElement);
+      startContainerElement.appendChild($hudApi.flipElement);
 
-      Flip.from(initialRadioState, { absolute: true, duration: 1 });
+      Flip.from(initialState, {
+        absolute: true,
+        duration: 1,
+        onComplete: () => {
+          gsap.to(".anim_start-1", { opacity: 1, duration: 1 });
+          gsap.to(".anim_start-2", { opacity: 1, delay: 0.5, duration: 1 });
+        },
+      });
+    }
+  }
+
+  function playEndAnimation() {
+    gsap.to([".anim_start-1", ".anim_start-2"], { opacity: 0, duration: 1 });
+    if ($hudApi.flipElement && endContainerElement) {
+      const initialState = Flip.getState($hudApi.flipElement);
+      endContainerElement.appendChild($hudApi.flipElement);
+
+      Flip.from(initialState, {
+        absolute: true,
+        duration: 1,
+        onComplete: () => {
+          gsap.to(".anim_end", {
+            opacity: 1,
+            duration: 1,
+            onComplete: () => {
+              onClose?.();
+              onCorrect?.();
+            },
+          });
+        },
+      });
     }
   }
 </script>
@@ -101,10 +135,12 @@
   transition:fade|global={{ duration: 555 }}
   class="container-smPuzzle text-black {extraClass}"
 >
+  <div class="absolute size-full flex flex-col items-center justify-center">
+    <Pulse class="anim_end w-[88px] h-[88px]" />
+    <div bind:this={endContainerElement} class="w-[222px] h-[222px]"></div>
+  </div>
   <button
     onclick={() => {
-      //Remove later
-      moveRadio();
       onClose?.();
     }}
     class="absolute top-4 right-4"
@@ -112,13 +148,21 @@
     <Close class="w-[55px] h-[55px]" />
   </button>
   <div class="flex flex-row justify-center items-center">
-    <Radio class="radio" style="width: 88px; height: 88px;" />
-    <h1 class="text-4xl font-bold mt-4 mx-4">
+    <span bind:this={startContainerElement} class="w-[111px] h-[111px]"></span>
+    <p class="anim_start-1 text-4xl font-bold mt-4 ml-4 mr-1">
       {$lolApi.getText("sm-puzzle_title")}
-    </h1>
+    </p>
+    <InfoButton
+      onclick={() => $lolApi.speakText("hint_radio-code")}
+      buttonClass="anim_start-1 w-[22px] h-[22px]"
+      imgClass="size-full"
+    />
   </div>
+  <Popover title={$lolApi.getText("hint")} trigger="click"
+    >{$lolApi.getText("hint_radio-code")}</Popover
+  >
 
-  <div class="container-password">
+  <div class="anim_start-1 container-password">
     {#each password as char, i}
       <span
         class="text-8xl mx-4 w-[55px] text-center {isIncorrect
@@ -132,7 +176,7 @@
       <Reset class="w-[55px] h-[55px]" />
     </button>
   </div>
-  <div class="puzzle-grid mt-8">
+  <div class="anim_start-2 puzzle-grid mt-8">
     {#each randomSteps as step, i}
       <button
         onclick={() => {
@@ -156,9 +200,6 @@
       </button>
     {/each}
   </div>
-  <p class="text-xl mt-2">
-    {$lolApi.getText("sm-puzzle_instructions")}
-  </p>
 </div>
 
 <style>

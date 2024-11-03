@@ -28,6 +28,8 @@ class HudApi {
   showSmModal = $state(false);
   showSmPuzzle = $state(false);
 
+  flipElement = $state<HTMLElement | null>(null);
+
   startChapter(params: StartObjectivesParams) {
     const { chapterKey, objectives, onFinished } = params;
 

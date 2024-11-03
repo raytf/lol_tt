@@ -6,13 +6,10 @@
 
   console.log(missionBrief);
   onMount(() => {
-    //$inventoryApi.unlockItem("radio");
+    $inventoryApi.unlockItem("radio");
 
     $hudApi.activated = true;
-    //$hudApi.showInventory = true;
-    $hudApi.startDialog({
-      keys: missionBrief,
-    });
+    $hudApi.showInventory = true;
 
     // $hudApi.showSmPuzzle = true;
   });
