@@ -49,7 +49,7 @@
     setSubPosition({ x: $windowWidth / 2, y: -222 });
     setTimeout(() => {
       setSubTarget({ x: $windowWidth / 2, y: $windowHeight / 2 });
-    }, 1000);
+    }, 555);
   });
 </script>
 

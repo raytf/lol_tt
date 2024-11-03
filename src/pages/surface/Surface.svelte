@@ -120,6 +120,11 @@
                 $audioApi.stopTrack({
                   src: "sound/ocean-loop.mp3",
                 });
+                $audioApi.playTrack({
+                  src: "music/deep-echoes.mp3",
+                  volume: 0.44,
+                  loop: true,
+                });
               }, 1000);
             }}
             class="w-[111px] h-[88px] flex-col items-center pointer-events-auto"

@@ -229,7 +229,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.44);
   }
   .puzzle-grid {
     display: grid;
