@@ -1,14 +1,13 @@
 <script lang="ts">
   import { gsap } from "gsap";
   import { CharacterIntro } from "$components/intro";
-  import { Dialog } from "$lib/components/dialog";
+  import { Dialog } from "$components/hud/dialog";
   import encounterOtter from "$assets/chapter2/encounter_otter.jpg";
   import introOtter from "$assets/chapter2/intro_otter.jpg";
   import otter from "$assets/avatars/otter.png";
   import smile from "$assets/emoji/smile.svg";
   import { otterEncountered } from "../store";
-  import { getGameApi } from "$apis/game.svelte";
-  const gameApi = getGameApi();
+  import { gameApi } from "$apis";
 
   let panTl: gsap.core.Timeline = gsap.timeline();
   let introTl: gsap.core.Timeline = gsap.timeline({
@@ -78,7 +77,7 @@
     ]}
     onFinished={() => {
       otterEncountered.set(true);
-      gameApi.fadeScene("/ch2_exploration_kelp");
+      $gameApi.fadeScene("/ch2_exploration_kelp");
     }}
   />
 {/if}

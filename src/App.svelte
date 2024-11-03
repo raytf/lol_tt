@@ -3,39 +3,23 @@
   // Components
   import Fader from "$components/ui/Fader.svelte";
   import { Hud } from "$components/hud";
-  import { ScientificMethodModal } from "$components/scientificMethod";
-  import { HintDialog } from "$components/dialog";
-  // Apis
-  import { createLolApi } from "$apis/lol.svelte";
-  import { createGameApi } from "$apis/game.svelte";
-  import { createAudioApi } from "$apis/audio.svelte";
-  import { initializeHudApi, initializeInventoryApi } from "$apis";
   import routes from "./routes";
 
   import { gsap } from "gsap";
   import { SplitText } from "gsap/SplitText";
   import { TextPlugin } from "gsap/TextPlugin";
+  import { Flip } from "gsap/Flip";
+  import { CustomEase } from "gsap/CustomEase";
+  import { CustomWiggle } from "gsap/CustomWiggle";
 
-  gsap.registerPlugin(SplitText);
-  gsap.registerPlugin(TextPlugin);
-
-  const lolApi = createLolApi();
-  createGameApi();
-  createAudioApi();
-
-  initializeHudApi();
-  initializeInventoryApi();
-
-  lolApi.init();
+  gsap.registerPlugin(SplitText, TextPlugin, Flip, CustomEase, CustomWiggle);
 </script>
 
 <main>
   <div class="container">
     <div class="content">
       <Fader />
-      <Hud></Hud>
-      <ScientificMethodModal />
-      <HintDialog />
+      <Hud />
       <Router {routes} />
     </div>
   </div>

@@ -2,11 +2,11 @@
   import { onMount } from "svelte";
   import { tweened } from "svelte/motion";
   import { BgImg } from "$components/ui/img";
-  import { Grid, Area } from "$components/exploration";
+  import { Grid, Area } from "$components/explorationOld";
   import { InfoMarker } from "$lib/components/ui/button";
-  import type { DialogKey } from "$components/dialog";
-  import { Dialog, QuestionDialog } from "$components/dialog";
-  import { ItemUnlockScreen, ItemCard } from "$components/inventory";
+  import type { DialogKey } from "$components/hud/dialog";
+  import { Dialog, QuestionDialog } from "$components/hud/dialog";
+  import { ItemUnlockScreen, ItemCard } from "$components/hud/inventory";
   import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
   import Submarine from "$components/visual/Submarine.svelte";
   import MeasuringLine from "$components/visual/MeasuringLine.svelte";
@@ -33,11 +33,7 @@
     dialogPressure,
     dialogProcedure,
   } from "./dialogue";
-  // Stores
-  // Apis
-  import { getGameApi } from "$apis/game.svelte";
-  import { inventoryApi } from "$apis";
-  const gameApi = getGameApi();
+  import { inventoryApi, gameApi } from "$apis";
 
   const xOffset = tweened(0, {
     duration: 500,
@@ -217,19 +213,19 @@
   }}
 />
 
-<ItemUnlockScreen
+<!-- <ItemUnlockScreen
   reveal={revealPg}
   onclick={() => {
     $inventoryApi.unlockItem("pg");
     revealPg = false;
     dialogKeys = dialogProcedure;
     onDialogFinish = () => {
-      gameApi.fadeScene("/ch3_experiment");
+      $gameApi.fadeScene("/ch3_experiment");
     };
   }}
 >
   <ItemCard id="pg" />
-</ItemUnlockScreen>
+</ItemUnlockScreen> -->
 
 <Grid xOffset={$xOffset} yOffset={$yOffset} class="grid-cols-1 w-full h-[200%]">
   <Submarine targetPosition={subCoords} class="z-[21]">

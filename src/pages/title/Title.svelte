@@ -5,10 +5,7 @@
   import { TurbulentImg } from "$components/ui/img";
   import { TextOverlay } from "$components/text";
   import ocean from "$assets/title/tritons-triangle.jpg";
-  import { getGameApi, getLolApi, getAudioApi } from "$apis";
-  const gameApi = getGameApi();
-  const lolApi = getLolApi();
-  const audioApi = getAudioApi();
+  import { gameApi, lolApi, audioApi } from "$apis";
 
   function zoomIn(vars?: gsap.TimelineVars) {
     const zoomTl = gsap.timeline(vars);
@@ -18,7 +15,7 @@
 
   function zoomInMore(vars?: gsap.TimelineVars) {
     const zoomTl = gsap.timeline(vars);
-    zoomTl.to(".pg-title_bg", { scale: 1.33, duration: 2 });
+    zoomTl.to(".pg-title_bg", { scale: 1.44, duration: 2 });
     return zoomTl;
   }
 
@@ -29,6 +26,7 @@
       duration: 2,
     });
     textTl.to("#pg-title_subheader", { opacity: 1, duration: 1 });
+
     textTl.to("#pg-title_button-start", { opacity: 1, duration: 1 });
     return textTl;
   }
@@ -44,7 +42,7 @@
       },
     );
 
-    audioApi.loadTrack({
+    $audioApi.loadTrack({
       src: "music/into-the-blue.mp3",
     });
     blackdropOpacity = 55;
@@ -76,8 +74,8 @@
           startIntro = false;
           blackdropOpacity = 0;
           zoomIn();
-          revealText({ delay: 2 });
-          audioApi.playTrack({
+          revealText({ delay: 4 });
+          $audioApi.playTrack({
             src: "music/into-the-blue.mp3",
             volume: 0.66,
             loop: true,
@@ -90,10 +88,10 @@
   {#if startTitle}
     <div out:blur class="relative size-full flex flex-col items-center">
       <h1 id="pg-title_header" class="text-title text-8xl font-bold mt-24">
-        {lolApi.getText("title")}
+        {$lolApi.getText("title")}
       </h1>
       <p id="pg-title_subheader" class="text-title text-4xl font-bold p-4">
-        {lolApi.getText("subtitle")}
+        {$lolApi.getText("subtitle")}
       </p>
       <div class="grow w-full flex flex-col justify-end items-center">
         <button
@@ -102,19 +100,19 @@
             startTitle = false;
 
             // Preload
-            audioApi.loadTrack({
+            $audioApi.loadTrack({
               src: "music/tritons-triangle.mp3",
             });
-            gameApi.fadeScene("/prologue", 2.4);
+            $gameApi.fadeScene("/prologue", 2.4);
             zoomInMore({
               onComplete: () => {
-                audioApi.stopTrack({ src: "music/into-the-blue.mp3" });
+                $audioApi.stopTrack({ src: "music/into-the-blue.mp3" });
               },
             });
           }}
           class="text-title p-12"
         >
-          <p class="text-2xl">{lolApi.getText("start")}</p>
+          <p class="text-2xl">{$lolApi.getText("start")}</p>
         </button>
       </div>
     </div>

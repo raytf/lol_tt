@@ -1,0 +1,73 @@
+<script lang="ts">
+  import type { DialogKey } from "$components/hud/dialog";
+  import { onMount } from "svelte";
+  import { fade } from "svelte/transition";
+  import { gsap } from "gsap";
+  import { Button } from "$components/ui/button";
+  import { lolApi } from "$apis/lol.svelte";
+
+  let {
+    key,
+    onclickOption,
+  }: {
+    key: DialogKey;
+    onclickOption: (nextDialog: DialogKey[]) => void;
+  } = $props();
+
+  onMount(() => {
+    gsap.to(".container-options", {
+      opacity: 1,
+      duration: 1,
+    });
+  });
+</script>
+
+<div transition:fade|global class="container-options">
+  {#if key.options}
+    {#each key.options as option}
+      <Button
+        class="flex flex-row items-center h-[88px] m-2 text-xl"
+        onclick={() => {
+          const selected = {
+            imgSrc: option.imgSrc,
+            name: "you",
+            text: option.text,
+          };
+          const nextDialog = [selected, ...option.nextDialog];
+          if (option.repeat) {
+            const originalDialog = { ...key };
+            originalDialog.alreadyRead = true;
+            nextDialog.push(originalDialog);
+          }
+
+          onclickOption(nextDialog);
+        }}
+      >
+        {#if option.imgSrc}
+          <img src={option.imgSrc} alt="icon" class="h-full mr-2" />
+        {/if}
+        {$lolApi.getText(option.text)}
+      </Button>
+    {/each}
+  {/if}
+</div>
+
+<style>
+  .container-options {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.44);
+    padding: 2em;
+    padding-top: 200px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    user-select: none;
+    z-index: 100;
+    opacity: 0;
+  }
+</style>

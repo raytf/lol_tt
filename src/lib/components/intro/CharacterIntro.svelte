@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { getLolApi } from "$apis/lol.svelte";
-  const lolApi = getLolApi();
+  import { lolApi } from "$apis/lol.svelte";
 
   let {
     activate = false,
@@ -23,8 +22,8 @@
     ? 'opacity-100 pointer-events-auto'
     : 'opacity-0 pointer-events-none'} {extraClass}"
 >
-  <p class="text-name text-7xl font-bold">{lolApi.getText(nameKey)}</p>
-  <p class="text-desc text-4xl py-4">{@html lolApi.getText(descKey)}</p>
+  <p class="text-name text-7xl font-bold">{$lolApi.getText(nameKey)}</p>
+  <p class="text-desc text-4xl py-4">{@html $lolApi.getText(descKey)}</p>
 </button>
 
 <style>

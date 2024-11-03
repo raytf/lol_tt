@@ -2,21 +2,17 @@
   import { onMount } from "svelte";
   import { fade } from "svelte/transition";
   import { gsap } from "gsap";
-  import { Area } from "$components/exploration";
+  import { Area } from "$components/explorationOld";
   import { Lol } from "$components/text";
   import { Dive } from "$components/svg/icons";
   import { Button } from "$components/ui/button";
-  import { Dialog } from "$components/dialog";
   import { SkyOcean } from "$components/visual/scenery";
   import { Submarine } from "$components/gameObjects";
   import { moveSub } from "$lib/stores/exploration";
-  import { ItemUnlockScreen, ItemCard } from "$components/inventory";
   import { missionBrief } from "./dialogue";
   import { windowWidth, windowHeight } from "$lib/stores/game";
   import { setPosition as setSubPosition } from "$lib/stores/sub";
-  import { getAudioApi, getGameApi, hudApi, inventoryApi } from "$apis";
-  const audioApi = getAudioApi();
-  const gameApi = getGameApi();
+  import { audioApi, gameApi, hudApi, objectivesApi } from "$apis";
 
   function revealHeading(vars?: gsap.TimelineVars) {
     const tl = gsap.timeline(vars);
@@ -25,7 +21,6 @@
   }
 
   let surfaceSub = $state(false);
-  let startDialog = $state(false);
   let tlHeading: GSAPTimeline;
   let initialSubCoords = {
     x: $windowWidth / 2,
@@ -34,7 +29,7 @@
   setSubPosition(initialSubCoords);
   onMount(() => {
     gsap.set("#surface-heading", { opacity: 0 });
-    audioApi.playTrack({
+    $audioApi.playTrack({
       src: "sound/ocean-loop.mp3",
       volume: 0.08,
       loop: true,
@@ -44,27 +39,68 @@
     setTimeout(() => {
       surfaceSub = true;
       tlHeading.reverse();
+
       setTimeout(() => {
-        startDialog = true;
+        $hudApi.activated = true;
+        startMissionBriefDialog(() => {
+          unlockSmItem(() => {
+            unlockRadioItem(() => {
+              $hudApi.showInventory = true;
+              startTutorial();
+            });
+          });
+        });
       }, 1500);
     }, 1500);
   });
 
-  let unlockRadio = $state(false);
-  let unlockSM = $state(false);
-  let readyToStart = $state(false);
+  function startMissionBriefDialog(onFinished?: () => void) {
+    $hudApi.startDialog({
+      keys: missionBrief,
+      onFinished: onFinished,
+    });
+  }
+
+  function unlockSmItem(onFinished?: () => void) {
+    $hudApi.startItemUnlock({
+      itemId: "sm",
+      onFinished: onFinished,
+    });
+  }
+
+  function unlockRadioItem(onFinished?: () => void) {
+    $hudApi.startItemUnlock({
+      itemId: "radio",
+      onFinished: onFinished,
+    });
+  }
+
+  function startTutorial() {
+    $hudApi.startChapter({
+      chapterKey: "tutorial",
+      objectives: [
+        {
+          key: "obj_check-equipment",
+          completed: false,
+          onFinished: () => {
+            equipmentChecked = true;
+          },
+        },
+        {
+          key: "obj_learn-controls",
+          completed: false,
+        },
+      ],
+      onFinished: () => {
+        readyToDive = true;
+      },
+    });
+  }
+
+  let equipmentChecked = $state(false);
+  let readyToDive = $state(false);
 </script>
 
-{#if startDialog}
-  <Dialog
-    top={true}
-    keys={missionBrief}
-    onFinished={() => {
-      $inventoryApi.activated = true;
-      unlockRadio = true;
-    }}
-  />
-{/if}
 <div class="relative size-full">
   <div class="absolute size-full z-[11] pointer-events-none">
     <div id="surface-heading">
@@ -73,15 +109,15 @@
     <div
       class="absolute bottom-0 w-full h-[222px] flex justify-center items-end pb-11"
     >
-      {#if readyToStart}
+      {#if readyToDive}
         <div transition:fade>
           <Button
             onclick={() => {
-              readyToStart = false;
+              readyToDive = false;
               surfaceSub = false;
               setTimeout(() => {
-                gameApi.fadeScene("/ch1");
-                audioApi.stopTrack({
+                $gameApi.fadeScene("/exploration_wrecks");
+                $audioApi.stopTrack({
                   src: "sound/ocean-loop.mp3",
                 });
               }, 1000);
@@ -97,7 +133,14 @@
   </div>
   <SkyOcean start={true} />
   <div class="absolute w-full h-1/2 bottom-0 z-10">
-    <Area onmousedown={moveSub}></Area>
+    <Area
+      onmousedown={(e) => {
+        if (equipmentChecked) {
+          $objectivesApi.completeTask("task_move-sub");
+        }
+        moveSub(e);
+      }}
+    ></Area>
   </div>
   <Submarine
     size={111}
@@ -108,27 +151,3 @@
     reveal={surfaceSub}
   />
 </div>
-
-<ItemUnlockScreen
-  reveal={unlockRadio}
-  onclick={() => {
-    $inventoryApi.unlockItem("radio");
-    unlockRadio = false;
-    unlockSM = true;
-  }}
->
-  <ItemCard id="radio" />
-</ItemUnlockScreen>
-<ItemUnlockScreen
-  reveal={unlockSM}
-  onclick={() => {
-    $hudApi.activated = true;
-    $inventoryApi.unlockItem("sm");
-    unlockSM = false;
-    $hudApi.startObjective("objective_prepare", () => {
-      readyToStart = true;
-    });
-  }}
->
-  <ItemCard id="sm" />
-</ItemUnlockScreen>

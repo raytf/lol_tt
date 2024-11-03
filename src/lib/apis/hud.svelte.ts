@@ -1,67 +1,90 @@
-import { writable } from "svelte/store";
+import { writable, get } from "svelte/store";
+import type { Objective } from "$apis/objectives.svelte";
+import type { DialogKey } from "$components/hud/dialog";
+import { objectivesApi, dialogApi, inventoryApi } from "$apis";
 
-interface Todo {
-  key: string;
-  counterTarget?: number;
+interface StartObjectivesParams {
+  chapterKey: string;
+  objectives: Objective[];
+  onFinished?: () => void;
 }
 
-type ObjectiveMap = {
-  [key: string]: Todo[];
-};
-
-export interface Task {
-  key: string;
-  counter?: number;
-  counterTarget?: number;
-  completed?: boolean;
+interface StartDialogParams {
+  keys: DialogKey[];
+  onFinished?: () => void;
+  blockInput?: boolean;
 }
 
-type Objective = {
-  key: string;
-  completed: boolean;
-};
-
-export const objectiveMap: ObjectiveMap = {
-  objective_prepare: [{ key: "task_openInventory" }, { key: "task_reviewSM" }],
-};
+interface StartItemUnlockParams {
+  itemId: string;
+  onFinished?: () => void;
+}
 
 class HudApi {
   activated = $state(false);
-  currentObjective = $state<Objective>();
-  currentTasks = $state<Task[]>([]);
-  onFinishObjective = () => {};
+  showObjectives = $state(false);
+  showDialog = $state(false);
+  showInventory = $state(false);
+  showItemUnlock = $state(false);
+  showSmModal = $state(false);
+  showSmPuzzle = $state(false);
 
-  startObjective = (objectiveKey: string, onFinished: () => void) => {
-    if (!objectiveMap[objectiveKey]) return;
+  flipElement = $state<HTMLElement | null>(null);
 
-    this.currentObjective = { key: objectiveKey, completed: false };
-    this.currentTasks = objectiveMap[objectiveKey].map((todo) => ({
-      key: todo.key,
-      completed: false,
-    }));
-    this.onFinishObjective = onFinished;
-  };
+  startChapter(params: StartObjectivesParams) {
+    const { chapterKey, objectives, onFinished } = params;
 
-  completeTask = (taskKey: string) => {
-    const task = this.currentTasks.find((task) => task.key === taskKey);
-    if (task) {
-      task.completed = true;
-      if (this.getNumRemainingTasks() === 0) {
-        if (this.currentObjective) {
-          this.currentObjective.completed = true;
-        }
-        this.onFinishObjective();
-      }
-    }
-  };
+    const oApi = get(objectivesApi);
+    oApi.chapterFinished = false;
+    oApi.currentChapter = chapterKey;
+    oApi.currentObjectives = [...objectives];
+    oApi.currentObjectiveIndex = 0;
+    if (onFinished)
+      oApi.onChapterFinished = () => {
+        this.showObjectives = false;
+        onFinished();
+      };
+    oApi.startObjective();
 
-  getNumRemainingTasks = () => {
-    return this.currentTasks.filter((task) => !task.completed).length;
-  };
+    this.showObjectives = true;
+  }
+
+  startDialog(params: StartDialogParams) {
+    const { keys, onFinished } = params;
+
+    const dApi = get(dialogApi);
+    dApi.currentDialog = [...keys];
+    dApi.onDialogFinished = () => {};
+    if (onFinished) dApi.onDialogFinished = onFinished;
+
+    this.showDialog = true;
+  }
+  endDialog() {
+    this.showDialog = false;
+
+    const dApi = get(dialogApi);
+    dApi.currentDialog = [];
+    dApi.onDialogFinished();
+  }
+
+  startItemUnlock(params: StartItemUnlockParams) {
+    const { itemId, onFinished } = params;
+
+    const iApi = get(inventoryApi);
+    iApi.newItemUnlock = itemId;
+    iApi.unlockItem(itemId);
+    iApi.onItemUnlockFinished = () => {};
+    if (onFinished) iApi.onItemUnlockFinished = onFinished;
+
+    this.showItemUnlock = true;
+  }
+  endItemUnlock() {
+    this.showItemUnlock = false;
+
+    const iApi = get(inventoryApi);
+    iApi.newItemUnlock = "";
+    iApi.onItemUnlockFinished();
+  }
 }
 
-export const hudApi = writable<HudApi>(undefined);
-
-export function initializeHudApi() {
-  hudApi.set(new HudApi());
-}
+export const hudApi = writable<HudApi>(new HudApi());

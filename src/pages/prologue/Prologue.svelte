@@ -8,11 +8,13 @@
   import ocean from "$assets/prologue/expedition_ocean.jpg";
   import ship from "$assets/prologue/expedition_ship.png";
   import shadow from "$assets/prologue/expedition_shadow.png";
-  import { getGameApi, getAudioApi } from "$apis";
-  const gameApi = getGameApi();
-  const audioApi = getAudioApi();
+  import { gameApi, audioApi } from "$apis";
 
-  const textSequence = [["pl_1", "pl_2", "pl_3"], ["pl_4", "pl_5"], ["pl_6"]];
+  const textSequence = [
+    ["pl_1", "pl_2"],
+    ["pl_3", "pl_4"],
+    ["pl_5", "pl_6"],
+  ];
   let currentSequence = $state(0);
   let blackdropOpacity = $state(100);
   let shadowOpacity = $state(0);
@@ -24,15 +26,15 @@
       shadowOpacity = 77;
     }
     if (currentSequence >= textSequence.length) {
-      gameApi.fadeScene("/surface", 2.4);
-      audioApi.stopTrack({ src: "music/tritons-triangle.mp3" });
+      $gameApi.fadeScene("/surface", 2.4);
+      $audioApi.stopTrack({ src: "music/tritons-triangle.mp3" });
     }
   }
 
   onMount(() => {
     blackdropOpacity = 44;
     gsap.to("#pg-prologue_bg", { scale: 1.4, duration: 44 });
-    audioApi.playTrack({
+    $audioApi.playTrack({
       src: "music/tritons-triangle.mp3",
       volume: 0.66,
       loop: true,

@@ -2,7 +2,7 @@
   import type { Snippet } from "svelte";
   import { fly } from "svelte/transition";
   import { backOut, backIn } from "svelte/easing";
-  import { coords, direction } from "$lib/stores/sub";
+  import { coords, direction } from "$stores/sub";
   import sub from "$assets/sprites/sub.png";
 
   let {

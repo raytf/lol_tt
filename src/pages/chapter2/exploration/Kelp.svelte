@@ -2,10 +2,10 @@
   import { onMount } from "svelte";
   import { tweened } from "svelte/motion";
   import { BgImg, TurbulentImg } from "$lib/components/ui/img";
-  import { Grid, Area } from "$components/exploration";
+  import { Grid, Area } from "$components/explorationOld";
   import { InfoMarker } from "$lib/components/ui/button";
-  import type { DialogKey } from "$components/dialog";
-  import { Dialog, QuestionDialog } from "$components/dialog";
+  import type { DialogKey } from "$components/hud/dialog";
+  import { Dialog, QuestionDialog } from "$components/hud/dialog";
   import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
   import Submarine from "$components/visual/Submarine.svelte";
   import MeasuringLine from "$components/visual/MeasuringLine.svelte";
@@ -26,10 +26,7 @@
   } from "./dialogue";
   // Stores
   import { otterEncountered } from "../store";
-  // Apis
-  import { getGameApi } from "$apis/game.svelte";
-  import { inventoryApi } from "$apis";
-  const gameApi = getGameApi();
+  import { inventoryApi, gameApi } from "$apis";
 
   const xOffset = tweened(0, {
     duration: 500,
@@ -100,10 +97,10 @@
   questionKey="ch2-question"
   option1Key="ch2-question_option-1"
   option1DialogKeys={dialogOption1}
-  onFinish1={() => gameApi.fadeScene("/ch1_exploration_wrecks")}
+  onFinish1={() => $gameApi.fadeScene("/ch1_exploration_wrecks")}
   option2Key="ch2-question_option-2"
   option2DialogKeys={dialogOption2}
-  onFinish2={() => gameApi.fadeScene("/ch1_exploration_wrecks")}
+  onFinish2={() => $gameApi.fadeScene("/ch1_exploration_wrecks")}
   option3Correct={true}
   option3Key="ch2-question_option-3"
   option3DialogKeys={dialogOption3}
@@ -159,7 +156,7 @@
             dialogKeys = dialogIntro;
             onDialogFinish = () => {
               $otterEncountered = true;
-              gameApi.fadeScene("/ch2_encounter_otter");
+              $gameApi.fadeScene("/ch2_encounter_otter");
             };
           }}
           class="absolute w-[55px] h-[55px] top-[200px] right-[111px] z-20"
@@ -240,7 +237,7 @@
       active={activeArea === 2}
       onUp={() => {
         if (clickedInfoColor2) {
-          gameApi.fadeScene("/ch3");
+          $gameApi.fadeScene("/ch3");
           return;
         }
         activeArea = 1;

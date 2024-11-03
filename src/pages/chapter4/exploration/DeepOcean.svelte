@@ -2,12 +2,15 @@
   import { onMount } from "svelte";
   import { tweened } from "svelte/motion";
   import { BgImg } from "$components/ui/img";
-  import { Grid, Area } from "$components/exploration";
-  import type { DialogKey } from "$components/dialog";
+  import { Grid, Area } from "$components/explorationOld";
+  import type { DialogKey } from "$components/hud/dialog";
   import { InfoMarker } from "$lib/components/ui/button";
-  import { Dialog, QuestionDialog } from "$components/dialog";
-  import { ItemUnlockScreen, ItemCard } from "$components/inventory";
-  import { GaugeScreen } from "$components/inventory";
+  import { Dialog, QuestionDialog } from "$components/hud/dialog";
+  import {
+    ItemUnlockScreen,
+    ItemCard,
+    GaugeScreen,
+  } from "$components/hud/inventory";
   import { Button } from "$lib/components/ui/button";
   import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
   import Submarine from "$components/visual/Submarine.svelte";
@@ -30,8 +33,7 @@
   } from "$lib/stores/sub";
   // Apis
   import { inventoryApi } from "$apis";
-  import { getGameApi } from "$apis/game.svelte";
-  const gameApi = getGameApi();
+  import { gameApi } from "$apis";
 
   const xOffset = tweened(0, {
     duration: 500,
@@ -94,10 +96,9 @@
       startExperiment = true;
       $inventoryApi.currentHintKey = "hint_5";
     }}
-    hint={true}
   />
 {/if}
-<ItemUnlockScreen
+<!-- <ItemUnlockScreen
   reveal={revealUnlockScreen}
   onclick={() => {
     $inventoryApi.unlockItem("th");
@@ -106,7 +107,7 @@
   }}
 >
   <ItemCard id="th" />
-</ItemUnlockScreen>
+</ItemUnlockScreen> -->
 {#if startExperiment && !finishedExperiment}
   <div
     class="absolute size-full flex justify-end items-end pointer-events-none z-[2]"
@@ -141,7 +142,7 @@
   <Dialog
     keys={dialog2}
     onFinished={() => {
-      gameApi.fadeScene("/chapter-select");
+      $gameApi.fadeScene("/chapter-select");
     }}
   />
 {/if}

@@ -1,13 +1,10 @@
 <script>
   import { onMount } from "svelte";
   import { TitleIntro } from "$components/intro";
-  import { getGameApi } from "$apis/game.svelte";
-  import { getAudioApi } from "$apis/audio.svelte";
-  const gameApi = getGameApi();
-  const audioApi = getAudioApi();
+  import { gameApi, audioApi } from "$apis";
 
   onMount(() => {
-    audioApi.playTrack({
+    $audioApi.playTrack({
       src: "music/deep-echoes.mp3",
       volume: 0.66,
       loop: true,
@@ -19,6 +16,6 @@
   titleKey="title_chapter-1"
   descKey="desc_chapter-1"
   onComplete={() => {
-    gameApi.fadeScene("/ch1_exploration_wrecks");
+    $gameApi.fadeScene("/ch1_exploration_wrecks");
   }}
 />

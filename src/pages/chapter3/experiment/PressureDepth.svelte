@@ -2,13 +2,13 @@
   import { onMount } from "svelte";
   import { tweened } from "svelte/motion";
   import { BgImg } from "$components/ui/img";
-  import { Grid, Area } from "$components/exploration";
-  import { Dialog } from "$components/dialog";
+  import { Grid, Area } from "$components/explorationOld";
+  import { Dialog } from "$components/hud/dialog";
   import {
     GaugeScreen,
     ItemUnlockScreen,
     ItemCard,
-  } from "$components/inventory";
+  } from "$components/hud/inventory";
   import Table from "./Table.svelte";
   import Graph from "./Graph.svelte";
   import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
@@ -19,15 +19,8 @@
   import kelp from "$assets/chapter1/kelp.png";
   // Dialog
   import { dialogExperiment, dialogAnalysis } from "./dialogue";
-  // Stores
-  // Apis
-  import { getGameApi } from "$apis/game.svelte";
-  import { inventoryApi } from "$apis";
+  import { inventoryApi, gameApi } from "$apis";
   import { coords } from "$lib/stores/sub";
-  const gameApi = getGameApi();
-
-  const width = 1024;
-  const height = 576;
 
   interface TableData {
     depth: number;
@@ -115,24 +108,24 @@
 
 <GaugeScreen />
 
+<!-- onProceed={() => {
+  if (experimentIndex > 4) return;
+  const newY = (window.innerHeight / 2) * experimentIndex;
+  subCoords = {
+    x: window.innerWidth / 2,
+    y: newY,
+  };
+
+  if (newY > window.innerHeight && newY < window.innerHeight * 2) {
+    activeArea = 1;
+    moveToNextArea(0, -1);
+  }
+
+  experimentIndex++;
+  experimentData = dpData.slice(0, experimentIndex);
+}} -->
 <Dialog
   keys={dialogExperiment}
-  onProceed={() => {
-    if (experimentIndex > 4) return;
-    const newY = (height / 2) * experimentIndex;
-    subCoords = {
-      x: width / 2,
-      y: newY,
-    };
-
-    if (newY > height && newY < height * 2) {
-      activeArea = 1;
-      moveToNextArea(0, -1);
-    }
-
-    experimentIndex++;
-    experimentData = dpData.slice(0, experimentIndex);
-  }}
   onFinished={() => {
     startDialogAnalysis = true;
     drawLine = true;
@@ -160,7 +153,7 @@
   {/if}
 </div>
 
-<ItemUnlockScreen
+<!-- <ItemUnlockScreen
   reveal={showUnlockScreen}
   onclick={() => {
     $inventoryApi.unlockItem("dg");
@@ -170,7 +163,7 @@
   }}
 >
   <ItemCard id="dg" />
-</ItemUnlockScreen>
+</ItemUnlockScreen> -->
 
 <Grid xOffset={$xOffset} yOffset={$yOffset} class="grid-cols-1 w-full h-[300%]">
   <Submarine targetPosition={subCoords} class="z-[21]" />
@@ -249,7 +242,7 @@
       }}
       onDown={finishExperiment
         ? () => {
-            gameApi.fadeScene("/ch4");
+            $gameApi.fadeScene("/ch4");
           }
         : undefined}
       onmousedown={handleMouseDown}

@@ -1,8 +1,8 @@
 <script lang="ts">
   import { gsap } from "gsap";
-  import { ScientificMethodDiagram } from "$components/scientificMethod";
-  import type { DialogKey } from "$components/dialog";
-  import { Dialog } from "$components/dialog";
+  import { SMDiagram } from "$components/scientificMethod";
+  import type { DialogKey } from "$components/hud/dialog";
+  import { Dialog } from "$components/hud/dialog";
   import ocean1 from "$assets/chapter1/ocean_explore.jpg";
   import ocean2 from "$assets/chapter1/ocean_lively.jpg";
   import ocean3 from "$assets/chapter1/ocean_dark.jpg";
@@ -10,8 +10,7 @@
   import neutral from "$assets/emoji/neutral.svg";
   import grin from "$assets/emoji/grin.svg";
   import shell from "$assets/avatars/shell.png";
-  import { getGameApi } from "$apis/game.svelte";
-  const gameApi = getGameApi();
+  import { gameApi } from "$apis";
 
   const dialogKeysIntro = [
     {
@@ -178,7 +177,7 @@
     class="absolute object-cover"
   />
 
-  <ScientificMethodDiagram
+  <SMDiagram
     visible={startDialogSM}
     activeIndex={smStep}
     class="w-[666px] h-[222px] mt-14 z-[1]"
@@ -192,11 +191,11 @@
   }}
 />
 {#if startDialogSM}
+  <!-- onProceed={() => {
+  smStep += 1;
+}} -->
   <Dialog
     keys={dialogKeysSM}
-    onProceed={() => {
-      smStep += 1;
-    }}
     onFinished={() => {
       startDialogSM = false;
       startDialogDiscovery = true;
@@ -217,7 +216,7 @@
   <Dialog
     keys={dialogKeysGuide}
     onFinished={() => {
-      gameApi.fadeScene("/ch1_exploration_wrecks");
+      $gameApi.fadeScene("/ch1_exploration_wrecks");
     }}
   />
 {/if}

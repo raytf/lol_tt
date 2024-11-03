@@ -1,15 +1,17 @@
-import { getAudioApi } from "./audio.svelte";
-import { getGameApi } from "./game.svelte";
-import { initializeInventoryApi, inventoryApi } from "./inventory.svelte";
-import { getLolApi } from "./lol.svelte";
-import { initializeHudApi, hudApi } from "./hud.svelte";
+import { audioApi } from "./audio.svelte";
+import { gameApi } from "./game.svelte";
+import { inventoryApi } from "./inventory.svelte";
+import { lolApi } from "./lol.svelte";
+import { hudApi } from "./hud.svelte";
+import { objectivesApi } from "./objectives.svelte";
+import { dialogApi } from "./dialog.svelte";
 
 export {
-  getAudioApi,
-  getGameApi,
-  getLolApi,
-  initializeHudApi,
-  initializeInventoryApi,
+  audioApi,
+  gameApi,
+  lolApi,
   hudApi,
   inventoryApi,
+  objectivesApi,
+  dialogApi,
 };

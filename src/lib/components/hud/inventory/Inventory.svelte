@@ -1,23 +1,34 @@
 <script lang="ts">
-  import { fade, fly } from "svelte/transition";
+  import { fly } from "svelte/transition";
   import { Drawer } from "flowbite-svelte";
-  import { ItemCard } from "$components/inventory";
+  import ItemCard from "./ItemCard.svelte";
+  import { Lol } from "$components/text";
   import { Close } from "$components/svg/icons";
-  import info from "$assets/icons/info.svg";
+  import { InfoButton } from "$components/ui/button";
   import { Backpack } from "$components/svg/icons/hud";
-  import { hudApi, inventoryApi } from "$apis";
+  import { hudApi, inventoryApi, objectivesApi } from "$apis";
 
   let { class: extraClass }: { class?: string } = $props();
 
   let drawerHidden = $state(true);
   let selectedItem = $state("");
+  let smallIconElement = $state<HTMLElement>();
+  let bigIconElement = $state<HTMLElement>();
 
   function onItemClicked(itemId: string) {
     selectedItem = "";
     drawerHidden = true;
     if (itemId === "sm") {
-      $hudApi.completeTask("task_reviewSM");
-      $inventoryApi.showSmModal = true;
+      $hudApi.showSmModal = true;
+    }
+    if (itemId === "radio") {
+      if (smallIconElement) {
+        $hudApi.flipElement = smallIconElement;
+      }
+      if (bigIconElement) {
+        $hudApi.flipElement = bigIconElement;
+      }
+      $hudApi.showSmPuzzle = true;
     }
     if (itemId === "conch") {
       $inventoryApi.showHintDialog = true;
@@ -31,7 +42,7 @@
       transition:fly={{ y: -222 }}
       onclick={() => {
         drawerHidden = false;
-        $hudApi.completeTask("task_openInventory");
+        $objectivesApi.completeTask("task_open-inventory");
       }}
       class="button-toggle"
     >
@@ -46,7 +57,7 @@
     transitionType="fly"
     transitionParams={{ y: -222 }}
     class="absolute"
-    divClass="bg-white bg-opacity-70"
+    divClass="bg-white bg-opacity-90"
   >
     <div class="flex flex-col items-center text-black p-4">
       <button
@@ -58,26 +69,28 @@
       >
         <Close class="w-[55px] h-[55px]" />
       </button>
-      <p class="font-bold text-4xl p-4">Inventory</p>
+      <Lol key="inventory" class="font-bold text-4xl p-4" />
       <div class="grid grid-cols-5 gap-2">
         {#each $inventoryApi.unlockedItems as item}
           <div
             class="relative pointer-events-auto flex justify-center items-center border-2 border-gray-900 rounded p-5"
           >
-            <button onclick={() => onItemClicked(item)}>
+            <button
+              onclick={() => onItemClicked(item)}
+              class="w-[55px] h-[55px]"
+            >
               <img
+                bind:this={smallIconElement}
                 src={$inventoryApi.getItem(item).imgSrc}
                 alt={item}
-                class="w-[55px] h-[55px]"
+                class="size-full"
               />
             </button>
-            <button onclick={() => (selectedItem = item)}>
-              <img
-                src={info}
-                alt="info"
-                class="absolute top-[-1%] right-[-1%] w-[33px] h-[33px]"
-              />
-            </button>
+            <InfoButton
+              onclick={() => (selectedItem = item)}
+              buttonClass="absolute top-[-1%] right-[-1%]"
+              imgClass="w-[33px] h-[33px]"
+            ></InfoButton>
           </div>
         {/each}
       </div>
@@ -87,6 +100,7 @@
     >
       {#if selectedItem !== ""}
         <ItemCard
+          bind:imgRef={bigIconElement}
           onclick={() => onItemClicked(selectedItem)}
           id={selectedItem}
         />
@@ -102,13 +116,13 @@
     height: 100%;
     width: 100%;
     pointer-events: none;
-
-    z-index: 100;
   }
   .button-toggle {
     pointer-events: auto;
     position: absolute;
+    top: 0;
     right: 0;
+    margin: 0.44em;
     opacity: 0.88;
   }
   .button-backpack:hover {

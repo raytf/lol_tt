@@ -3,11 +3,15 @@
     src,
     alt = "bg",
     class: extraClass,
-  }: { src: string; alt?: string; class: string } = $props();
+    style: extraStyle,
+    ...props
+  }: { src: string; alt?: string; class?: string; style?: string } = $props();
 </script>
 
 <img
   {src}
   {alt}
   class="absolute max-w-none pointer-events-none select-none {extraClass}"
+  style={extraStyle}
+  {...props}
 />

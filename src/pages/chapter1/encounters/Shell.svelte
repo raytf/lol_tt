@@ -1,6 +1,6 @@
 <script lang="ts">
   import { gsap } from "gsap";
-  import { Dialog } from "$components/dialog";
+  import { Dialog } from "$components/hud/dialog";
   import { CharacterIntro } from "$lib/components/intro";
   import encounterShell from "$assets/chapter1/encounter_shell.jpg";
   import introShell from "$assets/chapter1/intro_shell.jpg";
@@ -10,8 +10,7 @@
   import grin from "$assets/emoji/grin.svg";
   import shell from "$assets/avatars/shell.png";
   import { shellEncountered } from "../store";
-  import { getGameApi } from "$apis/game.svelte";
-  const gameApi = getGameApi();
+  import { gameApi } from "$apis/game.svelte";
 
   const dialogKeys1 = [
     {
@@ -96,11 +95,6 @@
 />
 <Dialog
   keys={dialogKeys1}
-  onProceed={() => {
-    if (startedPan) return;
-    panTl.play();
-    startedPan = true;
-  }}
   onFinished={() => {
     introTl.play();
   }}
@@ -110,7 +104,7 @@
     keys={dialogKeys2}
     onFinished={() => {
       $shellEncountered = true;
-      gameApi.fadeScene("/ch1_lesson_sm-intro");
+      $gameApi.fadeScene("/ch1_lesson_sm-intro");
     }}
   />
 {/if}
