@@ -3,6 +3,7 @@
   import { Popover } from "flowbite-svelte";
   import { gsap } from "gsap";
   import { Flip } from "gsap/Flip";
+  import { CustomWiggle } from "gsap/CustomWiggle";
   import { fade } from "svelte/transition";
   import { Lol } from "$components/text";
   import { Reset, Close, Pulse } from "$components/svg/icons";
@@ -66,7 +67,16 @@
 
   function passwordIncorrect() {
     isIncorrect = true;
-    onIncorrect && onIncorrect();
+    gsap.to(".container-password", {
+      duration: 0.44,
+      rotation: 11,
+      ease: "shake",
+    });
+
+    setTimeout(() => {
+      resetPassword();
+      onIncorrect && onIncorrect();
+    }, 1111);
   }
 
   function resetPassword() {
@@ -77,6 +87,7 @@
     currentIndex = 0;
   }
 
+  CustomWiggle.create("shake", { wiggles: 4 });
   let currentIndex = $state(0);
   let startContainerElement: HTMLElement;
   let endContainerElement: HTMLElement;
@@ -135,7 +146,9 @@
   transition:fade|global={{ duration: 555 }}
   class="container-smPuzzle text-black {extraClass}"
 >
-  <div class="absolute size-full flex flex-col items-center justify-center">
+  <div
+    class="absolute size-full flex flex-col items-center justify-center pointer-events-none"
+  >
     <Pulse class="anim_end w-[88px] h-[88px]" />
     <div bind:this={endContainerElement} class="w-[222px] h-[222px]"></div>
   </div>
@@ -162,20 +175,23 @@
     >{$lolApi.getText("hint_radio-code")}</Popover
   >
 
-  <div class="anim_start-1 container-password">
-    {#each password as char, i}
-      <span
-        class="text-8xl mx-4 w-[55px] text-center {isIncorrect
-          ? 'text-red-500'
-          : isCorrect
-            ? 'text-green-500'
-            : ''}">{char}</span
-      >
-    {/each}
-    <button onclick={resetPassword} class="absolute right-44">
+  <div class="anim_start-1 relative">
+    <div class="container-password">
+      {#each password as char, i}
+        <span
+          class="text-8xl mx-4 w-[55px] text-center {isIncorrect
+            ? 'text-red-500'
+            : isCorrect
+              ? 'text-green-500'
+              : ''}">{char}</span
+        >
+      {/each}
+    </div>
+    <button onclick={resetPassword} class="absolute top-6 -right-12">
       <Reset class="w-[55px] h-[55px]" />
     </button>
   </div>
+
   <div class="anim_start-2 puzzle-grid mt-8">
     {#each randomSteps as step, i}
       <button
@@ -211,7 +227,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: rgba(255, 255, 255, 0.55);
+    background: rgba(255, 255, 255, 0.22);
   }
   .puzzle-grid {
     display: grid;

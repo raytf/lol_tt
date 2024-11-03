@@ -12,6 +12,7 @@ interface StartObjectivesParams {
 interface StartDialogParams {
   keys: DialogKey[];
   onFinished?: () => void;
+  blockInput?: boolean;
 }
 
 interface StartItemUnlockParams {

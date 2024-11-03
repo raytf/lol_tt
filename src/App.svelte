@@ -9,10 +9,10 @@
   import { SplitText } from "gsap/SplitText";
   import { TextPlugin } from "gsap/TextPlugin";
   import { Flip } from "gsap/Flip";
+  import { CustomEase } from "gsap/CustomEase";
+  import { CustomWiggle } from "gsap/CustomWiggle";
 
-  gsap.registerPlugin(SplitText);
-  gsap.registerPlugin(TextPlugin);
-  gsap.registerPlugin(Flip);
+  gsap.registerPlugin(SplitText, TextPlugin, Flip, CustomEase, CustomWiggle);
 </script>
 
 <main>

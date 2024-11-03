@@ -26,7 +26,7 @@
         onFinished={() => {
           $hudApi.endDialog();
         }}
-        class="z-[101]"
+        class="z-[101] {$dialogApi.blockInput && 'pointer-events-auto'}"
       />
     {/if}
     {#if $hudApi.showInventory}
