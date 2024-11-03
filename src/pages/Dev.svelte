@@ -4,14 +4,19 @@
   import { hudApi, inventoryApi } from "$apis";
   import { missionBrief } from "./surface/dialogue";
 
-  console.log(missionBrief);
   onMount(() => {
-    $inventoryApi.unlockItem("radio");
+    // $inventoryApi.unlockItem("radio");
 
     $hudApi.activated = true;
-    $hudApi.showInventory = true;
+    // $hudApi.showInventory = true;
 
     // $hudApi.showSmPuzzle = true;
+    $hudApi.startDialog({
+      keys: missionBrief,
+      onFinished: () => {
+        console.log("done");
+      },
+    });
   });
 </script>
 

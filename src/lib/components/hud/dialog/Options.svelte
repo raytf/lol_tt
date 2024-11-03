@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { DialogKey } from "$components/dialog";
+  import type { DialogKey } from "$components/hud/dialog";
   import { onMount } from "svelte";
   import { fade } from "svelte/transition";
   import { gsap } from "gsap";
@@ -26,9 +26,14 @@
   {#if key.options}
     {#each key.options as option}
       <Button
-        class="m-2"
+        class="flex flex-row items-center h-[88px] m-2 text-xl"
         onclick={() => {
-          const nextDialog = [...option.nextDialog];
+          const selected = {
+            imgSrc: option.imgSrc,
+            name: "you",
+            text: option.text,
+          };
+          const nextDialog = [selected, ...option.nextDialog];
           if (option.repeat) {
             const originalDialog = { ...key };
             originalDialog.alreadyRead = true;
@@ -38,6 +43,9 @@
           onclickOption(nextDialog);
         }}
       >
+        {#if option.imgSrc}
+          <img src={option.imgSrc} alt="icon" class="h-full mr-2" />
+        {/if}
         {$lolApi.getText(option.text)}
       </Button>
     {/each}
@@ -51,7 +59,7 @@
     width: 100%;
     background: rgba(0, 0, 0, 0.44);
     padding: 2em;
-    padding-top: 222px;
+    padding-top: 200px;
 
     display: flex;
     flex-direction: column;

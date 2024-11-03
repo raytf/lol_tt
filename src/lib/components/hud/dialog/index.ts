@@ -11,6 +11,7 @@ export type DialogKey = {
 export type DialogOption = {
   text: string;
   nextDialog: DialogKey[];
+  imgSrc?: string;
   repeat?: boolean;
 };
 
