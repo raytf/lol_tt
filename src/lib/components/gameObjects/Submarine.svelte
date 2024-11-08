@@ -41,8 +41,8 @@
       alt="sub"
       height={size}
       width={size}
-      class="absolute select-none {imgClass} {bob ? 'anim-bob' : ''}"
-      style="scale: {$direction} 1;"
+      class="absolute select-none {imgClass}"
+      style="scale: {$direction.x} 1"
     />
   {/if}
   {#if children}
@@ -55,18 +55,25 @@
     position: absolute;
     pointer-events: none;
   }
+  .image-sub {
+    position: absolute;
+    user-select: none;
+  }
   .anim-bob {
-    animation: bob 11s linear infinite;
+    animation: bob 11s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
   }
   @keyframes -global-bob {
     0% {
       rotate: 0deg;
     }
-    50% {
-      rotate: -8deg;
+    25% {
+      rotate: 4deg;
     }
-    100% {
+    50% {
       rotate: 0deg;
+    }
+    75% {
+      rotate: -4deg;
     }
   }
 </style>
