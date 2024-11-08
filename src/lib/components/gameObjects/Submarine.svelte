@@ -35,13 +35,13 @@
 >
   {#if reveal}
     <img
-      in:fly|global={{ y: 111, duration: 1111, easing: backOut }}
-      out:fly|global={{ y: 111, duration: 1111, easing: backIn }}
+      in:fly={{ y: 111, duration: 1111, easing: backOut }}
+      out:fly={{ y: 111, duration: 1111, easing: backIn }}
       src={sub}
       alt="sub"
       height={size}
       width={size}
-      class="absolute select-none {imgClass}"
+      class="absolute select-none {imgClass} {bob && 'anim-bob'}"
       style="scale: {$direction.x} 1"
     />
   {/if}

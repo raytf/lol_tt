@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import { toast } from "@zerodevx/svelte-toast";
   import { SmPuzzle } from "$components/hud/sm";
   import { hudApi, inventoryApi } from "$apis";
   import { missionBrief } from "./surface/dialogue";
@@ -11,5 +12,5 @@
 </script>
 
 <div class="size-full bg-blue-200">
-  <SmLogBook />
+  <button onclick={() => toast.push("hello")}>Click me</button>
 </div>
