@@ -55,7 +55,7 @@
     <img
       src={shadow}
       alt="shadow"
-      class="shadow absolute size-full blur-[8px] z-[1]"
+      class="shadow absolute size-full blur-[14px] z-[1]"
       style="opacity: {shadowOpacity}%"
     />
     <img src={ship} alt="ship" class="absolute size-full z-[2]" />

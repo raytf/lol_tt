@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { spring } from "svelte/motion";
-  import { TurbulentImg, BgImg, InteractiveImg } from "$lib/components/ui/img";
+  import { TurbulentImg, BgImg } from "$components/ui/img";
   import { Darkness, UnderwaterGradient } from "$components/visual";
   import { Grid, Area } from "$components/exploration";
   import { Submarine, Conch } from "$components/gameObjects";
