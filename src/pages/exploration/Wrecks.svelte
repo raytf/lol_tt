@@ -11,6 +11,7 @@
     setPosition as setSubPosition,
     coords as subCoords,
   } from "$stores/sub";
+  import { WrecksSecret } from "$components/svg/environment";
   import underwater from "$assets/underwater_1by3.jpg";
   import wrecks_1 from "$assets/wrecks/wrecks_1.png";
   import wrecks_2 from "$assets/wrecks/wrecks_2.png";
@@ -59,23 +60,27 @@
   yOffset={$gridOffset.y}
 >
   <TurbulentImg src={underwater} class="opacity-35 z-[1]" />
-  <BgImg src={wrecks_3} class="w-[122%] bottom-0 z-[7]" />
+  <BgImg src={wrecks_3} class="w-[122%] bottom-[-11%] z-[7]" />
   <BgImg
     src={wrecks_2}
     style="transform: translateX({$gridOffset.x / 10}px)"
-    class="w-[115%] bottom-0 z-[9]"
+    class="w-[111%] bottom-0 z-[9]"
   />
   <Conch
     class="absolute w-[111px] h-[111px] top-[89%] left-[82%] z-[9]"
     style="transform: translateX({$gridOffset.x / 10}px)"
   />
   <Submarine class="z-10" />
-  <BgImg
+  <!-- <BgImg
     src={wrecks_kelp}
     style="filter: brightness({1.2 - $gridOffset.y / minYOffset})"
     class="opacity-80 z-[11]"
+  /> -->
+  <WrecksSecret
+    style="transform: translateX({$gridOffset.x / 5}px)"
+    class="absolute w-[122%] right-[-11%] bottom-0 pointer-events-none z-[12]"
   />
-  <BgImg
+  <!-- <BgImg
     src={wrecks_secret}
     style="transform: translateX({$gridOffset.x / 5}px)"
     class="w-[111%] bottom-0 z-[12]"
@@ -83,8 +88,8 @@
   <BgImg
     src={wrecks_1}
     style="transform: translateX({$gridOffset.x / 5}px)"
-    class="w-[111%] bottom-0 z-[13]"
-  />
+    class="w-[111%] bottom-0 z-[13] opacity-0"
+  /> -->
   <Darkness
     level={$gridOffset.y / minYOffset - 0.4}
     lights={[
