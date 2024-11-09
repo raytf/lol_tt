@@ -7,6 +7,7 @@
   import { Grid, Area } from "$components/exploration";
   import { Submarine, Conch } from "$components/gameObjects";
   import { windowWidth, windowHeight } from "$stores/game";
+  import { moveSub } from "$stores/exploration";
   import {
     setTarget as setSubTarget,
     setPosition as setSubPosition,
@@ -19,33 +20,13 @@
   import wrecks_3 from "$assets/wrecks/wrecks_3.png";
   import wrecks_secret from "$assets/wrecks/wrecks_secret.png";
 
-  const gridWidth = $windowWidth * 1.5;
-  const gridHeight = $windowHeight * 3;
+  const grid = {
+    width: $windowWidth * 1.5,
+    height: $windowHeight * 3,
+  };
   const gridOffset = spring({ x: 0, y: 0 }, { stiffness: 0.01, damping: 0.8 });
-
-  const minYOffset = -gridHeight + $windowHeight;
-  const minXOffset = -gridWidth + $windowWidth;
-  function moveSub(e: MouseEvent) {
-    const currentOffset = $gridOffset;
-
-    const halfWidth = $windowWidth / 2;
-    const halfHeight = $windowHeight / 2;
-    const halfWidthDiff = e.clientX - halfWidth;
-    const halfHeightDiff = e.clientY - halfHeight;
-    let newXOffset = currentOffset.x - halfWidthDiff;
-    let newYOffset = currentOffset.y - halfHeightDiff;
-    if (newXOffset > 0) newXOffset = 0;
-    if (newYOffset > 0) newYOffset = 0;
-    if (newXOffset < minXOffset) newXOffset = minXOffset;
-    if (newYOffset < minYOffset) newYOffset = minYOffset;
-    const newOffset = { x: newXOffset, y: newYOffset };
-
-    gridOffset.set(newOffset);
-    console.log("grid offset:", $gridOffset);
-    const x = e.clientX - $gridOffset.x;
-    const y = e.clientY - $gridOffset.y;
-    setSubTarget({ x, y });
-  }
+  const minYOffset = -grid.height + $windowHeight;
+  const minXOffset = -grid.width + $windowWidth;
 
   onMount(() => {
     setSubPosition({ x: $windowWidth / 2, y: -222 });
@@ -57,7 +38,7 @@
 </script>
 
 <Grid
-  size={[gridWidth, gridHeight]}
+  size={[grid.width, grid.height]}
   xOffset={$gridOffset.x}
   yOffset={$gridOffset.y}
 >
@@ -97,8 +78,9 @@
   />
   {#snippet areas()}
     <Area
-      size={[gridWidth, $windowHeight]}
-      onmousedown={moveSub}
+      size={[grid.width, $windowHeight]}
+      onmousedown={(e) =>
+        moveSub(e, gridOffset, { x: minXOffset, y: minYOffset })}
       class="flex flex-row"
     >
       <UnderwaterGradient
@@ -107,14 +89,22 @@
         --color-bottom="#00C1EF"
       />
     </Area>
-    <Area size={[gridWidth, $windowHeight]} onmousedown={moveSub}>
+    <Area
+      size={[grid.width, $windowHeight]}
+      onmousedown={(e) =>
+        moveSub(e, gridOffset, { x: minXOffset, y: minYOffset })}
+    >
       <UnderwaterGradient
         class="absolute w-full h-[101%]"
         --color-top="#00C1EF"
         --color-bottom="#037ADE"
       />
     </Area>
-    <Area size={[gridWidth, $windowHeight]} onmousedown={moveSub}>
+    <Area
+      size={[grid.width, $windowHeight]}
+      onmousedown={(e) =>
+        moveSub(e, gridOffset, { x: minXOffset, y: minYOffset })}
+    >
       <UnderwaterGradient
         class="absolute size-full"
         --color-top="#037ADE"
