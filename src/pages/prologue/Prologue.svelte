@@ -26,14 +26,16 @@
       shadowOpacity = 77;
     }
     if (currentSequence >= textSequence.length) {
-      $gameApi.fadeScene("/surface", 2.4);
       $audioApi.stopTrack({ src: "music/tritons-triangle.mp3" });
+      setTimeout(() => {
+        $gameApi.fadeScene("/surface", 1.1);
+      }, 1111);
     }
   }
 
   onMount(() => {
     blackdropOpacity = 44;
-    gsap.to("#pg-prologue_bg", { scale: 1.4, duration: 44 });
+    gsap.to("#pg-prologue_bg", { scale: 1.4, duration: 44, force3D: false });
     $audioApi.playTrack({
       src: "music/tritons-triangle.mp3",
       volume: 0.66,
@@ -58,7 +60,7 @@
       class="shadow absolute size-full blur-[14px] z-[1]"
       style="opacity: {shadowOpacity}%"
     />
-    <img src={ship} alt="ship" class="absolute size-full z-[2]" />
+    <img src={ship} alt="ship" class="anim-bob absolute size-full z-[2]" />
   </div>
 
   <Blackdrop opacity={blackdropOpacity} transitionDuration={8} class="z-[5]" />
@@ -73,7 +75,10 @@
 </div>
 
 <style>
+  .anim-bob {
+    animation: bob 44s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+  }
   .shadow {
-    transition: opacity 22s;
+    transition: opacity 11s;
   }
 </style>
