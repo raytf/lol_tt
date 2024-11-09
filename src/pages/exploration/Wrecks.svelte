@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { spring } from "svelte/motion";
+  import { toast } from "@zerodevx/svelte-toast";
   import { TurbulentImg, BgImg } from "$components/ui/img";
   import { Darkness, UnderwaterGradient } from "$components/visual";
   import { Grid, Area } from "$components/exploration";
@@ -11,12 +12,11 @@
     setPosition as setSubPosition,
     coords as subCoords,
   } from "$stores/sub";
-  import { WrecksSecret } from "$components/svg/environment";
+  import { WrecksShape } from "$components/svg/environment";
   import underwater from "$assets/underwater_1by3.jpg";
   import wrecks_1 from "$assets/wrecks/wrecks_1.png";
   import wrecks_2 from "$assets/wrecks/wrecks_2.png";
   import wrecks_3 from "$assets/wrecks/wrecks_3.png";
-  import wrecks_kelp from "$assets/wrecks/wrecks_kelp.png";
   import wrecks_secret from "$assets/wrecks/wrecks_secret.png";
 
   const gridWidth = $windowWidth * 1.5;
@@ -41,6 +41,7 @@
     const newOffset = { x: newXOffset, y: newYOffset };
 
     gridOffset.set(newOffset);
+    console.log("grid offset:", $gridOffset);
     const x = e.clientX - $gridOffset.x;
     const y = e.clientY - $gridOffset.y;
     setSubTarget({ x, y });
@@ -50,6 +51,7 @@
     setSubPosition({ x: $windowWidth / 2, y: -222 });
     setTimeout(() => {
       setSubTarget({ x: $windowWidth / 2, y: $windowHeight / 2 });
+      toast.push("Location: Wrecks");
     }, 555);
   });
 </script>
@@ -60,41 +62,36 @@
   yOffset={$gridOffset.y}
 >
   <TurbulentImg src={underwater} class="opacity-35 z-[1]" />
-  <BgImg src={wrecks_3} class="w-[122%] bottom-[-11%] z-[7]" />
+  <BgImg src={wrecks_3} class="w-[133%] left-[-22%] bottom-0 z-[7]" />
   <BgImg
     src={wrecks_2}
     style="transform: translateX({$gridOffset.x / 10}px)"
-    class="w-[111%] bottom-0 z-[9]"
+    class="w-[122%] left-[-11%] bottom-0 z-[9]"
   />
   <Conch
-    class="absolute w-[111px] h-[111px] top-[89%] left-[82%] z-[9]"
+    class="absolute w-[111px] h-[111px] top-[90%] left-[82%] z-[9]"
     style="transform: translateX({$gridOffset.x / 10}px)"
   />
   <Submarine class="z-10" />
-  <!-- <BgImg
-    src={wrecks_kelp}
-    style="filter: brightness({1.2 - $gridOffset.y / minYOffset})"
-    class="opacity-80 z-[11]"
-  /> -->
-  <WrecksSecret
+  <WrecksShape
     style="transform: translateX({$gridOffset.x / 5}px)"
-    class="absolute w-[122%] right-[-11%] bottom-0 pointer-events-none z-[12]"
+    class="absolute w-[111%] left-[-4%] bottom-0 pointer-events-none opacity-0 z-[13]"
   />
-  <!-- <BgImg
+  <BgImg
     src={wrecks_secret}
     style="transform: translateX({$gridOffset.x / 5}px)"
-    class="w-[111%] bottom-0 z-[12]"
+    class="w-[111%] left-[-4%] bottom-0 z-[13]"
   />
   <BgImg
     src={wrecks_1}
     style="transform: translateX({$gridOffset.x / 5}px)"
-    class="w-[111%] bottom-0 z-[13] opacity-0"
-  /> -->
+    class="w-[111%] left-[-4%] bottom-0 z-[13] opacity-50"
+  />
   <Darkness
     level={$gridOffset.y / minYOffset - 0.4}
     lights={[
       { x: $subCoords.x, y: $subCoords.y, unit: "px", radius: 8 },
-      { x: 84, y: 93, unit: "%", radius: 8 },
+      { x: 84, y: 92, unit: "%", radius: 8 },
     ]}
     class="z-50"
   />

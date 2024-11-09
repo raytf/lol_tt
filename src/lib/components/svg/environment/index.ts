@@ -1,2 +1,2 @@
-import WrecksSecret from "./WrecksSecret.svelte";
-export { WrecksSecret };
+import WrecksShape from "./WrecksShape.svelte";
+export { WrecksShape };
