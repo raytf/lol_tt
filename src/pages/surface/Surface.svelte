@@ -2,7 +2,8 @@
   import { onMount } from "svelte";
   import { fade } from "svelte/transition";
   import { gsap } from "gsap";
-  import { Area } from "$components/explorationOld";
+  import { toast } from "@zerodevx/svelte-toast";
+  import { Area } from "$components/exploration";
   import { Lol } from "$components/text";
   import { Dive } from "$components/svg/icons";
   import { Button } from "$components/ui/button";
@@ -46,6 +47,7 @@
           unlockSmItem(() => {
             unlockRadioItem(() => {
               $hudApi.showInventory = true;
+              toast.push("STart tutorial");
               startTutorial();
             });
           });
@@ -119,6 +121,11 @@
                 $gameApi.fadeScene("/exploration_wrecks");
                 $audioApi.stopTrack({
                   src: "sound/ocean-loop.mp3",
+                });
+                $audioApi.playTrack({
+                  src: "music/deep-echoes.mp3",
+                  volume: 0.44,
+                  loop: true,
                 });
               }, 1000);
             }}

@@ -1,23 +1,16 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import { toast } from "@zerodevx/svelte-toast";
   import { SmPuzzle } from "$components/hud/sm";
   import { hudApi, inventoryApi } from "$apis";
   import { missionBrief } from "./surface/dialogue";
+  import { SmLogBook } from "$components/hud/sm";
+  import { BgImg } from "$components/ui/img";
+  import relics_2 from "$assets/relics/relics_2.svg";
 
-  onMount(() => {
-    // $inventoryApi.unlockItem("radio");
-
-    $hudApi.activated = true;
-    // $hudApi.showInventory = true;
-
-    // $hudApi.showSmPuzzle = true;
-    $hudApi.startDialog({
-      keys: missionBrief,
-      onFinished: () => {
-        console.log("done");
-      },
-    });
-  });
+  onMount(() => {});
 </script>
 
-<div class="size-full flex flex-col items-center bg-blue-200"></div>
+<div class="size-full bg-blue-200">
+  <button onclick={() => toast.push("hello")}>Click me</button>
+</div>

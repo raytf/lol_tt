@@ -10,6 +10,7 @@ import smile from "$assets/emoji/smile.svg";
 import neutral from "$assets/emoji/neutral.svg";
 import hushed from "$assets/emoji/hushed.svg";
 import heartEyes from "$assets/emoji/heart-eyes.svg";
+import tongue from "$assets/emoji/tongue.svg";
 
 const missionBrief = [
   {
@@ -47,52 +48,12 @@ const missionBrief = [
     options: [
       {
         text: "brief-2_o1",
-        imgSrc: neutral,
-        repeat: true,
-        nextDialog: [
-          {
-            imgSrc: radio,
-            name: "mission-control",
-            text: "brief-2_o1-1",
-          },
-          {
-            imgSrc: radio,
-            name: "mission-control",
-            text: "brief-2_o1-2",
-          },
-          {
-            imgSrc: radio,
-            name: "mission-control",
-            text: "brief-2_o1-3",
-            options: [
-              {
-                text: "brief-2_o1-3_o1",
-                imgSrc: hushed,
-                nextDialog: [
-                  {
-                    imgSrc: radio,
-                    name: "mission-control",
-                    text: "brief-2_o1-3_o1-1",
-                  },
-                  {
-                    imgSrc: radio,
-                    name: "mission-control",
-                    text: "brief-2_o1-3_o1-2",
-                  },
-                ],
-              },
-              {
-                text: "brief-2_o1-3_o2",
-                imgSrc: neutral,
-                nextDialog: [],
-              },
-            ],
-          },
-        ],
+        imgSrc: smile,
+        nextDialog: [],
       },
       {
         text: "brief-2_o2",
-        imgSrc: thinking,
+        imgSrc: neutral,
         repeat: true,
         nextDialog: [
           {
@@ -109,13 +70,53 @@ const missionBrief = [
             imgSrc: radio,
             name: "mission-control",
             text: "brief-2_o2-3",
+            options: [
+              {
+                text: "brief-2_o2-3_o1",
+                imgSrc: hushed,
+                nextDialog: [
+                  {
+                    imgSrc: radio,
+                    name: "mission-control",
+                    text: "brief-2_o2-3_o1-1",
+                  },
+                  {
+                    imgSrc: radio,
+                    name: "mission-control",
+                    text: "brief-2_o2-3_o1-2",
+                  },
+                ],
+              },
+              {
+                text: "brief-2_o2-3_o2",
+                imgSrc: neutral,
+                nextDialog: [],
+              },
+            ],
           },
         ],
       },
       {
         text: "brief-2_o3",
-        imgSrc: smile,
-        nextDialog: [],
+        imgSrc: thinking,
+        repeat: true,
+        nextDialog: [
+          {
+            imgSrc: radio,
+            name: "mission-control",
+            text: "brief-2_o3-1",
+          },
+          {
+            imgSrc: radio,
+            name: "mission-control",
+            text: "brief-2_o3-2",
+          },
+          {
+            imgSrc: radio,
+            name: "mission-control",
+            text: "brief-2_o3-3",
+          },
+        ],
       },
     ],
   },

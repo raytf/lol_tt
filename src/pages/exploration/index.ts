@@ -1,2 +1,3 @@
 import Wrecks from "./Wrecks.svelte";
-export { Wrecks };
+import Forest from "./Forest.svelte";
+export { Wrecks, Forest };

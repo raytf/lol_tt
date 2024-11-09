@@ -1,4 +1,30 @@
 import { writable } from "svelte/store";
+import type { DialogKey, DialogOption } from "$components/hud/dialog";
+// Assets
+import radio from "$assets/icons/radio.svg";
+import neutral from "$assets/emoji/neutral.svg";
+import hushed from "$assets/emoji/hushed.svg";
+import thinking from "$assets/emoji/thinking.svg";
+import wink from "$assets/emoji/wink.svg";
+
+const defaultHint: DialogKey = {
+  imgSrc: radio,
+  name: "mission-control",
+  text: "hint-1",
+  options: [
+    {
+      text: "hint-1_o1-default",
+      imgSrc: wink,
+      nextDialog: [
+        {
+          imgSrc: radio,
+          name: "mission-control",
+          text: "hint-1_o1-default-1",
+        },
+      ],
+    },
+  ],
+};
 
 interface Todo {
   key: string;
@@ -31,6 +57,82 @@ const objectiveMap: ObjectiveMap = {
   "obj_learn-controls": [{ key: "task_move-sub" }],
 };
 
+type HintMap = {
+  [key: string]: DialogOption[];
+};
+
+const hintOptionsMap: HintMap = {
+  "obj_check-equipment": [
+    {
+      text: "brief-2_o2",
+      imgSrc: neutral,
+      repeat: true,
+      nextDialog: [
+        {
+          imgSrc: radio,
+          name: "mission-control",
+          text: "brief-2_o2-1",
+        },
+        {
+          imgSrc: radio,
+          name: "mission-control",
+          text: "brief-2_o2-2",
+        },
+        {
+          imgSrc: radio,
+          name: "mission-control",
+          text: "brief-2_o2-3",
+          options: [
+            {
+              text: "brief-2_o2-3_o1",
+              imgSrc: hushed,
+              nextDialog: [
+                {
+                  imgSrc: radio,
+                  name: "mission-control",
+                  text: "brief-2_o2-3_o1-1",
+                },
+                {
+                  imgSrc: radio,
+                  name: "mission-control",
+                  text: "brief-2_o2-3_o1-2",
+                },
+              ],
+            },
+            {
+              text: "brief-2_o2-3_o2",
+              imgSrc: neutral,
+              nextDialog: [],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      text: "brief-2_o3",
+      imgSrc: thinking,
+      repeat: true,
+      nextDialog: [
+        {
+          imgSrc: radio,
+          name: "mission-control",
+          text: "brief-2_o3-1",
+        },
+        {
+          imgSrc: radio,
+          name: "mission-control",
+          text: "brief-2_o3-2",
+        },
+        {
+          imgSrc: radio,
+          name: "mission-control",
+          text: "brief-2_o3-3",
+        },
+      ],
+    },
+  ],
+};
+
 class ObjectivesApi {
   currentChapter = $state<string>("");
   currentObjectives = $state<Objective[]>([]);
@@ -42,6 +144,19 @@ class ObjectivesApi {
 
   getNumRemainingTasks = () => {
     return this.currentTasks.filter((task) => !task.completed).length;
+  };
+
+  getCurrentHintDialog = () => {
+    if (this.currentObjective) {
+      const key = this.currentObjective.key;
+      if (key in hintOptionsMap) {
+        const hintOptions = hintOptionsMap[key];
+        let hint = { ...defaultHint };
+        if (hint.options) hint.options.push(...hintOptions);
+        return [hint];
+      }
+    }
+    return [defaultHint];
   };
 
   startObjective = () => {

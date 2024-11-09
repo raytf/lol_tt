@@ -7,7 +7,8 @@
   import type { DialogKey } from "$components/hud/dialog";
   import { Dialog, QuestionDialog } from "$components/hud/dialog";
   import UnderwaterGradient from "$components/visual/UnderwaterGradient.svelte";
-  import Submarine from "$components/visual/Submarine.svelte";
+  import { Submarine } from "$components/gameObjects";
+  import { setTarget as setSubTarget } from "$stores/sub";
   import MeasuringLine from "$components/visual/MeasuringLine.svelte";
   import Otter from "$components/visual/Otter.svelte";
   import relics2 from "$assets/relics/relics_2.svg";
@@ -59,7 +60,7 @@
   function handleMouseDown(event: MouseEvent) {
     const x = event.clientX - $xOffset;
     const y = event.clientY - $yOffset;
-    subCoords = { x: x, y: y };
+    setSubTarget({ x, y });
   }
 
   function moveToNextArea(xDirection: number, yDirection: number) {
@@ -92,7 +93,7 @@
   let goTooDeep = $state(false);
 </script>
 
-<QuestionDialog
+<!-- <QuestionDialog
   reveal={revealQuestion}
   questionKey="ch2-question"
   option1Key="ch2-question_option-1"
@@ -107,7 +108,7 @@
   onFinish3={() => {
     revealQuestion = false;
   }}
-/>
+/> -->
 
 <Dialog
   keys={dialogKeys}
@@ -121,7 +122,7 @@
 />
 
 <Grid xOffset={$xOffset} yOffset={$yOffset} class="grid-cols-1 w-full h-[300%]">
-  <Submarine targetPosition={subCoords} class="z-[21]" />
+  <Submarine class="z-[21]" />
   <Otter targetPosition={otterCoords} class="z-[22]" />
   <BgImg
     src={kelp}

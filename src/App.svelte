@@ -1,6 +1,7 @@
 <script lang="ts">
   import Router from "svelte-spa-router";
   // Components
+  import { SvelteToast } from "@zerodevx/svelte-toast";
   import Fader from "$components/ui/Fader.svelte";
   import { Hud } from "$components/hud";
   import routes from "./routes";
@@ -18,6 +19,7 @@
 <main>
   <div class="container">
     <div class="content">
+      <SvelteToast options={{ intro: { x: -111 } }} />
       <Fader />
       <Hud />
       <Router {routes} />
@@ -26,6 +28,11 @@
 </main>
 
 <style>
+  :global(._toastContainer) {
+    position: absolute !important;
+    --toastContainerLeft: 1rem;
+    --toastContainerRight: auto;
+  }
   main {
     position: relative;
     /* Magic css number for enforcing 16:9 aspect ratio */

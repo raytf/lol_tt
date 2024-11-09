@@ -65,7 +65,7 @@
     : 'opacity-0 pointer-events-none'}"
 >
   {#each keys as key, i}
-    <p id="text-overlay_{i}" class="text-overlay text-xl p-4">
+    <p id="text-overlay_{i}" class="text-overlay text-2xl p-4">
       {$lolApi.getText(key)}
     </p>
   {/each}
@@ -85,5 +85,8 @@
     text-align: center;
     padding: 1em;
     transition: opacity 1s;
+  }
+  .text-overlay {
+    text-shadow: 1px 1px 2px black;
   }
 </style>
