@@ -25,7 +25,7 @@ export default {
   "/": Title,
   "/prologue": Prologue,
   "/surface": Surface,
-  "/exploration_wrecks": Wrecks,
+  "/exploration_wrecks/:from?": Wrecks,
   "/exploration_forest": Forest,
   "/ch1": Ch1,
   "/ch1_encounter_shell": Ch1_Encounter_Shell,
