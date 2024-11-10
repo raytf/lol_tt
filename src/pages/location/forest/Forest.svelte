@@ -11,7 +11,7 @@
     setPosition as setSubPosition,
     coords as subCoords,
   } from "$stores/sub";
-  import { gridOffset } from "$stores/exploration";
+  import { gridOffset, minOffset } from "$stores/exploration";
   import underwater from "$assets/underwater_1by3.jpg";
   import forest_1 from "$assets/forest/forest_1.png";
   import forest_2 from "$assets/forest/forest_2.png";
@@ -29,18 +29,22 @@
     width: $gameApi.windowWidth * 2,
     height: tripleHeight,
   };
-  let minYOffset = -grid.height + $gameApi.windowHeight;
-  let minXOffset = -grid.width + $gameApi.windowWidth;
-  let heightRatio = $derived(Math.abs($gridOffset.y) / tripleHeight);
+  minOffset.set({
+    x: -grid.width + $gameApi.windowWidth,
+    y: -grid.height + $gameApi.windowHeight,
+  });
+  let heightRatio = $derived(Math.abs($gridOffset.y) / doubleHeight);
 
   function onAreaClick(e: MouseEvent) {
-    const firstHalf = Math.abs($gridOffset.x) < Math.abs(minXOffset / 2);
+    const firstHalf = Math.abs($gridOffset.x) < Math.abs($minOffset.x / 2);
+    let yOffset = 0;
     if (firstHalf) {
-      minYOffset = -doubleHeight + $gameApi.windowHeight;
+      yOffset = -doubleHeight + $gameApi.windowHeight;
     } else {
-      minYOffset = -tripleHeight + $gameApi.windowHeight;
+      yOffset = -tripleHeight + $gameApi.windowHeight;
     }
-    moveSub(e, gridOffset, { x: minXOffset, y: minYOffset });
+    minOffset.update((prev) => ({ x: prev.x, y: yOffset }));
+    moveSub(e);
   }
 
   gridOffset.set({ x: 0, y: 0 }, { hard: true });
@@ -95,7 +99,7 @@
   />
 
   <Darkness
-    level={heightRatio * 2}
+    level={heightRatio}
     lights={[{ x: $subCoords.x, y: $subCoords.y, unit: "px", radius: 4 }]}
     class="z-50"
   />

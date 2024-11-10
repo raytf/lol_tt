@@ -8,12 +8,8 @@ export const gridOffset = spring(
   { x: 0, y: 0 },
   { stiffness: 0.01, damping: 0.8 },
 );
-export const moveSub = (
-  e: MouseEvent,
-  gridOffset: Spring<{ x: number; y: number }>,
-  minOffsets: { x: number; y: number },
-  maxOffsets?: { x: number; y: number },
-) => {
+export const minOffset = writable({ x: 0, y: 0 });
+export const moveSub = (e: MouseEvent) => {
   const gApi = get(gameApi);
   const currentOffset = get(gridOffset);
 
@@ -25,8 +21,8 @@ export const moveSub = (
   let newYOffset = currentOffset.y - halfHeightDiff;
   if (newXOffset > 0) newXOffset = 0;
   if (newYOffset > 0) newYOffset = 0;
-  if (newXOffset < minOffsets.x) newXOffset = minOffsets.x;
-  if (newYOffset < minOffsets.y) newYOffset = minOffsets.y;
+  if (newXOffset < get(minOffset).x) newXOffset = get(minOffset).x;
+  if (newYOffset < get(minOffset).y) newYOffset = get(minOffset).y;
   const newOffset = { x: newXOffset, y: newYOffset };
 
   gridOffset.set(newOffset);

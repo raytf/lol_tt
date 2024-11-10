@@ -1,6 +1,5 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { spring } from "svelte/motion";
   import { toast } from "@zerodevx/svelte-toast";
   import { TurbulentImg, BgImg } from "$components/ui/img";
   import { Darkness, UnderwaterGradient } from "$components/visual";
@@ -12,7 +11,7 @@
     setPosition as setSubPosition,
     coords as subCoords,
   } from "$stores/sub";
-  import { gridOffset, moveSub } from "$stores/exploration";
+  import { gridOffset, minOffset, moveSub } from "$stores/exploration";
   import { WrecksShape } from "$components/svg/environment";
   import underwater from "$assets/underwater_1by3.jpg";
   import wrecks_1 from "$assets/wrecks/wrecks_1.png";
@@ -20,8 +19,7 @@
   import wrecks_3 from "$assets/wrecks/wrecks_3.png";
   import wrecks_secret from "$assets/wrecks/wrecks_secret.png";
   import { gameApi, hudApi } from "$apis";
-  // Events
-  import { startConchEncounterDialog } from "$stores/chapter1";
+  import { onclickConch } from "./wrecks";
 
   let { params }: { params: { from: string } } = $props();
 
@@ -29,8 +27,10 @@
     width: $gameApi.windowWidth * 1.5,
     height: $gameApi.windowHeight * 3,
   };
-  const minYOffset = -grid.height + $gameApi.windowHeight;
-  const minXOffset = -grid.width + $gameApi.windowWidth;
+  minOffset.set({
+    x: -grid.width + $gameApi.windowWidth,
+    y: -grid.height + $gameApi.windowHeight,
+  });
 
   let initialPosition = { x: $gameApi.windowWidth / 2, y: -222 };
   let initialTarget = {
@@ -48,7 +48,7 @@
   if (params.from === "forest") {
     initialPosition = { x: grid.width + 111, y: 111 };
     initialTarget = { x: grid.width - 222, y: 111 };
-    gridOffset.set({ x: minXOffset, y: 0 }, { hard: true });
+    gridOffset.set({ x: $minOffset.x, y: 0 }, { hard: true });
   }
   onMount(() => {
     setSubPosition(initialPosition);
@@ -75,14 +75,7 @@
     class="w-[122%] left-[-11%] bottom-0 z-[9]"
   />
   <Conch
-    onclick={() => {
-      gridOffset.set({ x: minXOffset, y: minYOffset });
-      setSubTarget({ x: 1111, y: 1444 });
-      revealConchFace = true;
-      startConchEncounterDialog(() => {
-        revealConchFace = false;
-      });
-    }}
+    onclick={onclickConch}
     faceRevealed={revealConchFace}
     class="absolute w-[44px] h-[44px] top-[93%] left-[84%] z-[9]"
     style="transform: translateX({$gridOffset.x / 10}px)"
@@ -103,7 +96,7 @@
     class="w-[111%] left-[-4%] bottom-0 z-[13] opacity-50"
   />
   <Darkness
-    level={$gridOffset.y / minYOffset - 0.4}
+    level={$gridOffset.y / $minOffset.y - 0.4}
     lights={[
       { x: $subCoords.x, y: $subCoords.y, unit: "px", radius: 4 },
       { x: 83, y: 94, unit: "%", radius: 8 },
@@ -113,8 +106,7 @@
   {#snippet areas()}
     <Area
       size={[grid.width, $gameApi.windowHeight]}
-      onmousedown={(e) =>
-        moveSub(e, gridOffset, { x: minXOffset, y: minYOffset })}
+      onmousedown={moveSub}
       class="flex flex-row"
     >
       <UnderwaterGradient
@@ -130,22 +122,14 @@
         class="absolute right-[4%] top-[22%] text-2xl z-[25]">Forest</button
       >
     </Area>
-    <Area
-      size={[grid.width, $gameApi.windowHeight]}
-      onmousedown={(e) =>
-        moveSub(e, gridOffset, { x: minXOffset, y: minYOffset })}
-    >
+    <Area size={[grid.width, $gameApi.windowHeight]} onmousedown={moveSub}>
       <UnderwaterGradient
         class="absolute w-full h-[101%]"
         --color-top="#00C1EF"
         --color-bottom="#037ADE"
       />
     </Area>
-    <Area
-      size={[grid.width, $gameApi.windowHeight]}
-      onmousedown={(e) =>
-        moveSub(e, gridOffset, { x: minXOffset, y: minYOffset })}
-    >
+    <Area size={[grid.width, $gameApi.windowHeight]} onmousedown={moveSub}>
       <UnderwaterGradient
         class="absolute size-full"
         --color-top="#037ADE"
