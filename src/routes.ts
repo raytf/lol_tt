@@ -3,7 +3,8 @@ import Prologue from "./pages/prologue";
 import Surface from "./pages/surface";
 import Dev from "./pages/Dev.svelte";
 // Exploration
-import { Wrecks, Forest } from "./pages/location";
+import Wrecks from "./pages/location/wrecks";
+import Forest from "./pages/location/forest";
 // Chapter 1
 import Ch1 from "./pages/chapter1";
 import Ch1_Encounter_Shell from "./pages/chapter1/encounters/Shell.svelte";

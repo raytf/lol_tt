@@ -95,7 +95,7 @@
   />
 
   <Darkness
-    level={heightRatio}
+    level={heightRatio * 2}
     lights={[{ x: $subCoords.x, y: $subCoords.y, unit: "px", radius: 4 }]}
     class="z-50"
   />
@@ -113,7 +113,7 @@
       <button
         onclick={() => {
           setSubTarget({ x: -111, y: 111 });
-          $gameApi.fadeScene("/exploration_wrecks/forest", 0.44);
+          $gameApi.fadeScene("/location_wrecks/forest", 0.44);
         }}
         class="absolute left-[4%] top-[22%] text-2xl z-[25]">Wrecks</button
       >
