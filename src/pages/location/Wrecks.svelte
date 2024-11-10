@@ -7,13 +7,12 @@
   import { Grid, Area } from "$components/exploration";
   import Conch from "$components/gameObjects/Conch.svelte";
   import { Submarine } from "$components/gameObjects";
-  import { windowWidth, windowHeight } from "$stores/game";
-  import { moveSub } from "$stores/exploration";
   import {
     setTarget as setSubTarget,
     setPosition as setSubPosition,
     coords as subCoords,
   } from "$stores/sub";
+  import { gridOffset, moveSub } from "$stores/exploration";
   import { WrecksShape } from "$components/svg/environment";
   import underwater from "$assets/underwater_1by3.jpg";
   import wrecks_1 from "$assets/wrecks/wrecks_1.png";
@@ -27,15 +26,25 @@
   let { params }: { params: { from: string } } = $props();
 
   const grid = {
-    width: $windowWidth * 1.5,
-    height: $windowHeight * 3,
+    width: $gameApi.windowWidth * 1.5,
+    height: $gameApi.windowHeight * 3,
   };
-  const gridOffset = spring({ x: 0, y: 0 }, { stiffness: 0.01, damping: 0.8 });
-  const minYOffset = -grid.height + $windowHeight;
-  const minXOffset = -grid.width + $windowWidth;
+  const minYOffset = -grid.height + $gameApi.windowHeight;
+  const minXOffset = -grid.width + $gameApi.windowWidth;
 
-  let initialPosition = { x: $windowWidth / 2, y: -222 };
-  let initialTarget = { x: $windowWidth / 2, y: $windowHeight / 2 };
+  let initialPosition = { x: $gameApi.windowWidth / 2, y: -222 };
+  let initialTarget = {
+    x: $gameApi.windowWidth / 2,
+    y: $gameApi.windowHeight / 2,
+  };
+  if (params.from === "surface") {
+    initialPosition = { x: $gameApi.windowWidth / 2, y: -222 };
+    initialTarget = {
+      x: $gameApi.windowWidth / 2,
+      y: $gameApi.windowHeight / 2,
+    };
+    gridOffset.set({ x: 0, y: 0 }, { hard: true });
+  }
   if (params.from === "forest") {
     initialPosition = { x: grid.width + 111, y: 111 };
     initialTarget = { x: grid.width - 222, y: 111 };
@@ -103,7 +112,7 @@
   />
   {#snippet areas()}
     <Area
-      size={[grid.width, $windowHeight]}
+      size={[grid.width, $gameApi.windowHeight]}
       onmousedown={(e) =>
         moveSub(e, gridOffset, { x: minXOffset, y: minYOffset })}
       class="flex flex-row"
@@ -116,13 +125,13 @@
       <button
         onclick={() => {
           setSubTarget({ x: grid.width + 111, y: 111 });
-          $gameApi.fadeScene("/exploration_forest", 0.44);
+          $gameApi.fadeScene("/location_forest", 0.44);
         }}
         class="absolute right-[4%] top-[22%] text-2xl z-[25]">Forest</button
       >
     </Area>
     <Area
-      size={[grid.width, $windowHeight]}
+      size={[grid.width, $gameApi.windowHeight]}
       onmousedown={(e) =>
         moveSub(e, gridOffset, { x: minXOffset, y: minYOffset })}
     >
@@ -133,7 +142,7 @@
       />
     </Area>
     <Area
-      size={[grid.width, $windowHeight]}
+      size={[grid.width, $gameApi.windowHeight]}
       onmousedown={(e) =>
         moveSub(e, gridOffset, { x: minXOffset, y: minYOffset })}
     >

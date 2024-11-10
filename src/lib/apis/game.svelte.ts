@@ -3,6 +3,9 @@ import { push } from "svelte-spa-router";
 import { gsap } from "gsap";
 
 export class GameApi {
+  windowWidth = $state(1024);
+  windowHeight = $state(576);
+  // Fading
   sceneReady = $state(true);
   constructor() {}
 

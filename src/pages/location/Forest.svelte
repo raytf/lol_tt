@@ -5,13 +5,13 @@
   import { Submarine } from "$components/gameObjects";
   import { TurbulentImg, BgImg } from "$components/ui/img";
   import { Darkness, UnderwaterGradient } from "$components/visual";
-  import { windowWidth, windowHeight } from "$stores/game";
   import { moveSub } from "$stores/exploration";
   import {
     setTarget as setSubTarget,
     setPosition as setSubPosition,
     coords as subCoords,
   } from "$stores/sub";
+  import { gridOffset } from "$stores/exploration";
   import underwater from "$assets/underwater_1by3.jpg";
   import forest_1 from "$assets/forest/forest_1.png";
   import forest_2 from "$assets/forest/forest_2.png";
@@ -23,29 +23,27 @@
 
   import { gameApi } from "$apis";
 
+  const doubleHeight = $gameApi.windowHeight * 2;
+  const tripleHeight = $gameApi.windowHeight * 3;
   const grid = {
-    width: $windowWidth * 2,
-    height: $windowHeight * 3,
+    width: $gameApi.windowWidth * 2,
+    height: tripleHeight,
   };
-  const gridOffset = spring({ x: 0, y: 0 }, { stiffness: 0.01, damping: 0.8 });
-  const doubleHeightOffset = -($windowHeight * 2) + $windowHeight;
-  const tripleHeightOffset = -grid.height + $windowHeight;
-  let minYOffset = $state(tripleHeightOffset);
-  const minXOffset = -grid.width + $windowWidth;
-  let heightRatio = $derived(
-    Math.abs($gridOffset.y) / Math.abs(tripleHeightOffset),
-  );
+  let minYOffset = -grid.height + $gameApi.windowHeight;
+  let minXOffset = -grid.width + $gameApi.windowWidth;
+  let heightRatio = $derived(Math.abs($gridOffset.y) / tripleHeight);
 
   function onAreaClick(e: MouseEvent) {
     const firstHalf = Math.abs($gridOffset.x) < Math.abs(minXOffset / 2);
     if (firstHalf) {
-      minYOffset = doubleHeightOffset;
+      minYOffset = -doubleHeight + $gameApi.windowHeight;
     } else {
-      minYOffset = tripleHeightOffset;
+      minYOffset = -tripleHeight + $gameApi.windowHeight;
     }
     moveSub(e, gridOffset, { x: minXOffset, y: minYOffset });
   }
 
+  gridOffset.set({ x: 0, y: 0 }, { hard: true });
   onMount(() => {
     setSubPosition({ x: -111, y: 111 });
     setTimeout(() => {
@@ -97,13 +95,13 @@
   />
 
   <Darkness
-    level={$gridOffset.y / tripleHeightOffset}
+    level={heightRatio}
     lights={[{ x: $subCoords.x, y: $subCoords.y, unit: "px", radius: 4 }]}
     class="z-50"
   />
   {#snippet areas()}
     <Area
-      size={[grid.width, $windowHeight]}
+      size={[grid.width, $gameApi.windowHeight]}
       onmousedown={onAreaClick}
       class="flex flex-row"
     >
@@ -120,14 +118,14 @@
         class="absolute left-[4%] top-[22%] text-2xl z-[25]">Wrecks</button
       >
     </Area>
-    <Area size={[grid.width, $windowHeight]} onmousedown={onAreaClick}>
+    <Area size={[grid.width, $gameApi.windowHeight]} onmousedown={onAreaClick}>
       <UnderwaterGradient
         class="absolute w-full h-[101%]"
         --color-top="#00C1EF"
         --color-bottom="#037ADE"
       />
     </Area>
-    <Area size={[grid.width, $windowHeight]} onmousedown={onAreaClick}>
+    <Area size={[grid.width, $gameApi.windowHeight]} onmousedown={onAreaClick}>
       <UnderwaterGradient
         class="absolute size-full"
         --color-top="#037ADE"

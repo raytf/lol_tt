@@ -1,18 +1,24 @@
-import { get } from "svelte/store";
+import { writable, get } from "svelte/store";
 import type { Spring } from "svelte/motion";
-import { windowWidth, windowHeight } from "./game";
-import { setTarget as setSubTarget } from "./sub";
+import { spring } from "svelte/motion";
+import { coords, setTarget as setSubTarget } from "$stores/sub";
+import { gameApi } from "$apis";
 
+export const gridOffset = spring(
+  { x: 0, y: 0 },
+  { stiffness: 0.01, damping: 0.8 },
+);
 export const moveSub = (
   e: MouseEvent,
   gridOffset: Spring<{ x: number; y: number }>,
   minOffsets: { x: number; y: number },
   maxOffsets?: { x: number; y: number },
 ) => {
+  const gApi = get(gameApi);
   const currentOffset = get(gridOffset);
 
-  const halfWidth = get(windowWidth) / 2;
-  const halfHeight = get(windowHeight) / 2;
+  const halfWidth = gApi.windowWidth / 2;
+  const halfHeight = gApi.windowHeight / 2;
   const halfWidthDiff = e.clientX - halfWidth;
   const halfHeightDiff = e.clientY - halfHeight;
   let newXOffset = currentOffset.x - halfWidthDiff;

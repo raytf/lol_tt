@@ -11,7 +11,6 @@
   import { Submarine } from "$components/gameObjects";
   import { setTarget as setSubTarget, setTarget } from "$stores/sub";
   import { missionBrief } from "$dialog/surface";
-  import { windowWidth, windowHeight } from "$lib/stores/game";
   import { setPosition as setSubPosition } from "$lib/stores/sub";
   import { audioApi, gameApi, hudApi, objectivesApi } from "$apis";
 
@@ -24,8 +23,8 @@
   let surfaceSub = $state(false);
   let tlHeading: GSAPTimeline;
   let initialSubCoords = {
-    x: $windowWidth / 2,
-    y: $windowHeight / 2 + 111,
+    x: $gameApi.windowWidth / 2,
+    y: $gameApi.windowHeight / 2 + 111,
   };
   setSubPosition(initialSubCoords);
   onMount(() => {
