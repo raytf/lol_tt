@@ -97,8 +97,8 @@
   />
 
   <Darkness
-    level={$gridOffset.y / -grid.height - 0.4}
-    lights={[{ x: $subCoords.x, y: $subCoords.y, unit: "px", radius: 8 }]}
+    level={$gridOffset.y / tripleHeightOffset}
+    lights={[{ x: $subCoords.x, y: $subCoords.y, unit: "px", radius: 4 }]}
     class="z-50"
   />
   {#snippet areas()}

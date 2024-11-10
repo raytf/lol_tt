@@ -60,7 +60,7 @@
     class="w-[122%] left-[-11%] bottom-0 z-[9]"
   />
   <Conch
-    class="absolute w-[111px] h-[111px] top-[90%] left-[82%] z-[9]"
+    class="absolute w-[44px] h-[44px] top-[93%] left-[84%] z-[9]"
     style="transform: translateX({$gridOffset.x / 10}px)"
   />
   <Submarine class="z-10" />
@@ -81,8 +81,8 @@
   <Darkness
     level={$gridOffset.y / minYOffset - 0.4}
     lights={[
-      { x: $subCoords.x, y: $subCoords.y, unit: "px", radius: 8 },
-      { x: 84, y: 92, unit: "%", radius: 8 },
+      { x: $subCoords.x, y: $subCoords.y, unit: "px", radius: 4 },
+      { x: 83, y: 94, unit: "%", radius: 8 },
     ]}
     class="z-50"
   />
