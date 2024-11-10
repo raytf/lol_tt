@@ -9,7 +9,7 @@
   import { Button } from "$components/ui/button";
   import { SkyOcean } from "$components/visual/scenery";
   import { Submarine } from "$components/gameObjects";
-  import { moveSub } from "$lib/stores/exploration";
+  import { setTarget as setSubTarget, setTarget } from "$stores/sub";
   import { missionBrief } from "./dialogue";
   import { windowWidth, windowHeight } from "$lib/stores/game";
   import { setPosition as setSubPosition } from "$lib/stores/sub";
@@ -145,7 +145,7 @@
         if (equipmentChecked) {
           $objectivesApi.completeTask("task_move-sub");
         }
-        moveSub(e);
+        setSubTarget({ x: e.clientX, y: e.clientY });
       }}
     ></Area>
   </div>
