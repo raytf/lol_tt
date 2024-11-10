@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { writable } from "svelte/store";
   import conch from "$assets/characters/conch/shell.png";
   import smile from "$assets/characters/conch/smile.png";
   let {

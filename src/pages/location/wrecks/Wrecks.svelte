@@ -19,7 +19,7 @@
   import wrecks_3 from "$assets/wrecks/wrecks_3.png";
   import wrecks_secret from "$assets/wrecks/wrecks_secret.png";
   import { gameApi, hudApi } from "$apis";
-  import { onclickConch } from "./wrecks";
+  import { revealConchFace, onclickConch } from "./wrecks";
 
   let { params }: { params: { from: string } } = $props();
 
@@ -58,8 +58,6 @@
       $hudApi.activated = true;
     }, 555);
   });
-
-  let revealConchFace = $state(false);
 </script>
 
 <Grid
@@ -76,7 +74,7 @@
   />
   <Conch
     onclick={onclickConch}
-    faceRevealed={revealConchFace}
+    faceRevealed={$revealConchFace}
     class="absolute w-[44px] h-[44px] top-[93%] left-[84%] z-[9]"
     style="transform: translateX({$gridOffset.x / 10}px)"
   />

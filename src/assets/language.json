@@ -101,7 +101,24 @@
     "hint-1_o1-default-1": "Good to hear from you. Feel free to radio in whenever you need.",
     "ch1_conch-encounter-1": "These are dangerous waters. Turn back now, for your own good.",
     "ch1_conch-encounter-1_o1": "What?! A talking shell! That is so cool.",
-    "ch1_conch-encounter-1_o1-1": "Did you even hear what I said?...and don't call me a shell.",
-    "ch1_conch-encounter-1_o1-2": "I am a Conch."
+    "ch1_conch-encounter-1_o1-1": "Hey, are you listening? ...and don't call me a shell.",
+    "ch1_conch-encounter-1_o1-2": "I am a Conch.",
+    "ch1_conch-encounter-2": "Many treasure hunters have come, and many have gone missing.",
+    "ch1_conch-encounter-3": "Trust me. Leave now while you still can.",
+    "ch1_conch-encounter-3_o1": "Ok, but I will be back.",
+    "ch1_conch-encounter-3_o2": "I can't leave now. I have a mission to complete.",
+    "ch1_conch-encounter-3_o2-1": "I'm not a treasure hunter. I'm an ocean explorer...and a scientist.",
+    "ch1_conch-encounter-3_o2-2": "I'm here to explore the depths of this place, and find out what happened to my dad.",
+    "ch1_conch-encounter-3_o2-3": "Your dad?",
+    "ch1_conch-encounter-3_o2-4": "My dad was a scientist. He came here years ago and never returned.",
+    "ch1_conch-encounter-3_o2-5": "...",
+    "ch1_conch-encounter-3_o2-6": "I see... I'm sorry about your dad.",
+    "ch1_conch-encounter-3_o2-7": "Look buddy, I want to help you... but I need to know that you can handle it first.",
+    "ch1_conch-encounter-3_o2-8": "Prove to me that you are really a scientist.",
+    "ch1_conch-encounter-4": "Go make some observations around this place.",
+    "ch1_conch-encounter-5": "Come back once you have some qualitative data to share with me.",
+    "ch1_conch-encounter-5_o1": "Ok. I'll be back soon.",
+    "ch1_conch-encounter-5_o2": "What is qualitative data?",
+    "ch1_conch-encounter-5_o2-1": "Qualitative data are descriptions about things that are observed, but not measured precisely."
   }
 }
