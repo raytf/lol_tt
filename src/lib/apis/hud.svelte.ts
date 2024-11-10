@@ -50,9 +50,10 @@ class HudApi {
   }
 
   startDialog(params: StartDialogParams) {
-    const { keys, onFinished } = params;
+    const { keys, onFinished, blockInput } = params;
 
     const dApi = get(dialogApi);
+    dApi.blockInput = blockInput || false;
     dApi.currentDialog = [...keys];
     if (onFinished) dApi.onDialogFinished = onFinished;
 

@@ -5,7 +5,8 @@
   import { TurbulentImg, BgImg } from "$components/ui/img";
   import { Darkness, UnderwaterGradient } from "$components/visual";
   import { Grid, Area } from "$components/exploration";
-  import { Submarine, Conch } from "$components/gameObjects";
+  import Conch from "$components/gameObjects/Conch.svelte";
+  import { Submarine } from "$components/gameObjects";
   import { windowWidth, windowHeight } from "$stores/game";
   import { moveSub } from "$stores/exploration";
   import {
@@ -19,7 +20,9 @@
   import wrecks_2 from "$assets/wrecks/wrecks_2.png";
   import wrecks_3 from "$assets/wrecks/wrecks_3.png";
   import wrecks_secret from "$assets/wrecks/wrecks_secret.png";
-  import { gameApi } from "$apis";
+  import { gameApi, hudApi } from "$apis";
+  // Events
+  import { startConchEncounterDialog } from "$stores/chapter1";
 
   let { params }: { params: { from: string } } = $props();
 
@@ -43,8 +46,11 @@
     setTimeout(() => {
       setSubTarget(initialTarget);
       toast.push(`From: ${params.from}`);
+      $hudApi.activated = true;
     }, 555);
   });
+
+  let revealConchFace = $state(false);
 </script>
 
 <Grid
@@ -60,6 +66,15 @@
     class="w-[122%] left-[-11%] bottom-0 z-[9]"
   />
   <Conch
+    onclick={() => {
+      gridOffset.set({ x: minXOffset, y: minYOffset });
+      setSubTarget({ x: 1111, y: 1444 });
+      revealConchFace = true;
+      startConchEncounterDialog(() => {
+        revealConchFace = false;
+      });
+    }}
+    faceRevealed={revealConchFace}
     class="absolute w-[44px] h-[44px] top-[93%] left-[84%] z-[9]"
     style="transform: translateX({$gridOffset.x / 10}px)"
   />

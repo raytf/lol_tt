@@ -7,6 +7,7 @@ export const moveSub = (
   e: MouseEvent,
   gridOffset: Spring<{ x: number; y: number }>,
   minOffsets: { x: number; y: number },
+  maxOffsets?: { x: number; y: number },
 ) => {
   const currentOffset = get(gridOffset);
 
