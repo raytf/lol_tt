@@ -8,7 +8,7 @@
     onComplete,
   }: {
     titleKey: string;
-    descKey: string;
+    descKey?: string;
     onComplete: () => void;
   } = $props();
 
@@ -17,20 +17,22 @@
     gsap.set([".intro-title", ".intro-desc"], { opacity: 0 });
     tl.to(
       ".intro-title",
-      { opacity: 1, scale: 1.2, duration: 3, ease: "power2.inout" },
+      {
+        opacity: 1,
+        scale: 1.1,
+        duration: 2,
+        force3D: false,
+      },
       0,
-    );
-    tl.to(
-      ".intro-desc",
-      { opacity: 1, scale: 1.2, duration: 2, ease: "power2.inout" },
-      1,
     );
   });
 </script>
 
 <div class="container-title">
-  <h1 class="intro-title text-4xl m-4">{$lolApi.getText(titleKey)}:</h1>
-  <h2 class="intro-desc text-xl">{$lolApi.getText(descKey)}</h2>
+  <h1 class="intro-title text-4xl mt-24">{$lolApi.getText(titleKey)}</h1>
+  {#if descKey}
+    <h2 class="intro-desc text-xl">{$lolApi.getText(descKey)}</h2>
+  {/if}
 </div>
 
 <style>
@@ -40,7 +42,6 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
 
     background: black;
