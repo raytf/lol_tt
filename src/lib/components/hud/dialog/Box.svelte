@@ -34,7 +34,7 @@
     <div class="box-name text-2xl">
       <p>{@render name()}</p>
     </div>
-    <p class="text-2xl">
+    <p class="box-text text-2xl">
       {@render text()}
     </p>
 

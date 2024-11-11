@@ -118,7 +118,7 @@
     "ch1_conch-encounter-3_o2-6": "I see... I'm sorry about your dad...",
     "ch1_conch-encounter-3_o2-7": "Listen kid, I want to help you... but I need to know if you can handle the depths.",
     "ch1_conch-encounter-3_o2-8": "Prove to me that you are really a scientist.",
-    "ch1_conch-encounter-4": "Start with making some observations.",
+    "ch1_conch-encounter-4": "Start with making some <span class='sm-text sm-observation'>observations.</span>",
     "ch1_conch-encounter-5": "Come back once you have qualitative data about something that changes with depth.",
     "ch1_conch-encounter-5_o1": "Ok. I'll be back soon.",
     "ch1_conch-encounter-5_o2": "Can you elaborate more?",
