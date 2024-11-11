@@ -1,16 +1,27 @@
 import { writable, get } from "svelte/store";
 import { audioApi, gameApi, hudApi, objectivesApi } from "$apis";
-import { gridOffset, minOffset } from "$stores/exploration";
+import { gridOffset, minOffset, moveSub } from "$stores/exploration";
 import {
+  coords,
   setTarget as setSubTarget,
   direction as subDirection,
 } from "$stores/sub";
 import { conchEncounter, reConchEncounter } from "$dialog/conch";
 
+export const subNearSurface = writable(false);
 export const revealConchFace = writable(false);
 export const conchEncountered = writable(false);
 export const notepadUnlocked = writable(false);
 export const observationDone = writable(false);
+
+export const onTopAreaClick = (e: MouseEvent) => {
+  const targetCoords = moveSub(e);
+  if (targetCoords.y < 222) {
+    subNearSurface.set(true);
+    return;
+  }
+  subNearSurface.set(false);
+};
 
 export const onclickConch = () => {
   gridOffset.set({ x: get(minOffset).x, y: get(minOffset).y });

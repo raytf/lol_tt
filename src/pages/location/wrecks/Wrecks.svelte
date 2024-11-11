@@ -1,10 +1,12 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import { fade } from "svelte/transition";
   import { toast } from "@zerodevx/svelte-toast";
   import { TurbulentImg, BgImg } from "$components/ui/img";
   import { Darkness, UnderwaterGradient } from "$components/visual";
   import { Grid, Area } from "$components/exploration";
-  import { InfoMarker } from "$components/ui/button";
+  import { Button, InfoMarker } from "$components/ui/button";
+  import { Lol } from "$components/text";
   import Conch from "$components/gameObjects/Conch.svelte";
   import { Submarine } from "$components/gameObjects";
   import {
@@ -21,6 +23,8 @@
   import wrecks_secret from "$assets/wrecks/wrecks_secret.png";
   import { gameApi, hudApi } from "$apis";
   import {
+    subNearSurface,
+    onTopAreaClick,
     revealConchFace,
     onclickConch,
     notepadUnlocked,
@@ -110,7 +114,7 @@
   {#snippet areas()}
     <Area
       size={[grid.width, $gameApi.windowHeight]}
-      onmousedown={moveSub}
+      onmousedown={onTopAreaClick}
       class="flex flex-row"
     >
       <UnderwaterGradient
@@ -118,6 +122,16 @@
         --color-top="#03E5B7"
         --color-bottom="#00C1EF"
       />
+      {#if $subNearSurface}
+        <Button
+          onclick={() => {
+            $gameApi.fadeScene("/surface");
+          }}
+          class="absolute right-[44%] top-[4%] text-2xl z-[20]"
+        >
+          <Lol key="surface" />
+        </Button>
+      {/if}
       <button
         onclick={() => {
           setSubTarget({ x: grid.width + 111, y: 111 });

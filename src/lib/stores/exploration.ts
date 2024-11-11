@@ -29,4 +29,5 @@ export const moveSub = (e: MouseEvent) => {
   const x = e.clientX - currentOffset.x;
   const y = e.clientY - currentOffset.y;
   setSubTarget({ x, y });
+  return { x, y };
 };
