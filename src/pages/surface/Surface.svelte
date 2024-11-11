@@ -46,13 +46,12 @@
           unlockSmItem(() => {
             unlockRadioItem(() => {
               $hudApi.showInventory = true;
-              toast.push("STart tutorial");
               startTutorial();
             });
           });
         });
-      }, 1500);
-    }, 1500);
+      }, 1111);
+    }, 1111);
   });
 
   function startMissionBriefDialog(onFinished?: () => void) {

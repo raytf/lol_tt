@@ -1,5 +1,7 @@
-import { writable } from "svelte/store";
+import { writable, get } from "svelte/store";
 import type { DialogKey, DialogOption } from "$components/hud/dialog";
+import { toast } from "@zerodevx/svelte-toast";
+import { lolApi } from "$apis";
 // Assets
 import radio from "$assets/icons/radio.svg";
 import neutral from "$assets/emoji/neutral.svg";
@@ -52,7 +54,6 @@ const objectiveMap: ObjectiveMap = {
   "obj_check-equipment": [
     { key: "task_open-inventory" },
     { key: "task_review-SM" },
-    { key: "task_call-radio" },
   ],
   "obj_learn-controls": [{ key: "task_move-sub" }],
 };
@@ -185,23 +186,33 @@ class ObjectivesApi {
 
   completeObjective = () => {
     if (this.currentObjective) {
+      const lApi = get(lolApi);
+      let message = `<strong>${lApi.getText("completed-obj")}:</strong><br>`;
+      message += lApi.getText(this.currentObjective.key);
+      toast.push(message, {
+        initial: 0,
+        next: 1,
+        duration: 2222,
+        theme: {
+          "--toastColor": "mintcream",
+          "--toastBackground": "rgba(72,187,120,0.9)",
+          "--toastBarBackground": "#2F855A",
+        },
+      });
       this.currentObjective.completed = true;
       this.currentObjective.onFinished?.();
     }
 
-    const nextIndex = this.currentObjectiveIndex + 1;
-
-    if (nextIndex >= this.currentObjectives.length) {
-      this.chapterFinished = true;
-      setTimeout(() => {
-        this.onChapterFinished();
-      }, 4444);
-      return;
-    }
-
     setTimeout(() => {
-      this.currentObjectiveIndex = nextIndex;
+      this.currentObjectiveIndex += 1;
       this.startObjective();
+
+      if (this.currentObjectiveIndex >= this.currentObjectives.length) {
+        this.chapterFinished = true;
+        setTimeout(() => {
+          this.onChapterFinished();
+        }, 2222);
+      }
     }, 2222);
   };
 }
