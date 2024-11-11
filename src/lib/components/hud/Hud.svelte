@@ -1,11 +1,12 @@
 <script lang="ts">
   import { fade } from "svelte/transition";
+  import { location } from "svelte-spa-router";
   import Objectives from "$components/hud/objectives";
   import { Dialog } from "$components/hud/dialog";
   import { SmModal, SmPuzzle } from "$components/hud/sm";
   import Inventory, { ItemUnlockScreen } from "$components/hud/inventory";
   import { hudApi, dialogApi, objectivesApi, inventoryApi } from "$apis";
-
+  import { noSignal } from "$dialog/radio";
   const disableHideClass = "disabled opacity-50";
 </script>
 
@@ -55,8 +56,14 @@
           $hudApi.showSmPuzzle = false;
         }}
         onCorrect={() => {
-          $objectivesApi.completeTask("task_call-radio");
-          $hudApi.startHintDialog();
+          //$objectivesApi.completeTask("task_call-radio");
+          if ($location === "/surface") {
+            console.log("surface");
+          } else {
+            $hudApi.startDialog({
+              keys: noSignal,
+            });
+          }
         }}
         class="z-[102] pointer-events-auto"
       />

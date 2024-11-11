@@ -103,7 +103,7 @@
             $audioApi.loadTrack({
               src: "music/tritons-triangle.mp3",
             });
-            $gameApi.fadeScene("/prologue", 2.4);
+            $gameApi.fadeScene("/prologue-intro", 2.4);
             zoomInMore({
               onComplete: () => {
                 $audioApi.stopTrack({ src: "music/into-the-blue.mp3" });

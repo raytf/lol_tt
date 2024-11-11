@@ -42,7 +42,7 @@
         ? ''
         : activeIndex >= 0 && activeIndex < steps.length
           ? 'brightness-50'
-          : ''} grid-item border-black {step.border} {step.bgColor}"
+          : ''} grid-item border-black {step.border} {step.titleKey}"
     >
       <p class="text-2xl font-bold text-black">
         {i + 1}. {$lolApi.getText(step.titleKey)}
@@ -53,6 +53,28 @@
 </div>
 
 <style>
+  :global(.sm-observation) {
+    --color: #3b82f6;
+  }
+  :global(.sm-question) {
+    --color: #06b6d4;
+  }
+  :global(.sm-hypothesis) {
+    --color: #22c55e;
+  }
+  :global(.sm-experiment) {
+    --color: #fde047;
+  }
+  :global(.sm-analysis) {
+    --color: #f97316;
+  }
+  :global(.sm-conclusion) {
+    --color: #ef4444;
+  }
+  :global(.sm-text) {
+    color: var(--color);
+  }
+
   .grid-item {
     position: relative;
     display: flex;
@@ -61,6 +83,7 @@
     align-items: center;
 
     user-select: none;
+    background-color: var(--color);
 
     transition: filter 1s;
   }

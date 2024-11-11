@@ -79,11 +79,11 @@
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-
     text-align: center;
-    padding: 1em;
+
+    padding: 4em;
     transition: opacity 1s;
   }
   .text-overlay {

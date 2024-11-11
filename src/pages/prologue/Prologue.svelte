@@ -28,7 +28,7 @@
     if (currentSequence >= textSequence.length) {
       $audioApi.stopTrack({ src: "music/tritons-triangle.mp3" });
       setTimeout(() => {
-        $gameApi.fadeScene("/surface", 1.1);
+        $gameApi.fadeScene("/surface-intro");
       }, 1111);
     }
   }

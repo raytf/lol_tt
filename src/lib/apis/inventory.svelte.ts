@@ -75,6 +75,10 @@ export class InventoryApi {
     return itemMap[key];
   }
 
+  unlockEverything() {
+    this.unlockedItems = [...Object.keys(itemMap)];
+  }
+
   unlockItem(item: string) {
     if (this.isItemUnlocked(item)) return;
 

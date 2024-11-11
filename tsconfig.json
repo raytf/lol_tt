@@ -25,6 +25,8 @@
       "$stores/*": ["./src/lib/stores/*"],
       "$components": ["./src/lib/components"],
       "$components/*": ["./src/lib/components/*"],
+      "$dialog": ["./src/lib/dialog"],
+      "$dialog/*": ["./src/lib/dialog/*"],
       "$lib": ["./src/lib"],
       "$lib/*": ["./src/lib/*"]
     }

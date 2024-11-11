@@ -1,9 +1,10 @@
 import Title from "./pages/title";
-import Prologue from "./pages/prologue";
-import Surface from "./pages/surface";
+import Prologue, { PrologueIntro } from "./pages/prologue";
 import Dev from "./pages/Dev.svelte";
 // Exploration
-import { Wrecks, Forest } from "./pages/exploration";
+import Surface, { SurfaceIntro } from "./pages/location/surface";
+import Wrecks from "./pages/location/wrecks";
+import Forest from "./pages/location/forest";
 // Chapter 1
 import Ch1 from "./pages/chapter1";
 import Ch1_Encounter_Shell from "./pages/chapter1/encounters/Shell.svelte";
@@ -23,10 +24,12 @@ import Ch4_Exploration from "./pages/chapter4/exploration/DeepOcean.svelte";
 export default {
   "/dev": Dev,
   "/": Title,
+  "/prologue-intro": PrologueIntro,
   "/prologue": Prologue,
+  "/surface-intro": SurfaceIntro,
   "/surface": Surface,
-  "/exploration_wrecks/:from?": Wrecks,
-  "/exploration_forest": Forest,
+  "/wrecks/:from?": Wrecks,
+  "/forest": Forest,
   "/ch1": Ch1,
   "/ch1_encounter_shell": Ch1_Encounter_Shell,
   "/ch1_lesson_sm-intro": Ch1_Lesson_SMIntro,

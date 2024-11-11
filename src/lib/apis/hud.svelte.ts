@@ -21,7 +21,7 @@ interface StartItemUnlockParams {
 }
 
 class HudApi {
-  activated = $state(false);
+  activated = $state(true);
   showObjectives = $state(false);
   showDialog = $state(false);
   showInventory = $state(false);
@@ -30,6 +30,12 @@ class HudApi {
   showSmPuzzle = $state(false);
 
   flipElement = $state<HTMLElement | null>(null);
+
+  debugActivate() {
+    this.activated = true;
+    get(inventoryApi).unlockEverything();
+    this.showInventory = true;
+  }
 
   startChapter(params: StartObjectivesParams) {
     const { chapterKey, objectives, onFinished } = params;
@@ -50,9 +56,10 @@ class HudApi {
   }
 
   startDialog(params: StartDialogParams) {
-    const { keys, onFinished } = params;
+    const { keys, onFinished, blockInput } = params;
 
     const dApi = get(dialogApi);
+    dApi.blockInput = blockInput || false;
     dApi.currentDialog = [...keys];
     if (onFinished) dApi.onDialogFinished = onFinished;
 

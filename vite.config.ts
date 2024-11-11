@@ -12,6 +12,7 @@ export default defineConfig({
       $apis: path.resolve("./src/lib/apis"),
       $stores: path.resolve("./src/lib/stores"),
       $components: path.resolve("./src/lib/components"),
+      $dialog: path.resolve("./src/lib/dialog"),
       $lib: path.resolve("./src/lib"),
     },
   },
