@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
+  import { gsap } from "gsap";
   import { onMount } from "svelte";
   import { Down } from "$components/svg/icons/caret";
 
@@ -21,6 +22,10 @@
     options?: boolean;
     top?: boolean;
   } = $props();
+
+  onMount(() => {
+    gsap.to(".container_dialog-box", { opacity: 1, duration: 1 });
+  });
 </script>
 
 <div
@@ -56,6 +61,8 @@
     display: flex;
     justify-content: center;
     user-select: none;
+
+    opacity: 0;
 
     z-index: 10;
   }

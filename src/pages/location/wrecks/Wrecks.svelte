@@ -29,7 +29,7 @@
     onclickConch,
     notepadUnlocked,
     startChapterOne,
-  } from "./wrecks";
+  } from "./events";
 
   let { params }: { params: { from: string } } = $props();
 
@@ -60,12 +60,12 @@
     initialTarget = { x: grid.width - 222, y: 111 };
     gridOffset.set({ x: $minOffset.x, y: 0 }, { hard: true });
   }
+  setSubPosition(initialPosition);
   onMount(() => {
-    setSubPosition(initialPosition);
     setTimeout(() => {
       setSubTarget(initialTarget);
-      $hudApi.debugActivate();
     }, 555);
+    $hudApi.debugActivate();
     //startChapterOne();
   });
 </script>

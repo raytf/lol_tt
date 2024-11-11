@@ -55,7 +55,7 @@ const objectiveMap: ObjectiveMap = {
     { key: "task_open-inventory" },
     { key: "task_review-SM" },
   ],
-  "obj_learn-controls": [{ key: "task_move-sub" }, { key: "task_submerge" }],
+  "obj_learn-controls": [{ key: "task_move-sub" }, { key: "task_dive" }],
   "obj_check-in": [{ key: "task_contact-mc" }, { key: "task_tool-record" }],
   "obj_wrecks-observation": [
     { key: "task_record-observation" },
@@ -208,17 +208,15 @@ class ObjectivesApi {
       this.currentObjective.onFinished?.();
     }
 
-    setTimeout(() => {
-      this.currentObjectiveIndex += 1;
-      this.startObjective();
+    this.currentObjectiveIndex += 1;
+    this.startObjective();
 
-      if (this.currentObjectiveIndex >= this.currentObjectives.length) {
-        this.chapterFinished = true;
-        setTimeout(() => {
-          this.onChapterFinished();
-        }, 2222);
-      }
-    }, 2222);
+    if (this.currentObjectiveIndex >= this.currentObjectives.length) {
+      this.chapterFinished = true;
+      setTimeout(() => {
+        this.onChapterFinished();
+      }, 4444);
+    }
   };
 }
 

@@ -6,6 +6,7 @@ import {
   setTarget as setSubTarget,
   direction as subDirection,
 } from "$stores/sub";
+import { tutorialComplete } from "../../surface/events";
 import { conchEncounter, reConchEncounter } from "$dialog/conch";
 
 export const subNearSurface = writable(false);
@@ -15,6 +16,9 @@ export const notepadUnlocked = writable(false);
 export const observationDone = writable(false);
 
 export const onTopAreaClick = (e: MouseEvent) => {
+  if (!get(tutorialComplete)) {
+    get(objectivesApi).completeTask("task_move-sub");
+  }
   const targetCoords = moveSub(e);
   if (targetCoords.y < 222) {
     subNearSurface.set(true);
