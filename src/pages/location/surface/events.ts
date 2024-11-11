@@ -50,7 +50,7 @@ export function onClickDive() {
   readyToDive.set(false);
   surfaceSub.set(false);
   setTimeout(() => {
-    get(gameApi).fadeScene("/location_wrecks/surface");
+    get(gameApi).fadeScene("/wrecks/surface");
     get(audioApi).stopTrack({
       src: "sound/ocean-loop.mp3",
     });

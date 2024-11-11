@@ -117,7 +117,7 @@
       <button
         onclick={() => {
           setSubTarget({ x: -111, y: 111 });
-          $gameApi.fadeScene("/location_wrecks/forest", 0.44);
+          $gameApi.fadeScene("/wrecks/forest", 0.44);
         }}
         class="absolute left-[4%] top-[22%] text-2xl z-[25]">Wrecks</button
       >

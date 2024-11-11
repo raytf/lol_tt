@@ -135,7 +135,7 @@
       <button
         onclick={() => {
           setSubTarget({ x: grid.width + 111, y: 111 });
-          $gameApi.fadeScene("/location_forest", 0.44);
+          $gameApi.fadeScene("/forest", 0.44);
         }}
         class="absolute right-[4%] top-[22%] text-2xl z-[25]">Forest</button
       >

@@ -6,7 +6,7 @@ import {
   setTarget as setSubTarget,
   direction as subDirection,
 } from "$stores/sub";
-import { tutorialComplete } from "../../surface/events";
+import { tutorialComplete } from "../surface/events";
 import { conchEncounter, reConchEncounter } from "$dialog/conch";
 
 export const subNearSurface = writable(false);
