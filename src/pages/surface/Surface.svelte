@@ -116,7 +116,7 @@
               readyToDive = false;
               surfaceSub = false;
               setTimeout(() => {
-                $gameApi.fadeScene("/exploration_wrecks");
+                $gameApi.fadeScene("/location_wrecks/surface");
                 $audioApi.stopTrack({
                   src: "sound/ocean-loop.mp3",
                 });

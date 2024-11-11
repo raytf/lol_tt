@@ -16,6 +16,7 @@
   <div class="flex flex-row items-center text-4xl font-bold">
     <Lol key={$objectivesApi.currentChapter} class="p-2" />
     {#if $objectivesApi.chapterFinished}
+      <Confetti y={[-0.5, 0.5]} x={[-2, 2]} amount={222} />
       <Lol key="complete" />
       <Celebrate class="w-[55px] h-[55px]" />
     {:else}
@@ -37,7 +38,7 @@
         >
           <Goal class="w-[33px] h-[33px]" />
           {#if $objectivesApi.currentObjective.completed}
-            <Confetti y={[-0.5, 0.5]} x={[0, 2]} amount={111} />
+            <Confetti y={[-0.5, 0.5]} x={[0, 2]} amount={22} />
           {/if}
           <Lol
             key={$objectivesApi.currentObjective.key}
