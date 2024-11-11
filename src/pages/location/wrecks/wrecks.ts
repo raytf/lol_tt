@@ -12,8 +12,8 @@ export const conchEncountered = writable(false);
 
 export const onclickConch = () => {
   gridOffset.set({ x: get(minOffset).x, y: get(minOffset).y });
-  subDirection.set({ x: 1, y: 1 });
   setSubTarget({ x: 1111, y: 1444 });
+  subDirection.set({ x: 1, y: 1 });
   revealConchFace.set(true);
   if (get(conchEncountered)) {
     get(hudApi).startDialog({

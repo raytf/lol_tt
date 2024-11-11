@@ -3,6 +3,7 @@ import neutral from "$assets/emoji/neutral.svg";
 import pensive from "$assets/emoji/pensive.svg";
 import smile from "$assets/emoji/smile.svg";
 import thinking from "$assets/emoji/thinking.svg";
+import dizzy from "$assets/emoji/dizzy.svg";
 import conch_smile from "$assets/characters/conch/smile.png";
 
 const conchEncounter = [
@@ -100,7 +101,7 @@ const conchEncounter = [
                         nextDialog: [],
                       },
                       {
-                        imgSrc: thinking,
+                        imgSrc: dizzy,
                         text: "ch1_conch-encounter-5_o2",
                         repeat: true,
                         nextDialog: [
@@ -108,6 +109,18 @@ const conchEncounter = [
                             imgSrc: conch_smile,
                             name: "conch",
                             text: "ch1_conch-encounter-5_o2-1",
+                          },
+                        ],
+                      },
+                      {
+                        imgSrc: thinking,
+                        text: "ch1_conch-encounter-5_o3",
+                        repeat: true,
+                        nextDialog: [
+                          {
+                            imgSrc: conch_smile,
+                            name: "conch",
+                            text: "ch1_conch-encounter-5_o3-1",
                           },
                         ],
                       },
@@ -140,7 +153,7 @@ const reConchEncounter = [
         nextDialog: [],
       },
       {
-        imgSrc: thinking,
+        imgSrc: dizzy,
         text: "ch1_conch-encounter-5_o2",
         repeat: true,
         nextDialog: [
@@ -148,6 +161,18 @@ const reConchEncounter = [
             imgSrc: conch_smile,
             name: "conch",
             text: "ch1_conch-encounter-5_o2-1",
+          },
+        ],
+      },
+      {
+        imgSrc: thinking,
+        text: "ch1_conch-encounter-5_o3",
+        repeat: true,
+        nextDialog: [
+          {
+            imgSrc: conch_smile,
+            name: "conch",
+            text: "ch1_conch-encounter-5_o3-1",
           },
         ],
       },

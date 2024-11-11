@@ -54,7 +54,10 @@
     setSubPosition(initialPosition);
     setTimeout(() => {
       setSubTarget(initialTarget);
-      toast.push(`From: ${params.from}`);
+      // toast.push(`Entered the Wrecks 🚢`, {
+      //   theme: "dark",
+      //   icon: "🚢",
+      // });
       $hudApi.activated = true;
     }, 555);
   });
