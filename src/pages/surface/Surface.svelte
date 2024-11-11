@@ -10,7 +10,7 @@
   import { SkyOcean } from "$components/visual/scenery";
   import { Submarine } from "$components/gameObjects";
   import { setTarget as setSubTarget, setTarget } from "$stores/sub";
-  import { missionBrief } from "$dialog/surface";
+  import { missionBrief } from "$dialog/radio";
   import { setPosition as setSubPosition } from "$lib/stores/sub";
   import { audioApi, gameApi, hudApi, objectivesApi } from "$apis";
 

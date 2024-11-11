@@ -3,7 +3,7 @@
   import { toast } from "@zerodevx/svelte-toast";
   import { SmPuzzle } from "$components/hud/sm";
   import { hudApi, inventoryApi } from "$apis";
-  import { missionBrief } from "$dialog/surface";
+  import { missionBrief } from "$dialog/radio";
   import { SmLogBook } from "$components/hud/sm";
   import { BgImg } from "$components/ui/img";
   import relics_2 from "$assets/relics/relics_2.svg";

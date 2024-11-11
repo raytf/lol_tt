@@ -5,7 +5,7 @@ import {
   setTarget as setSubTarget,
   direction as subDirection,
 } from "$stores/sub";
-import { conchEncounter, reConchEncounter } from "$dialog/chapter1";
+import { conchEncounter, reConchEncounter } from "$dialog/conch";
 
 export const revealConchFace = writable(false);
 export const conchEncountered = writable(false);
