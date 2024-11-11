@@ -11,6 +11,7 @@ import neutral from "$assets/emoji/neutral.svg";
 import hushed from "$assets/emoji/hushed.svg";
 import heartEyes from "$assets/emoji/heart-eyes.svg";
 import tongue from "$assets/emoji/tongue.svg";
+import frownSlight from "$assets/emoji/frown-slight.svg";
 
 const missionBrief = [
   {
@@ -132,4 +133,28 @@ const missionBrief = [
   },
 ];
 
-export { missionBrief };
+const noSignal = [
+  {
+    imgSrc: radio,
+    text: "radio_crackle",
+  },
+  {
+    imgSrc: frownSlight,
+    name: "you",
+    text: "radio_no-signal",
+  },
+];
+
+const lostSignal = [
+  {
+    imgSrc: radio,
+    text: "radio_crackle",
+  },
+  {
+    imgSrc: frownSlight,
+    name: "you",
+    text: "radio_lost-signal",
+  },
+];
+
+export { missionBrief, noSignal, lostSignal };

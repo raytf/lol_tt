@@ -7,6 +7,31 @@ import confused from "$assets/emoji/confused.svg";
 import dizzy from "$assets/emoji/dizzy.svg";
 import conch_smile from "$assets/characters/conch/smile.png";
 
+const observationTask = {
+  imgSrc: conch_smile,
+  name: "conch",
+  text: "ch1_conch-encounter-5",
+  options: [
+    {
+      imgSrc: smile,
+      text: "ch1_conch-encounter-5_o1",
+      nextDialog: [],
+    },
+    {
+      imgSrc: confused,
+      text: "ch1_conch-encounter-5_o2",
+      repeat: true,
+      nextDialog: [
+        {
+          imgSrc: conch_smile,
+          name: "conch",
+          text: "ch1_conch-encounter-5_o2-1",
+        },
+      ],
+    },
+  ],
+};
+
 const conchEncounter = [
   {
     imgSrc: conch_smile,
@@ -91,30 +116,7 @@ const conchEncounter = [
                     name: "conch",
                     text: "ch1_conch-encounter-4",
                   },
-                  {
-                    imgSrc: conch_smile,
-                    name: "conch",
-                    text: "ch1_conch-encounter-5",
-                    options: [
-                      {
-                        imgSrc: smile,
-                        text: "ch1_conch-encounter-5_o1",
-                        nextDialog: [],
-                      },
-                      {
-                        imgSrc: confused,
-                        text: "ch1_conch-encounter-5_o2",
-                        repeat: true,
-                        nextDialog: [
-                          {
-                            imgSrc: conch_smile,
-                            name: "conch",
-                            text: "ch1_conch-encounter-5_o2-1",
-                          },
-                        ],
-                      },
-                    ],
-                  },
+                  observationTask,
                 ],
               },
             ],
@@ -131,30 +133,7 @@ const reConchEncounter = [
     name: "conch",
     text: "ch1_conch-encounter-4",
   },
-  {
-    imgSrc: conch_smile,
-    name: "conch",
-    text: "ch1_conch-encounter-5",
-    options: [
-      {
-        imgSrc: smile,
-        text: "ch1_conch-encounter-5_o1",
-        nextDialog: [],
-      },
-      {
-        imgSrc: confused,
-        text: "ch1_conch-encounter-5_o2",
-        repeat: true,
-        nextDialog: [
-          {
-            imgSrc: conch_smile,
-            name: "conch",
-            text: "ch1_conch-encounter-5_o2-1",
-          },
-        ],
-      },
-    ],
-  },
+  observationTask,
 ];
 
 export { conchEncounter, reConchEncounter };
