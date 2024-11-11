@@ -31,6 +31,12 @@ class HudApi {
 
   flipElement = $state<HTMLElement | null>(null);
 
+  debugActivate() {
+    this.activated = true;
+    get(inventoryApi).unlockEverything();
+    this.showInventory = true;
+  }
+
   startChapter(params: StartObjectivesParams) {
     const { chapterKey, objectives, onFinished } = params;
 

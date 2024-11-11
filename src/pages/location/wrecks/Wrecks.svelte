@@ -4,6 +4,7 @@
   import { TurbulentImg, BgImg } from "$components/ui/img";
   import { Darkness, UnderwaterGradient } from "$components/visual";
   import { Grid, Area } from "$components/exploration";
+  import { InfoMarker } from "$components/ui/button";
   import Conch from "$components/gameObjects/Conch.svelte";
   import { Submarine } from "$components/gameObjects";
   import {
@@ -58,7 +59,7 @@
       //   theme: "dark",
       //   icon: "🚢",
       // });
-      $hudApi.activated = true;
+      $hudApi.debugActivate();
     }, 555);
   });
 </script>
