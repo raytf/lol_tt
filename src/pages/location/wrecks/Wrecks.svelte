@@ -20,7 +20,12 @@
   import wrecks_3 from "$assets/wrecks/wrecks_3.png";
   import wrecks_secret from "$assets/wrecks/wrecks_secret.png";
   import { gameApi, hudApi } from "$apis";
-  import { revealConchFace, onclickConch } from "./wrecks";
+  import {
+    revealConchFace,
+    onclickConch,
+    notepadUnlocked,
+    startChapterOne,
+  } from "./wrecks";
 
   let { params }: { params: { from: string } } = $props();
 
@@ -55,12 +60,9 @@
     setSubPosition(initialPosition);
     setTimeout(() => {
       setSubTarget(initialTarget);
-      // toast.push(`Entered the Wrecks 🚢`, {
-      //   theme: "dark",
-      //   icon: "🚢",
-      // });
       $hudApi.debugActivate();
     }, 555);
+    //startChapterOne();
   });
 </script>
 
@@ -123,6 +125,14 @@
         }}
         class="absolute right-[4%] top-[22%] text-2xl z-[25]">Forest</button
       >
+      {#if $notepadUnlocked}
+        <InfoMarker
+          onclick={() => {
+            toast.push("You found a conch!");
+          }}
+          class="absolute w-[55px] h-[55px] bottom-[55%] right-[55%] z-20"
+        />
+      {/if}
     </Area>
     <Area size={[grid.width, $gameApi.windowHeight]} onmousedown={moveSub}>
       <UnderwaterGradient
@@ -130,6 +140,14 @@
         --color-top="#00C1EF"
         --color-bottom="#037ADE"
       />
+      {#if $notepadUnlocked}
+        <InfoMarker
+          onclick={() => {
+            toast.push("You found a conch!");
+          }}
+          class="absolute w-[55px] h-[55px] bottom-[55%] right-[55%] z-20"
+        />
+      {/if}
     </Area>
     <Area size={[grid.width, $gameApi.windowHeight]} onmousedown={moveSub}>
       <UnderwaterGradient
@@ -137,6 +155,14 @@
         --color-top="#037ADE"
         --color-bottom="#182B3A"
       />
+      {#if $notepadUnlocked}
+        <InfoMarker
+          onclick={() => {
+            toast.push("You found a conch!");
+          }}
+          class="absolute w-[55px] h-[55px] bottom-[55%] right-[55%] z-20"
+        />
+      {/if}
     </Area>
   {/snippet}
 </Grid>

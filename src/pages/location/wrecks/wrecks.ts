@@ -9,6 +9,8 @@ import { conchEncounter, reConchEncounter } from "$dialog/chapter1";
 
 export const revealConchFace = writable(false);
 export const conchEncountered = writable(false);
+export const notepadUnlocked = writable(false);
+export const observationDone = writable(false);
 
 export const onclickConch = () => {
   gridOffset.set({ x: get(minOffset).x, y: get(minOffset).y });
@@ -30,7 +32,33 @@ export const onclickConch = () => {
       onFinished: () => {
         revealConchFace.set(false);
         conchEncountered.set(true);
+        setTimeout(() => {
+          startChapterOne();
+        }, 555);
       },
     });
   }
+};
+
+export const startChapterOne = () => {
+  get(hudApi).startChapter({
+    chapterKey: "chapter-1",
+    objectives: [
+      {
+        key: "obj_check-in",
+        completed: false,
+        onFinished: () => {
+          notepadUnlocked.set(true);
+        },
+      },
+      {
+        key: "obj_wrecks-observation",
+        completed: false,
+        onFinished: () => {
+          observationDone.set(true);
+        },
+      },
+    ],
+    onFinished: () => {},
+  });
 };
