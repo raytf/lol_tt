@@ -12,18 +12,18 @@
 
   let drawerHidden = $state(true);
   let selectedItem = $state("");
-  let smallIconElement = $state<HTMLElement>();
+  let smallIconElements = $state<HTMLElement[]>([]);
   let bigIconElement = $state<HTMLElement>();
 
-  function onItemClicked(itemId: string) {
+  function onItemClicked(itemId: string, index: number = 0) {
     selectedItem = "";
     drawerHidden = true;
     if (itemId === "sm") {
       $hudApi.showSmModal = true;
     }
     if (itemId === "radio") {
-      if (smallIconElement) {
-        $hudApi.flipElement = smallIconElement;
+      if (smallIconElements[index]) {
+        $hudApi.flipElement = smallIconElements[index];
       }
       if (bigIconElement) {
         $hudApi.flipElement = bigIconElement;
@@ -71,16 +71,16 @@
       </button>
       <Lol key="inventory" class="font-bold text-4xl p-4" />
       <div class="grid grid-cols-5 gap-2">
-        {#each $inventoryApi.unlockedItems as item}
+        {#each $inventoryApi.unlockedItems as item, i}
           <div
             class="relative pointer-events-auto flex justify-center items-center border-2 border-gray-900 rounded p-5"
           >
             <button
-              onclick={() => onItemClicked(item)}
+              onclick={() => onItemClicked(item, i)}
               class="w-[55px] h-[55px]"
             >
               <img
-                bind:this={smallIconElement}
+                bind:this={smallIconElements[i]}
                 src={$inventoryApi.getItem(item).imgSrc}
                 alt={item}
                 class="size-full"
