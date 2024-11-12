@@ -1,7 +1,7 @@
 import { writable } from "svelte/store";
 import radio from "$assets/icons/radio.svg";
 import shell from "$assets/avatars/shell.png";
-import grid from "$assets/icons/grid-square.svg";
+import smDiagram from "$assets/icons/sm-diagram.png";
 import pressureGauge from "$assets/sprites/pressure-gauge.png";
 import depthGauge from "$assets/sprites/depth-gauge.png";
 import thermistor from "$assets/sprites/thermistor.png";
@@ -34,7 +34,7 @@ export const itemMap: ItemMap = {
     actionKey: "inventory-item_action_radio",
   },
   sm: {
-    imgSrc: grid,
+    imgSrc: smDiagram,
     id: "sm",
     nameKey: "inventory-item_name_sm",
     descKey: "inventory-item_desc_sm",

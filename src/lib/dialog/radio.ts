@@ -195,13 +195,7 @@ const missionBrief = [
               {
                 imgSrc: smile,
                 text: "brief-2_o2-2_o2",
-                nextDialog: [
-                  {
-                    imgSrc: radio,
-                    name: "mission-control",
-                    text: "brief-2_o2-3",
-                  },
-                ],
+                nextDialog: [],
               },
             ],
           },

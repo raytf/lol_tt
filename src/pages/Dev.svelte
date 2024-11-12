@@ -1,16 +1,14 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { toast } from "@zerodevx/svelte-toast";
-  import { SmPuzzle } from "$components/hud/sm";
-  import { hudApi, inventoryApi } from "$apis";
-  import { missionBrief } from "$dialog/radio";
-  import { SmLogBook } from "$components/hud/sm";
-  import { BgImg } from "$components/ui/img";
-  import relics_2 from "$assets/relics/relics_2.svg";
+
+  import { Notepad } from "$components/hud/notepad";
+  import { SMDiagram } from "$components/scientificMethod";
 
   onMount(() => {});
 </script>
 
-<div class="size-full bg-blue-200">
-  <button onclick={() => toast.push("hello")}>Click me</button>
+<div class="size-full bg-blue-200 flex justify-center items-center">
+  <!-- <Notepad /> -->
+  <SMDiagram activeIndex={-1} class="w-[222px] h-[222px]" />
 </div>

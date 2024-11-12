@@ -1,5 +1,7 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import { fly, fade } from "svelte/transition";
+  import { gsap } from "gsap";
   import { Confetti } from "svelte-confetti";
   import Todo from "./Todo.svelte";
   import { Celebrate } from "$components/svg/icons";
@@ -10,6 +12,9 @@
   let { class: extraClass }: { class?: string } = $props();
 
   let showTodos = $state(true);
+  onMount(() => {
+    gsap.to(".hud-objectives", { opacity: 1, duration: 1 });
+  });
 </script>
 
 <div transition:fade|global class="hud-objectives {extraClass}">
@@ -68,5 +73,6 @@
     width: 50%;
     height: 50%;
     padding: 0.44em;
+    opacity: 0;
   }
 </style>

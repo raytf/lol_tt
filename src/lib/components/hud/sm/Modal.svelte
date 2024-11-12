@@ -30,7 +30,7 @@
       }}
       class="absolute top-4 right-4"
     >
-      <Close class="w-[55px] h-[55px] text-white" />
+      <Close class="w-[55px] h-[55px] text-black" />
     </button>
   {/if}
   <SMDiagram
@@ -48,7 +48,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.22);
+    background: rgba(0, 0, 0, 0.55);
     padding-top: 111px;
   }
 </style>
