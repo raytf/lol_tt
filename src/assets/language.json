@@ -124,7 +124,7 @@
     "ch1_conch-encounter-1_o1": "What?! A talking shell! That is so cool.",
     "ch1_conch-encounter-1_o1-1": "Hey, are you even listening? ...and don't call me a shell.",
     "ch1_conch-encounter-1_o1-2": "I am a Conch.",
-    "ch1_conch-encounter-2": "Many treasure hunters have come, and never went home to their families.",
+    "ch1_conch-encounter-2": "Many treasure hunters have come, and never returned to their families.",
     "ch1_conch-encounter-3": "Trust me. Leave now while you still can.",
     "ch1_conch-encounter-3_o1": "Ok, but I will be back.",
     "ch1_conch-encounter-3_o2": "I can't leave now. Not until I complete my mission.",
@@ -137,10 +137,10 @@
     "ch1_conch-encounter-3_o2-7": "Listen kid, I want to help you... but I need to know if you can handle the depths.",
     "ch1_conch-encounter-3_o2-8": "Prove to me that you are really a scientist.",
     "ch1_conch-encounter-4": "Start with the first step of the Scientific Method: <span class='sm-text sm-observation'>Observation.</span>",
-    "ch1_conch-encounter-5": "Come back once you have made 3 <span class='sm-text sm-observation'>observations</span> about things that change with depth.",
+    "ch1_conch-encounter-5": "Come back once you have recorded 3 <span class='sm-text sm-observation'>observations</span> about things that change with depth.",
     "ch1_conch-encounter-5_o1": "Ok. I'll be back soon.",
     "ch1_conch-encounter-5_o2": "Can you elaborate more?",
-    "ch1_conch-encounter-5_o2-1": "Try to explore around different depths, observe any changes and record your findings.",
+    "ch1_conch-encounter-5_o2-1": "Explore both shallow and deep depths, try to observe any changes and record them.",
 
     "ch1_conch-encounter-5_o3": "What is qualitative data?",
     "ch1_conch-encounter-5_o3-1": "Qualitative data are descriptions about things that are observed, but not measured precisely."

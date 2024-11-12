@@ -35,96 +35,99 @@ const observationTask = (onComplete?: () => void) => {
   };
 };
 
-const conchEncounter = (onComplete?: () => void) => {
+const conchEncounter1 = [
+  {
+    imgSrc: conch_smile,
+    name: "conch",
+    text: "ch1_conch-encounter-1",
+    options: [
+      {
+        imgSrc: openMouth,
+        text: "ch1_conch-encounter-1_o1",
+        nextDialog: [
+          {
+            imgSrc: conch_smile,
+            name: "conch",
+            text: "ch1_conch-encounter-1_o1-1",
+          },
+          {
+            imgSrc: conch_smile,
+            name: "conch",
+            text: "ch1_conch-encounter-1_o1-2",
+          },
+        ],
+      },
+    ],
+  },
+];
+
+const conchEncounter2 = (onComplete?: () => void) => {
   return [
     {
       imgSrc: conch_smile,
       name: "conch",
-      text: "ch1_conch-encounter-1",
+      text: "ch1_conch-encounter-2",
+    },
+    {
+      imgSrc: conch_smile,
+      name: "conch",
+      text: "ch1_conch-encounter-3",
       options: [
         {
-          imgSrc: openMouth,
-          text: "ch1_conch-encounter-1_o1",
+          imgSrc: neutral,
+          text: "ch1_conch-encounter-3_o1",
+          nextDialog: [],
+        },
+        {
+          imgSrc: pensive,
+          text: "ch1_conch-encounter-3_o2",
           nextDialog: [
             {
-              imgSrc: conch_smile,
-              name: "conch",
-              text: "ch1_conch-encounter-1_o1-1",
+              imgSrc: neutral,
+              name: "you",
+              text: "ch1_conch-encounter-3_o2-1",
+            },
+            {
+              imgSrc: neutral,
+              name: "you",
+              text: "ch1_conch-encounter-3_o2-2",
             },
             {
               imgSrc: conch_smile,
               name: "conch",
-              text: "ch1_conch-encounter-1_o1-2",
+              text: "ch1_conch-encounter-3_o2-3",
+            },
+            {
+              imgSrc: neutral,
+              name: "you",
+              text: "ch1_conch-encounter-3_o2-4",
             },
             {
               imgSrc: conch_smile,
               name: "conch",
-              text: "ch1_conch-encounter-2",
+              text: "ch1_conch-encounter-3_o2-5",
             },
             {
               imgSrc: conch_smile,
               name: "conch",
-              text: "ch1_conch-encounter-3",
-              options: [
-                {
-                  imgSrc: neutral,
-                  text: "ch1_conch-encounter-3_o1",
-                  nextDialog: [],
-                },
-                {
-                  imgSrc: pensive,
-                  text: "ch1_conch-encounter-3_o2",
-                  nextDialog: [
-                    {
-                      imgSrc: neutral,
-                      name: "you",
-                      text: "ch1_conch-encounter-3_o2-1",
-                    },
-                    {
-                      imgSrc: neutral,
-                      name: "you",
-                      text: "ch1_conch-encounter-3_o2-2",
-                    },
-                    {
-                      imgSrc: conch_smile,
-                      name: "conch",
-                      text: "ch1_conch-encounter-3_o2-3",
-                    },
-                    {
-                      imgSrc: neutral,
-                      name: "you",
-                      text: "ch1_conch-encounter-3_o2-4",
-                    },
-                    {
-                      imgSrc: conch_smile,
-                      name: "conch",
-                      text: "ch1_conch-encounter-3_o2-5",
-                    },
-                    {
-                      imgSrc: conch_smile,
-                      name: "conch",
-                      text: "ch1_conch-encounter-3_o2-6",
-                    },
-                    {
-                      imgSrc: conch_smile,
-                      name: "conch",
-                      text: "ch1_conch-encounter-3_o2-7",
-                    },
-                    {
-                      imgSrc: conch_smile,
-                      name: "conch",
-                      text: "ch1_conch-encounter-3_o2-8",
-                    },
-                    {
-                      imgSrc: conch_smile,
-                      name: "conch",
-                      text: "ch1_conch-encounter-4",
-                    },
-                    observationTask(onComplete),
-                  ],
-                },
-              ],
+              text: "ch1_conch-encounter-3_o2-6",
             },
+            {
+              imgSrc: conch_smile,
+              name: "conch",
+              text: "ch1_conch-encounter-3_o2-7",
+            },
+            {
+              imgSrc: conch_smile,
+              name: "conch",
+              text: "ch1_conch-encounter-3_o2-8",
+            },
+            {
+              imgSrc: conch_smile,
+              name: "conch",
+              text: "ch1_conch-encounter-4",
+            },
+            observationTask(onComplete),
           ],
         },
       ],
@@ -132,13 +135,4 @@ const conchEncounter = (onComplete?: () => void) => {
   ];
 };
 
-const reConchEncounter = [
-  {
-    imgSrc: conch_smile,
-    name: "conch",
-    text: "ch1_conch-encounter-4",
-  },
-  observationTask(),
-];
-
-export { conchEncounter, reConchEncounter };
+export { conchEncounter1, conchEncounter2 };

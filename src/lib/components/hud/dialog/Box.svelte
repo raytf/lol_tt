@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
+  import { fade } from "svelte/transition";
   import { gsap } from "gsap";
   import { onMount } from "svelte";
   import { Down } from "$components/svg/icons/caret";
@@ -29,6 +30,7 @@
 </script>
 
 <div
+  transition:fade|global
   class="container_dialog-box {top ? 'items-start' : 'items-end'} {extraClass}"
   {...props}
 >

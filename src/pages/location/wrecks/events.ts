@@ -7,11 +7,12 @@ import {
   direction as subDirection,
 } from "$stores/sub";
 import { tutorialComplete } from "../surface/events";
-import { conchEncounter, reConchEncounter } from "$dialog/conch";
+import { conchEncounter1, conchEncounter2 } from "$dialog/conch";
 
 export const subNearSurface = writable(false);
 export const revealConchFace = writable(false);
 export const conchEncountered = writable(false);
+export const startedObservationTask = writable(false);
 export const notepadUnlocked = writable(false);
 export const observationDone = writable(false);
 
@@ -28,34 +29,48 @@ export const onTopAreaClick = (e: MouseEvent) => {
 };
 
 export const onclickConch = () => {
+  // Position sub
   gridOffset.set({ x: get(minOffset).x, y: get(minOffset).y });
   setSubTarget({ x: 1111, y: 1444 });
   subDirection.set({ x: 1, y: 1 });
   revealConchFace.set(true);
-  if (get(conchEncountered)) {
+
+  // Dialog
+  if (!get(conchEncountered)) {
+    // First encounter
     get(hudApi).startDialog({
-      keys: reConchEncounter,
+      keys: conchEncounter1,
       blockInput: true,
       onFinished: () => {
-        revealConchFace.set(false);
+        conchEncountered.set(true);
+        // Replace this with Character intro later
+        // temp fix
+        setTimeout(() => {
+          startConchDialog2();
+        }, 555);
       },
     });
   } else {
-    const dialog = conchEncounter(() => {
-      conchEncountered.set(true);
-      setTimeout(() => {
-        startChapterOne();
-      }, 555);
-    });
-
-    get(hudApi).startDialog({
-      keys: dialog,
-      blockInput: true,
-      onFinished: () => {
-        revealConchFace.set(false);
-      },
-    });
+    // Second encounter
+    startConchDialog2();
   }
+};
+
+const startConchDialog2 = () => {
+  const dialog = conchEncounter2(() => {
+    startedObservationTask.set(true);
+    setTimeout(() => {
+      startChapterOne();
+    }, 555);
+  });
+
+  get(hudApi).startDialog({
+    keys: dialog,
+    blockInput: true,
+    onFinished: () => {
+      revealConchFace.set(false);
+    },
+  });
 };
 
 export const startChapterOne = () => {
