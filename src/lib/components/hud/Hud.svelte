@@ -22,12 +22,14 @@
     {/if}
     {#if $hudApi.showDialog}
       <Dialog
-        top={true}
+        top={$dialogApi.positionTop}
         keys={$dialogApi.currentDialog}
         onFinished={() => {
           $hudApi.endDialog();
         }}
-        class="z-[101] {$dialogApi.blockInput && 'pointer-events-auto'}"
+        class="{$dialogApi.aboveModal
+          ? 'z-[105]'
+          : 'z-[101]'} {$dialogApi.blockInput && 'pointer-events-auto'}"
       />
     {/if}
     {#if $hudApi.showInventory}
@@ -48,7 +50,11 @@
       />
     {/if}
     {#if $hudApi.showSmModal}
-      <SmModal class="z-[102] pointer-events-auto" />
+      <SmModal
+        activeIndex={$hudApi.smModalIndex}
+        closable={$hudApi.smModalClosable}
+        class="z-[102] pointer-events-auto"
+      />
     {/if}
     {#if $hudApi.showSmPuzzle}
       <SmPuzzle

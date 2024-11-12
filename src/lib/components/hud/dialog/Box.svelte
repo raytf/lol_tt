@@ -64,7 +64,7 @@
 
     opacity: 0;
 
-    z-index: 10;
+    /* z-index: 10; */
   }
   .box {
     pointer-events: auto;

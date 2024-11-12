@@ -1,3 +1,5 @@
+import { get } from "svelte/store";
+import { hudApi, dialogApi } from "$apis";
 import radio from "$assets/icons/radio.svg";
 import cool from "$assets/emoji/cool.svg";
 import openMouth from "$assets/emoji/open-mouth.svg";
@@ -28,7 +30,7 @@ const missionBrief = [
       },
       {
         text: "brief-1_o2",
-        imgSrc: heartEyes,
+        imgSrc: openMouth,
         nextDialog: [
           { imgSrc: radio, name: "mission-control", text: "brief-1_o2-1" },
         ],
@@ -49,12 +51,52 @@ const missionBrief = [
     options: [
       {
         text: "brief-2_o1",
-        imgSrc: smile,
-        nextDialog: [],
+        imgSrc: neutral,
+        repeat: true,
+        nextDialog: [
+          {
+            imgSrc: radio,
+            name: "mission-control",
+            text: "brief-2_o1-1",
+          },
+          {
+            imgSrc: radio,
+            name: "mission-control",
+            text: "brief-2_o1-2",
+          },
+          {
+            imgSrc: radio,
+            name: "mission-control",
+            text: "brief-2_o1-3",
+            options: [
+              {
+                text: "brief-2_o1-3_o1",
+                imgSrc: hushed,
+                nextDialog: [
+                  {
+                    imgSrc: radio,
+                    name: "mission-control",
+                    text: "brief-2_o1-3_o1-1",
+                  },
+                  {
+                    imgSrc: radio,
+                    name: "mission-control",
+                    text: "brief-2_o1-3_o1-2",
+                  },
+                ],
+              },
+              {
+                text: "brief-2_o1-3_o2",
+                imgSrc: neutral,
+                nextDialog: [],
+              },
+            ],
+          },
+        ],
       },
       {
         text: "brief-2_o2",
-        imgSrc: neutral,
+        imgSrc: thinking,
         repeat: true,
         nextDialog: [
           {
@@ -66,31 +108,93 @@ const missionBrief = [
             imgSrc: radio,
             name: "mission-control",
             text: "brief-2_o2-2",
-          },
-          {
-            imgSrc: radio,
-            name: "mission-control",
-            text: "brief-2_o2-3",
             options: [
               {
-                text: "brief-2_o2-3_o1",
                 imgSrc: hushed,
+                text: "brief-2_o2-2_o1",
+                repeat: true,
                 nextDialog: [
                   {
                     imgSrc: radio,
                     name: "mission-control",
-                    text: "brief-2_o2-3_o1-1",
+                    text: "brief-2_o2-2_o1-1",
+                    onProceed: () => {
+                      get(dialogApi).aboveModal = true;
+                      get(hudApi).smModalClosable = false;
+                      get(hudApi).showSmModal = true;
+                    },
                   },
                   {
                     imgSrc: radio,
                     name: "mission-control",
-                    text: "brief-2_o2-3_o1-2",
+                    text: "brief-2_o2-2_o1-2",
+                    onProceed: () => {
+                      get(hudApi).smModalIndex = 0;
+                    },
+                  },
+                  {
+                    imgSrc: radio,
+                    name: "mission-control",
+                    text: "sm-observation_desc",
+                    onProceed: () => {
+                      get(hudApi).smModalIndex = 1;
+                    },
+                  },
+                  {
+                    imgSrc: radio,
+                    name: "mission-control",
+                    text: "sm-question_desc",
+                    onProceed: () => {
+                      get(hudApi).smModalIndex = 2;
+                    },
+                  },
+                  {
+                    imgSrc: radio,
+                    name: "mission-control",
+                    text: "sm-hypothesis_desc",
+                    onProceed: () => {
+                      get(hudApi).smModalIndex = 3;
+                    },
+                  },
+                  {
+                    imgSrc: radio,
+                    name: "mission-control",
+                    text: "sm-experiment_desc",
+                    onProceed: () => {
+                      get(hudApi).smModalIndex = 4;
+                    },
+                  },
+                  {
+                    imgSrc: radio,
+                    name: "mission-control",
+                    text: "sm-analysis_desc",
+                    onProceed: () => {
+                      get(hudApi).smModalIndex = 5;
+                    },
+                  },
+                  {
+                    imgSrc: radio,
+                    name: "mission-control",
+                    text: "sm-conclusion_desc",
+                    onProceed: () => {
+                      get(hudApi).smModalIndex = -1;
+                    },
+                  },
+                  {
+                    imgSrc: radio,
+                    name: "mission-control",
+                    text: "brief-2_o2-3",
+                    onProceed: () => {
+                      get(hudApi).showSmModal = false;
+                      get(hudApi).smModalClosable = true;
+                      get(dialogApi).aboveModal = false;
+                    },
                   },
                 ],
               },
               {
-                text: "brief-2_o2-3_o2",
-                imgSrc: neutral,
+                imgSrc: smile,
+                text: "brief-2_o2-2_o2",
                 nextDialog: [],
               },
             ],
@@ -99,25 +203,8 @@ const missionBrief = [
       },
       {
         text: "brief-2_o3",
-        imgSrc: thinking,
-        repeat: true,
-        nextDialog: [
-          {
-            imgSrc: radio,
-            name: "mission-control",
-            text: "brief-2_o3-1",
-          },
-          {
-            imgSrc: radio,
-            name: "mission-control",
-            text: "brief-2_o3-2",
-          },
-          {
-            imgSrc: radio,
-            name: "mission-control",
-            text: "brief-2_o3-3",
-          },
-        ],
+        imgSrc: smile,
+        nextDialog: [],
       },
     ],
   },

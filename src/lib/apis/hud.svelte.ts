@@ -1,6 +1,6 @@
 import { writable, get } from "svelte/store";
 import type { Objective } from "$apis/objectives.svelte";
-import type { DialogKey, DialogOption } from "$components/hud/dialog";
+import type { DialogKey, DialogOption } from "$apis/dialog.svelte";
 import { objectivesApi, dialogApi, inventoryApi } from "$apis";
 
 interface StartObjectivesParams {
@@ -28,6 +28,9 @@ class HudApi {
   showItemUnlock = $state(false);
   showSmModal = $state(false);
   showSmPuzzle = $state(false);
+
+  smModalIndex = $state(-1);
+  smModalClosable = $state(true);
 
   flipElement = $state<HTMLElement | null>(null);
 

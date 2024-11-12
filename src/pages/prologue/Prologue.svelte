@@ -13,7 +13,6 @@
   const textSequence = [
     ["pl_1", "pl_2"],
     ["pl_3", "pl_4"],
-    ["pl_5", "pl_6"],
   ];
   let currentSequence = $state(0);
   let blackdropOpacity = $state(100);
@@ -23,7 +22,7 @@
     currentSequence += 1;
     if (currentSequence == 1) {
       blackdropOpacity = 22;
-      shadowOpacity = 77;
+      shadowOpacity = 88;
     }
     if (currentSequence >= textSequence.length) {
       $audioApi.stopTrack({ src: "music/tritons-triangle.mp3" });
