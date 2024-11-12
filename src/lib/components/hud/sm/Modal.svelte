@@ -1,28 +1,21 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-  import { gsap } from "gsap";
-  import { fade } from "svelte/transition";
   import { SMDiagram } from "$components/scientificMethod";
   import { Close } from "$components/svg/icons";
   import { hudApi, objectivesApi } from "$apis";
 
   let {
     activeIndex = -1,
-    closable = true,
+    interactable = true,
     class: extraClass,
-  }: { activeIndex?: number; closable?: boolean; class?: string } = $props();
-
-  onMount(() => {
-    gsap.set(".container-smModal", { opacity: 0 });
-    gsap.to(".container-smModal", { opacity: 1, duration: 1 });
-  });
+  }: {
+    activeIndex?: number;
+    interactable?: boolean;
+    class?: string;
+  } = $props();
 </script>
 
-<div
-  transition:fade|global={{ duration: 222 }}
-  class="container-smModal {extraClass}"
->
-  {#if closable}
+<div class="container-smModal {extraClass}">
+  {#if interactable}
     <button
       onclick={() => {
         $objectivesApi.completeTask("task_review-SM");
@@ -30,7 +23,7 @@
       }}
       class="absolute top-4 right-4"
     >
-      <Close class="w-[55px] h-[55px] text-white" />
+      <Close class="w-[55px] h-[55px] text-black" />
     </button>
   {/if}
   <SMDiagram
@@ -48,7 +41,6 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.22);
-    padding-top: 111px;
+    background: rgba(0, 0, 0, 0.55);
   }
 </style>

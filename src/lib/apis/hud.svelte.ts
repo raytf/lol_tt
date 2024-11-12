@@ -28,15 +28,13 @@ class HudApi {
   showItemUnlock = $state(false);
   showSmModal = $state(false);
   showSmPuzzle = $state(false);
-
-  smModalIndex = $state(-1);
-  smModalClosable = $state(true);
+  showNotepad = $state(false);
 
   flipElement = $state<HTMLElement | null>(null);
 
   debugActivate() {
     this.activated = true;
-    get(inventoryApi).unlockEverything();
+    //get(inventoryApi).unlockEverything();
     this.showInventory = true;
   }
 

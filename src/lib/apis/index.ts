@@ -5,6 +5,8 @@ import { lolApi } from "./lol.svelte";
 import { hudApi } from "./hud.svelte";
 import { objectivesApi } from "./objectives.svelte";
 import { dialogApi } from "./dialog.svelte";
+import { notepadApi } from "./notepad.svelte";
+import { smApi } from "./sm.svelte";
 
 export {
   audioApi,
@@ -14,4 +16,6 @@ export {
   inventoryApi,
   objectivesApi,
   dialogApi,
+  notepadApi,
+  smApi,
 };

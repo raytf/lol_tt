@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import type { DialogKey } from "$apis/dialog.svelte";
+  import { fade, blur } from "svelte/transition";
+  import type { DialogKey, DialogOption } from "$apis/dialog.svelte";
   import { DialogBox, Options } from "$components/hud/dialog";
   import { lolApi } from "$apis/lol.svelte";
 
@@ -9,11 +10,13 @@
     top = false,
     onFinished,
     class: extraClass,
+    optionsClass,
   }: {
     keys: DialogKey[];
     top?: boolean;
     onFinished?: () => void;
     class?: string;
+    optionsClass?: string;
   } = $props();
 
   let dialogArray = $state([...keys]);
@@ -37,7 +40,10 @@
     nextLine();
   }
 
-  function onclickOption(nextDialog: DialogKey[]) {
+  function onclickOption(
+    selectedOption: DialogOption,
+    nextDialog: DialogKey[],
+  ) {
     if (!currentKey) return;
     insertDialog(nextDialog);
 
@@ -98,6 +104,6 @@
     {/snippet}
   </DialogBox>
   {#if currentKey.options && (currentKey.alreadyRead || showOptions)}
-    <Options key={currentKey} {onclickOption} />
+    <Options key={currentKey} {onclickOption} class={optionsClass} />
   {/if}
 {/if}

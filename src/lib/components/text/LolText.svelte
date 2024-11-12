@@ -5,4 +5,4 @@
   let text = $state($lolApi.getText(key));
 </script>
 
-<p class={extraClass}>{text}</p>
+<p class={extraClass}>{@html text}</p>

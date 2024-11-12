@@ -15,13 +15,14 @@ export type DialogOption = {
   nextDialog: DialogKey[];
   imgSrc?: string;
   repeat?: boolean;
+  onProceed?: () => void;
 };
 
 export class DialogApi {
   blockInput = $state(false);
   currentDialog = $state<DialogKey[]>([]);
   positionTop = $state(true);
-  aboveModal = $state(false);
+  zIndex = $state(101);
 
   onDialogFinished = () => {};
 }

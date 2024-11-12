@@ -1,5 +1,5 @@
 import { writable, get } from "svelte/store";
-import type { DialogKey, DialogOption } from "$components/hud/dialog";
+import type { DialogKey, DialogOption } from "$apis/dialog.svelte";
 import { toast } from "@zerodevx/svelte-toast";
 import { lolApi } from "$apis";
 // Assets
@@ -56,10 +56,13 @@ const objectiveMap: ObjectiveMap = {
     { key: "task_review-SM" },
   ],
   "obj_learn-controls": [{ key: "task_move-sub" }, { key: "task_dive" }],
-  "obj_check-in": [{ key: "task_contact-mc" }, { key: "task_tool-record" }],
   "obj_wrecks-observation": [
-    { key: "task_record-observation" },
-    { key: "task_conch-observation" },
+    { key: "task_tool-record" },
+    { key: "task_record-observations" },
+  ],
+  "obj_wrecks-question": [
+    { key: "task_review-observations" },
+    { key: "task_ask-question" },
   ],
 };
 
@@ -177,12 +180,13 @@ class ObjectivesApi {
     }
   };
 
-  completeTask = (taskKey: string) => {
+  completeTask = (taskKey: string, onSuccess?: () => void) => {
     const task = this.currentTasks.find(
       (task) => task.key === taskKey && !task.completed,
     );
     if (task) {
       task.completed = true;
+      onSuccess?.();
       if (this.getNumRemainingTasks() === 0) {
         this.completeObjective();
       }

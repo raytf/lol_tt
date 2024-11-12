@@ -1,28 +1,23 @@
 <script lang="ts">
-  import type { DialogKey } from "$apis/dialog.svelte";
-  import { onMount } from "svelte";
-  import { fade } from "svelte/transition";
-  import { gsap } from "gsap";
+  import type { DialogKey, DialogOption } from "$apis/dialog.svelte";
   import { Button } from "$components/ui/button";
   import { lolApi } from "$apis/lol.svelte";
 
   let {
     key,
+    class: extraClass,
     onclickOption,
   }: {
     key: DialogKey;
-    onclickOption: (nextDialog: DialogKey[]) => void;
+    class?: string;
+    onclickOption: (
+      selectedOption: DialogOption,
+      nextDialog: DialogKey[],
+    ) => void;
   } = $props();
-
-  onMount(() => {
-    gsap.to(".container-options", {
-      opacity: 1,
-      duration: 1,
-    });
-  });
 </script>
 
-<div transition:fade|global class="container-options">
+<div class="container-options {extraClass}">
   {#if key.options}
     {#each key.options as option}
       <Button
@@ -32,6 +27,7 @@
             imgSrc: option.imgSrc,
             name: "you",
             text: option.text,
+            onProceed: option.onProceed,
           };
           const nextDialog = [selected, ...option.nextDialog];
           if (option.repeat) {
@@ -40,7 +36,7 @@
             nextDialog.push(originalDialog);
           }
 
-          onclickOption(nextDialog);
+          onclickOption(option, nextDialog);
         }}
       >
         {#if option.imgSrc}
@@ -67,7 +63,5 @@
     align-items: center;
     text-align: center;
     user-select: none;
-    z-index: 100;
-    opacity: 0;
   }
 </style>

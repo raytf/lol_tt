@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { fade } from "svelte/transition";
+  import { linear, expoInOut, quadInOut } from "svelte/easing";
   import { toast } from "@zerodevx/svelte-toast";
   import { TurbulentImg, BgImg } from "$components/ui/img";
   import { Darkness, UnderwaterGradient } from "$components/visual";
@@ -27,8 +28,10 @@
     onTopAreaClick,
     revealConchFace,
     onclickConch,
-    notepadUnlocked,
+    startedObservationTask,
+    finishedObservationTask,
     startChapterOne,
+    makeObservation,
   } from "./events";
 
   let { params }: { params: { from: string } } = $props();
@@ -65,7 +68,7 @@
     setTimeout(() => {
       setSubTarget(initialTarget);
     }, 555);
-    $hudApi.debugActivate();
+    //$hudApi.debugActivate();
     //startChapterOne();
   });
 </script>
@@ -123,14 +126,16 @@
         --color-bottom="#00C1EF"
       />
       {#if $subNearSurface}
-        <Button
-          onclick={() => {
-            $gameApi.fadeScene("/surface");
-          }}
-          class="absolute right-[44%] top-[4%] text-2xl z-[20]"
-        >
-          <Lol key="surface" />
-        </Button>
+        <div transition:fade>
+          <Button
+            onclick={() => {
+              $gameApi.fadeScene("/surface");
+            }}
+            class="absolute right-[44%] top-[4%] text-2xl z-[20]"
+          >
+            <Lol key="surface" />
+          </Button>
+        </div>
       {/if}
       <button
         onclick={() => {
@@ -139,10 +144,10 @@
         }}
         class="absolute right-[4%] top-[22%] text-2xl z-[25]">Forest</button
       >
-      {#if $notepadUnlocked}
+      {#if $startedObservationTask && !$finishedObservationTask}
         <InfoMarker
           onclick={() => {
-            toast.push("You found a conch!");
+            makeObservation(1);
           }}
           class="absolute w-[55px] h-[55px] bottom-[55%] right-[55%] z-20"
         />
@@ -154,10 +159,10 @@
         --color-top="#00C1EF"
         --color-bottom="#037ADE"
       />
-      {#if $notepadUnlocked}
+      {#if $startedObservationTask && !$finishedObservationTask}
         <InfoMarker
           onclick={() => {
-            toast.push("You found a conch!");
+            makeObservation(2);
           }}
           class="absolute w-[55px] h-[55px] bottom-[55%] right-[55%] z-20"
         />
@@ -169,10 +174,10 @@
         --color-top="#037ADE"
         --color-bottom="#182B3A"
       />
-      {#if $notepadUnlocked}
+      {#if $startedObservationTask && !$finishedObservationTask}
         <InfoMarker
           onclick={() => {
-            toast.push("You found a conch!");
+            makeObservation(3);
           }}
           class="absolute w-[55px] h-[55px] bottom-[55%] right-[55%] z-20"
         />
