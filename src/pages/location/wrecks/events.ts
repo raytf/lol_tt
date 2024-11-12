@@ -7,7 +7,12 @@ import {
   direction as subDirection,
 } from "$stores/sub";
 import { tutorialComplete } from "../surface/events";
-import { conchEncounter1, conchEncounter2 } from "$dialog/conch";
+import {
+  conchEncounter1,
+  conchEncounter2,
+  observationTask,
+  conchReview1,
+} from "$dialog/conch";
 import hushed from "$assets/emoji/hushed.svg";
 import thinking from "$assets/emoji/thinking.svg";
 
@@ -39,9 +44,8 @@ export const onclickConch = () => {
   subDirection.set({ x: 1, y: 1 });
   revealConchFace.set(true);
 
-  // Dialog
+  // Before character intro
   if (!get(conchEncountered)) {
-    // First encounter
     get(hudApi).startDialog({
       keys: conchEncounter1,
       blockInput: true,
@@ -54,14 +58,35 @@ export const onclickConch = () => {
         }, 555);
       },
     });
-  } else {
-    // Second encounter
-    if (!get(finishedObservationTask)) {
-      startConchDialog2();
-    } else {
-      // Finished observation task
-    }
+    return;
   }
+
+  // Before start chapter 1
+  if (!get(startedObservationTask)) {
+    startConchDialog2();
+    return;
+  }
+
+  // Before observation task finished
+  if (!get(finishedObservationTask)) {
+    get(hudApi).startDialog({
+      keys: [observationTask()],
+      blockInput: true,
+      onFinished: () => {
+        revealConchFace.set(false);
+      },
+    });
+    return;
+  }
+
+  // Review observations
+  get(hudApi).startDialog({
+    keys: conchReview1,
+    blockInput: true,
+    onFinished: () => {
+      revealConchFace.set(false);
+    },
+  });
 };
 
 const startConchDialog2 = () => {
@@ -88,6 +113,11 @@ export const startChapterOne = () => {
     objectives: [
       {
         key: "obj_wrecks-observation",
+        completed: false,
+        onFinished: () => {},
+      },
+      {
+        key: "obj_wrecks-question",
         completed: false,
         onFinished: () => {},
       },
@@ -123,7 +153,7 @@ export const makeObservation = (index: number) => {
       if (hud.showNotepad && notepad.currentPage) {
         notepad.currentPage.addLine(observationKey);
         if (notepad.currentPage.lines.length >= 3) {
-          objectives.completeTask("task_record-observation");
+          objectives.completeTask("task_record-observations");
           finishedObservationTask.set(true);
         }
       }

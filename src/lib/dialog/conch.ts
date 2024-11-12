@@ -1,3 +1,5 @@
+import { get } from "svelte/store";
+import { hudApi, dialogApi, smApi, objectivesApi } from "$apis";
 import openMouth from "$assets/emoji/open-mouth.svg";
 import neutral from "$assets/emoji/neutral.svg";
 import pensive from "$assets/emoji/pensive.svg";
@@ -7,7 +9,7 @@ import confused from "$assets/emoji/confused.svg";
 import dizzy from "$assets/emoji/dizzy.svg";
 import conch_smile from "$assets/characters/conch/smile.png";
 
-const observationTask = (onComplete?: () => void) => {
+export const observationTask = (onComplete?: () => void) => {
   return {
     imgSrc: conch_smile,
     name: "conch",
@@ -35,7 +37,7 @@ const observationTask = (onComplete?: () => void) => {
   };
 };
 
-const conchEncounter1 = [
+export const conchEncounter1 = [
   {
     imgSrc: conch_smile,
     name: "conch",
@@ -61,7 +63,7 @@ const conchEncounter1 = [
   },
 ];
 
-const conchEncounter2 = (onComplete?: () => void) => {
+export const conchEncounter2 = (onComplete?: () => void) => {
   return [
     {
       imgSrc: conch_smile,
@@ -135,4 +137,83 @@ const conchEncounter2 = (onComplete?: () => void) => {
   ];
 };
 
-export { conchEncounter1, conchEncounter2 };
+export const conchReview1 = [
+  {
+    imgSrc: conch_smile,
+    name: "conch",
+    text: "ch1_conch-review-1",
+    onProceed: () => {
+      get(hudApi).showNotepad = true;
+      get(objectivesApi).completeTask("task_review-observations");
+    },
+  },
+  {
+    imgSrc: conch_smile,
+    name: "conch",
+    text: "ch1_conch-review-2",
+    options: [
+      {
+        imgSrc: thinking,
+        text: "ch1_conch-review-2_q1",
+        nextDialog: [
+          {
+            imgSrc: conch_smile,
+            name: "conch",
+            text: "ch1_conch-review-2_q1-1",
+          },
+          {
+            imgSrc: conch_smile,
+            name: "conch",
+            text: "ch1_conch-review-2_q1-2",
+            options: [
+              {
+                imgSrc: thinking,
+                text: "ch1_conch-review-2_q2",
+                nextDialog: [
+                  {
+                    imgSrc: conch_smile,
+                    name: "conch",
+                    text: "ch1_conch-review-2_q2-1",
+                  },
+                  {
+                    imgSrc: conch_smile,
+                    name: "conch",
+                    text: "ch1_conch-review-2_q2-2",
+                    options: [
+                      {
+                        imgSrc: thinking,
+                        text: "ch1_conch-review-2_q3",
+                        nextDialog: [
+                          {
+                            imgSrc: conch_smile,
+                            name: "conch",
+                            text: "ch1_conch-review-2_q3-1",
+                          },
+                          {
+                            imgSrc: conch_smile,
+                            name: "conch",
+                            text: "ch1_conch-review-2_q3-2",
+                            onProceed: () => {
+                              get(objectivesApi).completeTask(
+                                "task_ask-question",
+                              );
+                            },
+                          },
+                          {
+                            imgSrc: conch_smile,
+                            name: "conch",
+                            text: "ch1_conch-review-3",
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+];

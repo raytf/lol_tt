@@ -29,6 +29,7 @@
     revealConchFace,
     onclickConch,
     startedObservationTask,
+    finishedObservationTask,
     startChapterOne,
     makeObservation,
   } from "./events";
@@ -68,7 +69,7 @@
       setSubTarget(initialTarget);
     }, 555);
     $hudApi.debugActivate();
-    startChapterOne();
+    //startChapterOne();
   });
 </script>
 
@@ -143,7 +144,7 @@
         }}
         class="absolute right-[4%] top-[22%] text-2xl z-[25]">Forest</button
       >
-      {#if $startedObservationTask}
+      {#if $startedObservationTask && !$finishedObservationTask}
         <InfoMarker
           onclick={() => {
             makeObservation(1);
@@ -158,7 +159,7 @@
         --color-top="#00C1EF"
         --color-bottom="#037ADE"
       />
-      {#if $startedObservationTask}
+      {#if $startedObservationTask && !$finishedObservationTask}
         <InfoMarker
           onclick={() => {
             makeObservation(2);
@@ -173,7 +174,7 @@
         --color-top="#037ADE"
         --color-bottom="#182B3A"
       />
-      {#if $startedObservationTask}
+      {#if $startedObservationTask && !$finishedObservationTask}
         <InfoMarker
           onclick={() => {
             makeObservation(3);
