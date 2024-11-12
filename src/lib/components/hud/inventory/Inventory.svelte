@@ -30,8 +30,8 @@
       }
       $hudApi.showSmPuzzle = true;
     }
-    if (itemId === "conch") {
-      $inventoryApi.showHintDialog = true;
+    if (itemId === "notepad") {
+      $hudApi.showNotepad = true;
     }
   }
 </script>

@@ -28,6 +28,7 @@ class HudApi {
   showItemUnlock = $state(false);
   showSmModal = $state(false);
   showSmPuzzle = $state(false);
+  showNotepad = $state(false);
 
   smModalIndex = $state(-1);
   smModalClosable = $state(true);

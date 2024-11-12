@@ -1,5 +1,5 @@
 import { writable, get } from "svelte/store";
-import type { DialogKey, DialogOption } from "$components/hud/dialog";
+import type { DialogKey, DialogOption } from "$apis/dialog.svelte";
 import { toast } from "@zerodevx/svelte-toast";
 import { lolApi } from "$apis";
 // Assets

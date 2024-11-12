@@ -1,6 +1,7 @@
 import { writable } from "svelte/store";
 import radio from "$assets/icons/radio.svg";
 import shell from "$assets/avatars/shell.png";
+import notepad from "$assets/icons/notepad.svg";
 import smDiagram from "$assets/icons/sm-diagram.png";
 import pressureGauge from "$assets/sprites/pressure-gauge.png";
 import depthGauge from "$assets/sprites/depth-gauge.png";
@@ -19,44 +20,44 @@ type ItemMap = {
 };
 
 export const itemMap: ItemMap = {
-  conch: {
-    imgSrc: shell,
-    id: "conch",
-    nameKey: "inventory-item_name_conch",
-    descKey: "inventory-item_desc_conch",
-    actionKey: "inventory-item_action_conch",
+  sm: {
+    imgSrc: smDiagram,
+    id: "sm",
+    nameKey: "item_name_sm",
+    descKey: "item_desc_sm",
+    actionKey: "item_action_sm",
   },
   radio: {
     imgSrc: radio,
     id: "radio",
-    nameKey: "inventory-item_name_radio",
-    descKey: "inventory-item_desc_radio",
-    actionKey: "inventory-item_action_radio",
+    nameKey: "item_name_radio",
+    descKey: "item_desc_radio",
+    actionKey: "item_action_radio",
   },
-  sm: {
-    imgSrc: smDiagram,
-    id: "sm",
-    nameKey: "inventory-item_name_sm",
-    descKey: "inventory-item_desc_sm",
-    actionKey: "inventory-item_action_sm",
+  notepad: {
+    imgSrc: notepad,
+    id: "notepad",
+    nameKey: "item_name_notepad",
+    descKey: "item_desc_notepad",
+    actionKey: "item_action_notepad",
   },
   pg: {
     imgSrc: pressureGauge,
     id: "pg",
-    nameKey: "inventory-item_name_pg",
-    descKey: "inventory-item_desc_pg",
+    nameKey: "item_name_pg",
+    descKey: "item_desc_pg",
   },
   dg: {
     imgSrc: depthGauge,
     id: "dg",
-    nameKey: "inventory-item_name_dg",
-    descKey: "inventory-item_desc_dg",
+    nameKey: "item_name_dg",
+    descKey: "item_desc_dg",
   },
   th: {
     imgSrc: thermistor,
     id: "th",
-    nameKey: "inventory-item_name_th",
-    descKey: "inventory-item_desc_th",
+    nameKey: "item_name_th",
+    descKey: "item_desc_th",
   },
 };
 

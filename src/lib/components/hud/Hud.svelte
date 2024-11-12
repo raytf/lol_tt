@@ -5,7 +5,14 @@
   import { Dialog } from "$components/hud/dialog";
   import { SmModal, SmPuzzle } from "$components/hud/sm";
   import Inventory, { ItemUnlockScreen } from "$components/hud/inventory";
-  import { hudApi, dialogApi, objectivesApi, inventoryApi } from "$apis";
+  import { Notepad } from "$components/hud/notepad";
+  import {
+    hudApi,
+    dialogApi,
+    objectivesApi,
+    inventoryApi,
+    notepadApi,
+  } from "$apis";
   import { noSignal } from "$dialog/radio";
   const disableHideClass = "disabled opacity-50";
 </script>
@@ -73,6 +80,16 @@
           }
         }}
         class="z-[102] pointer-events-auto"
+      />
+    {/if}
+    {#if $hudApi.showNotepad}
+      <Notepad
+        title={$notepadApi.title}
+        lines={$notepadApi.lines}
+        onClose={() => {
+          $hudApi.showNotepad = false;
+        }}
+        class="absolute w-[33%] h-3/4 bottom-4 right-4 z-[102] pointer-events-auto opacity-80"
       />
     {/if}
   </div>
