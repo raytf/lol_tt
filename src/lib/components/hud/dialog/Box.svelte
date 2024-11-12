@@ -1,8 +1,5 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
-  import { fade } from "svelte/transition";
-  import { gsap } from "gsap";
-  import { onMount } from "svelte";
   import { Down } from "$components/svg/icons/caret";
 
   let {
@@ -23,14 +20,9 @@
     options?: boolean;
     top?: boolean;
   } = $props();
-
-  onMount(() => {
-    gsap.to(".container_dialog-box", { opacity: 1, duration: 1 });
-  });
 </script>
 
 <div
-  transition:fade|global
   class="container_dialog-box {top ? 'items-start' : 'items-end'} {extraClass}"
   {...props}
 >
@@ -63,10 +55,6 @@
     display: flex;
     justify-content: center;
     user-select: none;
-
-    opacity: 0;
-
-    /* z-index: 10; */
   }
   .box {
     pointer-events: auto;
@@ -76,7 +64,7 @@
     color: black;
     text-align: left;
 
-    padding: 33px 22px;
+    padding: 33px 22px 22px 22px;
     border-radius: 22px;
     transition: all 0.44s;
   }

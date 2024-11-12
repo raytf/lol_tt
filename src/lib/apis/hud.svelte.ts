@@ -30,9 +30,6 @@ class HudApi {
   showSmPuzzle = $state(false);
   showNotepad = $state(false);
 
-  smModalIndex = $state(-1);
-  smModalClosable = $state(true);
-
   flipElement = $state<HTMLElement | null>(null);
 
   debugActivate() {

@@ -1,8 +1,5 @@
 <script lang="ts">
   import type { DialogKey, DialogOption } from "$apis/dialog.svelte";
-  import { onMount } from "svelte";
-  import { fade } from "svelte/transition";
-  import { gsap } from "gsap";
   import { Button } from "$components/ui/button";
   import { lolApi } from "$apis/lol.svelte";
 
@@ -18,16 +15,9 @@
       nextDialog: DialogKey[],
     ) => void;
   } = $props();
-
-  onMount(() => {
-    gsap.to(".container-options", {
-      opacity: 1,
-      duration: 1,
-    });
-  });
 </script>
 
-<div transition:fade|global class="container-options {extraClass}">
+<div class="container-options {extraClass}">
   {#if key.options}
     {#each key.options as option}
       <Button
@@ -73,6 +63,5 @@
     align-items: center;
     text-align: center;
     user-select: none;
-    opacity: 0;
   }
 </style>

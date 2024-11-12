@@ -12,6 +12,7 @@
     objectivesApi,
     inventoryApi,
     notepadApi,
+    smApi,
   } from "$apis";
   import { noSignal } from "$dialog/radio";
   const disableHideClass = "disabled opacity-50";
@@ -30,17 +31,19 @@
       </div>
     {/if}
     {#if $hudApi.showDialog}
-      <Dialog
-        top={$dialogApi.positionTop}
-        keys={$dialogApi.currentDialog}
-        onFinished={() => {
-          $hudApi.endDialog();
-        }}
-        class="{$dialogApi.aboveModal
-          ? 'z-[105]'
-          : 'z-[101]'} {$dialogApi.blockInput && 'pointer-events-auto'}"
-        optionsClass="z-[102]"
-      />
+      <div transition:fade>
+        <Dialog
+          top={$dialogApi.positionTop}
+          keys={$dialogApi.currentDialog}
+          onFinished={() => {
+            $hudApi.endDialog();
+          }}
+          class="{$dialogApi.aboveModal
+            ? 'z-[105]'
+            : 'z-[101]'} {$dialogApi.blockInput && 'pointer-events-auto'}"
+          optionsClass="z-[111] pointer-events-auto"
+        />
+      </div>
     {/if}
     {#if $hudApi.showInventory}
       <Inventory
@@ -64,9 +67,9 @@
     {#if $hudApi.showSmModal}
       <div transition:fade>
         <SmModal
-          activeIndex={$hudApi.smModalIndex}
-          closable={$hudApi.smModalClosable}
-          class="z-[102] pointer-events-auto"
+          activeIndex={$smApi.currentIndex}
+          interactable={$smApi.isInteractable}
+          class="{$smApi.modalClass} z-[102] pointer-events-auto"
         />
       </div>
     {/if}

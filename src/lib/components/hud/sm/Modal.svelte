@@ -5,13 +5,17 @@
 
   let {
     activeIndex = -1,
-    closable = true,
+    interactable = true,
     class: extraClass,
-  }: { activeIndex?: number; closable?: boolean; class?: string } = $props();
+  }: {
+    activeIndex?: number;
+    interactable?: boolean;
+    class?: string;
+  } = $props();
 </script>
 
 <div class="container-smModal {extraClass}">
-  {#if closable}
+  {#if interactable}
     <button
       onclick={() => {
         $objectivesApi.completeTask("task_review-SM");
@@ -38,6 +42,5 @@
     display: flex;
     justify-content: center;
     background: rgba(0, 0, 0, 0.55);
-    padding-top: 111px;
   }
 </style>

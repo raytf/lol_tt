@@ -29,7 +29,7 @@
 
 <div class="relative size-full">
   <div class="absolute size-full z-[11] pointer-events-none">
-    <div id="surface-heading">
+    <div id="surface-heading" class="w-full text-center">
       <Lol key="surface-heading" class="text-3xl font-bold p-4" />
     </div>
     <div
