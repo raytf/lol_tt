@@ -56,10 +56,9 @@ const objectiveMap: ObjectiveMap = {
     { key: "task_review-SM" },
   ],
   "obj_learn-controls": [{ key: "task_move-sub" }, { key: "task_dive" }],
-  "obj_check-in": [{ key: "task_contact-mc" }, { key: "task_tool-record" }],
   "obj_wrecks-observation": [
+    { key: "task_tool-record" },
     { key: "task_record-observation" },
-    { key: "task_conch-observation" },
   ],
 };
 

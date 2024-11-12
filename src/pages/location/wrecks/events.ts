@@ -78,17 +78,10 @@ export const startChapterOne = () => {
     chapterKey: "chapter-1",
     objectives: [
       {
-        key: "obj_check-in",
-        completed: false,
-        onFinished: () => {
-          notepadUnlocked.set(true);
-        },
-      },
-      {
         key: "obj_wrecks-observation",
         completed: false,
         onFinished: () => {
-          observationDone.set(true);
+          notepadUnlocked.set(true);
         },
       },
     ],

@@ -91,7 +91,7 @@
     {#if $hudApi.showNotepad}
       <div
         transition:slide={{ axis: "x" }}
-        class="absolute w-[33%] h-3/4 bottom-4 right-4 z-[102]"
+        class="absolute w-[33%] h-3/4 bottom-2 right-2 z-[102]"
       >
         <Notepad
           title={$notepadApi.title}
