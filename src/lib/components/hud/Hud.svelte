@@ -83,6 +83,7 @@
           //$objectivesApi.completeTask("task_call-radio");
           if ($location === "/surface") {
             console.log("surface");
+            $hudApi.startHintDialog();
           } else {
             $hudApi.startDialog({
               keys: noSignal,
