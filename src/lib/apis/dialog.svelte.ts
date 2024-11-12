@@ -22,7 +22,7 @@ export class DialogApi {
   blockInput = $state(false);
   currentDialog = $state<DialogKey[]>([]);
   positionTop = $state(true);
-  zIndex = $state(101);
+  zHigh = $state(false);
 
   onDialogFinished = () => {};
 }

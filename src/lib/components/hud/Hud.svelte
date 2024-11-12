@@ -38,8 +38,9 @@
           onFinished={() => {
             $hudApi.endDialog();
           }}
-          class="z-[{$dialogApi.zIndex}] {$dialogApi.blockInput &&
-            'pointer-events-auto'}"
+          class="{$dialogApi.zHigh
+            ? 'z-[105]'
+            : 'z-[101]'} {$dialogApi.blockInput && 'pointer-events-auto'}"
           optionsClass="z-[111] pointer-events-auto"
         />
       </div>
@@ -82,7 +83,6 @@
         onCorrect={() => {
           //$objectivesApi.completeTask("task_call-radio");
           if ($location === "/surface") {
-            console.log("surface");
             $hudApi.startHintDialog();
           } else {
             $hudApi.startDialog({
