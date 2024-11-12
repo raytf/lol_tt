@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { fade } from "svelte/transition";
+  import { fade, fly, slide } from "svelte/transition";
   import { location } from "svelte-spa-router";
   import Objectives from "$components/hud/objectives";
   import { Dialog } from "$components/hud/dialog";
@@ -20,12 +20,14 @@
 {#if $hudApi.activated}
   <div transition:fade class="container-hud">
     {#if $hudApi.showObjectives}
-      <Objectives
-        class="z-100 left-0 {($hudApi.showDialog ||
-          $hudApi.showSmModal ||
-          $hudApi.showSmPuzzle) &&
-          disableHideClass}"
-      />
+      <div transition:fade>
+        <Objectives
+          class="z-100 left-0 {($hudApi.showDialog ||
+            $hudApi.showSmModal ||
+            $hudApi.showSmPuzzle) &&
+            disableHideClass}"
+        />
+      </div>
     {/if}
     {#if $hudApi.showDialog}
       <Dialog
@@ -49,20 +51,24 @@
       />
     {/if}
     {#if $hudApi.showItemUnlock}
-      <ItemUnlockScreen
-        itemId={$inventoryApi.newItemUnlock}
-        onFinish={() => {
-          $hudApi.endItemUnlock();
-        }}
-        class="z-[102] pointer-events-auto"
-      />
+      <div transition:fade>
+        <ItemUnlockScreen
+          itemId={$inventoryApi.newItemUnlock}
+          onFinish={() => {
+            $hudApi.endItemUnlock();
+          }}
+          class="z-[102] pointer-events-auto"
+        />
+      </div>
     {/if}
     {#if $hudApi.showSmModal}
-      <SmModal
-        activeIndex={$hudApi.smModalIndex}
-        closable={$hudApi.smModalClosable}
-        class="z-[102] pointer-events-auto"
-      />
+      <div transition:fade>
+        <SmModal
+          activeIndex={$hudApi.smModalIndex}
+          closable={$hudApi.smModalClosable}
+          class="z-[102] pointer-events-auto"
+        />
+      </div>
     {/if}
     {#if $hudApi.showSmPuzzle}
       <SmPuzzle
@@ -83,14 +89,19 @@
       />
     {/if}
     {#if $hudApi.showNotepad}
-      <Notepad
-        title={$notepadApi.title}
-        lines={$notepadApi.lines}
-        onClose={() => {
-          $hudApi.showNotepad = false;
-        }}
-        class="absolute w-[33%] h-3/4 bottom-4 right-4 z-[102] pointer-events-auto opacity-80"
-      />
+      <div
+        transition:slide={{ axis: "x" }}
+        class="absolute w-[33%] h-3/4 bottom-4 right-4 z-[102]"
+      >
+        <Notepad
+          title={$notepadApi.title}
+          lines={$notepadApi.lines}
+          onClose={() => {
+            $hudApi.showNotepad = false;
+          }}
+          class="size-full pointer-events-auto opacity-80"
+        />
+      </div>
     {/if}
   </div>
 {/if}

@@ -1,7 +1,4 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-  import { gsap } from "gsap";
-  import { fade } from "svelte/transition";
   import { SMDiagram } from "$components/scientificMethod";
   import { Close } from "$components/svg/icons";
   import { hudApi, objectivesApi } from "$apis";
@@ -11,17 +8,9 @@
     closable = true,
     class: extraClass,
   }: { activeIndex?: number; closable?: boolean; class?: string } = $props();
-
-  onMount(() => {
-    gsap.set(".container-smModal", { opacity: 0 });
-    gsap.to(".container-smModal", { opacity: 1, duration: 1 });
-  });
 </script>
 
-<div
-  transition:fade|global={{ duration: 222 }}
-  class="container-smModal {extraClass}"
->
+<div class="container-smModal {extraClass}">
   {#if closable}
     <button
       onclick={() => {
