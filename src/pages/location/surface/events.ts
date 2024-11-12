@@ -26,7 +26,7 @@ export function startSurface() {
 
     setTimeout(() => {
       if (get(tutorialComplete)) {
-        console.log("tutorial complete");
+        readyToDive.set(true);
       } else {
         startMissionBrief();
       }
