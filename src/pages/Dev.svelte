@@ -3,12 +3,15 @@
   import { toast } from "@zerodevx/svelte-toast";
 
   import { Notepad } from "$components/hud/notepad";
-  import { SMDiagram } from "$components/scientificMethod";
 
   onMount(() => {});
 </script>
 
 <div class="size-full bg-blue-200 flex justify-center items-center">
-  <!-- <Notepad /> -->
-  <SMDiagram activeIndex={-1} class="w-[222px] h-[222px]" />
+  <p class="font-bold">test tiel</p>
+  <Notepad
+    title="Observations"
+    lines={["test", "anudda one", "another one"]}
+    class="absolute w-[33%] h-3/4 bottom-4 right-4"
+  />
 </div>
