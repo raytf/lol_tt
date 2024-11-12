@@ -1,9 +1,28 @@
 import { writable } from "svelte/store";
-import type { DialogKey } from "$components/hud/dialog";
+
+export type DialogKey = {
+  imgSrc?: string;
+  name?: string;
+  text: string;
+  options?: DialogOption[];
+  alreadyRead?: boolean;
+  italic?: boolean;
+  onProceed?: () => void;
+};
+
+export type DialogOption = {
+  text: string;
+  nextDialog: DialogKey[];
+  imgSrc?: string;
+  repeat?: boolean;
+};
 
 export class DialogApi {
   blockInput = $state(false);
   currentDialog = $state<DialogKey[]>([]);
+  positionTop = $state(true);
+  aboveModal = $state(false);
+
   onDialogFinished = () => {};
 }
 

@@ -1,7 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { fade } from "svelte/transition";
-  import type { DialogKey } from "$components/hud/dialog";
+  import type { DialogKey } from "$apis/dialog.svelte";
   import { DialogBox, Options } from "$components/hud/dialog";
   import { lolApi } from "$apis/lol.svelte";
 

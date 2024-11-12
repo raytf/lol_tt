@@ -6,9 +6,11 @@
   import { Close } from "$components/svg/icons";
   import { hudApi, objectivesApi } from "$apis";
 
-  let { class: extraClass }: { class?: string } = $props();
-
-  let activeIndex = $state(-1);
+  let {
+    activeIndex = -1,
+    closable = true,
+    class: extraClass,
+  }: { activeIndex?: number; closable?: boolean; class?: string } = $props();
 
   onMount(() => {
     gsap.set(".container-smModal", { opacity: 0 });
@@ -20,18 +22,20 @@
   transition:fade|global={{ duration: 222 }}
   class="container-smModal {extraClass}"
 >
-  <button
-    onclick={() => {
-      $objectivesApi.completeTask("task_review-SM");
-      $hudApi.showSmModal = false;
-    }}
-    class="absolute top-4 right-4"
-  >
-    <Close class="w-[55px] h-[55px] text-white" />
-  </button>
+  {#if closable}
+    <button
+      onclick={() => {
+        $objectivesApi.completeTask("task_review-SM");
+        $hudApi.showSmModal = false;
+      }}
+      class="absolute top-4 right-4"
+    >
+      <Close class="w-[55px] h-[55px] text-white" />
+    </button>
+  {/if}
   <SMDiagram
     {activeIndex}
-    class="w-[666px] h-[222px] mt-14 z-[1]"
+    class="w-[666px] h-[222px] mt-24 z-[1]"
     itemClass="h-[111px]"
   />
 </div>
@@ -44,6 +48,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.88);
+    background: rgba(255, 255, 255, 0.22);
+    padding-top: 111px;
   }
 </style>

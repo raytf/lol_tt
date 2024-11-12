@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { DialogKey } from "$components/hud/dialog";
+  import type { DialogKey } from "$apis/dialog.svelte";
   import { onMount } from "svelte";
   import { fade } from "svelte/transition";
   import { gsap } from "gsap";
