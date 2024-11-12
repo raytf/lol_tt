@@ -43,7 +43,7 @@ export function onClickArea(e: MouseEvent) {
 
 export function onClickDive() {
   if (!get(tutorialComplete)) {
-    console.log("click dive");
+    //console.log("click dive");
     get(objectivesApi).completeTask("task_dive");
   }
 

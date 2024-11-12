@@ -34,7 +34,7 @@ class HudApi {
 
   debugActivate() {
     this.activated = true;
-    get(inventoryApi).unlockEverything();
+    //get(inventoryApi).unlockEverything();
     this.showInventory = true;
   }
 

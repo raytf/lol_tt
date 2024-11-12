@@ -14,22 +14,22 @@ const observationTask = (onComplete?: () => void) => {
     text: "ch1_conch-encounter-5",
     options: [
       {
-        imgSrc: smile,
-        text: "ch1_conch-encounter-5_o1",
-        nextDialog: [],
-        onProceed: onComplete,
-      },
-      {
         imgSrc: confused,
-        text: "ch1_conch-encounter-5_o2",
+        text: "ch1_conch-encounter-5_o1",
         repeat: true,
         nextDialog: [
           {
             imgSrc: conch_smile,
             name: "conch",
-            text: "ch1_conch-encounter-5_o2-1",
+            text: "ch1_conch-encounter-5_o1-1",
           },
         ],
+      },
+      {
+        imgSrc: smile,
+        text: "ch1_conch-encounter-5_o2",
+        nextDialog: [],
+        onProceed: onComplete,
       },
     ],
   };

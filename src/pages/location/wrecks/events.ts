@@ -1,5 +1,5 @@
 import { writable, get } from "svelte/store";
-import { audioApi, gameApi, hudApi, objectivesApi } from "$apis";
+import { audioApi, gameApi, hudApi, objectivesApi, notepadApi } from "$apis";
 import { gridOffset, minOffset, moveSub } from "$stores/exploration";
 import {
   coords,
@@ -8,13 +8,17 @@ import {
 } from "$stores/sub";
 import { tutorialComplete } from "../surface/events";
 import { conchEncounter1, conchEncounter2 } from "$dialog/conch";
+import hushed from "$assets/emoji/hushed.svg";
+import thinking from "$assets/emoji/thinking.svg";
 
 export const subNearSurface = writable(false);
 export const revealConchFace = writable(false);
 export const conchEncountered = writable(false);
 export const startedObservationTask = writable(false);
-export const notepadUnlocked = writable(false);
+export const finishedObservationTask = writable(false);
 export const observationDone = writable(false);
+const hud = get(hudApi);
+const notepad = get(notepadApi);
 
 export const onTopAreaClick = (e: MouseEvent) => {
   if (!get(tutorialComplete)) {
@@ -52,13 +56,16 @@ export const onclickConch = () => {
     });
   } else {
     // Second encounter
-    startConchDialog2();
+    if (!get(finishedObservationTask)) {
+      startConchDialog2();
+    } else {
+      // Finished observation task
+    }
   }
 };
 
 const startConchDialog2 = () => {
   const dialog = conchEncounter2(() => {
-    startedObservationTask.set(true);
     setTimeout(() => {
       startChapterOne();
     }, 555);
@@ -74,17 +81,52 @@ const startConchDialog2 = () => {
 };
 
 export const startChapterOne = () => {
+  startedObservationTask.set(true);
+  notepad.startObservationsPage("notepad_title-observations");
   get(hudApi).startChapter({
     chapterKey: "chapter-1",
     objectives: [
       {
         key: "obj_wrecks-observation",
         completed: false,
-        onFinished: () => {
-          notepadUnlocked.set(true);
-        },
+        onFinished: () => {},
       },
     ],
     onFinished: () => {},
+  });
+};
+
+export const makeObservation = (index: number) => {
+  const hud = get(hudApi);
+  const notepad = get(notepadApi);
+  const objectives = get(objectivesApi);
+
+  const observationKey = `ch1_observations-${index}`;
+  let dialog = [
+    {
+      imgSrc: hushed,
+      name: "you",
+      text: observationKey,
+    },
+  ];
+  if (!hud.showNotepad) {
+    dialog.push({
+      imgSrc: thinking,
+      name: "you",
+      text: "ch1_observations-record",
+    });
+  }
+
+  hud.startDialog({
+    keys: dialog,
+    onFinished: () => {
+      if (hud.showNotepad && notepad.currentPage) {
+        notepad.currentPage.addLine(observationKey);
+        if (notepad.currentPage.lines.length >= 3) {
+          objectives.completeTask("task_record-observation");
+          finishedObservationTask.set(true);
+        }
+      }
+    },
   });
 };

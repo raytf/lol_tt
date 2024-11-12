@@ -119,7 +119,7 @@ const missionBrief = [
                     name: "mission-control",
                     text: "brief-2_o2-2_o1-1",
                     onProceed: () => {
-                      get(dialogApi).aboveModal = true;
+                      get(dialogApi).zIndex = 105;
                       get(smApi).isInteractable = false;
                       get(smApi).modalClass = "pt-[111px]";
                       get(hudApi).showSmModal = true;
@@ -188,7 +188,7 @@ const missionBrief = [
                     onProceed: () => {
                       get(hudApi).showSmModal = false;
                       get(smApi).reset();
-                      get(dialogApi).aboveModal = false;
+                      get(dialogApi).zIndex = 101;
                     },
                   },
                 ],

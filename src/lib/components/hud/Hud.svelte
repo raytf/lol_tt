@@ -38,9 +38,8 @@
           onFinished={() => {
             $hudApi.endDialog();
           }}
-          class="{$dialogApi.aboveModal
-            ? 'z-[105]'
-            : 'z-[101]'} {$dialogApi.blockInput && 'pointer-events-auto'}"
+          class="z-[{$dialogApi.zIndex}] {$dialogApi.blockInput &&
+            'pointer-events-auto'}"
           optionsClass="z-[111] pointer-events-auto"
         />
       </div>
@@ -49,8 +48,10 @@
       <Inventory
         class="z-[101] {($hudApi.showDialog ||
           $hudApi.showSmModal ||
-          $hudApi.showSmPuzzle) &&
+          $hudApi.showSmPuzzle ||
+          $hudApi.showItemUnlock) &&
           disableHideClass}"
+        drawerClass="z-[101]"
       />
     {/if}
     {#if $hudApi.showItemUnlock}
@@ -60,7 +61,7 @@
           onFinish={() => {
             $hudApi.endItemUnlock();
           }}
-          class="z-[102] pointer-events-auto"
+          class="z-[103] pointer-events-auto"
         />
       </div>
     {/if}
@@ -93,12 +94,12 @@
     {/if}
     {#if $hudApi.showNotepad}
       <div
-        transition:slide={{ axis: "x" }}
-        class="absolute w-[33%] h-3/4 bottom-2 right-2 z-[102]"
+        transition:fly={{ x: 555 }}
+        class="absolute w-[33%] h-3/4 bottom-2 right-2 z-[100]"
       >
         <Notepad
-          title={$notepadApi.title}
-          lines={$notepadApi.lines}
+          title={$notepadApi.currentPage ? $notepadApi.currentPage.title : ""}
+          lines={$notepadApi.currentPage ? $notepadApi.currentPage.lines : []}
           onClose={() => {
             $hudApi.showNotepad = false;
           }}

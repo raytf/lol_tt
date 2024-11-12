@@ -8,7 +8,10 @@
   import { Backpack } from "$components/svg/icons/hud";
   import { hudApi, inventoryApi, objectivesApi } from "$apis";
 
-  let { class: extraClass }: { class?: string } = $props();
+  let {
+    class: extraClass,
+    drawerClass,
+  }: { class?: string; drawerClass?: string } = $props();
 
   let drawerHidden = $state(true);
   let selectedItem = $state("");
@@ -43,6 +46,11 @@
       onclick={() => {
         drawerHidden = false;
         $objectivesApi.completeTask("task_open-inventory");
+        $objectivesApi.completeTask("task_tool-record", () => {
+          $hudApi.startItemUnlock({
+            itemId: "notepad",
+          });
+        });
       }}
       class="button-toggle"
     >
@@ -52,12 +60,13 @@
   <Drawer
     bind:hidden={drawerHidden}
     backdrop={false}
+    activateClickOutside={false}
     placement="top"
     width="w-full"
     transitionType="fly"
     transitionParams={{ y: -222 }}
     class="absolute"
-    divClass="bg-white bg-opacity-90"
+    divClass="bg-white bg-opacity-90 {drawerClass}"
   >
     <div class="flex flex-col items-center text-black p-4">
       <button

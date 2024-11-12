@@ -176,12 +176,13 @@ class ObjectivesApi {
     }
   };
 
-  completeTask = (taskKey: string) => {
+  completeTask = (taskKey: string, onSuccess?: () => void) => {
     const task = this.currentTasks.find(
       (task) => task.key === taskKey && !task.completed,
     );
     if (task) {
       task.completed = true;
+      onSuccess?.();
       if (this.getNumRemainingTasks() === 0) {
         this.completeObjective();
       }

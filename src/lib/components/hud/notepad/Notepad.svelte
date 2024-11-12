@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { fly } from "svelte/transition";
   import { Close } from "$components/svg/icons";
   let {
     title = "",
@@ -70,6 +69,7 @@
     padding: 3em 2.2em;
     line-height: 1.5em;
     overflow: hidden;
+    pointer-events: none;
   }
   .text-title {
     font-weight: 700;
