@@ -30,6 +30,7 @@
         class="{$dialogApi.aboveModal
           ? 'z-[105]'
           : 'z-[101]'} {$dialogApi.blockInput && 'pointer-events-auto'}"
+        optionsClass="z-[102]"
       />
     {/if}
     {#if $hudApi.showInventory}

@@ -41,15 +41,18 @@ export const onclickConch = () => {
       },
     });
   } else {
+    const dialog = conchEncounter(() => {
+      conchEncountered.set(true);
+      setTimeout(() => {
+        startChapterOne();
+      }, 555);
+    });
+
     get(hudApi).startDialog({
-      keys: conchEncounter,
+      keys: dialog,
       blockInput: true,
       onFinished: () => {
         revealConchFace.set(false);
-        conchEncountered.set(true);
-        setTimeout(() => {
-          startChapterOne();
-        }, 555);
       },
     });
   }

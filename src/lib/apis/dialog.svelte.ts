@@ -15,6 +15,7 @@ export type DialogOption = {
   nextDialog: DialogKey[];
   imgSrc?: string;
   repeat?: boolean;
+  onProceed?: () => void;
 };
 
 export class DialogApi {
