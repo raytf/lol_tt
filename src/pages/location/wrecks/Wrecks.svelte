@@ -68,7 +68,7 @@
     setTimeout(() => {
       setSubTarget(initialTarget);
     }, 555);
-    $hudApi.debugActivate();
+    //$hudApi.debugActivate();
     //startChapterOne();
   });
 </script>
