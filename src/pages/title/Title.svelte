@@ -1,52 +1,52 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { fade, blur } from "svelte/transition";
-  import { gsap } from "gsap";
+  import { blur } from "svelte/transition";
   import { TurbulentImg } from "$components/ui/img";
   import { TextOverlay } from "$components/text";
   import ocean from "$assets/title/tritons-triangle.jpg";
   import { gameApi, lolApi, audioApi } from "$apis";
+  import {
+    tlZoomIn,
+    tlZoomInMore,
+    tlRevealText,
+    hideHeadings,
+  } from "./animations";
 
-  function zoomIn(vars?: gsap.TimelineVars) {
-    const zoomTl = gsap.timeline(vars);
-    zoomTl.to(".pg-title_bg", { scale: 1.22, duration: 6 });
-    return zoomTl;
-  }
-
-  function zoomInMore(vars?: gsap.TimelineVars) {
-    const zoomTl = gsap.timeline(vars);
-    zoomTl.to(".pg-title_bg", { scale: 1.44, duration: 2 });
-    return zoomTl;
-  }
-
-  function revealText(vars?: gsap.TimelineVars) {
-    const textTl = gsap.timeline(vars);
-    textTl.to("#pg-title_header", {
-      opacity: 1,
-      duration: 2,
-    });
-    textTl.to("#pg-title_subheader", { opacity: 1, duration: 1 });
-
-    textTl.to("#pg-title_button-start", { opacity: 1, duration: 1 });
-    return textTl;
-  }
-
+  const textSequence = [
+    ["intro_1", "intro_2", "intro_3"],
+    ["intro_4", "intro_5"],
+  ];
+  let currentSequence = $state(0);
   let startIntro = $state(true);
   let startTitle = $state(true);
   let blackdropOpacity = $state(100);
   onMount(() => {
-    gsap.set(
-      ["#pg-title_header", "#pg-title_subheader", "#pg-title_button-start"],
-      {
-        opacity: 0,
-      },
-    );
+    hideHeadings();
 
     $audioApi.loadTrack({
       src: "music/into-the-blue.mp3",
     });
-    blackdropOpacity = 55;
+    blackdropOpacity = 66;
   });
+
+  function nextSequence() {
+    currentSequence += 1;
+    if (currentSequence == 1) {
+      tlZoomIn();
+    }
+    if (currentSequence >= textSequence.length) {
+      startIntro = false;
+      blackdropOpacity = 0;
+      tlZoomInMore();
+      tlRevealText({ delay: 4 });
+      $audioApi.playTrack({
+        src: "music/into-the-blue.mp3",
+        volume: 0.66,
+        loop: true,
+        fadeTime: 2222,
+      });
+    }
+  }
 </script>
 
 <div id="pg-title" class="size-full">
@@ -59,32 +59,14 @@
     class="pg-title_bg w-full h-full object-cover"
   />
   <div id="pg-title_blackdrop" style="opacity: {blackdropOpacity}%"></div>
-  {#if startIntro}
-    <div transition:fade class="absolute size-full z-10">
-      <TextOverlay
-        keys={[
-          "intro_1",
-          "intro_2",
-          "intro_3",
-          "intro_4",
-          "intro_5",
-          "intro_6",
-        ]}
-        onFinished={() => {
-          startIntro = false;
-          blackdropOpacity = 0;
-          zoomIn();
-          revealText({ delay: 4 });
-          $audioApi.playTrack({
-            src: "music/into-the-blue.mp3",
-            volume: 0.66,
-            loop: true,
-            fadeTime: 2222,
-          });
-        }}
-      />
-    </div>
-  {/if}
+  {#each textSequence as sequence, i}
+    <TextOverlay
+      active={i === currentSequence}
+      keys={sequence}
+      onFinished={nextSequence}
+      class="z-10"
+    />
+  {/each}
   {#if startTitle}
     <div out:blur class="relative size-full flex flex-col items-center">
       <h1 id="pg-title_header" class="text-title text-8xl font-bold mt-24">
@@ -103,11 +85,11 @@
             $audioApi.loadTrack({
               src: "music/tritons-triangle.mp3",
             });
-            $gameApi.fadeScene("/prologue-intro", 2.4);
-            zoomInMore({
-              onComplete: () => {
-                $audioApi.stopTrack({ src: "music/into-the-blue.mp3" });
-              },
+            $gameApi.fadeScene("/prologue", 2.4);
+            $audioApi.stopTrack({
+              src: "music/into-the-blue.mp3",
+              fade: true,
+              fadeTime: 2222,
             });
           }}
           class="text-title p-12"
