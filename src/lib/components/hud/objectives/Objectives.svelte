@@ -32,10 +32,7 @@
         transition:fly={{ x: -55, duration: 555 }}
         class="absolute size-full"
       >
-        <button
-          onclick={() => (showTodos = !showTodos)}
-          class="button-hud flex flex-row"
-        >
+        <div class="button-hud flex flex-row">
           <Goal class="w-[33px] h-[33px]" />
           {#if $objectivesApi.currentObjective.completed}
             <Confetti y={[-0.5, 0.5]} x={[0, 2]} amount={22} />
@@ -46,7 +43,7 @@
               ? 'line-through'
               : ''}"
           />
-        </button>
+        </div>
         <ul class="p-2">
           {#if showTodos}
             {#each $objectivesApi.currentTasks as task}
@@ -60,13 +57,11 @@
 </div>
 
 <style>
-  button {
-    pointer-events: auto;
-  }
   .hud-objectives {
     position: absolute;
     width: 50%;
     height: 50%;
     padding: 0.44em;
+    text-shadow: 1px 1px 1px #000000;
   }
 </style>
