@@ -123,11 +123,30 @@ export const conchEncounter2 = (onComplete?: () => void) => {
               imgSrc: conch_smile,
               name: "conch",
               text: "ch1_conch-encounter-3_o2-8",
+              onProceed: () => {
+                get(dialogApi).zHigh = true;
+                get(smApi).isInteractable = false;
+                get(smApi).modalClass = "pt-[111px]";
+                get(hudApi).showSmModal = true;
+              },
             },
             {
               imgSrc: conch_smile,
               name: "conch",
               text: "ch1_conch-encounter-4",
+              onProceed: () => {
+                get(smApi).currentIndex = 0;
+              },
+            },
+            {
+              imgSrc: conch_smile,
+              name: "conch",
+              text: "sm-observation_desc",
+              onProceed: () => {
+                get(hudApi).showSmModal = false;
+                get(smApi).reset();
+                get(dialogApi).zHigh = false;
+              },
             },
             observationTask(onComplete),
           ],
