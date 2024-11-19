@@ -130,57 +130,57 @@ const missionBrief = [
                     name: "mission-control",
                     text: "brief-2_o2-2_o1-2",
                     onProceed: () => {
-                      get(smApi).currentIndex = 0;
+                      // get(smApi).currentIndex = 0;
                     },
                   },
-                  {
-                    imgSrc: radio,
-                    name: "mission-control",
-                    text: "sm-observation_desc",
-                    onProceed: () => {
-                      get(smApi).currentIndex = 1;
-                    },
-                  },
-                  {
-                    imgSrc: radio,
-                    name: "mission-control",
-                    text: "sm-question_desc",
-                    onProceed: () => {
-                      get(smApi).currentIndex = 2;
-                    },
-                  },
-                  {
-                    imgSrc: radio,
-                    name: "mission-control",
-                    text: "sm-hypothesis_desc",
-                    onProceed: () => {
-                      get(smApi).currentIndex = 3;
-                    },
-                  },
-                  {
-                    imgSrc: radio,
-                    name: "mission-control",
-                    text: "sm-experiment_desc",
-                    onProceed: () => {
-                      get(smApi).currentIndex = 4;
-                    },
-                  },
-                  {
-                    imgSrc: radio,
-                    name: "mission-control",
-                    text: "sm-analysis_desc",
-                    onProceed: () => {
-                      get(smApi).currentIndex = 5;
-                    },
-                  },
-                  {
-                    imgSrc: radio,
-                    name: "mission-control",
-                    text: "sm-conclusion_desc",
-                    onProceed: () => {
-                      get(smApi).currentIndex = -1;
-                    },
-                  },
+                  // {
+                  //   imgSrc: radio,
+                  //   name: "mission-control",
+                  //   text: "sm-observation_desc",
+                  //   onProceed: () => {
+                  //     get(smApi).currentIndex = 1;
+                  //   },
+                  // },
+                  // {
+                  //   imgSrc: radio,
+                  //   name: "mission-control",
+                  //   text: "sm-question_desc",
+                  //   onProceed: () => {
+                  //     get(smApi).currentIndex = 2;
+                  //   },
+                  // },
+                  // {
+                  //   imgSrc: radio,
+                  //   name: "mission-control",
+                  //   text: "sm-hypothesis_desc",
+                  //   onProceed: () => {
+                  //     get(smApi).currentIndex = 3;
+                  //   },
+                  // },
+                  // {
+                  //   imgSrc: radio,
+                  //   name: "mission-control",
+                  //   text: "sm-experiment_desc",
+                  //   onProceed: () => {
+                  //     get(smApi).currentIndex = 4;
+                  //   },
+                  // },
+                  // {
+                  //   imgSrc: radio,
+                  //   name: "mission-control",
+                  //   text: "sm-analysis_desc",
+                  //   onProceed: () => {
+                  //     get(smApi).currentIndex = 5;
+                  //   },
+                  // },
+                  // {
+                  //   imgSrc: radio,
+                  //   name: "mission-control",
+                  //   text: "sm-conclusion_desc",
+                  //   onProceed: () => {
+                  //     get(smApi).currentIndex = -1;
+                  //   },
+                  // },
                   {
                     imgSrc: radio,
                     name: "mission-control",
