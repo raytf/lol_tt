@@ -60,7 +60,7 @@
   <Drawer
     bind:hidden={drawerHidden}
     backdrop={false}
-    activateClickOutside={false}
+    activateClickOutside={true}
     placement="top"
     width="w-full"
     transitionType="fly"
