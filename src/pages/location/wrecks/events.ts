@@ -1,5 +1,12 @@
 import { writable, get } from "svelte/store";
-import { audioApi, gameApi, hudApi, objectivesApi, notepadApi } from "$apis";
+import {
+  audioApi,
+  gameApi,
+  hudApi,
+  objectivesApi,
+  notepadApi,
+  inventoryApi,
+} from "$apis";
 import { gridOffset, minOffset, moveSub } from "$stores/exploration";
 import {
   coords,
@@ -130,6 +137,7 @@ export const makeObservation = (index: number) => {
   const hud = get(hudApi);
   const notepad = get(notepadApi);
   const objectives = get(objectivesApi);
+  const inventory = get(inventoryApi);
 
   const observationKey = `ch1_observations-${index}`;
   let dialog = [
@@ -139,11 +147,19 @@ export const makeObservation = (index: number) => {
       text: observationKey,
     },
   ];
-  if (!hud.showNotepad) {
+  if (inventory.isItemUnlocked("notepad")) {
+    if (!hud.showNotepad) {
+      dialog.push({
+        imgSrc: thinking,
+        name: "you",
+        text: "ch1_observations_hint-notepad",
+      });
+    }
+  } else {
     dialog.push({
       imgSrc: thinking,
       name: "you",
-      text: "ch1_observations-record",
+      text: "ch1_observations_hint-record",
     });
   }
 
