@@ -206,7 +206,7 @@
             checkPassword();
           }
         }}
-        class="puzzle-item m-2 p-4 {step.titleKey} {clicked[i]
+        class="puzzle-item m-2 p-4 {step.label} {clicked[i]
           ? 'opacity-50 pointer-events-none'
           : ''}"
       >
@@ -244,7 +244,7 @@
     align-items: center;
 
     border: black 1px solid;
-    border-radius: 22%;
+    border-radius: 2em;
 
     background-color: var(--color);
 
