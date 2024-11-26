@@ -2,7 +2,6 @@
   import { onMount } from "svelte";
   import { Popover } from "flowbite-svelte";
   import { gsap } from "gsap";
-  import { Flip } from "gsap/Flip";
   import { CustomWiggle } from "gsap/CustomWiggle";
   import { fade } from "svelte/transition";
   import { Lol } from "$components/text";
@@ -10,6 +9,7 @@
   import { InfoButton } from "$components/ui/button";
   import { steps } from "$components/scientificMethod";
   import { lolApi, hudApi } from "$apis";
+  import { flipElement, doFlip } from "$stores/flip";
 
   let {
     onClose,
@@ -103,43 +103,47 @@
   });
 
   function playStartAnimation() {
-    if ($hudApi.flipElement && startContainerElement) {
-      const initialState = Flip.getState($hudApi.flipElement);
-      startContainerElement.appendChild($hudApi.flipElement);
-
-      Flip.from(initialState, {
-        absolute: true,
-        duration: 1,
-        onComplete: () => {
-          gsap.to(".anim_start-1", { opacity: 1, duration: 1 });
-          gsap.to(".anim_start-2", { opacity: 1, delay: 0.5, duration: 1 });
+    if ($flipElement && startContainerElement) {
+      doFlip(
+        () => {
+          startContainerElement.appendChild($flipElement);
         },
-      });
+        {
+          absolute: true,
+          duration: 1,
+          onComplete: () => {
+            gsap.to(".anim_start-1", { opacity: 1, duration: 1 });
+            gsap.to(".anim_start-2", { opacity: 1, delay: 0.5, duration: 1 });
+          },
+        },
+      );
     }
   }
 
   function playEndAnimation() {
     gsap.to([".anim_start-1", ".anim_start-2"], { opacity: 0, duration: 1 });
-    if ($hudApi.flipElement && endContainerElement) {
-      const initialState = Flip.getState($hudApi.flipElement);
-      endContainerElement.appendChild($hudApi.flipElement);
-
-      Flip.from(initialState, {
-        absolute: true,
-        duration: 1,
-        onComplete: () => {
-          gsap.to(".anim_end", {
-            opacity: 1,
-            duration: 1,
-            onComplete: () => {
-              onClose?.();
-              setTimeout(() => {
-                onCorrect?.();
-              }, 1111);
-            },
-          });
+    if ($flipElement && endContainerElement) {
+      doFlip(
+        () => {
+          endContainerElement.appendChild($flipElement);
         },
-      });
+        {
+          absolute: true,
+          duration: 1,
+          onComplete: () => {
+            gsap.to(".anim_end", {
+              opacity: 1,
+              duration: 1,
+              onComplete: () => {
+                onClose?.();
+                setTimeout(() => {
+                  onCorrect?.();
+                }, 1111);
+              },
+            });
+          },
+        },
+      );
     }
   }
 </script>

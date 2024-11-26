@@ -7,6 +7,7 @@
   import { InfoButton } from "$components/ui/button";
   import { Backpack } from "$components/svg/icons/hud";
   import { hudApi, inventoryApi, objectivesApi } from "$apis";
+  import { flipElement } from "$stores/flip";
 
   let {
     class: extraClass,
@@ -26,10 +27,10 @@
     }
     if (itemId === "radio") {
       if (smallIconElements[index]) {
-        $hudApi.flipElement = smallIconElements[index];
+        flipElement.set(smallIconElements[index]);
       }
       if (bigIconElement) {
-        $hudApi.flipElement = bigIconElement;
+        flipElement.set(bigIconElement);
       }
       $hudApi.showSmPuzzle = true;
     }

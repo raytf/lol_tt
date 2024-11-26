@@ -22,7 +22,7 @@
   import wrecks_2 from "$assets/wrecks/wrecks_2.png";
   import wrecks_3 from "$assets/wrecks/wrecks_3.png";
   import wrecks_secret from "$assets/wrecks/wrecks_secret.png";
-  import { gameApi, hudApi } from "$apis";
+  import { gameApi, hudApi, inventoryApi } from "$apis";
   import {
     subNearSurface,
     onTopAreaClick,
@@ -73,6 +73,8 @@
     }, 555);
     $hudApi.debugActivate();
     if (params.prog === "1") {
+      $inventoryApi.unlockItem("sm");
+      $inventoryApi.unlockItem("radio");
       conchEncountered.set(true);
       startChapterOne();
     }
