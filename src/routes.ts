@@ -27,7 +27,7 @@ export default {
   "/prologue": Prologue,
   "/surface-intro": SurfaceIntro,
   "/surface": Surface,
-  "/wrecks/:from?": Wrecks,
+  "/wrecks/:prev?/:prog?": Wrecks,
   "/forest": Forest,
   "/ch1": Ch1,
   "/ch1_encounter_shell": Ch1_Encounter_Shell,

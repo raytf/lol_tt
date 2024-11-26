@@ -25,7 +25,8 @@
         <Objectives
           class="z-100 left-0 {($hudApi.showDialog ||
             $hudApi.showSmModal ||
-            $hudApi.showSmPuzzle) &&
+            $hudApi.showSmPuzzle ||
+            $hudApi.showNotepad) &&
             disableHideClass}"
         />
       </div>
@@ -95,8 +96,8 @@
     {/if}
     {#if $hudApi.showNotepad}
       <div
-        transition:fly={{ x: 555 }}
-        class="absolute w-[33%] h-3/4 bottom-2 right-2 z-[100]"
+        transition:fly={{ x: -555 }}
+        class="absolute w-[33%] h-3/4 bottom-2 left-2 z-[100]"
       >
         <Notepad
           title={$notepadApi.currentPage ? $notepadApi.currentPage.title : ""}

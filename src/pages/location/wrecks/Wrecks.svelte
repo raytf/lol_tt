@@ -32,9 +32,11 @@
     finishedObservationTask,
     startChapterOne,
     makeObservation,
+    conchEncountered,
   } from "./events";
+  import { ArrowUp, ArrowRight } from "$components/svg/icons/animated";
 
-  let { params }: { params: { from: string } } = $props();
+  let { params }: { params: { prev: string; prog: string } } = $props();
 
   const grid = {
     width: $gameApi.windowWidth * 1.5,
@@ -50,7 +52,7 @@
     x: $gameApi.windowWidth / 2,
     y: $gameApi.windowHeight / 2,
   };
-  if (params.from === "surface") {
+  if (params.prev === "surface") {
     initialPosition = { x: $gameApi.windowWidth / 2, y: -222 };
     initialTarget = {
       x: $gameApi.windowWidth / 2,
@@ -58,17 +60,22 @@
     };
     gridOffset.set({ x: 0, y: 0 }, { hard: true });
   }
-  if (params.from === "forest") {
+  if (params.prev === "forest") {
     initialPosition = { x: grid.width + 111, y: 111 };
     initialTarget = { x: grid.width - 222, y: 111 };
     gridOffset.set({ x: $minOffset.x, y: 0 }, { hard: true });
   }
+
   setSubPosition(initialPosition);
   onMount(() => {
     setTimeout(() => {
       setSubTarget(initialTarget);
     }, 555);
-    // $hudApi.debugActivate();
+    $hudApi.debugActivate();
+    if (params.prog === "1") {
+      conchEncountered.set(true);
+      startChapterOne();
+    }
     // startChapterOne();
   });
 </script>
@@ -125,25 +132,28 @@
         --color-top="#03E5B7"
         --color-bottom="#00C1EF"
       />
-      {#if $subNearSurface}
-        <div transition:fade>
-          <Button
-            onclick={() => {
-              $gameApi.fadeScene("/surface");
-            }}
-            class="absolute right-[44%] top-[4%] text-2xl z-[20]"
-          >
-            <Lol key="surface" />
-          </Button>
-        </div>
-      {/if}
+      <!-- {#if $subNearSurface}
+      {/if} -->
+      <button
+        onclick={() => {
+          $gameApi.fadeScene("/surface");
+        }}
+        class="absolute right-[44%] top-[4%] text-2xl flex flex-col items-center z-[20]"
+      >
+        <ArrowUp class="w-[44px] h-[44px]" />
+        <Lol key="surface" />
+      </button>
+
       <button
         onclick={() => {
           setSubTarget({ x: grid.width + 111, y: 111 });
           $gameApi.fadeScene("/forest", 0.44);
         }}
-        class="absolute right-[4%] top-[22%] text-2xl z-[25]">Forest</button
+        class="absolute right-[4%] top-[22%] text-2xl flex items-center z-[25]"
       >
+        <Lol key="forest" class="mr-1" />
+        <ArrowRight class="w-[33px] h-[33px]" />
+      </button>
       {#if $startedObservationTask && !$finishedObservationTask}
         <InfoMarker
           onclick={() => {

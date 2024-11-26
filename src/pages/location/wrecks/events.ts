@@ -37,7 +37,7 @@ export const onTopAreaClick = (e: MouseEvent) => {
     get(objectivesApi).completeTask("task_move-sub");
   }
   const targetCoords = moveSub(e);
-  if (targetCoords.y < 222) {
+  if (targetCoords.y < 111) {
     subNearSurface.set(true);
     return;
   }
@@ -126,7 +126,9 @@ export const startChapterOne = () => {
       {
         key: "obj_wrecks-question",
         completed: false,
-        onFinished: () => {},
+        onFinished: () => {
+          hud.showNotepad = false;
+        },
       },
     ],
     onFinished: () => {},
