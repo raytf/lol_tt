@@ -162,56 +162,69 @@ export const conchReview1 = [
     name: "conch",
     text: "ch1_conch-review-1",
     onProceed: () => {
-      get(hudApi).showNotepad = true;
-      get(objectivesApi).completeTask("task_review-observations");
+      get(dialogApi).zHigh = true;
+      get(smApi).isInteractable = false;
+      get(smApi).modalClass = "pt-[111px]";
+      get(hudApi).showSmModal = true;
+      get(smApi).currentIndex = 1;
     },
   },
   {
     imgSrc: conch_smile,
     name: "conch",
     text: "ch1_conch-review-2",
+    onProceed: () => {
+      get(hudApi).showSmModal = false;
+      get(smApi).reset();
+      get(dialogApi).zHigh = false;
+    },
+  },
+  {
+    imgSrc: conch_smile,
+    name: "conch",
+    text: "ch1_conch-review-3",
     options: [
       {
         imgSrc: thinking,
-        text: "ch1_conch-review-2_q1",
+        text: "ch1_conch-review-3_q1",
         nextDialog: [
           {
             imgSrc: conch_smile,
             name: "conch",
-            text: "ch1_conch-review-2_q1-1",
+            text: "ch1_conch-review-3_q1-1",
           },
           {
             imgSrc: conch_smile,
             name: "conch",
-            text: "ch1_conch-review-2_q1-2",
+            text: "ch1_conch-review-3_q1-2",
             options: [
               {
                 imgSrc: thinking,
-                text: "ch1_conch-review-2_q2",
+                text: "ch1_conch-review-3_q2",
                 nextDialog: [
                   {
                     imgSrc: conch_smile,
                     name: "conch",
-                    text: "ch1_conch-review-2_q2-1",
+                    text: "ch1_conch-review-3_q2-1",
                   },
                   {
                     imgSrc: conch_smile,
                     name: "conch",
-                    text: "ch1_conch-review-2_q2-2",
+                    text: "ch1_conch-review-3_q2-2",
                     options: [
                       {
                         imgSrc: thinking,
-                        text: "ch1_conch-review-2_q3",
+                        text: "ch1_conch-review-3_q3",
                         nextDialog: [
                           {
                             imgSrc: conch_smile,
                             name: "conch",
-                            text: "ch1_conch-review-2_q3-1",
+                            text: "ch1_conch-review-3_q3-1",
                           },
                           {
                             imgSrc: conch_smile,
                             name: "conch",
-                            text: "ch1_conch-review-2_q3-2",
+                            text: "ch1_conch-review-3_q3-2",
                             onProceed: () => {
                               get(objectivesApi).completeTask(
                                 "task_ask-question",
@@ -221,7 +234,7 @@ export const conchReview1 = [
                           {
                             imgSrc: conch_smile,
                             name: "conch",
-                            text: "ch1_conch-review-3",
+                            text: "ch1_conch-review-4",
                           },
                         ],
                       },

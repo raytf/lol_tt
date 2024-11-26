@@ -88,6 +88,8 @@ export const onclickConch = () => {
   }
 
   // Review observations
+  get(hudApi).showNotepad = true;
+  get(objectivesApi).completeTask("task_review-observations");
   get(hudApi).startDialog({
     keys: conchReview1,
     blockInput: true,
@@ -177,10 +179,14 @@ export const makeObservation = (index: number) => {
       if (hud.showNotepad && notepad.currentPage) {
         notepad.currentPage.addLine(observationKey);
         if (notepad.currentPage.lines.length >= 3) {
-          objectives.completeTask("task_record-observations");
-          finishedObservationTask.set(true);
+          finishObservationTask();
         }
       }
     },
   });
+};
+
+export const finishObservationTask = () => {
+  objectives.completeTask("task_record-observations");
+  finishedObservationTask.set(true);
 };

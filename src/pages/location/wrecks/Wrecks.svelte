@@ -32,6 +32,7 @@
     finishedObservationTask,
     startChapterOne,
     makeObservation,
+    finishObservationTask,
     conchEncountered,
   } from "./events";
   import { ArrowUp, ArrowRight } from "$components/svg/icons/animated";
@@ -68,15 +69,22 @@
 
   setSubPosition(initialPosition);
   onMount(() => {
+    // Debug
+    $inventoryApi.unlockItem("sm");
+    $inventoryApi.unlockItem("radio");
+    $hudApi.debugActivate();
+
     setTimeout(() => {
       setSubTarget(initialTarget);
     }, 555);
-    $hudApi.debugActivate();
-    if (params.prog === "1") {
-      $inventoryApi.unlockItem("sm");
-      $inventoryApi.unlockItem("radio");
+
+    const progress = Number(params.prog);
+    if (progress >= 1) {
       conchEncountered.set(true);
       startChapterOne();
+    }
+    if (progress >= 2) {
+      finishObservationTask();
     }
     // startChapterOne();
   });
