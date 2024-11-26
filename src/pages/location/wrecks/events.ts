@@ -31,6 +31,7 @@ export const finishedObservationTask = writable(false);
 export const observationDone = writable(false);
 const hud = get(hudApi);
 const notepad = get(notepadApi);
+const objectives = get(objectivesApi);
 
 export const onTopAreaClick = (e: MouseEvent) => {
   if (!get(tutorialComplete)) {
@@ -113,6 +114,9 @@ const startConchDialog2 = () => {
 };
 
 export const startChapterOne = () => {
+  hud.startItemUnlock({
+    itemId: "notepad",
+  });
   startedObservationTask.set(true);
   notepad.startObservationsPage("notepad_title-observations");
   get(hudApi).startChapter({
@@ -121,7 +125,9 @@ export const startChapterOne = () => {
       {
         key: "obj_wrecks-observation",
         completed: false,
-        onFinished: () => {},
+        onFinished: () => {
+          hud.showNotepad = false;
+        },
       },
       {
         key: "obj_wrecks-question",

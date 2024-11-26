@@ -47,11 +47,6 @@
       onclick={() => {
         drawerHidden = false;
         $objectivesApi.completeTask("task_open-inventory");
-        $objectivesApi.completeTask("task_tool-record", () => {
-          $hudApi.startItemUnlock({
-            itemId: "notepad",
-          });
-        });
       }}
       class="button-toggle"
     >
