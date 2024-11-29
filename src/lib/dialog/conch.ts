@@ -8,6 +8,11 @@ import thinking from "$assets/emoji/thinking.svg";
 import confused from "$assets/emoji/confused.svg";
 import dizzy from "$assets/emoji/dizzy.svg";
 import conch_smile from "$assets/characters/conch/smile.png";
+import conch_scary from "$assets/characters/conch/scary.png";
+import conch_openMouth from "$assets/characters/conch/openMouth.png";
+import conch_frown from "$assets/characters/conch/frown.png";
+import conch_neutral from "$assets/characters/conch/neutral.png";
+import conch_cool from "$assets/characters/conch/cool.png";
 
 export const observationTask = (onComplete?: () => void) => {
   return {
@@ -39,7 +44,7 @@ export const observationTask = (onComplete?: () => void) => {
 
 export const conchEncounter1 = [
   {
-    imgSrc: conch_smile,
+    imgSrc: conch_scary,
     name: "conch",
     text: "ch1_conch-encounter-1",
     options: [
@@ -48,12 +53,12 @@ export const conchEncounter1 = [
         text: "ch1_conch-encounter-1_o1",
         nextDialog: [
           {
-            imgSrc: conch_smile,
+            imgSrc: conch_neutral,
             name: "conch",
             text: "ch1_conch-encounter-1_o1-1",
           },
           {
-            imgSrc: conch_smile,
+            imgSrc: conch_cool,
             name: "conch",
             text: "ch1_conch-encounter-1_o1-2",
           },
@@ -66,12 +71,12 @@ export const conchEncounter1 = [
 export const conchEncounter2 = (onComplete?: () => void) => {
   return [
     {
-      imgSrc: conch_smile,
+      imgSrc: conch_scary,
       name: "conch",
       text: "ch1_conch-encounter-2",
     },
     {
-      imgSrc: conch_smile,
+      imgSrc: conch_scary,
       name: "conch",
       text: "ch1_conch-encounter-3",
       options: [
@@ -95,7 +100,7 @@ export const conchEncounter2 = (onComplete?: () => void) => {
               text: "ch1_conch-encounter-3_o2-2",
             },
             {
-              imgSrc: conch_smile,
+              imgSrc: conch_neutral,
               name: "conch",
               text: "ch1_conch-encounter-3_o2-3",
             },
@@ -105,22 +110,22 @@ export const conchEncounter2 = (onComplete?: () => void) => {
               text: "ch1_conch-encounter-3_o2-4",
             },
             {
-              imgSrc: conch_smile,
+              imgSrc: conch_openMouth,
               name: "conch",
               text: "ch1_conch-encounter-3_o2-5",
             },
             {
-              imgSrc: conch_smile,
+              imgSrc: conch_frown,
               name: "conch",
               text: "ch1_conch-encounter-3_o2-6",
             },
             {
-              imgSrc: conch_smile,
+              imgSrc: conch_neutral,
               name: "conch",
               text: "ch1_conch-encounter-3_o2-7",
             },
             {
-              imgSrc: conch_smile,
+              imgSrc: conch_neutral,
               name: "conch",
               text: "ch1_conch-encounter-3_o2-8",
               onProceed: () => {
@@ -131,7 +136,7 @@ export const conchEncounter2 = (onComplete?: () => void) => {
               },
             },
             {
-              imgSrc: conch_smile,
+              imgSrc: conch_neutral,
               name: "conch",
               text: "ch1_conch-encounter-4",
               onProceed: () => {
@@ -139,7 +144,7 @@ export const conchEncounter2 = (onComplete?: () => void) => {
               },
             },
             {
-              imgSrc: conch_smile,
+              imgSrc: conch_neutral,
               name: "conch",
               text: "sm-observation_desc",
               onProceed: () => {
@@ -158,21 +163,46 @@ export const conchEncounter2 = (onComplete?: () => void) => {
 
 export const conchReview1 = [
   {
-    imgSrc: conch_smile,
+    imgSrc: conch_scary,
     name: "conch",
     text: "ch1_conch-review-1",
+    options: [
+      {
+        imgSrc: openMouth,
+        text: "ch1_conch-review-1_o1",
+        nextDialog: [
+          {
+            imgSrc: conch_smile,
+            name: "conch",
+            text: "ch1_conch-review-1_o1-1",
+          },
+          {
+            imgSrc: conch_smile,
+            name: "conch",
+            text: "ch1_conch-review-1_o1-2",
+          },
+        ],
+      },
+    ],
     onProceed: () => {
       get(dialogApi).zHigh = true;
       get(smApi).isInteractable = false;
       get(smApi).modalClass = "pt-[111px]";
       get(hudApi).showSmModal = true;
-      get(smApi).currentIndex = 1;
     },
   },
   {
     imgSrc: conch_smile,
     name: "conch",
     text: "ch1_conch-review-2",
+    onProceed: () => {
+      get(smApi).currentIndex = 1;
+    },
+  },
+  {
+    imgSrc: conch_smile,
+    name: "conch",
+    text: "ch1_conch-review-3",
     onProceed: () => {
       get(hudApi).showSmModal = false;
       get(smApi).reset();
@@ -182,49 +212,49 @@ export const conchReview1 = [
   {
     imgSrc: conch_smile,
     name: "conch",
-    text: "ch1_conch-review-3",
+    text: "ch1_conch-review-4",
     options: [
       {
         imgSrc: thinking,
-        text: "ch1_conch-review-3_q1",
+        text: "ch1_conch-review-4_q1",
         nextDialog: [
           {
             imgSrc: conch_smile,
             name: "conch",
-            text: "ch1_conch-review-3_q1-1",
+            text: "ch1_conch-review-4_q1-1",
           },
           {
             imgSrc: conch_smile,
             name: "conch",
-            text: "ch1_conch-review-3_q1-2",
+            text: "ch1_conch-review-4_q1-2",
             options: [
               {
                 imgSrc: thinking,
-                text: "ch1_conch-review-3_q2",
+                text: "ch1_conch-review-4_q2",
                 nextDialog: [
                   {
                     imgSrc: conch_smile,
                     name: "conch",
-                    text: "ch1_conch-review-3_q2-1",
+                    text: "ch1_conch-review-4_q2-1",
                   },
                   {
                     imgSrc: conch_smile,
                     name: "conch",
-                    text: "ch1_conch-review-3_q2-2",
+                    text: "ch1_conch-review-4_q2-2",
                     options: [
                       {
                         imgSrc: thinking,
-                        text: "ch1_conch-review-3_q3",
+                        text: "ch1_conch-review-4_q3",
                         nextDialog: [
                           {
                             imgSrc: conch_smile,
                             name: "conch",
-                            text: "ch1_conch-review-3_q3-1",
+                            text: "ch1_conch-review-4_q3-1",
                           },
                           {
                             imgSrc: conch_smile,
                             name: "conch",
-                            text: "ch1_conch-review-3_q3-2",
+                            text: "ch1_conch-review-4_q3-2",
                             onProceed: () => {
                               get(objectivesApi).completeTask(
                                 "task_ask-question",
@@ -234,7 +264,7 @@ export const conchReview1 = [
                           {
                             imgSrc: conch_smile,
                             name: "conch",
-                            text: "ch1_conch-review-4",
+                            text: "ch1_conch-review-5",
                           },
                         ],
                       },

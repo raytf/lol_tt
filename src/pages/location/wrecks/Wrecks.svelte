@@ -32,6 +32,7 @@
     finishedObservationTask,
     startChapterOne,
     makeObservation,
+    dbAddObservations,
     finishObservationTask,
     conchEncountered,
   } from "./events";
@@ -84,6 +85,7 @@
       startChapterOne();
     }
     if (progress >= 2) {
+      dbAddObservations();
       finishObservationTask();
     }
     // startChapterOne();

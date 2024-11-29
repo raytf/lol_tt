@@ -145,7 +145,6 @@ export const startChapterOne = () => {
 
 export const makeObservation = (index: number) => {
   const hud = get(hudApi);
-  const notepad = get(notepadApi);
   const objectives = get(objectivesApi);
   const inventory = get(inventoryApi);
 
@@ -184,6 +183,13 @@ export const makeObservation = (index: number) => {
       }
     },
   });
+};
+
+export const dbAddObservations = () => {
+  for (let i = 1; i <= 3; i++) {
+    const observationKey = `ch1_observations-${i}`;
+    if (notepad.currentPage) notepad.currentPage.addLine(observationKey);
+  }
 };
 
 export const finishObservationTask = () => {

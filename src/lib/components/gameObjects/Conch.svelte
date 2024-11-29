@@ -1,6 +1,7 @@
 <script lang="ts">
   import conch from "$assets/characters/conch/shell.png";
   import smile from "$assets/characters/conch/smile.png";
+  import scary from "$assets/characters/conch/scary.png";
   let {
     class: extraClass,
     style: extraStyle,
@@ -35,7 +36,7 @@
 >
   <img src={conch} alt="conch" class="absolute bottom-0 size-full z-0" />
   <img
-    src={smile}
+    src={scary}
     alt="conch_smile"
     class="conch-face absolute bottom-0 size-full z-[1] {faceRevealed ||
     revealFace
