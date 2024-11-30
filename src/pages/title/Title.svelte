@@ -1,6 +1,5 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { blur } from "svelte/transition";
   import { TurbulentImg } from "$components/ui/img";
   import { TextOverlay } from "$components/text";
   import ocean from "$assets/title/tritons-triangle.jpg";
@@ -10,6 +9,7 @@
     tlZoomInMore,
     tlRevealText,
     hideHeadings,
+    tlHideText,
   } from "./animations";
 
   const textSequence = [
@@ -18,7 +18,6 @@
   ];
   let currentSequence = $state(0);
   let startIntro = $state(true);
-  let startTitle = $state(true);
   let blackdropOpacity = $state(100);
   onMount(() => {
     hideHeadings();
@@ -67,38 +66,32 @@
       class="z-10"
     />
   {/each}
-  {#if startTitle}
-    <div out:blur class="relative size-full flex flex-col items-center">
-      <h1 id="pg-title_header" class="text-title text-8xl font-bold mt-24">
-        {$lolApi.getText("title")}
-      </h1>
-      <p id="pg-title_subheader" class="text-title text-4xl font-bold p-4">
-        {$lolApi.getText("subtitle")}
-      </p>
-      <div class="grow w-full flex flex-col justify-end items-center">
-        <button
-          id="pg-title_button-start"
-          onclick={() => {
-            startTitle = false;
+  <div class="relative size-full flex flex-col items-center">
+    <h1 id="pg-title_header" class="text-title text-8xl font-bold mt-24">
+      {$lolApi.getText("title")}
+    </h1>
+    <p id="pg-title_subheader" class="text-title text-4xl font-bold p-4">
+      {$lolApi.getText("subtitle")}
+    </p>
+    <div class="grow w-full flex flex-col justify-end items-center">
+      <button
+        id="pg-title_button-start"
+        onclick={() => {
+          tlHideText();
 
-            // Preload
-            $audioApi.loadTrack({
-              src: "music/tritons-triangle.mp3",
-            });
-            $gameApi.fadeScene("/prologue", 2.4);
-            $audioApi.stopTrack({
-              src: "music/into-the-blue.mp3",
-              fade: true,
-              fadeTime: 2222,
-            });
-          }}
-          class="text-title p-12"
-        >
-          <p class="text-2xl">{$lolApi.getText("start")}</p>
-        </button>
-      </div>
+          $gameApi.fadeScene("/surface", 2.4);
+          $audioApi.stopTrack({
+            src: "music/into-the-blue.mp3",
+            fade: true,
+            fadeTime: 2222,
+          });
+        }}
+        class="text-title p-12"
+      >
+        <p class="text-2xl">{$lolApi.getText("start")}</p>
+      </button>
     </div>
-  {/if}
+  </div>
 </div>
 
 <style>

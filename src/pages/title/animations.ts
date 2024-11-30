@@ -32,3 +32,15 @@ export function tlRevealText(vars?: gsap.TimelineVars) {
   textTl.to("#pg-title_button-start", { opacity: 1, duration: 1 });
   return textTl;
 }
+
+export function tlHideText(vars?: gsap.TimelineVars) {
+  const textTl = gsap.timeline(vars);
+  textTl.to(
+    ["#pg-title_header", "#pg-title_subheader", "#pg-title_button-start"],
+    {
+      opacity: 0,
+      duration: 1,
+    },
+  );
+  return textTl;
+}
