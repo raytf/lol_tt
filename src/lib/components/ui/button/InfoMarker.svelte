@@ -1,9 +1,12 @@
 <script lang="ts">
-  let { onclick, class: extraClass }: { onclick?: () => void; class?: string } =
-    $props();
+  let {
+    onclick,
+    class: extraClass,
+    style: extraStyle,
+  }: { onclick?: () => void; class?: string; style?: string } = $props();
 </script>
 
-<button {onclick} class={extraClass}>
+<button {onclick} class={extraClass} style={extraStyle}>
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="100%"

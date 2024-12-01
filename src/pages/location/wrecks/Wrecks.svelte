@@ -107,29 +107,33 @@
   <Conch
     onclick={onclickConch}
     faceRevealed={$revealConchFace}
-    class="absolute w-[44px] h-[44px] top-[93%] left-[84%] z-[9]"
+    class="absolute w-[44px] h-[44px] top-[92%] left-[44%] z-[9]"
+    style="transform: translateX({$gridOffset.x / 10}px)"
+  />
+  <InfoMarker
+    class="absolute w-[44px] h-[44px] top-[92%] left-[44%] z-[14]"
     style="transform: translateX({$gridOffset.x / 10}px)"
   />
   <Submarine class="z-10" />
-  <WrecksShape
+  <!-- <WrecksShape
     style="transform: translateX({$gridOffset.x / 5}px)"
     class="absolute w-[111%] left-[-4%] bottom-0 pointer-events-none opacity-0 z-[13]"
-  />
-  <BgImg
+  /> -->
+  <!-- <BgImg
     src={wrecks_secret}
     style="transform: translateX({$gridOffset.x / 5}px)"
     class="w-[111%] left-[-4%] bottom-0 z-[13]"
-  />
+  /> -->
   <BgImg
     src={wrecks_1}
     style="transform: translateX({$gridOffset.x / 5}px)"
-    class="w-[111%] left-[-4%] bottom-0 z-[13] opacity-50"
+    class="w-[111%] bottom-0 z-[13] opacity-100"
   />
   <Darkness
     level={$gridOffset.y / $minOffset.y - 0.4}
     lights={[
       { x: $subCoords.x, y: $subCoords.y, unit: "px", radius: 4 },
-      { x: 83, y: 94, unit: "%", radius: 8 },
+      { x: 44, y: 92, unit: "%", radius: 11 },
     ]}
     class="z-50"
   />

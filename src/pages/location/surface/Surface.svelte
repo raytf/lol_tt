@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { querystring } from "svelte-spa-router";
   import { onMount } from "svelte";
   import { fade } from "svelte/transition";
   import { Area } from "$components/exploration";
@@ -16,13 +17,20 @@
     onClickDive,
     onClickArea,
   } from "./events";
+  import { hideHeading } from "./animations";
 
   let initialSubCoords = {
     x: $gameApi.windowWidth / 2,
     y: $gameApi.windowHeight / 2 + 111,
   };
-  setSubPosition(initialSubCoords);
   onMount(() => {
+    hideHeading();
+    // const searchParams = new URLSearchParams($querystring);
+    // if (searchParams.has("start")) {
+    //   setSubPosition(initialSubCoords);
+    //   startSurface();
+    // }
+    setSubPosition(initialSubCoords);
     startSurface();
   });
 </script>

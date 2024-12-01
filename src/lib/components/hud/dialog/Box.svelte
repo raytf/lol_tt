@@ -5,18 +5,22 @@
   let {
     onclick,
     class: extraClass,
+    style: extraStyle,
     avatar,
     name,
     text,
+    underlay,
     options = false,
     top = false,
     ...props
   }: {
     onclick: (e: MouseEvent) => void;
     class?: string;
+    style?: string;
     avatar: Snippet;
     name: Snippet;
     text: Snippet;
+    underlay?: Snippet;
     options?: boolean;
     top?: boolean;
   } = $props();
@@ -24,9 +28,15 @@
 
 <div
   class="container_dialog-box {top ? 'items-start' : 'items-end'} {extraClass}"
+  style={extraStyle}
   {...props}
 >
-  <div class="mr-2">
+  <div class="absolute size-full pointer-events-none">
+    {#if underlay}
+      {@render underlay()}
+    {/if}
+  </div>
+  <div class="mr-2 mt-[44px]">
     {@render avatar()}
   </div>
   <button {onclick} class="box w-[55%]">
@@ -48,9 +58,6 @@
     position: absolute;
     height: 100%;
     width: 100%;
-    bottom: 0;
-    padding-top: 44px;
-    padding-bottom: 22px;
 
     display: flex;
     justify-content: center;
@@ -63,6 +70,7 @@
     background: rgba(255, 255, 255, 0.88);
     color: black;
     text-align: left;
+    margin-top: 44px;
 
     padding: 33px 22px 22px 22px;
     border-radius: 22px;

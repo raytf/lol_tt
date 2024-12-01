@@ -1,2 +1,3 @@
 import Blackdrop from "./Blackdrop.svelte";
-export { Blackdrop };
+import Fader from "./Fader.svelte";
+export { Blackdrop, Fader };

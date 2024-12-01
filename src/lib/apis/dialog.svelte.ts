@@ -1,3 +1,4 @@
+import type { SvelteComponent } from "svelte";
 import { writable } from "svelte/store";
 
 export type DialogKey = {
@@ -8,6 +9,7 @@ export type DialogKey = {
   alreadyRead?: boolean;
   italic?: boolean;
   onProceed?: () => void;
+  bgComp?: typeof SvelteComponent;
 };
 
 export type DialogOption = {
@@ -22,7 +24,6 @@ export class DialogApi {
   blockInput = $state(false);
   currentDialog = $state<DialogKey[]>([]);
   positionTop = $state(true);
-  zHigh = $state(false);
 
   onDialogFinished = () => {};
 }

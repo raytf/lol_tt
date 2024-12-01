@@ -10,12 +10,14 @@
     top = false,
     onFinished,
     class: extraClass,
+    style: extraStyle,
     optionsClass,
   }: {
     keys: DialogKey[];
     top?: boolean;
     onFinished?: () => void;
     class?: string;
+    style?: string;
     optionsClass?: string;
   } = $props();
 
@@ -80,7 +82,9 @@
     options={currentKey.options ? true : false}
     {top}
     class={extraClass}
+    style={extraStyle}
   >
+    {#snippet underlay()}{/snippet}
     {#snippet avatar()}
       <div class="relative w-[111px] h-[111px]">
         {#if currentKey.imgSrc}

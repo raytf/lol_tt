@@ -9,6 +9,6 @@
     background: black;
     pointer-events: none;
 
-    z-index: 1001;
+    z-index: 105;
   }
 </style>

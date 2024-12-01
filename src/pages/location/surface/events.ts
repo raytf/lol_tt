@@ -12,7 +12,6 @@ export const readyToDive = writable(false);
 
 let tlHeading: GSAPTimeline;
 export function startSurface() {
-  hideHeading();
   get(audioApi).playTrack({
     src: "sound/ocean-loop.mp3",
     volume: 0.08,

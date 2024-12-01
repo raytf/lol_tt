@@ -66,7 +66,7 @@
 >
   {#each keys as key, i}
     <p id="text-overlay_{i}" class="text-overlay text-2xl p-4">
-      {$lolApi.getText(key)}
+      {@html $lolApi.getText(key)}
     </p>
   {/each}
 </button>

@@ -1,6 +1,8 @@
 <script lang="ts">
+  import type { Component } from "svelte";
   import { fade, fly, slide } from "svelte/transition";
   import { location } from "svelte-spa-router";
+  import { Fader } from "$components/ui";
   import Objectives from "$components/hud/objectives";
   import { Dialog } from "$components/hud/dialog";
   import { SmModal, SmPuzzle } from "$components/hud/sm";
@@ -15,102 +17,105 @@
     smApi,
   } from "$apis";
   import { noSignal } from "$dialog/radio";
+  import { Empty } from "$components/visual/story";
+  import { storyComponent } from "$stores/story";
+
   const disableHideClass = "disabled opacity-50";
 </script>
 
-{#if $hudApi.activated}
-  <div transition:fade class="container-hud">
-    {#if $hudApi.showObjectives}
-      <div transition:fade>
-        <Objectives
-          class="z-100 left-0 {($hudApi.showDialog ||
-            $hudApi.showSmModal ||
-            $hudApi.showSmPuzzle ||
-            $hudApi.showNotepad) &&
-            disableHideClass}"
-        />
-      </div>
-    {/if}
-    {#if $hudApi.showDialog}
-      <div transition:fade>
-        <Dialog
-          top={$dialogApi.positionTop}
-          keys={$dialogApi.currentDialog}
-          onFinished={() => {
-            $hudApi.endDialog();
-          }}
-          class="{$dialogApi.zHigh
-            ? 'z-[105]'
-            : 'z-[101]'} {$dialogApi.blockInput && 'pointer-events-auto'}"
-          optionsClass="z-[111] pointer-events-auto"
-        />
-      </div>
-    {/if}
-    {#if $hudApi.showInventory}
-      <Inventory
-        class="z-[101] {($hudApi.showDialog ||
+<div transition:fade class="container-hud">
+  <Fader />
+  {#if $hudApi.showObjectives}
+    <div transition:fade>
+      <Objectives
+        class="z-100 left-0 {($hudApi.showDialog ||
           $hudApi.showSmModal ||
           $hudApi.showSmPuzzle ||
-          $hudApi.showItemUnlock) &&
+          $hudApi.showNotepad) &&
           disableHideClass}"
-        drawerClass="z-[101]"
       />
-    {/if}
-    {#if $hudApi.showItemUnlock}
-      <div transition:fade>
-        <ItemUnlockScreen
-          itemId={$inventoryApi.newItemUnlock}
-          onFinish={() => {
-            $hudApi.endItemUnlock();
-          }}
-          class="z-[103] pointer-events-auto"
-        />
-      </div>
-    {/if}
-    {#if $hudApi.showSmModal}
-      <div transition:fade>
-        <SmModal
-          activeIndex={$smApi.currentIndex}
-          interactable={$smApi.isInteractable}
-          class="{$smApi.modalClass} z-[102] pointer-events-auto"
-        />
-      </div>
-    {/if}
-    {#if $hudApi.showSmPuzzle}
-      <SmPuzzle
+    </div>
+  {/if}
+  {#if $hudApi.showDialog}
+    <div transition:fade>
+      <Dialog
+        top={$dialogApi.positionTop}
+        keys={$dialogApi.currentDialog}
+        onFinished={() => {
+          $hudApi.endDialog();
+        }}
+        class="z-[110] {$dialogApi.blockInput ? 'pointer-events-auto' : ''}"
+        optionsClass="z-[111] pointer-events-auto"
+      />
+    </div>
+  {/if}
+  {#if $hudApi.showUnderlay}
+    <svelte:component this={$storyComponent} />
+  {/if}
+  {#if $hudApi.showInventory}
+    <Inventory
+      class="z-[101] {($hudApi.showDialog ||
+        $hudApi.showSmModal ||
+        $hudApi.showSmPuzzle ||
+        $hudApi.showItemUnlock) &&
+        disableHideClass}"
+      drawerClass="z-[101]"
+    />
+  {/if}
+  {#if $hudApi.showItemUnlock}
+    <div transition:fade>
+      <ItemUnlockScreen
+        itemId={$inventoryApi.newItemUnlock}
+        onFinish={() => {
+          $hudApi.endItemUnlock();
+        }}
+        class="z-[103] pointer-events-auto"
+      />
+    </div>
+  {/if}
+  {#if $hudApi.showSmModal}
+    <div transition:fade>
+      <SmModal
+        activeIndex={$smApi.currentIndex}
+        interactable={$smApi.isInteractable}
+        class="{$smApi.modalClass} z-[102] pointer-events-auto"
+      />
+    </div>
+  {/if}
+  {#if $hudApi.showSmPuzzle}
+    <SmPuzzle
+      onClose={() => {
+        $hudApi.showSmPuzzle = false;
+      }}
+      onCorrect={() => {
+        //$objectivesApi.completeTask("task_call-radio");
+        if ($location === "/surface") {
+          $hudApi.startHintDialog();
+        } else {
+          $hudApi.startDialog({
+            keys: noSignal,
+          });
+        }
+      }}
+      class="z-[102] pointer-events-auto"
+    />
+  {/if}
+  {#if $hudApi.showNotepad}
+    <div
+      transition:fly={{ x: -555 }}
+      class="absolute w-[33%] h-3/4 bottom-2 left-2 z-[100]"
+    >
+      <Notepad
+        title={$notepadApi.currentPage ? $notepadApi.currentPage.title : ""}
+        lines={$notepadApi.currentPage ? $notepadApi.currentPage.lines : []}
         onClose={() => {
-          $hudApi.showSmPuzzle = false;
+          $hudApi.showNotepad = false;
         }}
-        onCorrect={() => {
-          //$objectivesApi.completeTask("task_call-radio");
-          if ($location === "/surface") {
-            $hudApi.startHintDialog();
-          } else {
-            $hudApi.startDialog({
-              keys: noSignal,
-            });
-          }
-        }}
-        class="z-[102] pointer-events-auto"
+        class="size-full pointer-events-auto opacity-80"
       />
-    {/if}
-    {#if $hudApi.showNotepad}
-      <div
-        transition:fly={{ x: -555 }}
-        class="absolute w-[33%] h-3/4 bottom-2 left-2 z-[100]"
-      >
-        <Notepad
-          title={$notepadApi.currentPage ? $notepadApi.currentPage.title : ""}
-          lines={$notepadApi.currentPage ? $notepadApi.currentPage.lines : []}
-          onClose={() => {
-            $hudApi.showNotepad = false;
-          }}
-          class="size-full pointer-events-auto opacity-80"
-        />
-      </div>
-    {/if}
-  </div>
-{/if}
+    </div>
+  {/if}
+</div>
 
 <style>
   :global(.disabled *) {

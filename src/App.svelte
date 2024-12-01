@@ -2,7 +2,6 @@
   import Router from "svelte-spa-router";
   // Components
   import { SvelteToast } from "@zerodevx/svelte-toast";
-  import Fader from "$components/ui/Fader.svelte";
   import { Hud } from "$components/hud";
   import routes from "./routes";
 
@@ -20,7 +19,6 @@
   <div class="container">
     <div class="content">
       <SvelteToast options={{ intro: { x: -111 } }} />
-      <Fader />
       <Hud />
       <Router {routes} />
     </div>

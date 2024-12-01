@@ -1,5 +1,5 @@
 import { get } from "svelte/store";
-import { hudApi, dialogApi, smApi } from "$apis";
+import { hudApi, dialogApi, smApi, gameApi, audioApi } from "$apis";
 import radio from "$assets/icons/radio.svg";
 import cool from "$assets/emoji/cool.svg";
 import openMouth from "$assets/emoji/open-mouth.svg";
@@ -14,6 +14,11 @@ import hushed from "$assets/emoji/hushed.svg";
 import heartEyes from "$assets/emoji/heart-eyes.svg";
 import tongue from "$assets/emoji/tongue.svg";
 import frownSlight from "$assets/emoji/frown-slight.svg";
+import { MissingCrew } from "$components/visual/story";
+import { storyComponent } from "$stores/story";
+
+const audio = get(audioApi);
+const game = get(gameApi);
 
 const missionBrief = [
   {
@@ -53,11 +58,21 @@ const missionBrief = [
         text: "brief-2_o1",
         imgSrc: neutral,
         repeat: true,
+        onProceed: () => {},
         nextDialog: [
           {
             imgSrc: radio,
             name: "mission-control",
             text: "brief-2_o1-1",
+            onProceed: () => {
+              audio.playTrack({
+                src: "music/tritons-triangle.mp3",
+                volume: 0.44,
+                loop: true,
+                fade: true,
+              });
+              storyComponent.set(MissingCrew);
+            },
           },
           {
             imgSrc: radio,
@@ -68,27 +83,50 @@ const missionBrief = [
             imgSrc: radio,
             name: "mission-control",
             text: "brief-2_o1-3",
+          },
+          {
+            imgSrc: radio,
+            name: "mission-control",
+            text: "brief-2_o1-4",
+          },
+          {
+            imgSrc: radio,
+            name: "mission-control",
+            text: "brief-2_o1-5",
+            onProceed: () => {
+              audio.stopTrack({
+                src: "music/tritons-triangle.mp3",
+                fade: true,
+                fadeTime: 2222,
+              });
+              storyComponent.set(null);
+            },
+          },
+          {
+            imgSrc: radio,
+            name: "mission-control",
+            text: "brief-2_o1-6",
             options: [
               {
-                text: "brief-2_o1-3_o1",
-                imgSrc: hushed,
+                text: "brief-2_o1-6_o1",
+                imgSrc: pensive,
                 nextDialog: [
                   {
-                    imgSrc: radio,
+                    imgSrc: neutral,
                     name: "mission-control",
-                    text: "brief-2_o1-3_o1-1",
+                    text: "brief-2_o1-6_o1-1",
                   },
                   {
                     imgSrc: radio,
                     name: "mission-control",
-                    text: "brief-2_o1-3_o1-2",
+                    text: "brief-2_o1-6_o1-2",
+                  },
+                  {
+                    imgSrc: radio,
+                    name: "mission-control",
+                    text: "brief-2_o1-6_o1-3",
                   },
                 ],
-              },
-              {
-                text: "brief-2_o1-3_o2",
-                imgSrc: neutral,
-                nextDialog: [],
               },
             ],
           },
@@ -119,7 +157,6 @@ const missionBrief = [
                     name: "mission-control",
                     text: "brief-2_o2-2_o1-1",
                     onProceed: () => {
-                      get(dialogApi).zHigh = true;
                       get(smApi).isInteractable = false;
                       get(smApi).modalClass = "pt-[111px]";
                       get(hudApi).showSmModal = true;
@@ -188,7 +225,6 @@ const missionBrief = [
                     onProceed: () => {
                       get(hudApi).showSmModal = false;
                       get(smApi).reset();
-                      get(dialogApi).zHigh = false;
                     },
                   },
                 ],

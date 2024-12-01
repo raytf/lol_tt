@@ -34,20 +34,17 @@
     gsap.to(".shadow", {
       opacity: 0.88,
       scale: 1.5,
-      duration: 4,
+      delay: 2,
+      duration: 11,
       force3D: false,
     });
   }
 
   onMount(() => {
-    blackdropOpacity = 44;
+    blackdropOpacity = 0;
     gsap.to("#pg-prologue_bg", { scale: 1.4, duration: 44, force3D: false });
     gsap.set(".shadow", { opacity: 0 });
-    $audioApi.playTrack({
-      src: "music/tritons-triangle.mp3",
-      volume: 0.66,
-      loop: true,
-    });
+    tlShadowAppear();
   });
 </script>
 
@@ -69,15 +66,15 @@
     <img src={ship} alt="ship" class="anim-bob absolute size-full z-[2]" />
   </div>
 
-  <Blackdrop opacity={blackdropOpacity} transitionDuration={8} class="z-[5]" />
-  {#each textSequence as sequence, i}
+  <!-- <Blackdrop opacity={blackdropOpacity} transitionDuration={11} class="z-[5]" /> -->
+  <!-- {#each textSequence as sequence, i}
     <TextOverlay
       active={i === currentSequence}
       keys={sequence}
       onFinished={nextSequence}
       class="z-10"
     />
-  {/each}
+  {/each} -->
 </div>
 
 <style>

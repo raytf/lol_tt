@@ -1,4 +1,5 @@
 import { writable, get } from "svelte/store";
+import type { Component } from "svelte";
 import type { Objective } from "$apis/objectives.svelte";
 import type { DialogKey, DialogOption } from "$apis/dialog.svelte";
 import { objectivesApi, dialogApi, inventoryApi } from "$apis";
@@ -21,19 +22,17 @@ interface StartItemUnlockParams {
 }
 
 class HudApi {
-  activated = $state(true);
   showObjectives = $state(false);
   showDialog = $state(false);
+  showUnderlay = $state(true);
+  UnderlayComponent = $state<Component>();
   showInventory = $state(false);
   showItemUnlock = $state(false);
   showSmModal = $state(false);
   showSmPuzzle = $state(false);
   showNotepad = $state(false);
 
-  flipElement = $state<HTMLElement | null>(null);
-
   debugActivate() {
-    this.activated = true;
     //get(inventoryApi).unlockEverything();
     this.showInventory = true;
   }
