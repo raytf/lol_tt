@@ -2,7 +2,7 @@ import { writable, get } from "svelte/store";
 import type { Component } from "svelte";
 import type { Objective } from "$apis/objectives.svelte";
 import type { DialogKey, DialogOption } from "$apis/dialog.svelte";
-import { objectivesApi, dialogApi, inventoryApi } from "$apis";
+import { objectivesApi, dialogApi, inventoryApi, smApi } from "$apis";
 
 interface StartObjectivesParams {
   chapterKey: string;
@@ -54,7 +54,17 @@ class HudApi {
 
     this.showObjectives = true;
   }
-
+  openSmModalWithDialog() {
+    const sm = get(smApi);
+    sm.modalClass = "pt-[111px]";
+    sm.isInteractable = false;
+    this.showSmModal = true;
+  }
+  closeSmModalWithDialog() {
+    this.showSmModal = false;
+    const sm = get(smApi);
+    sm.reset();
+  }
   startDialog(params: StartDialogParams) {
     const { keys, onFinished, blockInput } = params;
 

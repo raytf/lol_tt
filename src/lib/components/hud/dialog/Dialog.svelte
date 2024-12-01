@@ -1,6 +1,5 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { fade, blur } from "svelte/transition";
   import type { DialogKey, DialogOption } from "$apis/dialog.svelte";
   import { DialogBox, Options } from "$components/hud/dialog";
   import { lolApi } from "$apis/lol.svelte";
@@ -27,6 +26,7 @@
     if (dialogIndex >= dialogArray.length) {
       return null;
     }
+
     return dialogArray[dialogIndex];
   });
   let showOptions = $state(false);
@@ -50,18 +50,19 @@
     insertDialog(nextDialog);
 
     if (currentKey.onProceed) currentKey.onProceed();
+    showOptions = false;
     nextLine();
   }
 
   function nextLine() {
     dialogIndex++;
-    showOptions = false;
-    if (dialogIndex < dialogArray.length) {
-      $lolApi.speakText(dialogArray[dialogIndex].text);
-      return;
-    }
 
-    if (onFinished) onFinished();
+    if (currentKey) {
+      $lolApi.speakText(currentKey.text);
+      if (currentKey.onStart) currentKey.onStart();
+    } else {
+      if (onFinished) onFinished();
+    }
   }
 
   function insertDialog(dialog: DialogKey[] = []) {
@@ -69,9 +70,8 @@
   }
 
   onMount(() => {
-    // Speak the first dialog
-    if (dialogArray.length > 0) {
-      $lolApi.speakText(dialogArray[0].text);
+    if (currentKey) {
+      $lolApi.speakText(currentKey.text);
     }
   });
 </script>
@@ -84,7 +84,6 @@
     class={extraClass}
     style={extraStyle}
   >
-    {#snippet underlay()}{/snippet}
     {#snippet avatar()}
       <div class="relative w-[111px] h-[111px]">
         {#if currentKey.imgSrc}

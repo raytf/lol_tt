@@ -1,8 +1,10 @@
 import { writable, get } from "svelte/store";
 import { hudApi, gameApi, audioApi, objectivesApi } from "$apis";
-import { missionBrief } from "$dialog/radio";
+import { checkIn, missionBrief } from "$dialog/radio";
 import { setTarget as setSubTarget } from "$stores/sub";
 import { hideHeading, tlRevealHeading } from "./animations";
+
+const hud = get(hudApi);
 
 export const tutorialComplete = writable(false);
 
@@ -62,20 +64,16 @@ export function onClickDive() {
 }
 
 export function startMissionBrief() {
-  startMissionBriefDialog(() => {
-    unlockSmItem(() => {
-      unlockRadioItem(() => {
-        get(hudApi).showInventory = true;
-        startTutorial();
+  hud.startDialog({
+    keys: [...checkIn, ...missionBrief],
+    onFinished: () => {
+      unlockSmItem(() => {
+        unlockRadioItem(() => {
+          get(hudApi).showInventory = true;
+          startTutorial();
+        });
       });
-    });
-  });
-}
-
-export function startMissionBriefDialog(onFinished?: () => void) {
-  get(hudApi).startDialog({
-    keys: missionBrief,
-    onFinished: onFinished,
+    },
   });
 }
 

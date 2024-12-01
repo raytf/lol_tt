@@ -8,8 +8,8 @@ export type DialogKey = {
   options?: DialogOption[];
   alreadyRead?: boolean;
   italic?: boolean;
+  onStart?: () => void;
   onProceed?: () => void;
-  bgComp?: typeof SvelteComponent;
 };
 
 export type DialogOption = {

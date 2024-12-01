@@ -1,8 +1,6 @@
 <script lang="ts">
-  import type { Component } from "svelte";
   import { fade, fly, slide } from "svelte/transition";
   import { location } from "svelte-spa-router";
-  import { Fader } from "$components/ui";
   import Objectives from "$components/hud/objectives";
   import { Dialog } from "$components/hud/dialog";
   import { SmModal, SmPuzzle } from "$components/hud/sm";
@@ -17,14 +15,12 @@
     smApi,
   } from "$apis";
   import { noSignal } from "$dialog/radio";
-  import { Empty } from "$components/visual/story";
   import { storyComponent } from "$stores/story";
 
   const disableHideClass = "disabled opacity-50";
 </script>
 
 <div transition:fade class="container-hud">
-  <Fader />
   {#if $hudApi.showObjectives}
     <div transition:fade>
       <Objectives
@@ -44,8 +40,8 @@
         onFinished={() => {
           $hudApi.endDialog();
         }}
-        class="z-[110] {$dialogApi.blockInput ? 'pointer-events-auto' : ''}"
-        optionsClass="z-[111] pointer-events-auto"
+        class="z-[105] {$dialogApi.blockInput ? 'pointer-events-auto' : ''}"
+        optionsClass="z-[106] pointer-events-auto"
       />
     </div>
   {/if}
@@ -69,7 +65,7 @@
         onFinish={() => {
           $hudApi.endItemUnlock();
         }}
-        class="z-[103] pointer-events-auto"
+        class="z-[110] pointer-events-auto"
       />
     </div>
   {/if}

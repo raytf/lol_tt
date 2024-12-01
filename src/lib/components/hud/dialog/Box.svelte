@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
-  import { Down } from "$components/svg/icons/caret";
+  import { HandClick } from "$components/svg/icons";
 
   let {
     onclick,
@@ -9,7 +9,6 @@
     avatar,
     name,
     text,
-    underlay,
     options = false,
     top = false,
     ...props
@@ -20,7 +19,6 @@
     avatar: Snippet;
     name: Snippet;
     text: Snippet;
-    underlay?: Snippet;
     options?: boolean;
     top?: boolean;
   } = $props();
@@ -31,11 +29,6 @@
   style={extraStyle}
   {...props}
 >
-  <div class="absolute size-full pointer-events-none">
-    {#if underlay}
-      {@render underlay()}
-    {/if}
-  </div>
   <div class="mr-2 mt-[44px]">
     {@render avatar()}
   </div>
@@ -48,7 +41,7 @@
     </p>
 
     <div class="action">
-      <Down class="absolute bottom-4 right-4 w-[24px] h-[24px]" />
+      <HandClick class="absolute bottom-2 right-2 w-[24px] h-[24px]" />
     </div>
   </button>
 </div>
@@ -72,7 +65,7 @@
     text-align: left;
     margin-top: 44px;
 
-    padding: 33px 22px 22px 22px;
+    padding: 33px 22px 28px 22px;
     border-radius: 22px;
     transition: all 0.44s;
   }
