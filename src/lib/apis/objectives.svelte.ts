@@ -51,11 +51,11 @@ export type Objective = {
 };
 
 const objectiveMap: ObjectiveMap = {
+  "obj_learn-controls": [{ key: "task_move-sub" }],
   "obj_check-equipment": [
     { key: "task_open-inventory" },
-    { key: "task_review-SM" },
+    { key: "task_contact-mc" },
   ],
-  "obj_learn-controls": [{ key: "task_move-sub" }, { key: "task_dive" }],
   "obj_wrecks-observation": [{ key: "task_record-observations" }],
   "obj_wrecks-question": [
     { key: "task_review-observations" },

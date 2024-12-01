@@ -21,6 +21,7 @@
 </script>
 
 <div transition:fade class="container-hud">
+  <svelte:component this={$storyComponent} />
   {#if $hudApi.showObjectives}
     <div transition:fade>
       <Objectives
@@ -44,9 +45,6 @@
         optionsClass="z-[106] pointer-events-auto"
       />
     </div>
-  {/if}
-  {#if $hudApi.showUnderlay}
-    <svelte:component this={$storyComponent} />
   {/if}
   {#if $hudApi.showInventory}
     <Inventory

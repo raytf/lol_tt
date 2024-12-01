@@ -24,9 +24,7 @@ interface StartItemUnlockParams {
 class HudApi {
   showObjectives = $state(false);
   showDialog = $state(false);
-  showUnderlay = $state(true);
-  UnderlayComponent = $state<Component>();
-  showInventory = $state(false);
+  showInventory = $state(true);
   showItemUnlock = $state(false);
   showSmModal = $state(false);
   showSmPuzzle = $state(false);

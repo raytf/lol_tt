@@ -32,7 +32,7 @@ export const itemMap: ItemMap = {
     id: "radio",
     nameKey: "item_name_radio",
     descKey: "item_desc_radio",
-    actionKey: "item_action_radio",
+    // actionKey: "item_action_radio",
   },
   notepad: {
     imgSrc: notepad,
@@ -62,7 +62,7 @@ export const itemMap: ItemMap = {
 };
 
 export class InventoryApi {
-  unlockedItems = $state<string[]>([]);
+  unlockedItems = $state<string[]>(["radio"]);
   currentHintKey = $state("hint_1");
   showHintDialog = $state(false);
   showGaugeScreen = $state(false);

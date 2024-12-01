@@ -10,13 +10,7 @@
   import { Submarine } from "$components/gameObjects";
   import { setPosition as setSubPosition } from "$stores/sub";
   import { gameApi } from "$apis";
-  import {
-    surfaceSub,
-    readyToDive,
-    startSurface,
-    onClickDive,
-    onClickArea,
-  } from "./events";
+  import events from "./events.svelte";
   import { hideHeading } from "./animations";
 
   let initialSubCoords = {
@@ -31,7 +25,7 @@
     //   startSurface();
     // }
     setSubPosition(initialSubCoords);
-    startSurface();
+    $events.onStart();
   });
 </script>
 
@@ -43,10 +37,10 @@
     <div
       class="absolute bottom-0 w-full h-[222px] flex justify-center items-end pb-11"
     >
-      {#if $readyToDive}
+      {#if $events.readyToDive}
         <div transition:fade>
           <Button
-            onclick={onClickDive}
+            onclick={$events.onClickDive}
             class="w-[111px] h-[88px] flex-col items-center pointer-events-auto"
           >
             <Lol key="dive" class="text-2xl" />
@@ -58,7 +52,7 @@
   </div>
   <SkyOcean start={true} />
   <div class="absolute w-full h-1/2 bottom-0 z-10">
-    <Area onmousedown={onClickArea}></Area>
+    <Area onmousedown={$events.onClickArea}></Area>
   </div>
   <Submarine
     size={111}
@@ -66,6 +60,6 @@
     class="overflow-hidden"
     imgClass="bottom-[-44%]"
     bob={true}
-    reveal={$surfaceSub}
+    reveal={$events.surfaceSub}
   />
 </div>

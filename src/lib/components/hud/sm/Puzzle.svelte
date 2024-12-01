@@ -177,11 +177,11 @@
       imgClass="size-full"
     />
   </div>
-  <Popover title={$lolApi.getText("hint")} trigger="click"
+  <Popover title={$lolApi.getText("hint")} trigger="click" offset={0}
     >{$lolApi.getText("hint_radio-code")}</Popover
   >
 
-  <div class="anim_start-1 relative">
+  <div class="anim_start-1 relative z-[-1]">
     <div class="container-password">
       {#each password as char, i}
         <span

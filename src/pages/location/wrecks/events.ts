@@ -13,7 +13,6 @@ import {
   setTarget as setSubTarget,
   direction as subDirection,
 } from "$stores/sub";
-import { tutorialComplete } from "../surface/events";
 import {
   conchEncounter1,
   conchEncounter2,
@@ -34,9 +33,6 @@ const notepad = get(notepadApi);
 const objectives = get(objectivesApi);
 
 export const onTopAreaClick = (e: MouseEvent) => {
-  if (!get(tutorialComplete)) {
-    get(objectivesApi).completeTask("task_move-sub");
-  }
   const targetCoords = moveSub(e);
   if (targetCoords.y < 111) {
     subNearSurface.set(true);
