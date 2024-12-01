@@ -4,7 +4,7 @@
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import { Hud } from "$components/hud";
   import routes from "./routes";
-
+  import { Fader } from "$components/ui";
   import { gsap } from "gsap";
   import { SplitText } from "gsap/SplitText";
   import { TextPlugin } from "gsap/TextPlugin";
@@ -19,6 +19,7 @@
   <div class="container">
     <div class="content">
       <SvelteToast options={{ intro: { x: -111 } }} />
+      <Fader />
       <Hud />
       <Router {routes} />
     </div>

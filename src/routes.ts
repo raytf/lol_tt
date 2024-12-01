@@ -1,8 +1,7 @@
 import Title from "./pages/title";
-import Prologue from "./pages/prologue";
 import Dev from "./pages/Dev.svelte";
 // Exploration
-import Surface, { SurfaceIntro } from "./pages/location/surface";
+import Surface from "./pages/location/surface";
 import Wrecks from "./pages/location/wrecks";
 import Forest from "./pages/location/forest";
 // Chapter 1
@@ -24,8 +23,6 @@ import Ch4_Exploration from "./pages/chapter4/exploration/DeepOcean.svelte";
 export default {
   "/dev": Dev,
   "/": Title,
-  "/prologue": Prologue,
-  "/surface-intro": SurfaceIntro,
   "/surface": Surface,
   "/wrecks/:prev?/:prog?": Wrecks,
   "/forest": Forest,
