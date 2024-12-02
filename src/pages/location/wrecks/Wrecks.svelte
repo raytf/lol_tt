@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { querystring } from "svelte-spa-router";
   import { onMount } from "svelte";
   import { fade } from "svelte/transition";
   import { linear, expoInOut, quadInOut } from "svelte/easing";
@@ -24,24 +25,15 @@
   import wrecks_secret from "$assets/wrecks/wrecks_secret.png";
   import { audioApi, gameApi, hudApi, inventoryApi } from "$apis";
   import {
-    subNearSurface,
     onTopAreaClick,
     revealConchFace,
     onclickConch,
-    startedObservationTask,
-    finishedObservationTask,
-    startChapterOne,
-    makeObservation,
-    dbAddObservations,
-    finishObservationTask,
-    conchEncountered,
-  } from "./events";
+    events,
+  } from "./events.svelte";
   import { ArrowUp, ArrowRight } from "$components/svg/icons/animated";
 
-  let { params }: { params: { prev: string; prog: string } } = $props();
-
   const grid = {
-    width: $gameApi.windowWidth * 1.5,
+    width: $gameApi.windowWidth * 2,
     height: $gameApi.windowHeight * 3,
   };
   minOffset.set({
@@ -54,7 +46,8 @@
     x: $gameApi.windowWidth / 2,
     y: $gameApi.windowHeight / 2,
   };
-  if (params.prev === "surface") {
+  const searchParams = new URLSearchParams($querystring);
+  if (searchParams.has("from", "surface")) {
     initialPosition = { x: $gameApi.windowWidth / 2, y: -222 };
     initialTarget = {
       x: $gameApi.windowWidth / 2,
@@ -62,7 +55,7 @@
     };
     gridOffset.set({ x: 0, y: 0 }, { hard: true });
   }
-  if (params.prev === "forest") {
+  if (searchParams.has("from", "forest")) {
     initialPosition = { x: grid.width + 111, y: 111 };
     initialTarget = { x: grid.width - 222, y: 111 };
     gridOffset.set({ x: $minOffset.x, y: 0 }, { hard: true });
@@ -70,25 +63,21 @@
 
   setSubPosition(initialPosition);
   onMount(() => {
-    // Debug
-    $inventoryApi.unlockItem("radio");
-    $inventoryApi.unlockItem("sm");
-    $inventoryApi.unlockItem("notepad");
-    $hudApi.debugActivate();
-
     setTimeout(() => {
       setSubTarget(initialTarget);
     }, 555);
 
-    const progress = Number(params.prog);
-    if (progress >= 1) {
-      conchEncountered.set(true);
-      startChapterOne();
-    }
-    if (progress >= 2) {
-      dbAddObservations();
-      finishObservationTask();
-    }
+    $events.onStart();
+
+    // const progress = Number(params.prog);
+    // if (progress >= 1) {
+    //   conchEncountered.set(true);
+    //   startChapterOne();
+    // }
+    // if (progress >= 2) {
+    //   dbAddObservations();
+    //   finishObservationTask();
+    // }
     // startChapterOne();
   });
 </script>
@@ -106,25 +95,17 @@
     class="w-[122%] left-[-11%] bottom-0 z-[9]"
   />
   <Conch
+    onclick={() => $events.onClickConch()}
+    faceRevealed={$events.showConchFace}
+    class="absolute w-[55px] h-[55px] top-[92%] left-[37%] z-[9]"
+    style="transform: translateX({$gridOffset.x / 10}px)"
+  />
+  <!-- <InfoMarker
     onclick={onclickConch}
-    faceRevealed={$revealConchFace}
-    class="absolute w-[44px] h-[44px] top-[92%] left-[44%] z-[9]"
+    class="absolute w-[55px] h-[55px] top-[92%] left-[37%] z-[14]"
     style="transform: translateX({$gridOffset.x / 10}px)"
-  />
-  <InfoMarker
-    class="absolute w-[44px] h-[44px] top-[92%] left-[44%] z-[14]"
-    style="transform: translateX({$gridOffset.x / 10}px)"
-  />
+  /> -->
   <Submarine class="z-10" />
-  <!-- <WrecksShape
-    style="transform: translateX({$gridOffset.x / 5}px)"
-    class="absolute w-[111%] left-[-4%] bottom-0 pointer-events-none opacity-0 z-[13]"
-  /> -->
-  <!-- <BgImg
-    src={wrecks_secret}
-    style="transform: translateX({$gridOffset.x / 5}px)"
-    class="w-[111%] left-[-4%] bottom-0 z-[13]"
-  /> -->
   <BgImg
     src={wrecks_1}
     style="transform: translateX({$gridOffset.x / 5}px)"
@@ -134,7 +115,7 @@
     level={$gridOffset.y / $minOffset.y - 0.4}
     lights={[
       { x: $subCoords.x, y: $subCoords.y, unit: "px", radius: 4 },
-      { x: 44, y: 92, unit: "%", radius: 11 },
+      { x: 37, y: 92, unit: "%", radius: 11 },
     ]}
     class="z-50"
   />
@@ -164,7 +145,7 @@
         <Lol key="surface" />
       </button>
 
-      <button
+      <!-- <button
         onclick={() => {
           setSubTarget({ x: grid.width + 111, y: 111 });
           $gameApi.fadeScene("/forest", 0.44);
@@ -173,13 +154,13 @@
       >
         <Lol key="forest" class="mr-1" />
         <ArrowRight class="w-[33px] h-[33px]" />
-      </button>
-      {#if $startedObservationTask && !$finishedObservationTask}
+      </button> -->
+      {#if $events.startObservationTask && $events.numObserved === 2}
         <InfoMarker
           onclick={() => {
-            makeObservation(1);
+            $events.makeObservation(3);
           }}
-          class="absolute w-[55px] h-[55px] bottom-[55%] right-[55%] z-20"
+          class="absolute w-[55px] h-[55px] bottom-[55%] left-[44%] z-20"
         />
       {/if}
     </Area>
@@ -189,12 +170,12 @@
         --color-top="#00C1EF"
         --color-bottom="#037ADE"
       />
-      {#if $startedObservationTask && !$finishedObservationTask}
+      {#if $events.startObservationTask && $events.numObserved === 1}
         <InfoMarker
           onclick={() => {
-            makeObservation(2);
+            $events.makeObservation(2);
           }}
-          class="absolute w-[55px] h-[55px] bottom-[55%] right-[55%] z-20"
+          class="absolute w-[55px] h-[55px] bottom-[55%] left-[44%] z-20"
         />
       {/if}
     </Area>
@@ -204,12 +185,12 @@
         --color-top="#037ADE"
         --color-bottom="#182B3A"
       />
-      {#if $startedObservationTask && !$finishedObservationTask}
+      {#if $events.startObservationTask && $events.numObserved === 0}
         <InfoMarker
           onclick={() => {
-            makeObservation(3);
+            $events.makeObservation(1);
           }}
-          class="absolute w-[55px] h-[55px] bottom-[55%] right-[55%] z-20"
+          class="absolute w-[55px] h-[55px] bottom-[33%] left-[44%] z-20"
         />
       {/if}
     </Area>

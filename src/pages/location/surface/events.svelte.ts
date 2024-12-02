@@ -57,7 +57,7 @@ class SurfaceEvents {
 
   onClickDive() {
     const objectives = get(objectivesApi);
-    if (objectives.currentIs("obj_wrecks-observation")) {
+    if (objectives.currentIs("obj_make-observations")) {
       get(hudApi).showNotepad = false;
       objectives.completeTask("task_dive");
     }
@@ -66,7 +66,7 @@ class SurfaceEvents {
     this.surfaceSub = false;
 
     setTimeout(() => {
-      get(gameApi).fadeScene("/wrecks/surface");
+      get(gameApi).fadeScene("/wrecks?from=surface");
       get(audioApi).stopTrack({
         src: "sound/ocean-loop.mp3",
       });
@@ -117,7 +117,7 @@ class SurfaceEvents {
   startChapter1() {
     const objectives = get(objectivesApi);
     objectives.startChapter("chapter1", () => {});
-    objectives.attachStartCallback("obj_wrecks-observation", () => {
+    objectives.attachStartCallback("obj_make-observations", () => {
       this.readyToDive = true;
     });
   }

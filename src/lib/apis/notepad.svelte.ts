@@ -52,14 +52,20 @@ class ObservationsNotepadPage extends TextPage {
 
 class NotepadApi {
   pages = $state<Page[]>([]);
-  currentPageIndex = 0;
+  currentPageIndex = $state(0);
   currentPage = $state<Page>(new CoverPage("notepad-title_mission"));
+  observationPage = $state<Page>();
 
   constructor() {
     this.currentPage.addBulletLine("notepad-line_explore-depths");
     this.currentPage.addBulletLine("notepad-line_look-clues");
     this.currentPage.addBulletLine("notepad-line_find-treasure");
     this.pages = [this.currentPage];
+  }
+
+  openPage(index: number) {
+    this.currentPageIndex = index;
+    this.currentPage = this.pages[index];
   }
 
   prevPage() {
@@ -76,8 +82,9 @@ class NotepadApi {
     }
   }
 
-  startObservationsPage(titleKey: string) {
-    this.currentPage = new ObservationsNotepadPage(titleKey);
+  startObservationPage(titleKey: string) {
+    this.observationPage = new ObservationsNotepadPage(titleKey);
+    this.currentPage = this.observationPage;
     this.pages.push(this.currentPage);
     this.currentPageIndex++;
   }

@@ -24,7 +24,7 @@ export default {
   "/dev": Dev,
   "/": Title,
   "/surface": Surface,
-  "/wrecks/:prev?/:prog?": Wrecks,
+  "/wrecks": Wrecks,
   "/forest": Forest,
   "/ch1": Ch1,
   "/ch1_encounter_shell": Ch1_Encounter_Shell,

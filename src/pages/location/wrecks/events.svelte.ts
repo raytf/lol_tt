@@ -19,8 +19,84 @@ import {
   observationTask,
   conchReview1,
 } from "$dialog/conch";
-import hushed from "$assets/emoji/hushed.svg";
-import thinking from "$assets/emoji/thinking.svg";
+import { hushed, fearful, neutral } from "$assets/emoji";
+
+class WrecksEvents {
+  startObservationTask = $state(false);
+  numObserved = $state(0);
+
+  showConchFace = $state(false);
+
+  onStart() {
+    const objectives = get(objectivesApi);
+    if (!objectives.hasCompleted("obj_make-observations")) {
+      this.startObservationTask = true;
+    }
+  }
+
+  onClickConch() {
+    const hud = get(hudApi);
+    const objectives = get(objectivesApi);
+    this.showConchFace = true;
+    if (!objectives.hasCompleted("obj_make-observations")) {
+      get(audioApi).playTrack({ src: "sound/spooky-laugh.mp3", volume: 0.5 });
+      hud.startDialog({
+        keys: [
+          {
+            text: "ch1_conch-scare-1",
+          },
+          {
+            imgSrc: fearful,
+            name: "you",
+            text: "ch1_conch-scare-2",
+          },
+        ],
+        onFinished: () => {
+          this.showConchFace = false;
+        },
+      });
+      return;
+    }
+  }
+
+  makeObservation(index: number) {
+    const hud = get(hudApi);
+    const objectives = get(objectivesApi);
+
+    const observationKey = `ch1_observations-${index}`;
+    let dialog = [
+      {
+        imgSrc: hushed,
+        name: "you",
+        text: observationKey,
+      },
+    ];
+
+    if (!hud.showNotepad) {
+      dialog.push({
+        imgSrc: neutral,
+        name: "you",
+        text: "ch1_observations_hint-notepad",
+      });
+    }
+
+    hud.startDialog({
+      keys: dialog,
+      onFinished: () => {
+        if (hud.showNotepad && notepad.observationPage) {
+          notepad.openPage(1);
+          notepad.observationPage.addLine(observationKey);
+          this.numObserved++;
+          if (notepad.observationPage.lines.length >= 3) {
+            objectives.completeTask("task_record-observations");
+          }
+        }
+      },
+    });
+  }
+}
+
+export const events = writable(new WrecksEvents());
 
 export const subNearSurface = writable(false);
 export const revealConchFace = writable(false);
@@ -98,7 +174,7 @@ export const onclickConch = () => {
 const startConchDialog2 = () => {
   const dialog = conchEncounter2(() => {
     setTimeout(() => {
-      startChapterOne();
+      // startChapterOne();
     }, 555);
   });
 
@@ -111,84 +187,9 @@ const startConchDialog2 = () => {
   });
 };
 
-export const startChapterOne = () => {
-  hud.startItemUnlock({
-    itemId: "notepad",
-  });
-  startedObservationTask.set(true);
-  notepad.startObservationsPage("notepad-title_observations");
-  // get(hudApi).startChapter({
-  //   chapterKey: "chapter-1",
-  //   objectives: [
-  //     {
-  //       key: "obj_wrecks-observation",
-  //       completed: false,
-  //       onFinished: () => {
-  //         hud.showNotepad = false;
-  //       },
-  //     },
-  //     {
-  //       key: "obj_wrecks-question",
-  //       completed: false,
-  //       onFinished: () => {
-  //         hud.showNotepad = false;
-  //       },
-  //     },
-  //   ],
-  //   onFinished: () => {},
-  // });
-};
-
-export const makeObservation = (index: number) => {
-  const hud = get(hudApi);
-  const objectives = get(objectivesApi);
-  const inventory = get(inventoryApi);
-
-  const observationKey = `ch1_observations-${index}`;
-  let dialog = [
-    {
-      imgSrc: hushed,
-      name: "you",
-      text: observationKey,
-    },
-  ];
-  if (inventory.isItemUnlocked("notepad")) {
-    if (!hud.showNotepad) {
-      dialog.push({
-        imgSrc: thinking,
-        name: "you",
-        text: "ch1_observations_hint-notepad",
-      });
-    }
-  } else {
-    dialog.push({
-      imgSrc: thinking,
-      name: "you",
-      text: "ch1_observations_hint-record",
-    });
-  }
-
-  hud.startDialog({
-    keys: dialog,
-    onFinished: () => {
-      if (hud.showNotepad && notepad.currentPage) {
-        notepad.currentPage.addLine(observationKey);
-        if (notepad.currentPage.lines.length >= 3) {
-          finishObservationTask();
-        }
-      }
-    },
-  });
-};
-
 export const dbAddObservations = () => {
   for (let i = 1; i <= 3; i++) {
     const observationKey = `ch1_observations-${i}`;
     if (notepad.currentPage) notepad.currentPage.addLine(observationKey);
   }
-};
-
-export const finishObservationTask = () => {
-  objectives.completeTask("task_record-observations");
-  finishedObservationTask.set(true);
 };

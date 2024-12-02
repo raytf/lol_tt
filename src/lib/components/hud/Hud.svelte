@@ -30,9 +30,11 @@
 
   {#if $hudApi.showDebug}
     <div
-      class="absolute bottom-0 w-full h-[55px] flex justify-center items-center pointer-events-auto"
+      class="absolute bottom-0 w-full h-[55px] flex justify-center items-center"
     >
-      <button onclick={() => $lolApi.clearState()}>Clear state</button>
+      <button onclick={() => $lolApi.clearState()} class="pointer-events-auto"
+        >Clear state</button
+      >
     </div>
   {/if}
   {#if $hudApi.showObjectives}

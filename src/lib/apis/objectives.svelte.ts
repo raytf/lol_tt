@@ -64,10 +64,11 @@ const objectiveMap: ObjectiveMap = {
   ],
   obj_mission: [{ key: "task_start-mission" }],
   obj_prepare: [{ key: "task_open-notepad" }, { key: "task_new-page" }],
-  "obj_wrecks-observation": [
+  "obj_make-observations": [
     { key: "task_dive" },
-    { key: "task_record-observation" },
+    { key: "task_record-observations" },
   ],
+  "obj_review-observations": [{ key: "task_contact-mc2" }],
   "obj_wrecks-question": [
     { key: "task_review-observations" },
     { key: "task_ask-question" },
@@ -97,11 +98,14 @@ const chapterMap: ChapterMap = {
     {
       key: "obj_prepare",
       onFinished: () => {
-        get(notepadApi).startObservationsPage("notepad-title_observations");
+        get(notepadApi).startObservationPage("notepad-title_observations");
       },
     },
     {
-      key: "obj_wrecks-observation",
+      key: "obj_make-observations",
+    },
+    {
+      key: "obj_review-observations",
     },
   ],
 };
