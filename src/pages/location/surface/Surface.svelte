@@ -41,7 +41,7 @@
         <div transition:fade>
           <Button
             onclick={() => $events.onClickDive()}
-            class="w-[111px] h-[88px] flex-col items-center pointer-events-auto"
+            class="w-[99px] h-[88px] flex-col items-center pointer-events-auto"
           >
             <Lol key="dive" class="text-2xl" />
             <Dive class="w-[33px] h-[33px]" />

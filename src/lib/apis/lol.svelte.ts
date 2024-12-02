@@ -78,13 +78,11 @@ export class LolApi {
     data: any;
   }) => {
     console.log("loadState:", savedData);
-    // game.currentProgress = savedData.currentProgress;
-    // game.maximumProgress = savedData.maximumProgress;
+
     const data = savedData.data;
     if (data) {
       const objectives = get(objectivesApi);
       objectives.completedObjectives = data.completedObjectives;
-      console.log("restore saved data");
     }
   };
 

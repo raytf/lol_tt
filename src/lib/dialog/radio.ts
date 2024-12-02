@@ -90,11 +90,6 @@ export const observationTask = [
     name: "mission-control",
     text: "ch1_observation-3",
   },
-  {
-    imgSrc: radio,
-    name: "mission-control",
-    text: "ch1_observation-4",
-  },
 ];
 
 export const missionBrief = [

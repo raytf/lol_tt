@@ -17,6 +17,7 @@
   } from "$apis";
   import { noSignal } from "$dialog/radio";
   import { storyComponent } from "$stores/story";
+  import type { Component } from "svelte";
 
   const disableHideClass = "disabled opacity-50";
 
@@ -106,17 +107,10 @@
   {/if}
   {#if $hudApi.showNotepad}
     <div
-      transition:fly={{ x: -555 }}
-      class="absolute w-[33%] h-3/4 bottom-2 left-2 z-[100]"
+      transition:fly={{ x: 555 }}
+      class="absolute w-[44%] h-4/5 bottom-2 right-2 z-[100]"
     >
-      <Notepad
-        title={$notepadApi.currentPage ? $notepadApi.currentPage.title : ""}
-        lines={$notepadApi.currentPage ? $notepadApi.currentPage.lines : []}
-        onClose={() => {
-          $hudApi.showNotepad = false;
-        }}
-        class="size-full pointer-events-auto opacity-80"
-      />
+      <Notepad class="size-full opacity-80" />
     </div>
   {/if}
 </div>

@@ -62,7 +62,12 @@ const objectiveMap: ObjectiveMap = {
     { key: "task_open-inventory" },
     { key: "task_contact-mc" },
   ],
-  obj_prepare: [{ key: "task_review-SM" }, { key: "task_dive" }],
+  obj_prepare: [
+    { key: "task_review-SM" },
+    { key: "task_open-notepad" },
+    { key: "task_new-page" },
+    { key: "task_dive" },
+  ],
   "obj_wrecks-observation": [{ key: "task_record-observations", numTimes: 3 }],
   "obj_wrecks-question": [
     { key: "task_review-observations" },

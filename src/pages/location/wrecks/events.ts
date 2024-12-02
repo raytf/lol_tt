@@ -116,7 +116,7 @@ export const startChapterOne = () => {
     itemId: "notepad",
   });
   startedObservationTask.set(true);
-  notepad.startObservationsPage("notepad_title-observations");
+  notepad.startObservationsPage("notepad-title_observations");
   // get(hudApi).startChapter({
   //   chapterKey: "chapter-1",
   //   objectives: [

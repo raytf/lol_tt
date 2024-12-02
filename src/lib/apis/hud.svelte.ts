@@ -1,6 +1,4 @@
 import { writable, get } from "svelte/store";
-import type { Component } from "svelte";
-import type { Objective } from "$apis/objectives.svelte";
 import type { DialogKey, DialogOption } from "$apis/dialog.svelte";
 import { objectivesApi, dialogApi, inventoryApi, smApi } from "$apis";
 

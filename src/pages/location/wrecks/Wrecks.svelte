@@ -22,7 +22,7 @@
   import wrecks_2 from "$assets/wrecks/wrecks_2.png";
   import wrecks_3 from "$assets/wrecks/wrecks_3.png";
   import wrecks_secret from "$assets/wrecks/wrecks_secret.png";
-  import { gameApi, hudApi, inventoryApi } from "$apis";
+  import { audioApi, gameApi, hudApi, inventoryApi } from "$apis";
   import {
     subNearSurface,
     onTopAreaClick,
@@ -71,8 +71,9 @@
   setSubPosition(initialPosition);
   onMount(() => {
     // Debug
-    $inventoryApi.unlockItem("sm");
     $inventoryApi.unlockItem("radio");
+    $inventoryApi.unlockItem("sm");
+    $inventoryApi.unlockItem("notepad");
     $hudApi.debugActivate();
 
     setTimeout(() => {
@@ -152,6 +153,9 @@
       {/if} -->
       <button
         onclick={() => {
+          $audioApi.stopTrack({
+            src: "music/deep-echoes.mp3",
+          });
           $gameApi.fadeScene("/surface");
         }}
         class="absolute right-[44%] top-[4%] text-2xl flex flex-col items-center z-[20]"
