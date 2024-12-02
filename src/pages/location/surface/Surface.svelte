@@ -51,13 +51,12 @@
   <div class="absolute w-full h-1/2 bottom-0 z-10">
     <Area onmousedown={(e) => $events.onClickArea(e)}></Area>
   </div>
-  {#if $events.surfaceSub}
-    <Submarine
-      size={111}
-      offset={{ x: 111 / 2, y: 111 }}
-      class="overflow-hidden"
-      imgClass="bottom-[-44%]"
-      bob={true}
-    />
-  {/if}
+  <Submarine
+    size={111}
+    offset={{ x: 111 / 2, y: 111 }}
+    class="overflow-hidden"
+    imgClass="bottom-[-44%]"
+    bob={true}
+    reveal={$events.surfaceSub}
+  />
 </div>
