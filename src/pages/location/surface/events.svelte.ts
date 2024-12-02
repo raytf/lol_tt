@@ -1,5 +1,5 @@
 import { writable, get } from "svelte/store";
-import { hudApi, gameApi, audioApi, objectivesApi } from "$apis";
+import { hudApi, gameApi, audioApi, objectivesApi, inventoryApi } from "$apis";
 import { checkIn, missionBrief } from "$dialog/radio";
 import { setTarget as setSubTarget } from "$stores/sub";
 import { hideHeading, tlRevealHeading } from "./animations";
@@ -22,6 +22,7 @@ class SurfaceEvents {
       tlHeading.reverse();
 
       setTimeout(() => {
+        get(hudApi).showInventory = true;
         if (this.tutorialComplete) {
           this.readyToDive = true;
         } else {
@@ -62,22 +63,9 @@ class SurfaceEvents {
   }
 
   startTutorial() {
-    get(hudApi).startChapter({
-      chapterKey: "tutorial",
-      objectives: [
-        {
-          key: "obj_learn-controls",
-          completed: false,
-        },
-        {
-          key: "obj_check-equipment",
-          completed: false,
-        },
-      ],
-      onFinished: () => {
-        this.tutorialComplete = true;
-        this.startMissionBrief();
-      },
+    get(objectivesApi).startChapter("tutorial", () => {
+      this.tutorialComplete = true;
+      this.startMissionBrief();
     });
   }
 

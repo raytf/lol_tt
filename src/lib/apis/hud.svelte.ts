@@ -4,12 +4,6 @@ import type { Objective } from "$apis/objectives.svelte";
 import type { DialogKey, DialogOption } from "$apis/dialog.svelte";
 import { objectivesApi, dialogApi, inventoryApi, smApi } from "$apis";
 
-interface StartObjectivesParams {
-  chapterKey: string;
-  objectives: Objective[];
-  onFinished?: () => void;
-}
-
 interface StartDialogParams {
   keys: DialogKey[];
   onFinished?: () => void;
@@ -22,9 +16,10 @@ interface StartItemUnlockParams {
 }
 
 class HudApi {
+  showDebug = $state(true);
   showObjectives = $state(false);
   showDialog = $state(false);
-  showInventory = $state(true);
+  showInventory = $state(false);
   showItemUnlock = $state(false);
   showSmModal = $state(false);
   showSmPuzzle = $state(false);
@@ -35,23 +30,6 @@ class HudApi {
     this.showInventory = true;
   }
 
-  startChapter(params: StartObjectivesParams) {
-    const { chapterKey, objectives, onFinished } = params;
-
-    const oApi = get(objectivesApi);
-    oApi.chapterFinished = false;
-    oApi.currentChapter = chapterKey;
-    oApi.currentObjectives = [...objectives];
-    oApi.currentObjectiveIndex = 0;
-    if (onFinished)
-      oApi.onChapterFinished = () => {
-        this.showObjectives = false;
-        onFinished();
-      };
-    oApi.startObjective();
-
-    this.showObjectives = true;
-  }
   openSmModalWithDialog() {
     const sm = get(smApi);
     sm.modalClass = "pt-[111px]";

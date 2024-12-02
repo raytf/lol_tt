@@ -8,17 +8,17 @@
   import { Reset, Close, Pulse } from "$components/svg/icons";
   import { InfoButton } from "$components/ui/button";
   import { steps } from "$components/scientificMethod";
-  import { lolApi, hudApi } from "$apis";
+  import { lolApi, objectivesApi } from "$apis";
   import { flipElement, doFlip } from "$stores/flip";
 
   let {
     onClose,
-    onCorrect,
+    onCall,
     onIncorrect,
     class: extraClass,
   }: {
     onClose?: () => void;
-    onCorrect?: () => void;
+    onCall?: () => void;
     onIncorrect?: () => void;
     class?: string;
   } = $props();
@@ -99,7 +99,13 @@
       },
     );
     gsap.to(".container-smPuzzle", { opacity: 1, duration: 1 });
-    playStartAnimation();
+
+    if ($objectivesApi.hasCompleted("obj_check-equipment")) {
+      playStartAnimation();
+    } else {
+      $objectivesApi.completeTask("task_contact-mc");
+      playEndAnimation();
+    }
   });
 
   function playStartAnimation() {
@@ -137,7 +143,7 @@
               onComplete: () => {
                 onClose?.();
                 setTimeout(() => {
-                  onCorrect?.();
+                  onCall?.();
                 }, 1111);
               },
             });

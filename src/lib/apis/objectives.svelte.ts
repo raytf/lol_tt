@@ -1,7 +1,7 @@
 import { writable, get } from "svelte/store";
 import type { DialogKey, DialogOption } from "$apis/dialog.svelte";
 import { toast } from "@zerodevx/svelte-toast";
-import { lolApi } from "$apis";
+import { lolApi, hudApi } from "$apis";
 // Assets
 import radio from "$assets/icons/radio.svg";
 import neutral from "$assets/emoji/neutral.svg";
@@ -37,6 +37,10 @@ type ObjectiveMap = {
   [key: string]: Todo[];
 };
 
+type ChapterMap = {
+  [key: string]: string[];
+};
+
 interface Task {
   key: string;
   currentNum?: number;
@@ -61,6 +65,10 @@ const objectiveMap: ObjectiveMap = {
     { key: "task_review-observations" },
     { key: "task_ask-question" },
   ],
+};
+
+const chapterMap: ChapterMap = {
+  tutorial: ["obj_learn-controls", "obj_check-equipment"],
 };
 
 type HintMap = {
@@ -148,6 +156,21 @@ class ObjectivesApi {
   chapterFinished = $state(false);
   onChapterFinished = () => {};
 
+  numTotalObjectives: number = 0;
+  completedObjectives = $state<string[]>([]);
+
+  constructor() {
+    let numTotal = 0;
+    for (const chapterKey in chapterMap) {
+      numTotal += chapterMap[chapterKey].length;
+    }
+    this.numTotalObjectives = numTotal;
+  }
+
+  hasCompleted = (objectiveKey: string) => {
+    return this.completedObjectives.includes(objectiveKey);
+  };
+
   getNumRemainingTasks = () => {
     return this.currentTasks.filter((task) => !task.completed).length;
   };
@@ -163,6 +186,34 @@ class ObjectivesApi {
       }
     }
     return [defaultHint];
+  };
+
+  startChapter = (chapterKey: string, onFinished?: () => void) => {
+    this.chapterFinished = false;
+    this.currentChapter = chapterKey;
+
+    this.currentObjectiveIndex = 0;
+    this.currentObjectives = chapterMap[chapterKey].map((objectiveKey) => {
+      let isCompleted = false;
+      if (this.completedObjectives.includes(objectiveKey)) {
+        isCompleted = true;
+        this.currentObjectiveIndex++;
+      }
+      return {
+        key: objectiveKey,
+        completed: isCompleted,
+      };
+    });
+
+    this.onChapterFinished = onFinished || (() => {});
+
+    if (this.currentObjectiveIndex >= this.currentObjectives.length) {
+      this.completeChapter();
+    } else {
+      this.startObjective();
+    }
+
+    get(hudApi).showObjectives = true;
   };
 
   startObjective = () => {
@@ -191,33 +242,40 @@ class ObjectivesApi {
   };
 
   completeObjective = () => {
-    if (this.currentObjective) {
-      const lApi = get(lolApi);
-      let message = `<strong>${lApi.getText("completed-obj")}:</strong><br>`;
-      message += lApi.getText(this.currentObjective.key);
-      toast.push(message, {
-        initial: 0,
-        next: 1,
-        duration: 2222,
-        theme: {
-          "--toastColor": "mintcream",
-          "--toastBackground": "rgba(72,187,120,0.9)",
-          "--toastBarBackground": "#2F855A",
-        },
-      });
-      this.currentObjective.completed = true;
-      this.currentObjective.onFinished?.();
-    }
+    if (!this.currentObjective) return;
 
+    const lApi = get(lolApi);
+    let message = `<strong>${lApi.getText("completed-obj")}:</strong><br>`;
+    message += lApi.getText(this.currentObjective.key);
+    toast.push(message, {
+      initial: 0,
+      next: 1,
+      duration: 2222,
+      theme: {
+        "--toastColor": "mintcream",
+        "--toastBackground": "rgba(72,187,120,0.9)",
+        "--toastBarBackground": "#2F855A",
+      },
+    });
+    this.currentObjective.completed = true;
+    this.currentObjective.onFinished?.();
+    this.completedObjectives.push(this.currentObjective.key);
     this.currentObjectiveIndex += 1;
+
     this.startObjective();
 
     if (this.currentObjectiveIndex >= this.currentObjectives.length) {
-      this.chapterFinished = true;
-      setTimeout(() => {
-        this.onChapterFinished();
-      }, 4444);
+      this.completeChapter();
     }
+    lApi.saveState();
+  };
+
+  completeChapter = () => {
+    this.chapterFinished = true;
+    setTimeout(() => {
+      this.onChapterFinished();
+      get(hudApi).showObjectives = false;
+    }, 4444);
   };
 }
 

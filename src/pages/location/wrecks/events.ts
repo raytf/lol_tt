@@ -117,26 +117,26 @@ export const startChapterOne = () => {
   });
   startedObservationTask.set(true);
   notepad.startObservationsPage("notepad_title-observations");
-  get(hudApi).startChapter({
-    chapterKey: "chapter-1",
-    objectives: [
-      {
-        key: "obj_wrecks-observation",
-        completed: false,
-        onFinished: () => {
-          hud.showNotepad = false;
-        },
-      },
-      {
-        key: "obj_wrecks-question",
-        completed: false,
-        onFinished: () => {
-          hud.showNotepad = false;
-        },
-      },
-    ],
-    onFinished: () => {},
-  });
+  // get(hudApi).startChapter({
+  //   chapterKey: "chapter-1",
+  //   objectives: [
+  //     {
+  //       key: "obj_wrecks-observation",
+  //       completed: false,
+  //       onFinished: () => {
+  //         hud.showNotepad = false;
+  //       },
+  //     },
+  //     {
+  //       key: "obj_wrecks-question",
+  //       completed: false,
+  //       onFinished: () => {
+  //         hud.showNotepad = false;
+  //       },
+  //     },
+  //   ],
+  //   onFinished: () => {},
+  // });
 };
 
 export const makeObservation = (index: number) => {

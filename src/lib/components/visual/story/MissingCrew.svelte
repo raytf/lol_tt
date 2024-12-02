@@ -34,7 +34,7 @@
   in:fade={{ duration: 2222 }}
   out:fade={{ delay: 2222, duration: 2222 }}
   id="story_missing-crew"
-  class="absolute top-[-1%] w-full h-[101%]"
+  class="absolute top-[-1%] w-full h-[101%] pointer-events-auto"
 >
   <TurbulentImg
     src={ocean}

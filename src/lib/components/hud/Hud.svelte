@@ -13,15 +13,34 @@
     inventoryApi,
     notepadApi,
     smApi,
+    lolApi,
   } from "$apis";
   import { noSignal } from "$dialog/radio";
   import { storyComponent } from "$stores/story";
 
   const disableHideClass = "disabled opacity-50";
+
+  function onRadioCall() {
+    if ($objectivesApi.hasCompleted("obj_check-equipment")) return;
+    // if ($location === "/surface") {
+    //       $hudApi.startHintDialog();
+    //     } else {
+    //       $hudApi.startDialog({
+    //         keys: noSignal,
+    //       });
+    //     }
+  }
 </script>
 
 <div transition:fade class="container-hud">
   <svelte:component this={$storyComponent} />
+  {#if $hudApi.showDebug}
+    <div
+      class="absolute bottom-0 w-full h-[55px] flex justify-center items-center pointer-events-auto"
+    >
+      <button onclick={() => $lolApi.clearState()}>Clear state</button>
+    </div>
+  {/if}
   {#if $hudApi.showObjectives}
     <div transition:fade>
       <Objectives
@@ -81,16 +100,7 @@
       onClose={() => {
         $hudApi.showSmPuzzle = false;
       }}
-      onCorrect={() => {
-        //$objectivesApi.completeTask("task_call-radio");
-        if ($location === "/surface") {
-          $hudApi.startHintDialog();
-        } else {
-          $hudApi.startDialog({
-            keys: noSignal,
-          });
-        }
-      }}
+      onCall={onRadioCall}
       class="z-[102] pointer-events-auto"
     />
   {/if}

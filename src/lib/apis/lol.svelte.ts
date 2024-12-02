@@ -1,6 +1,7 @@
 import { onDestroy } from "svelte";
-import { writable } from "svelte/store";
+import { writable, get } from "svelte/store";
 import backupLanguageData from "$assets/language.json";
+import { objectivesApi } from "$apis";
 
 interface LanguageData {
   [key: string]: string;
@@ -21,6 +22,7 @@ function lol_send(messageName: string, payload: Object) {
 export class LolApi {
   languageLoaded = $state(false);
   languageData = $state<LanguageData>({});
+  // State
 
   constructor() {
     this.init();
@@ -45,7 +47,7 @@ export class LolApi {
         break;
       case "loadState":
         const savedData = JSON.parse(payload);
-        console.log("loadState:", savedData);
+        this.restoreSavedData(savedData);
     }
   };
 
@@ -70,16 +72,41 @@ export class LolApi {
     });
   };
 
+  restoreSavedData = (savedData: {
+    currentProgress: number;
+    maximumProgress: number;
+    data: any;
+  }) => {
+    console.log("loadState:", savedData);
+    // game.currentProgress = savedData.currentProgress;
+    // game.maximumProgress = savedData.maximumProgress;
+    const data = savedData.data;
+    if (data) {
+      const objectives = get(objectivesApi);
+      objectives.completedObjectives = data.completedObjectives;
+      console.log("restore saved data");
+    }
+  };
+
   requestLoadState = () => {
     lol_send("loadState", {});
   };
 
   saveState = () => {
+    const objectives = get(objectivesApi);
     let data = {
-      message: "hey",
+      completedObjectives: objectives.completedObjectives,
     };
 
-    lol_send("saveState", { data });
+    lol_send("saveState", {
+      currentProgress: objectives.completedObjectives.length,
+      maximumProgress: objectives.numTotalObjectives,
+      data,
+    });
+  };
+
+  clearState = () => {
+    lol_send("saveState", {});
   };
 
   getText = (key: string) => {
