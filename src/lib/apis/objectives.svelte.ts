@@ -221,6 +221,16 @@ class ObjectivesApi {
     return [defaultHint];
   };
 
+  recallCompletedChapters = () => {
+    this.completedChapters.forEach((chapterKey) => {
+      const objectives = chapterMap[chapterKey];
+      objectives.forEach((objective) => {
+        objective.onStart?.();
+        objective.onFinished?.();
+      });
+    });
+  };
+
   startChapter = (chapterKey: string, onFinished?: () => void) => {
     this.chapterFinished = false;
     this.currentChapter = chapterKey;

@@ -83,6 +83,8 @@ export class LolApi {
     if (data) {
       const objectives = get(objectivesApi);
       objectives.completedObjectives = data.completedObjectives;
+      objectives.completedChapters = data.completedChapters;
+      objectives.recallCompletedChapters();
     }
   };
 
@@ -94,6 +96,7 @@ export class LolApi {
     const objectives = get(objectivesApi);
     let data = {
       completedObjectives: objectives.completedObjectives,
+      completedChapters: objectives.completedChapters,
     };
 
     lol_send("saveState", {
