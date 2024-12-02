@@ -103,8 +103,10 @@
     if ($objectivesApi.hasCompleted("obj_check-equipment")) {
       playStartAnimation();
     } else {
-      $objectivesApi.completeTask("task_contact-mc");
       playEndAnimation();
+      setTimeout(() => {
+        $objectivesApi.completeTask("task_contact-mc");
+      }, 2222);
     }
   });
 
