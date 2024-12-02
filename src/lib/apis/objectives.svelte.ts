@@ -275,7 +275,7 @@ class ObjectivesApi {
     setTimeout(() => {
       this.onChapterFinished();
       get(hudApi).showObjectives = false;
-    }, 4444);
+    }, 3333);
   };
 }
 

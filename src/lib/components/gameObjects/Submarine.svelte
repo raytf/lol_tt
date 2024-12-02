@@ -12,7 +12,6 @@
     class: extraClass = "",
     imgClass = "",
     bob = false,
-    reveal = true,
     children,
     ...props
   }: {
@@ -21,7 +20,6 @@
     offset?: { x: number; y: number };
     class?: string;
     bob?: boolean;
-    reveal?: boolean;
     imgClass?: string;
     children?: Snippet;
   } = $props();
@@ -33,18 +31,16 @@
     offset.y}px); width: {size}px; height: {size}px"
   {...props}
 >
-  {#if reveal}
-    <img
-      in:fly={{ y: 111, duration: 1111, easing: backOut }}
-      out:fly={{ y: 111, duration: 1111, easing: backIn }}
-      src={sub}
-      alt="sub"
-      height={size}
-      width={size}
-      class="absolute select-none {imgClass} {bob && 'anim-bob'}"
-      style="scale: {$direction.x} 1"
-    />
-  {/if}
+  <img
+    in:fly|global={{ y: 111, duration: 1111, easing: backOut }}
+    out:fly|global={{ y: 111, duration: 1111, easing: backIn }}
+    src={sub}
+    alt="sub"
+    height={size}
+    width={size}
+    class="absolute select-none {imgClass} {bob && 'anim-bob'}"
+    style="scale: {$direction.x} 1"
+  />
   {#if children}
     {@render children()}
   {/if}

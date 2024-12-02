@@ -49,6 +49,7 @@ class SurfaceEvents {
 
     this.readyToDive = false;
     this.surfaceSub = false;
+    console.log("surfaceSub", this.surfaceSub);
     setTimeout(() => {
       get(gameApi).fadeScene("/wrecks/surface");
       get(audioApi).stopTrack({
@@ -79,7 +80,9 @@ class SurfaceEvents {
           onFinished: () => {
             hud.startItemUnlock({
               itemId: "notepad",
-              onFinished: () => {},
+              onFinished: () => {
+                this.readyToDive = true;
+              },
             });
           },
         });
@@ -88,4 +91,4 @@ class SurfaceEvents {
   }
 }
 
-export default writable<SurfaceEvents>(new SurfaceEvents());
+export const events = writable<SurfaceEvents>(new SurfaceEvents());
