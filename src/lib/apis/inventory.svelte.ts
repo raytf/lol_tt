@@ -25,7 +25,7 @@ export const itemMap: ItemMap = {
     id: "sm",
     nameKey: "item_name_sm",
     descKey: "item_desc_sm",
-    actionKey: "item_action_sm",
+    // actionKey: "item_action_sm",
   },
   radio: {
     imgSrc: radio,
@@ -39,7 +39,7 @@ export const itemMap: ItemMap = {
     id: "notepad",
     nameKey: "item_name_notepad",
     descKey: "item_desc_notepad",
-    actionKey: "item_action_notepad",
+    // actionKey: "item_action_notepad",
   },
   // pg: {
   //   imgSrc: pressureGauge,

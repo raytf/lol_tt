@@ -24,7 +24,10 @@
 </script>
 
 <div transition:fade class="container-hud">
-  <svelte:component this={$storyComponent} />
+  <div class="absolute size-full z-[104]">
+    <svelte:component this={$storyComponent} />
+  </div>
+
   {#if $hudApi.showDebug}
     <div
       class="absolute bottom-0 w-full h-[55px] flex justify-center items-center pointer-events-auto"
@@ -37,8 +40,7 @@
       <Objectives
         class="z-100 left-0 {($hudApi.showDialog ||
           $hudApi.showSmModal ||
-          $hudApi.showSmPuzzle ||
-          $hudApi.showNotepad) &&
+          $hudApi.showSmPuzzle) &&
           disableHideClass}"
       />
     </div>

@@ -79,7 +79,7 @@
         onclick={() => {
           tlHideText();
 
-          $gameApi.fadeScene("/surface", 2.4);
+          $gameApi.fadeScene("/surface?start", 2.4);
           $audioApi.stopTrack({
             src: "music/into-the-blue.mp3",
             fade: true,

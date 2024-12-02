@@ -19,13 +19,10 @@
   };
   onMount(() => {
     hideHeading();
-    // const searchParams = new URLSearchParams($querystring);
-    // if (searchParams.has("start")) {
-    //   setSubPosition(initialSubCoords);
-    //   startSurface();
-    // }
+
     setSubPosition(initialSubCoords);
-    $events.onStart();
+    const searchParams = new URLSearchParams($querystring);
+    $events.onStart(searchParams.has("start"));
   });
 </script>
 

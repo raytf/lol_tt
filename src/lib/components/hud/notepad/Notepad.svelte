@@ -23,7 +23,7 @@
 
     if ($objectivesApi.currentObjective.key === "obj_prepare") {
       if (!$objectivesApi.hasCompleted("obj_prepare")) {
-        $notepadApi.startObservationsPage("notepad-title_observations");
+        $objectivesApi.completeTask("task_new-page");
         newPageEnabled = false;
       }
     }
@@ -67,8 +67,8 @@
         </button>
       </div>
       <button
-        onclick={newPage}
-        class="absolute top-1 right-1 {newPageEnabled && disabledClass}"
+        onclick={() => newPage()}
+        class="absolute top-1 right-1 {!newPageEnabled && disabledClass}"
       >
         <NewPage class="w-[33px] h-[33px] text-white" />
       </button>

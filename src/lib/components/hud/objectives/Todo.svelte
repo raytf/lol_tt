@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Task } from "$apis/hud.svelte";
+  import type { Task } from "$apis/objectives.svelte";
   import { fade } from "svelte/transition";
   import { Lol } from "$components/text";
   let { task }: { task: Task } = $props();

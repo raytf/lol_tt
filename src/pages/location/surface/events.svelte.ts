@@ -12,11 +12,10 @@ import { setTarget as setSubTarget } from "$stores/sub";
 import { hideHeading, tlRevealHeading } from "./animations";
 
 class SurfaceEvents {
-  tutorialComplete = false;
   surfaceSub = $state(false);
   readyToDive = $state(false);
 
-  onStart() {
+  onStart(fromStart: boolean) {
     get(audioApi).playTrack({
       src: "sound/ocean-loop.mp3",
       volume: 0.08,
@@ -29,22 +28,27 @@ class SurfaceEvents {
       this.surfaceSub = true;
       tlHeading.reverse();
 
-      setTimeout(() => {
-        if (objectives.currentObjective) {
-          this.readyToDive = true;
-        } else {
-          if (objectives.hasCompleted("obj_mission")) {
-            this.startChapter1();
-          } else {
+      if (fromStart) {
+        setTimeout(() => {
+          if (!objectives.hasCompleted("obj_mission")) {
             this.startTutorial();
+          } else {
+            if (!objectives.hasCompleted("obj_prepare")) {
+              this.prepareChapter1();
+            } else {
+              this.startChapter1();
+              this.readyToDive = true;
+            }
           }
-        }
-      }, 1111);
+        }, 1111);
+      } else {
+        this.readyToDive = true;
+      }
     }, 1111);
   }
 
   onClickArea(e: MouseEvent) {
-    if (!this.tutorialComplete) {
+    if (get(objectivesApi).currentIs("obj_learn-controls")) {
       get(objectivesApi).completeTask("task_move-sub");
     }
 
@@ -52,9 +56,10 @@ class SurfaceEvents {
   }
 
   onClickDive() {
-    if (!this.tutorialComplete) {
-      //console.log("click dive");
-      get(objectivesApi).completeTask("task_dive");
+    const objectives = get(objectivesApi);
+    if (objectives.currentIs("obj_wrecks-observation")) {
+      get(hudApi).showNotepad = false;
+      objectives.completeTask("task_dive");
     }
 
     this.readyToDive = false;
@@ -76,10 +81,7 @@ class SurfaceEvents {
   startTutorial() {
     const objectives = get(objectivesApi);
 
-    objectives.startChapter("tutorial", () => {
-      this.tutorialComplete = true;
-    });
-
+    objectives.startChapter("tutorial", () => {});
     objectives.attachStartCallback("obj_mission", () => {
       this.startMissionBrief();
     });
@@ -91,14 +93,13 @@ class SurfaceEvents {
       keys: [...checkIn, ...missionBrief],
       onFinished: () => {
         get(objectivesApi).completeTask("task_start-mission");
-        this.startChapter1();
+        this.prepareChapter1();
       },
     });
   }
 
-  startChapter1() {
+  prepareChapter1() {
     const hud = get(hudApi);
-    const objectives = get(objectivesApi);
 
     hud.startItemUnlock({
       itemId: "sm",
@@ -106,13 +107,19 @@ class SurfaceEvents {
         hud.startItemUnlock({
           itemId: "notepad",
           onFinished: () => {
-            objectives.startChapter("chapter1", () => {});
+            this.startChapter1();
           },
         });
       },
     });
+  }
 
-    //objectives.attachFinishedCallback();
+  startChapter1() {
+    const objectives = get(objectivesApi);
+    objectives.startChapter("chapter1", () => {});
+    objectives.attachStartCallback("obj_wrecks-observation", () => {
+      this.readyToDive = true;
+    });
   }
 }
 

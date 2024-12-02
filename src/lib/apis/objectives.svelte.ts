@@ -1,7 +1,7 @@
 import { writable, get } from "svelte/store";
 import type { DialogKey, DialogOption } from "$apis/dialog.svelte";
 import { toast } from "@zerodevx/svelte-toast";
-import { lolApi, hudApi } from "$apis";
+import { lolApi, hudApi, notepadApi, inventoryApi } from "$apis";
 // Assets
 import radio from "$assets/icons/radio.svg";
 import neutral from "$assets/emoji/neutral.svg";
@@ -38,7 +38,7 @@ interface BaseTask {
   completed?: boolean;
 }
 
-interface Task extends BaseTask {
+export interface Task extends BaseTask {
   currentNum?: number;
   numTimes?: number;
 }
@@ -66,7 +66,7 @@ const objectiveMap: ObjectiveMap = {
   obj_prepare: [{ key: "task_open-notepad" }, { key: "task_new-page" }],
   "obj_wrecks-observation": [
     { key: "task_dive" },
-    { key: "task_record-observation", numTimes: 3 },
+    { key: "task_record-observation" },
   ],
   "obj_wrecks-question": [
     { key: "task_review-observations" },
@@ -87,11 +87,18 @@ const chapterMap: ChapterMap = {
     },
     {
       key: "obj_mission",
+      onFinished: () => {
+        get(inventoryApi).unlockItem("sm");
+        get(inventoryApi).unlockItem("notepad");
+      },
     },
   ],
   chapter1: [
     {
       key: "obj_prepare",
+      onFinished: () => {
+        get(notepadApi).startObservationsPage("notepad-title_observations");
+      },
     },
     {
       key: "obj_wrecks-observation",
