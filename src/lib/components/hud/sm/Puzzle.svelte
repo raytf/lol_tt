@@ -104,9 +104,6 @@
       playStartAnimation();
     } else {
       playEndAnimation();
-      setTimeout(() => {
-        $objectivesApi.completeTask("task_contact-mc");
-      }, 2222);
     }
   });
 

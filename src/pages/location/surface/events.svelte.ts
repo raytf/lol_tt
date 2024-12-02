@@ -1,11 +1,18 @@
 import { writable, get } from "svelte/store";
-import { hudApi, gameApi, audioApi, objectivesApi, inventoryApi } from "$apis";
+import {
+  hudApi,
+  gameApi,
+  audioApi,
+  objectivesApi,
+  inventoryApi,
+  radioApi,
+} from "$apis";
 import { checkIn, missionBrief } from "$dialog/radio";
 import { setTarget as setSubTarget } from "$stores/sub";
 import { hideHeading, tlRevealHeading } from "./animations";
 
 class SurfaceEvents {
-  tutorialComplete = $state(false);
+  tutorialComplete = false;
   surfaceSub = $state(false);
   readyToDive = $state(false);
 
@@ -17,16 +24,20 @@ class SurfaceEvents {
     });
 
     let tlHeading = tlRevealHeading();
+    const objectives = get(objectivesApi);
     setTimeout(() => {
       this.surfaceSub = true;
       tlHeading.reverse();
 
       setTimeout(() => {
-        if (this.tutorialComplete) {
+        if (objectives.currentObjective) {
           this.readyToDive = true;
         } else {
-          //startMissionBrief();
-          this.startTutorial();
+          if (objectives.hasCompleted("obj_mission")) {
+            this.startChapter1();
+          } else {
+            this.startTutorial();
+          }
         }
       }, 1111);
     }, 1111);
@@ -64,8 +75,12 @@ class SurfaceEvents {
 
   startTutorial() {
     const objectives = get(objectivesApi);
+
     objectives.startChapter("tutorial", () => {
       this.tutorialComplete = true;
+    });
+
+    objectives.attachStartCallback("obj_mission", () => {
       this.startMissionBrief();
     });
   }
@@ -75,25 +90,29 @@ class SurfaceEvents {
     hud.startDialog({
       keys: [...checkIn, ...missionBrief],
       onFinished: () => {
-        hud.startItemUnlock({
-          itemId: "sm",
-          onFinished: () => {
-            hud.startItemUnlock({
-              itemId: "notepad",
-              onFinished: () => {
-                this.readyToDive = true;
-                this.startChapter1();
-              },
-            });
-          },
-        });
+        get(objectivesApi).completeTask("task_start-mission");
+        this.startChapter1();
       },
     });
   }
 
   startChapter1() {
+    const hud = get(hudApi);
     const objectives = get(objectivesApi);
-    objectives.startChapter("chapter1", () => {});
+
+    hud.startItemUnlock({
+      itemId: "sm",
+      onFinished: () => {
+        hud.startItemUnlock({
+          itemId: "notepad",
+          onFinished: () => {
+            objectives.startChapter("chapter1", () => {});
+          },
+        });
+      },
+    });
+
+    //objectives.attachFinishedCallback();
   }
 }
 

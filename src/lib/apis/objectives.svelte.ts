@@ -62,13 +62,12 @@ const objectiveMap: ObjectiveMap = {
     { key: "task_open-inventory" },
     { key: "task_contact-mc" },
   ],
-  obj_prepare: [
-    { key: "task_review-SM" },
-    { key: "task_open-notepad" },
-    { key: "task_new-page" },
+  obj_mission: [{ key: "task_start-mission" }],
+  obj_prepare: [{ key: "task_open-notepad" }, { key: "task_new-page" }],
+  "obj_wrecks-observation": [
     { key: "task_dive" },
+    { key: "task_record-observation", numTimes: 3 },
   ],
-  "obj_wrecks-observation": [{ key: "task_record-observations", numTimes: 3 }],
   "obj_wrecks-question": [
     { key: "task_review-observations" },
     { key: "task_ask-question" },
@@ -86,10 +85,16 @@ const chapterMap: ChapterMap = {
         get(hudApi).showInventory = true;
       },
     },
+    {
+      key: "obj_mission",
+    },
   ],
   chapter1: [
     {
       key: "obj_prepare",
+    },
+    {
+      key: "obj_wrecks-observation",
     },
   ],
 };
@@ -181,6 +186,7 @@ class ObjectivesApi {
 
   numTotalObjectives: number = 0;
   completedObjectives = $state<string[]>([]);
+  completedChapters = $state<string[]>([]);
 
   constructor() {
     let numTotal = 0;
@@ -189,6 +195,10 @@ class ObjectivesApi {
     }
     this.numTotalObjectives = numTotal;
   }
+
+  currentIs = (objectiveKey: string) => {
+    return this.currentObjective?.key === objectiveKey;
+  };
 
   hasCompleted = (objectiveKey: string) => {
     return this.completedObjectives.includes(objectiveKey);
@@ -246,13 +256,23 @@ class ObjectivesApi {
     get(hudApi).showObjectives = true;
   };
 
-  attachFinishedCallback = (objectiveKey: string, onFinished: () => void) => {
-    console.log(this.currentObjectives);
+  attachStartCallback = (objectiveKey: string, onStart: () => void) => {
     const objective = this.currentObjectives.find(
       (obj) => obj.key === objectiveKey,
     );
     if (objective) {
-      console.log(objective);
+      objective.onStart = onStart;
+    }
+    if (this.currentObjective && this.currentObjective.key === objectiveKey) {
+      onStart();
+    }
+  };
+
+  attachFinishedCallback = (objectiveKey: string, onFinished: () => void) => {
+    const objective = this.currentObjectives.find(
+      (obj) => obj.key === objectiveKey,
+    );
+    if (objective) {
       objective.onFinished = onFinished;
     }
   };
@@ -314,10 +334,12 @@ class ObjectivesApi {
 
   completeChapter = () => {
     this.chapterFinished = true;
+    this.completedChapters.push(this.currentChapter);
+
     setTimeout(() => {
-      this.onChapterFinished();
       get(hudApi).showObjectives = false;
-    }, 3333);
+      this.onChapterFinished();
+    }, 2222);
   };
 }
 

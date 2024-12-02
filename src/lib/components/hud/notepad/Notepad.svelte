@@ -1,8 +1,9 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import { fly } from "svelte/transition";
   import { Close, NewPage } from "$components/svg/icons";
   import { Left, Right } from "$components/svg/icons/caret";
-  import { notepadApi, hudApi, lolApi } from "$apis";
+  import { notepadApi, hudApi, lolApi, objectivesApi } from "$apis";
   import Dive from "$components/svg/icons/Dive.svelte";
 
   let {
@@ -18,8 +19,27 @@
   }
 
   function newPage() {
-    $notepadApi.startObservationsPage("notepad-title_observations");
+    if (!$objectivesApi.currentObjective) return;
+
+    if ($objectivesApi.currentObjective.key === "obj_prepare") {
+      if (!$objectivesApi.hasCompleted("obj_prepare")) {
+        $notepadApi.startObservationsPage("notepad-title_observations");
+        newPageEnabled = false;
+      }
+    }
   }
+
+  onMount(() => {
+    if (
+      $objectivesApi.currentObjective &&
+      $objectivesApi.currentObjective.key === "obj_prepare"
+    ) {
+      $objectivesApi.completeTask("task_open-notepad");
+      newPageEnabled = true;
+    }
+  });
+
+  let newPageEnabled = $state(false);
 </script>
 
 {#key $notepadApi.currentPage}
@@ -46,7 +66,10 @@
           <Right class="w-[33px] h-[33px] " />
         </button>
       </div>
-      <button onclick={newPage} class="absolute top-1 right-1">
+      <button
+        onclick={newPage}
+        class="absolute top-1 right-1 {newPageEnabled && disabledClass}"
+      >
         <NewPage class="w-[33px] h-[33px] text-white" />
       </button>
     </div>

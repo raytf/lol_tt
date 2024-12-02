@@ -14,23 +14,13 @@
     notepadApi,
     smApi,
     lolApi,
+    radioApi,
   } from "$apis";
   import { noSignal } from "$dialog/radio";
   import { storyComponent } from "$stores/story";
   import type { Component } from "svelte";
 
   const disableHideClass = "disabled opacity-50";
-
-  function onRadioCall() {
-    if ($objectivesApi.hasCompleted("obj_check-equipment")) return;
-    // if ($location === "/surface") {
-    //       $hudApi.startHintDialog();
-    //     } else {
-    //       $hudApi.startDialog({
-    //         keys: noSignal,
-    //       });
-    //     }
-  }
 </script>
 
 <div transition:fade class="container-hud">
@@ -101,7 +91,7 @@
       onClose={() => {
         $hudApi.showSmPuzzle = false;
       }}
-      onCall={onRadioCall}
+      onCall={() => $radioApi.call()}
       class="z-[102] pointer-events-auto"
     />
   {/if}

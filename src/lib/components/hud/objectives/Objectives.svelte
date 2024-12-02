@@ -14,7 +14,9 @@
 
 <div class="hud-objectives {extraClass}">
   <div class="flex flex-row items-center text-4xl font-bold">
-    <Lol key={$objectivesApi.currentChapter} class="p-2" />
+    {#key $objectivesApi.currentChapter}
+      <Lol key={$objectivesApi.currentChapter} class="p-2" />
+    {/key}
     {#if $objectivesApi.chapterFinished}
       <Confetti y={[-0.5, 0.5]} x={[-2, 2]} amount={222} />
       <Lol key="complete" />
