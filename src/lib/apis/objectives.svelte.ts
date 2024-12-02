@@ -33,25 +33,27 @@ interface Todo {
   numTimes?: number;
 }
 
+interface BaseTask {
+  key: string;
+  completed?: boolean;
+}
+
+interface Task extends BaseTask {
+  currentNum?: number;
+  numTimes?: number;
+}
+
+interface Objective extends BaseTask {
+  onStart?: () => void;
+  onFinished?: () => void;
+}
+
 type ObjectiveMap = {
   [key: string]: Todo[];
 };
 
 type ChapterMap = {
-  [key: string]: string[];
-};
-
-interface Task {
-  key: string;
-  currentNum?: number;
-  numTimes?: number;
-  completed?: boolean;
-}
-
-export type Objective = {
-  key: string;
-  completed: boolean;
-  onFinished?: () => void;
+  [key: string]: Objective[];
 };
 
 const objectiveMap: ObjectiveMap = {
@@ -60,7 +62,8 @@ const objectiveMap: ObjectiveMap = {
     { key: "task_open-inventory" },
     { key: "task_contact-mc" },
   ],
-  "obj_wrecks-observation": [{ key: "task_record-observations" }],
+  obj_prepare: [{ key: "task_review-SM" }, { key: "task_dive" }],
+  "obj_wrecks-observation": [{ key: "task_record-observations", numTimes: 3 }],
   "obj_wrecks-question": [
     { key: "task_review-observations" },
     { key: "task_ask-question" },
@@ -68,7 +71,22 @@ const objectiveMap: ObjectiveMap = {
 };
 
 const chapterMap: ChapterMap = {
-  tutorial: ["obj_learn-controls", "obj_check-equipment"],
+  tutorial: [
+    {
+      key: "obj_learn-controls",
+    },
+    {
+      key: "obj_check-equipment",
+      onStart: () => {
+        get(hudApi).showInventory = true;
+      },
+    },
+  ],
+  chapter1: [
+    {
+      key: "obj_prepare",
+    },
+  ],
 };
 
 type HintMap = {
@@ -193,15 +211,22 @@ class ObjectivesApi {
     this.currentChapter = chapterKey;
 
     this.currentObjectiveIndex = 0;
-    this.currentObjectives = chapterMap[chapterKey].map((objectiveKey) => {
+    this.currentObjectives = chapterMap[chapterKey].map((objective) => {
       let isCompleted = false;
-      if (this.completedObjectives.includes(objectiveKey)) {
+
+      if (this.completedObjectives.includes(objective.key)) {
+        // If the objective has already been completed
         isCompleted = true;
+        objective.onStart?.();
+        objective.onFinished?.();
         this.currentObjectiveIndex++;
       }
+
       return {
-        key: objectiveKey,
+        key: objective.key,
         completed: isCompleted,
+        onStart: objective.onStart,
+        onFinished: objective.onFinished,
       };
     });
 
@@ -216,6 +241,17 @@ class ObjectivesApi {
     get(hudApi).showObjectives = true;
   };
 
+  attachFinishedCallback = (objectiveKey: string, onFinished: () => void) => {
+    console.log(this.currentObjectives);
+    const objective = this.currentObjectives.find(
+      (obj) => obj.key === objectiveKey,
+    );
+    if (objective) {
+      console.log(objective);
+      objective.onFinished = onFinished;
+    }
+  };
+
   startObjective = () => {
     this.currentObjective = this.currentObjectives[this.currentObjectiveIndex];
     if (this.currentObjective) {
@@ -225,6 +261,7 @@ class ObjectivesApi {
           completed: false,
         }),
       );
+      this.currentObjective.onStart?.();
     }
   };
 

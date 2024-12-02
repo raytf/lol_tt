@@ -14,7 +14,7 @@
 </script>
 
 <div class="paper {extraClass}">
-  <button onclick={onClose} class="absolute top-1 right-1">
+  <button onclick={onClose} class="absolute top-1 left-1">
     <Close class="w-[33px] h-[33px] text-white" />
   </button>
 

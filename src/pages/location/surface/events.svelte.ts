@@ -22,7 +22,6 @@ class SurfaceEvents {
       tlHeading.reverse();
 
       setTimeout(() => {
-        get(hudApi).showInventory = true;
         if (this.tutorialComplete) {
           this.readyToDive = true;
         } else {
@@ -49,7 +48,7 @@ class SurfaceEvents {
 
     this.readyToDive = false;
     this.surfaceSub = false;
-    console.log("surfaceSub", this.surfaceSub);
+
     setTimeout(() => {
       get(gameApi).fadeScene("/wrecks/surface");
       get(audioApi).stopTrack({
@@ -64,7 +63,8 @@ class SurfaceEvents {
   }
 
   startTutorial() {
-    get(objectivesApi).startChapter("tutorial", () => {
+    const objectives = get(objectivesApi);
+    objectives.startChapter("tutorial", () => {
       this.tutorialComplete = true;
       this.startMissionBrief();
     });
@@ -82,12 +82,18 @@ class SurfaceEvents {
               itemId: "notepad",
               onFinished: () => {
                 this.readyToDive = true;
+                this.startChapter1();
               },
             });
           },
         });
       },
     });
+  }
+
+  startChapter1() {
+    const objectives = get(objectivesApi);
+    objectives.startChapter("chapter1", () => {});
   }
 }
 
