@@ -1,6 +1,6 @@
 import { writable, get } from "svelte/store";
 import type { DialogKey, DialogOption } from "$apis/dialog.svelte";
-import { objectivesApi, hudApi } from "$apis";
+import { objectivesApi, hudApi, lolApi } from "$apis";
 import { noSignal, observationReview } from "$dialog/radio";
 import radio from "$assets/icons/radio.svg";
 import { neutral, hushed, thinking, grin } from "$assets/emoji";
@@ -121,6 +121,9 @@ class RadioApi {
       objectives.completeTask("task_contact-mc2");
       hud.startDialog({
         keys: observationReview,
+        onFinished: () => {
+          get(lolApi).complete();
+        },
       });
     }
   }

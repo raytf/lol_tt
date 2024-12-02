@@ -120,6 +120,10 @@ export class LolApi {
   speakText = (key: string) => {
     lol_send("speakText", { key: key });
   };
+
+  complete = () => {
+    lol_send("complete", {});
+  };
 }
 
 export const lolApi = writable<LolApi>(new LolApi());
