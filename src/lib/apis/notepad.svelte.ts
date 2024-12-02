@@ -44,10 +44,6 @@ class ObservationsNotepadPage extends TextPage {
 
     this.observationKeys.push(key);
   }
-
-  additionalMethod() {
-    // Add any additional methods or properties here
-  }
 }
 
 class NotepadApi {
@@ -87,6 +83,15 @@ class NotepadApi {
     this.currentPage = this.observationPage;
     this.pages.push(this.currentPage);
     this.currentPageIndex++;
+  }
+
+  fillObservationPage() {
+    if (this.observationPage && this.observationPage.lines.length === 0) {
+      for (let i = 1; i <= 3; i++) {
+        const observationKey = `ch1_observations-${i}`;
+        if (this.observationPage) this.observationPage.addLine(observationKey);
+      }
+    }
   }
 }
 

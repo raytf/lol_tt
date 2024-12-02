@@ -5,22 +5,23 @@ import {
   smApi,
   gameApi,
   audioApi,
+  notepadApi,
   inventoryApi,
+  objectivesApi,
 } from "$apis";
 import radio from "$assets/icons/radio.svg";
-import cool from "$assets/emoji/cool.svg";
-import openMouth from "$assets/emoji/open-mouth.svg";
-import sweat from "$assets/emoji/sweat.svg";
-import downcastSweat from "$assets/emoji/downcast-sweat.svg";
-import worried from "$assets/emoji/worried.svg";
-import pensive from "$assets/emoji/pensive.svg";
-import thinking from "$assets/emoji/thinking.svg";
-import smile from "$assets/emoji/smile.svg";
-import neutral from "$assets/emoji/neutral.svg";
-import hushed from "$assets/emoji/hushed.svg";
-import heartEyes from "$assets/emoji/heart-eyes.svg";
-import tongue from "$assets/emoji/tongue.svg";
-import frownSlight from "$assets/emoji/frown-slight.svg";
+import {
+  confused,
+  cool,
+  downcastSweat,
+  pensive,
+  thinking,
+  openMouth,
+  neutral,
+  hushed,
+  smile,
+  frownSlight,
+} from "$assets/emoji";
 import { MissingCrew } from "$components/visual/story";
 import { storyComponent } from "$stores/story";
 
@@ -227,6 +228,112 @@ export const missionBrief = [
             text: "brief-2_o3-1",
           },
           ...observationTask,
+        ],
+      },
+    ],
+  },
+];
+
+export const observationReview = [
+  {
+    imgSrc: radio,
+    name: "mission-control",
+    text: "ch1_review-1",
+    options: [
+      {
+        imgSrc: confused,
+        text: "ch1_review-1_o1",
+        repeat: true,
+        nextDialog: [
+          {
+            imgSrc: radio,
+            name: "mission-control",
+            text: "ch1_strange-1",
+          },
+          {
+            imgSrc: frownSlight,
+            name: "mission-control",
+            text: "ch1_strange-2",
+          },
+          {
+            imgSrc: radio,
+            name: "mission-control",
+            text: "ch1_strange-3",
+          },
+          {
+            imgSrc: downcastSweat,
+            name: "mission-control",
+            text: "ch1_strange-4",
+          },
+          {
+            imgSrc: radio,
+            name: "mission-control",
+            text: "ch1_strange-5",
+          },
+        ],
+      },
+      {
+        imgSrc: smile,
+        text: "ch1_review-1_o2",
+        nextDialog: [
+          {
+            imgSrc: smile,
+            name: "mission-control",
+            text: "ch1_observations-1",
+            onStart: () => {
+              get(notepadApi).openPage(1);
+              get(hudApi).showNotepad = true;
+            },
+          },
+          {
+            imgSrc: smile,
+            name: "mission-control",
+            text: "ch1_observations-2",
+          },
+          {
+            imgSrc: smile,
+            name: "mission-control",
+            text: "ch1_observations-3",
+            onProceed: () => {
+              get(hudApi).showNotepad = false;
+            },
+          },
+        ],
+      },
+    ],
+  },
+  {
+    imgSrc: radio,
+    name: "mission-control",
+    text: "ch1_review-2",
+  },
+  {
+    imgSrc: radio,
+    name: "mission-control",
+    text: "ch1_review-3",
+    options: [
+      {
+        imgSrc: openMouth,
+        text: "ch1_review-3_o1",
+        nextDialog: [
+          {
+            imgSrc: radio,
+            name: "mission-control",
+            text: "ch1_review-3_o1-1",
+          },
+          {
+            imgSrc: radio,
+            name: "mission-control",
+            text: "ch1_review-3_o1-2",
+          },
+          {
+            imgSrc: radio,
+            name: "mission-control",
+            text: "ch1_review-3_o1-3",
+            onProceed: () => {
+              get(objectivesApi).completeTask("task_show-observations");
+            },
+          },
         ],
       },
     ],

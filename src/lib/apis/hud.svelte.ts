@@ -49,13 +49,13 @@ class HudApi {
 
     this.showDialog = true;
   }
-  startHintDialog() {
-    const dApi = get(dialogApi);
-    const oApi = get(objectivesApi);
-    dApi.currentDialog = oApi.getCurrentHintDialog();
+  // startHintDialog() {
+  //   const dApi = get(dialogApi);
+  //   const oApi = get(objectivesApi);
+  //   dApi.currentDialog = oApi.getCurrentHintDialog();
 
-    this.showDialog = true;
-  }
+  //   this.showDialog = true;
+  // }
   endDialog() {
     this.showDialog = false;
 

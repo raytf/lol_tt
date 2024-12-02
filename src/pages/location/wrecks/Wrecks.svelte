@@ -139,7 +139,7 @@
           });
           $gameApi.fadeScene("/surface");
         }}
-        class="absolute right-[44%] top-[4%] text-2xl flex flex-col items-center z-[20]"
+        class="absolute right-[44%] top-[4%] text-2xl flex flex-col items-center select-none z-[20]"
       >
         <ArrowUp class="w-[44px] h-[44px]" />
         <Lol key="surface" />

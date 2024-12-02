@@ -95,7 +95,9 @@
       onClose={() => {
         $hudApi.showSmPuzzle = false;
       }}
-      onCall={() => $radioApi.call()}
+      onCall={() => {
+        $radioApi.call($location);
+      }}
       class="z-[102] pointer-events-auto"
     />
   {/if}
