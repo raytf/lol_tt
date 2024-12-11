@@ -313,7 +313,7 @@ export const observationReview = [
     text: "ch1_review-3",
     options: [
       {
-        imgSrc: openMouth,
+        imgSrc: hushed,
         text: "ch1_review-3_o1",
         nextDialog: [
           {

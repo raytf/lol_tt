@@ -24,12 +24,7 @@
   import wrecks_3 from "$assets/wrecks/wrecks_3.png";
   import wrecks_secret from "$assets/wrecks/wrecks_secret.png";
   import { audioApi, gameApi, hudApi, inventoryApi } from "$apis";
-  import {
-    onTopAreaClick,
-    revealConchFace,
-    onclickConch,
-    events,
-  } from "./events.svelte";
+  import { events } from "./events.svelte";
   import { ArrowUp, ArrowRight } from "$components/svg/icons/animated";
 
   const grid = {
@@ -122,7 +117,7 @@
   {#snippet areas()}
     <Area
       size={[grid.width, $gameApi.windowHeight]}
-      onmousedown={onTopAreaClick}
+      onmousedown={moveSub}
       class="flex flex-row"
     >
       <UnderwaterGradient
@@ -155,7 +150,7 @@
         <Lol key="forest" class="mr-1" />
         <ArrowRight class="w-[33px] h-[33px]" />
       </button> -->
-      {#if $events.startObservationTask && $events.numObserved === 2}
+      {#if $events.startObservationTask && $events.numObserved === 0}
         <InfoMarker
           onclick={() => {
             $events.makeObservation(3);
@@ -185,7 +180,7 @@
         --color-top="#037ADE"
         --color-bottom="#182B3A"
       />
-      {#if $events.startObservationTask && $events.numObserved === 0}
+      {#if $events.startObservationTask && $events.numObserved === 2}
         <InfoMarker
           onclick={() => {
             $events.makeObservation(1);

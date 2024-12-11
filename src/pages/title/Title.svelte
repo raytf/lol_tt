@@ -3,7 +3,7 @@
   import { TurbulentImg } from "$components/ui/img";
   import { TextOverlay } from "$components/text";
   import ocean from "$assets/title/tritons-triangle.jpg";
-  import { gameApi, lolApi, audioApi } from "$apis";
+  import { gameApi, lolApi, audioApi, hudApi } from "$apis";
   import {
     tlZoomIn,
     tlZoomInMore,
@@ -20,6 +20,7 @@
   let startIntro = $state(true);
   let blackdropOpacity = $state(100);
   onMount(() => {
+    $hudApi.enabled = false;
     hideHeadings();
 
     $audioApi.loadTrack({
@@ -85,6 +86,7 @@
             fade: true,
             fadeTime: 2222,
           });
+          $hudApi.enabled = true;
         }}
         class="text-title p-12"
       >

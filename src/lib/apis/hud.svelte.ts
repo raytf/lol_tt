@@ -14,7 +14,8 @@ interface StartItemUnlockParams {
 }
 
 class HudApi {
-  showDebug = $state(false);
+  enabled = $state(true);
+  showDebug = $state(true);
   showObjectives = $state(false);
   showDialog = $state(false);
   showInventory = $state(false);
