@@ -42,7 +42,7 @@
         {#if option.imgSrc}
           <img src={option.imgSrc} alt="icon" class="h-full mr-2" />
         {/if}
-        {@html $lolApi.getText(option.text)}
+        <p>{@html $lolApi.getText(option.text)}</p>
       </Button>
     {/each}
   {/if}

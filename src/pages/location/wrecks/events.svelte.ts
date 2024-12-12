@@ -1,4 +1,5 @@
 import { writable, get } from "svelte/store";
+import type { DialogKey } from "$apis/dialog.svelte";
 import {
   audioApi,
   gameApi,
@@ -23,10 +24,15 @@ import { hushed, fearful, neutral } from "$assets/emoji";
 
 const hud = get(hudApi);
 const notepad = get(notepadApi);
+const objectives = get(objectivesApi);
+const audio = get(audioApi);
 
 class WrecksEvents {
   startObservationTask = $state(false);
   numObserved = $state(0);
+
+  revealConch = $state(false);
+  conchLightRadius = $state(0);
 
   showConchFace = $state(false);
 
@@ -35,58 +41,87 @@ class WrecksEvents {
     if (!objectives.hasCompleted("obj_make-observations")) {
       this.startObservationTask = true;
     }
+
+    if (objectives.hasCompleted("obj_review-observations")) {
+      this.revealConch = true;
+      this.conchLightRadius = 11;
+    }
+    //if (objectives.hasCompleted(""))
   }
 
   onClickConch() {
-    const objectives = get(objectivesApi);
     this.showConchFace = true;
-    if (!objectives.hasCompleted("obj_make-observations")) {
-      get(audioApi).playTrack({ src: "sound/spooky-laugh.mp3", volume: 0.5 });
-      hud.startDialog({
-        keys: [
-          {
-            text: "ch1_conch-scare-1",
-          },
-          {
-            imgSrc: fearful,
-            name: "you",
-            text: "ch1_conch-scare-2",
-          },
-        ],
-        onFinished: () => {
-          this.showConchFace = false;
+
+    hud.startDialog({
+      keys: [
+        {
+          text: "ch1_conch-scare-1",
         },
-      });
-      return;
-    }
+        {
+          imgSrc: fearful,
+          name: "you",
+          text: "ch1_conch-scare-2",
+        },
+      ],
+      onFinished: () => {
+        this.showConchFace = false;
+      },
+    });
   }
 
   makeObservation(index: number) {
-    const hud = get(hudApi);
-    const objectives = get(objectivesApi);
-
     const observationKey = `ch1_observations-${index}`;
-    let dialog = [
+    let dialog: DialogKey[] = [
       {
         imgSrc: hushed,
         name: "you",
         text: observationKey,
+        onProceed: () => {
+          if (notepad.observationPage) {
+            hud.showNotepad = true;
+            notepad.openPage(1);
+            notepad.observationPage.addLine(observationKey);
+            this.numObserved++;
+            if (notepad.observationPage.lines.length >= 3) {
+              objectives.completeTask("task_record-observations");
+            }
+          }
+        },
       },
     ];
 
+    if (index === 3) {
+      const laughDialog = [
+        {
+          text: "ch1_conch-scare-1",
+          onStart: () => {
+            hud.showNotepad = false;
+            audio.playTrack({ src: "sound/spooky-laugh.mp3", volume: 0.5 });
+            this.showConchFace = true;
+            this.conchLightRadius = 4;
+          },
+        },
+        {
+          imgSrc: fearful,
+          name: "you",
+          text: "ch1_conch-scare-2",
+        },
+        {
+          imgSrc: neutral,
+          name: "you",
+          text: "ch1_conch-scare-3",
+          onProceed: () => {
+            this.showConchFace = false;
+            this.conchLightRadius = 0;
+          },
+        },
+      ];
+      dialog.push(...laughDialog);
+    }
+
     hud.startDialog({
       keys: dialog,
-      onFinished: () => {
-        if (notepad.observationPage) {
-          hud.showNotepad = true;
-          notepad.openPage(1);
-          notepad.observationPage.addLine(observationKey);
-          this.numObserved++;
-          if (notepad.observationPage.lines.length >= 3) {
-            objectives.completeTask("task_record-observations");
-          }
-        }
-      },
+      onFinished: () => {},
     });
   }
 }

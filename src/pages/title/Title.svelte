@@ -84,7 +84,7 @@
           $audioApi.stopTrack({
             src: "music/into-the-blue.mp3",
             fade: true,
-            fadeTime: 2222,
+            fadeTime: 5555,
           });
           $hudApi.enabled = true;
         }}

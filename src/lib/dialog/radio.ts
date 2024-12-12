@@ -241,40 +241,8 @@ export const observationReview = [
     text: "ch1_review-1",
     options: [
       {
-        imgSrc: confused,
-        text: "ch1_review-1_o1",
-        repeat: true,
-        nextDialog: [
-          {
-            imgSrc: radio,
-            name: "mission-control",
-            text: "ch1_strange-1",
-          },
-          {
-            imgSrc: frownSlight,
-            name: "mission-control",
-            text: "ch1_strange-2",
-          },
-          {
-            imgSrc: radio,
-            name: "mission-control",
-            text: "ch1_strange-3",
-          },
-          {
-            imgSrc: downcastSweat,
-            name: "mission-control",
-            text: "ch1_strange-4",
-          },
-          {
-            imgSrc: radio,
-            name: "mission-control",
-            text: "ch1_strange-5",
-          },
-        ],
-      },
-      {
         imgSrc: smile,
-        text: "ch1_review-1_o2",
+        text: "ch1_review-1_o1",
         nextDialog: [
           {
             imgSrc: smile,
@@ -330,6 +298,11 @@ export const observationReview = [
             imgSrc: radio,
             name: "mission-control",
             text: "ch1_review-3_o1-3",
+          },
+          {
+            imgSrc: radio,
+            name: "mission-control",
+            text: "ch1_review-3_o1-4",
             onProceed: () => {
               get(objectivesApi).completeTask("task_show-observations");
             },

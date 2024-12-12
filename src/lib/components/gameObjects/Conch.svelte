@@ -22,7 +22,7 @@
 </script>
 
 <button
-  class="absolute {extraClass}"
+  class={extraClass}
   style={extraStyle}
   {onclick}
   onmouseenter={() => {

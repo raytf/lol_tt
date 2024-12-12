@@ -1,13 +1,10 @@
 <script lang="ts">
   import { querystring } from "svelte-spa-router";
   import { onMount } from "svelte";
-  import { fade } from "svelte/transition";
-  import { linear, expoInOut, quadInOut } from "svelte/easing";
-  import { toast } from "@zerodevx/svelte-toast";
   import { TurbulentImg, BgImg } from "$components/ui/img";
   import { Darkness, UnderwaterGradient } from "$components/visual";
   import { Grid, Area } from "$components/exploration";
-  import { Button, InfoMarker } from "$components/ui/button";
+  import { InfoMarker } from "$components/ui/button";
   import { Lol } from "$components/text";
   import Conch from "$components/gameObjects/Conch.svelte";
   import { Submarine } from "$components/gameObjects";
@@ -17,13 +14,11 @@
     coords as subCoords,
   } from "$stores/sub";
   import { gridOffset, minOffset, moveSub } from "$stores/exploration";
-  import { WrecksShape } from "$components/svg/environment";
   import underwater from "$assets/underwater_1by3.jpg";
   import wrecks_1 from "$assets/wrecks/wrecks_1.png";
   import wrecks_2 from "$assets/wrecks/wrecks_2.png";
   import wrecks_3 from "$assets/wrecks/wrecks_3.png";
-  import wrecks_secret from "$assets/wrecks/wrecks_secret.png";
-  import { audioApi, gameApi, hudApi, inventoryApi } from "$apis";
+  import { audioApi, gameApi } from "$apis";
   import { events } from "./events.svelte";
   import { ArrowUp, ArrowRight } from "$components/svg/icons/animated";
 
@@ -63,17 +58,6 @@
     }, 555);
 
     $events.onStart();
-
-    // const progress = Number(params.prog);
-    // if (progress >= 1) {
-    //   conchEncountered.set(true);
-    //   startChapterOne();
-    // }
-    // if (progress >= 2) {
-    //   dbAddObservations();
-    //   finishObservationTask();
-    // }
-    // startChapterOne();
   });
 </script>
 
@@ -92,7 +76,8 @@
   <Conch
     onclick={() => $events.onClickConch()}
     faceRevealed={$events.showConchFace}
-    class="absolute w-[55px] h-[55px] top-[92%] left-[37%] z-[9]"
+    class="absolute w-[55px] h-[55px] top-[92%] left-[37%] z-[9] {!$events.revealConch &&
+      'brightness-50 pointer-events-none'}"
     style="transform: translateX({$gridOffset.x / 10}px)"
   />
   <!-- <InfoMarker
@@ -110,7 +95,7 @@
     level={$gridOffset.y / $minOffset.y - 0.4}
     lights={[
       { x: $subCoords.x, y: $subCoords.y, unit: "px", radius: 4 },
-      { x: 37, y: 92, unit: "%", radius: 11 },
+      { x: 37, y: 92, unit: "%", radius: $events.conchLightRadius },
     ]}
     class="z-50"
   />
@@ -153,7 +138,7 @@
       {#if $events.startObservationTask && $events.numObserved === 0}
         <InfoMarker
           onclick={() => {
-            $events.makeObservation(3);
+            $events.makeObservation(1);
           }}
           class="absolute w-[55px] h-[55px] bottom-[55%] left-[44%] z-20"
         />
@@ -183,7 +168,7 @@
       {#if $events.startObservationTask && $events.numObserved === 2}
         <InfoMarker
           onclick={() => {
-            $events.makeObservation(1);
+            $events.makeObservation(3);
           }}
           class="absolute w-[55px] h-[55px] bottom-[33%] left-[44%] z-20"
         />
