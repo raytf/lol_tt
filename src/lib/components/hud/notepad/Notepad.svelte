@@ -84,7 +84,7 @@
 {/key}
 
 {#snippet coverPage()}
-  <p class="mt-6 text-title text-center text-5xl">
+  <p class="mt-6 text-title text-5xl">
     {$notepadApi.currentPage.title}
   </p>
   <br />

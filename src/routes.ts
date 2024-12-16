@@ -25,7 +25,7 @@ export default {
   "/": Title,
   "/surface": Surface,
   "/wrecks": Wrecks,
-  // "/forest": Forest,
+  "/forest": Forest,
   "/ch1": Ch1,
   // "/ch1_encounter_shell": Ch1_Encounter_Shell,
   // "/ch1_lesson_sm-intro": Ch1_Lesson_SMIntro,

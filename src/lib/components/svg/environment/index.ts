@@ -1,2 +1,3 @@
 import WrecksShape from "./WrecksShape.svelte";
-export { WrecksShape };
+import ForestPath from "./ForestPath.svelte";
+export { WrecksShape, ForestPath };

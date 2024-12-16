@@ -26,6 +26,13 @@ class Page {
 
 class CoverPage extends Page {
   type = "cover";
+
+  constructor(titleKey: string) {
+    super(titleKey);
+    this.addBulletLine("notepad-line_look-clues");
+    this.addBulletLine("notepad-line_explore-depths");
+    this.addBulletLine("notepad-line_find-treasure");
+  }
 }
 
 class TextPage extends Page {
@@ -53,9 +60,6 @@ class NotepadApi {
   observationPage = $state<Page>();
 
   constructor() {
-    this.currentPage.addBulletLine("notepad-line_explore-depths");
-    this.currentPage.addBulletLine("notepad-line_look-clues");
-    this.currentPage.addBulletLine("notepad-line_find-treasure");
     this.pages = [this.currentPage];
   }
 
