@@ -5,6 +5,11 @@
   import { TurbulentImg, BgImg } from "$components/ui/img";
   import { Darkness, UnderwaterGradient } from "$components/visual";
   import { gridOffset, minOffset, moveSub } from "$stores/exploration";
+  import {
+    setTarget as setSubTarget,
+    setPosition as setSubPosition,
+    coords as subCoords,
+  } from "$stores/sub";
   import { gameApi } from "$apis";
 
   import { ForestPath } from "$components/svg/environment";
@@ -20,6 +25,12 @@
     x: -grid.width + $gameApi.windowWidth,
     y: -grid.height + $gameApi.windowHeight,
   });
+  console.log("grid size", grid);
+  console.log("minOffset", $minOffset);
+
+  const depthRatio = $derived.by(() => {
+    return $gridOffset.y / $minOffset.y;
+  });
 </script>
 
 <Grid
@@ -32,7 +43,16 @@
   <ForestPath class="absolute size-full z-[5] opacity-0 pointer-events-none" />
   <BgImg src={forest_1} class="z-[5]" />
   <Submarine class="z-10" />
-  <BgImg src={kelp_foreground} class="size-full z-[11]" />
+  <BgImg
+    src={kelp_foreground}
+    class="size-full z-[11]"
+    style="filter: brightness({1 - depthRatio + 0.2});"
+  />
+  <Darkness
+    level={$gridOffset.y / $minOffset.y - 0.2}
+    lights={[{ x: $subCoords.x, y: $subCoords.y, unit: "px", radius: 4 }]}
+    class="z-50"
+  />
 
   {#snippet areas()}
     <Area size={[grid.width, $gameApi.windowHeight]} onmousedown={moveSub}>

@@ -18,6 +18,7 @@
   import wrecks_1 from "$assets/wrecks/wrecks_1.png";
   import wrecks_2 from "$assets/wrecks/wrecks_2.png";
   import wrecks_3 from "$assets/wrecks/wrecks_3.png";
+  import { WrecksPath } from "$components/svg/environment";
   import { audioApi, gameApi } from "$apis";
   import { events } from "./events.svelte";
   import { ArrowUp, ArrowRight } from "$components/svg/icons/animated";
@@ -86,6 +87,10 @@
     style="transform: translateX({$gridOffset.x / 10}px)"
   /> -->
   <Submarine class="z-10" />
+  <WrecksPath
+    style="transform: translateX({$gridOffset.x / 5}px)"
+    class="absolute w-[111%] bottom-0 z-[13] pointer-events-none opacity-0"
+  />
   <BgImg
     src={wrecks_1}
     style="transform: translateX({$gridOffset.x / 5}px)"

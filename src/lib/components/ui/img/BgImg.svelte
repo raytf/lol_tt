@@ -21,6 +21,7 @@
   {alt}
   width="100%"
   height="100%"
+  draggable="false"
   class="absolute max-w-none pointer-events-none select-none {extraClass}"
   style={extraStyle}
   {...props}
