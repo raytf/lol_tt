@@ -47,9 +47,12 @@
     gridOffset.set({ x: 0, y: 0 }, { hard: true });
   }
   if (searchParams.has("from", "forest")) {
-    initialPosition = { x: grid.width + 111, y: 111 };
-    initialTarget = { x: grid.width - 222, y: 111 };
-    gridOffset.set({ x: $minOffset.x, y: 0 }, { hard: true });
+    initialPosition = { x: grid.width + 111, y: $gameApi.windowHeight * 2.75 };
+    initialTarget = { x: grid.width - 222, y: initialPosition.y };
+    gridOffset.set(
+      { x: $minOffset.x, y: -$gameApi.windowHeight * 2 },
+      { hard: true },
+    );
   }
 
   setSubPosition(initialPosition);
@@ -178,6 +181,13 @@
           class="absolute w-[55px] h-[55px] bottom-[33%] left-[44%] z-20"
         />
       {/if}
+      <button
+        onclick={() => $gameApi.fadeScene("/forest?from=wrecks")}
+        class="absolute right-[2%] bottom-[22%] text-2xl flex items-center z-[20]"
+      >
+        <Lol key="forest" class="mr-1" />
+        <ArrowRight class="w-[33px] h-[33px]" />
+      </button>
     </Area>
   {/snippet}
 </Grid>

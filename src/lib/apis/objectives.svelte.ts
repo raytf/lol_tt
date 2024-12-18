@@ -67,8 +67,6 @@ const chapterMap: ChapterMap = {
         get(inventoryApi).unlockItem("notepad");
       },
     },
-  ],
-  chapter1: [
     {
       key: "obj_prepare",
       onFinished: () => {
@@ -84,6 +82,8 @@ const chapterMap: ChapterMap = {
     {
       key: "obj_review-observations",
     },
+  ],
+  chapter1: [
     {
       key: "obj_question",
     },
