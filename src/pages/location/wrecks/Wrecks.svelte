@@ -39,12 +39,12 @@
   };
   const searchParams = new URLSearchParams($querystring);
   if (searchParams.has("from", "surface")) {
-    initialPosition = { x: $gameApi.windowWidth / 2, y: -222 };
+    initialPosition = { x: $subCoords.x, y: -222 };
     initialTarget = {
-      x: $gameApi.windowWidth / 2,
+      x: initialPosition.x,
       y: $gameApi.windowHeight / 2,
     };
-    gridOffset.set({ x: 0, y: 0 }, { hard: true });
+    gridOffset.set({ x: $gridOffset.x, y: 0 }, { hard: true });
   }
   if (searchParams.has("from", "forest")) {
     initialPosition = { x: grid.width + 111, y: $gameApi.windowHeight * 2.75 };
@@ -125,7 +125,7 @@
           $audioApi.stopTrack({
             src: "music/deep-echoes.mp3",
           });
-          $gameApi.fadeScene("/surface");
+          $gameApi.fadeScene("/surface?from=wrecks");
         }}
         class="absolute right-[44%] top-[4%] text-2xl flex flex-col items-center select-none z-[20]"
       >

@@ -9,6 +9,7 @@ import {
 } from "$apis";
 import { checkIn, missionBrief } from "$dialog/radio";
 import { setTarget as setSubTarget } from "$stores/sub";
+import { moveSub } from "$stores/exploration";
 import { hideHeading, tlRevealHeading } from "./animations";
 
 class SurfaceEvents {
@@ -52,7 +53,7 @@ class SurfaceEvents {
       get(objectivesApi).completeTask("task_move-sub");
     }
 
-    setSubTarget({ x: e.clientX, y: e.clientY });
+    moveSub(e);
   }
 
   onClickDive() {
