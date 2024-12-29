@@ -10,26 +10,23 @@ import {
 import { checkIn, missionBrief } from "$dialog/radio";
 import { setTarget as setSubTarget } from "$stores/sub";
 import { moveSub } from "$stores/exploration";
-import { hideHeading, tlRevealHeading } from "./animations";
 
+const audio = get(audioApi);
 const objectives = get(objectivesApi);
 
 class SurfaceEvents {
   surfaceSub = $state(false);
   readyToDive = $state(false);
 
-  onStart(fromStart: boolean) {
-    get(audioApi).playTrack({
+  onEnter(fromStart: boolean) {
+    audio.playTrack({
       src: "sound/ocean-loop.mp3",
       volume: 0.08,
       loop: true,
     });
 
-    let tlHeading = tlRevealHeading();
-    const objectives = get(objectivesApi);
     setTimeout(() => {
       this.surfaceSub = true;
-      tlHeading.reverse();
 
       if (fromStart) {
         setTimeout(() => {
@@ -73,11 +70,6 @@ class SurfaceEvents {
       get(gameApi).fadeScene("/wrecks?from=surface");
       get(audioApi).stopTrack({
         src: "sound/ocean-loop.mp3",
-      });
-      get(audioApi).playTrack({
-        src: "music/deep-echoes.mp3",
-        volume: 0.44,
-        loop: true,
       });
     }, 1000);
   }
@@ -130,4 +122,4 @@ class SurfaceEvents {
   }
 }
 
-export const events = writable<SurfaceEvents>(new SurfaceEvents());
+export default writable<SurfaceEvents>(new SurfaceEvents());

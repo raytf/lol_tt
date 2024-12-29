@@ -2,6 +2,7 @@
   import { querystring } from "svelte-spa-router";
   import { onMount } from "svelte";
   import { fade } from "svelte/transition";
+  import { Location } from "$components/location";
   import { Grid, Area } from "$components/exploration";
   import { Lol } from "$components/text";
   import { Dive } from "$components/svg/icons";
@@ -14,8 +15,7 @@
     coords as subCoords,
   } from "$stores/sub";
   import { gameApi } from "$apis";
-  import { events } from "./events.svelte";
-  import { hideHeading } from "./animations";
+  import surface from "./events.svelte";
   import island_1 from "$assets/islands/island_1.png";
   import { BgImg, TurbulentImg } from "$components/ui/img";
 
@@ -41,26 +41,21 @@
     gridOffset.set({ x: $gridOffset.x, y: 0 }, { hard: true });
   }
   onMount(() => {
-    hideHeading();
-
     setSubPosition(initialSubCoords);
     const searchParams = new URLSearchParams($querystring);
-    $events.onStart(searchParams.has("start"));
+    $surface.onEnter(searchParams.has("start"));
   });
 </script>
 
-<div class="relative size-full">
-  <div class="absolute size-full z-[11] pointer-events-none">
-    <div id="surface-heading" class="w-full text-center">
-      <Lol key="surface-heading" class="text-3xl font-bold p-4" />
-    </div>
+<Location title="surface" uiClass="z-[11]">
+  {#snippet ui()}
     <div
-      class="absolute bottom-0 w-full h-[222px] flex justify-center items-end pb-11"
+      class="absolute z-[11] bottom-0 w-full h-[222px] flex justify-center items-end pb-11"
     >
-      {#if $events.readyToDive}
+      {#if $surface.readyToDive}
         <div transition:fade>
           <Button
-            onclick={() => $events.onClickDive()}
+            onclick={() => $surface.onClickDive()}
             class="w-[99px] h-[88px] flex-col items-center pointer-events-auto"
           >
             <Lol key="dive" class="text-2xl" />
@@ -69,7 +64,7 @@
         </div>
       {/if}
     </div>
-  </div>
+  {/snippet}
 
   <Grid
     size={[grid.width, grid.height]}
@@ -84,19 +79,19 @@
       class="overflow-hidden z-[11]"
       imgClass="bottom-[-44%]"
       bob={true}
-      reveal={$events.surfaceSub}
+      reveal={$surface.surfaceSub}
     />
     <BgImg
       src={island_1}
-      class="absolute -bottom-[18%] -right-[22%] w-1/2 h-full z-[15]"
+      class="absolute bottom-0 -right-[22%] w-1/2 h-full z-[15]"
     />
     {#snippet areas()}
       <div class="absolute w-full h-1/2 bottom-0 z-10">
         <Area
           size={[$gameApi.windowWidth * 1.5, grid.height]}
-          onmousedown={(e) => $events.onClickArea(e)}
+          onmousedown={(e) => $surface.onClickArea(e)}
         ></Area>
       </div>
     {/snippet}
   </Grid>
-</div>
+</Location>

@@ -100,7 +100,7 @@
     );
     gsap.to(".container-smPuzzle", { opacity: 1, duration: 1 });
 
-    if ($objectivesApi.hasCompleted("obj_check-equipment")) {
+    if ($objectivesApi.hasCompleted("obj_contact-mc")) {
       playStartAnimation();
     } else {
       playEndAnimation();

@@ -32,9 +32,9 @@ type ChapterMap = {
 
 const objectiveMap: ObjectiveMap = {
   "obj_learn-controls": [{ key: "task_move-sub" }],
-  "obj_check-equipment": [
+  "obj_contact-mc": [
     { key: "task_open-inventory" },
-    { key: "task_contact-mc" },
+    { key: "task_answer-radio" },
   ],
   obj_mission: [{ key: "task_start-mission" }],
   obj_prepare: [{ key: "task_open-notepad" }, { key: "task_new-page" }],
@@ -55,7 +55,7 @@ const chapterMap: ChapterMap = {
       key: "obj_learn-controls",
     },
     {
-      key: "obj_check-equipment",
+      key: "obj_contact-mc",
       onStart: () => {
         get(hudApi).showInventory = true;
       },

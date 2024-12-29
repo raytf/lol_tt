@@ -51,7 +51,7 @@ export class AudioApi {
       sound: sound,
       volume: 0,
     });
-    console.log("loaded new track", this.tracks);
+    console.log("Loaded tracks", this.tracks);
   };
 
   playTrack = ({
@@ -74,7 +74,7 @@ export class AudioApi {
       const id = sound.play();
       if (fade) sound.fade(0, volume, fadeTime, id);
       track.volume = volume;
-      console.log("played track", this.tracks);
+      console.log("Played tracks", this.tracks);
     } else {
       this.loadTrack({
         src,

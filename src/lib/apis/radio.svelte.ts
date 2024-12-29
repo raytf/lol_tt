@@ -29,7 +29,7 @@ const defaultHint: DialogKey = {
 };
 
 const hintOptionsMap: HintMap = {
-  "obj_check-equipment": [
+  "obj_contact-mc": [
     {
       text: "brief-2_o2",
       imgSrc: neutral,
@@ -112,8 +112,8 @@ class RadioApi {
     }
 
     const objectives = get(objectivesApi);
-    if (objectives.currentIs("obj_check-equipment")) {
-      objectives.completeTask("task_contact-mc");
+    if (objectives.currentIs("obj_contact-mc")) {
+      objectives.completeTask("task_answer-radio");
       return;
     }
 

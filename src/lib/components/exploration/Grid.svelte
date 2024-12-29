@@ -22,12 +22,8 @@
   class="grid {extraClass}"
   style="width: {size[0]}px; height: {size[1]}px; transform: translate({xOffset}px, {yOffset}px)"
 >
-  {#if children}
-    {@render children()}
-  {/if}
-  {#if areas}
-    {@render areas()}
-  {/if}
+  {@render children?.()}
+  {@render areas?.()}
 </div>
 
 <style>

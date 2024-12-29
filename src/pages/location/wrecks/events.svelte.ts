@@ -21,6 +21,7 @@ import {
   conchReview1,
 } from "$dialog/conch";
 import { hushed, fearful, neutral } from "$assets/emoji";
+import { hideHeading, tlRevealHeading } from "$components/location";
 
 const hud = get(hudApi);
 const notepad = get(notepadApi);
@@ -36,7 +37,8 @@ class WrecksEvents {
 
   showConchFace = $state(false);
 
-  onStart() {
+  onEnter() {
+    hideHeading();
     const objectives = get(objectivesApi);
     if (!objectives.hasCompleted("obj_make-observations")) {
       this.startObservationTask = true;
@@ -46,6 +48,12 @@ class WrecksEvents {
       this.revealConch = true;
       this.conchLightRadius = 11;
     }
+
+    get(audioApi).playTrack({
+      src: "music/deep-echoes.mp3",
+      volume: 0.44,
+      loop: true,
+    });
     //if (objectives.hasCompleted(""))
   }
 
@@ -126,4 +134,4 @@ class WrecksEvents {
   }
 }
 
-export const events = writable(new WrecksEvents());
+export default writable(new WrecksEvents());
