@@ -2,7 +2,7 @@
   import { querystring } from "svelte-spa-router";
   import { onMount } from "svelte";
   import { Grid, Area } from "$components/exploration";
-  import { Submarine } from "$components/gameObjects";
+  import { Submarine, KelpMonster } from "$components/gameObjects";
   import { TurbulentImg, BgImg } from "$components/ui/img";
   import { Lol } from "$components/text";
   import { Darkness, UnderwaterGradient } from "$components/visual";
@@ -13,13 +13,14 @@
     coords as subCoords,
   } from "$stores/sub";
   import { gameApi } from "$apis";
+  import forest from "./events.svelte";
 
   import { ForestPath } from "$components/svg/environment";
   import underwater from "$assets/underwater_wide.jpg";
   import forest_1 from "$assets/forest/forest_1.png";
   import forest_2 from "$assets/forest/forest_2.png";
   import forest_3 from "$assets/forest/forest_3.png";
-  import kelp_foreground from "$assets/forest/kelp_foreground.png";
+  import kelp_1 from "$assets/forest/kelp_1.png";
   import kelp_2 from "$assets/forest/kelp_2.png";
   import kelp_3 from "$assets/forest/kelp_3.png";
   import kelp_4 from "$assets/forest/kelp_4.png";
@@ -107,9 +108,10 @@
     style="filter: brightness(0.5); transform: translateX({$gridOffset.x /
       6}px);"
   />
+  <KelpMonster class="w-[555px] h-[666px] z-[9]" />
   <Submarine class="z-10" />
   <BgImg
-    src={kelp_foreground}
+    src={kelp_1}
     class="size-full z-[11]"
     style="filter: brightness({1 -
       depthRatio +
@@ -122,21 +124,30 @@
   />
 
   {#snippet areas()}
-    <Area size={[grid.width, $gameApi.windowHeight]} onmousedown={moveSub}>
+    <Area
+      size={[grid.width, $gameApi.windowHeight]}
+      onmousedown={(e) => $forest.onClickArea(e)}
+    >
       <UnderwaterGradient
         class="absolute w-full h-[101%]"
         --color-top="#03E5B7"
         --color-bottom="#00C1EF"
       />
     </Area>
-    <Area size={[grid.width, $gameApi.windowHeight]} onmousedown={moveSub}>
+    <Area
+      size={[grid.width, $gameApi.windowHeight]}
+      onmousedown={(e) => $forest.onClickArea(e)}
+    >
       <UnderwaterGradient
         class="absolute w-full h-[101%]"
         --color-top="#00C1EF"
         --color-bottom="#037ADE"
       />
     </Area>
-    <Area size={[grid.width, $gameApi.windowHeight]} onmousedown={moveSub}>
+    <Area
+      size={[grid.width, $gameApi.windowHeight]}
+      onmousedown={(e) => $forest.onClickArea(e)}
+    >
       <UnderwaterGradient
         class="absolute size-full"
         --color-top="#037ADE"
@@ -150,7 +161,10 @@
         <Lol key="wrecks" class="mr-1" />
       </button>
     </Area>
-    <Area size={[grid.width, $gameApi.windowHeight]} onmousedown={moveSub}>
+    <Area
+      size={[grid.width, $gameApi.windowHeight]}
+      onmousedown={(e) => $forest.onClickArea(e)}
+    >
       <UnderwaterGradient
         class="absolute size-full"
         --color-top="#182B3A"
