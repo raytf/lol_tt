@@ -12,6 +12,8 @@ import { setTarget as setSubTarget } from "$stores/sub";
 import { moveSub } from "$stores/exploration";
 import { hideHeading, tlRevealHeading } from "./animations";
 
+const objectives = get(objectivesApi);
+
 class SurfaceEvents {
   surfaceSub = $state(false);
   readyToDive = $state(false);
@@ -35,9 +37,10 @@ class SurfaceEvents {
             this.startTutorial();
           } else {
             if (!objectives.hasCompleted("obj_prepare")) {
-              this.prepareChapter1();
+              this.unlockItems();
+              //this.prepareChapter1();
             } else {
-              this.startChapter1();
+              //this.startChapter1();
               this.readyToDive = true;
             }
           }
@@ -91,15 +94,15 @@ class SurfaceEvents {
   startMissionBrief() {
     const hud = get(hudApi);
     hud.startDialog({
-      keys: [...checkIn, ...missionBrief],
+      keys: [...missionBrief],
       onFinished: () => {
         get(objectivesApi).completeTask("task_start-mission");
-        this.prepareChapter1();
+        this.unlockItems();
       },
     });
   }
 
-  prepareChapter1() {
+  unlockItems() {
     const hud = get(hudApi);
 
     hud.startItemUnlock({
@@ -108,7 +111,10 @@ class SurfaceEvents {
         hud.startItemUnlock({
           itemId: "notepad",
           onFinished: () => {
-            this.startChapter1();
+            objectives.attachStartCallback("obj_make-observations", () => {
+              this.readyToDive = true;
+            });
+            // this.startChapter1();
           },
         });
       },

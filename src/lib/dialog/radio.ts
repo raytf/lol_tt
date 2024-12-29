@@ -97,6 +97,11 @@ export const missionBrief = [
   {
     imgSrc: radio,
     name: "mission-control",
+    text: "brief-1",
+  },
+  {
+    imgSrc: radio,
+    name: "mission-control",
     text: "brief-2",
     options: [
       {
@@ -287,22 +292,22 @@ export const observationReview = [
           {
             imgSrc: radio,
             name: "mission-control",
-            text: "ch1_review-3_o1-1",
+            text: "ch1_review-4",
           },
           {
             imgSrc: radio,
             name: "mission-control",
-            text: "ch1_review-3_o1-2",
+            text: "ch1_review-5",
           },
           {
             imgSrc: radio,
             name: "mission-control",
-            text: "ch1_review-3_o1-3",
+            text: "ch1_review-6",
           },
           {
             imgSrc: radio,
             name: "mission-control",
-            text: "ch1_review-3_o1-4",
+            text: "ch1_review-7",
             onProceed: () => {
               get(objectivesApi).completeTask("task_show-observations");
             },
