@@ -13,6 +13,7 @@ import { moveSub } from "$stores/exploration";
 
 const audio = get(audioApi);
 const objectives = get(objectivesApi);
+const inventory = get(inventoryApi);
 
 class SurfaceEvents {
   surfaceSub = $state(false);
@@ -30,16 +31,12 @@ class SurfaceEvents {
 
       if (fromStart) {
         setTimeout(() => {
-          if (!objectives.hasCompleted("obj_mission")) {
+          if (!objectives.hasCompleted("obj_review-observations")) {
             this.startTutorial();
-          } else {
-            if (!objectives.hasCompleted("obj_prepare")) {
-              this.unlockItems();
-              //this.prepareChapter1();
-            } else {
-              //this.startChapter1();
-              this.readyToDive = true;
-            }
+          }
+
+          if (objectives.hasCompleted("obj_prepare")) {
+            this.readyToDive = true;
           }
         }, 1111);
       } else {

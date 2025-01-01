@@ -53,6 +53,9 @@ const chapterMap: ChapterMap = {
   tutorial: [
     {
       key: "obj_learn-controls",
+      onFinished: () => {
+        get(hudApi).showInventory = true;
+      },
     },
     {
       key: "obj_answer-radio",
@@ -145,7 +148,7 @@ class ObjectivesApi {
       if (this.completedObjectives.includes(objective.key)) {
         // If the objective has already been completed
         isCompleted = true;
-        objective.onStart?.();
+        //objective.onStart?.();
         objective.onFinished?.();
         this.currentObjectiveIndex++;
       }

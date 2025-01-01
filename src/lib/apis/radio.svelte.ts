@@ -137,9 +137,6 @@ class RadioApi {
           text: "radio_incoming-call",
         },
       ],
-      onFinished: () => {
-        hud.showInventory = true;
-      },
     });
   }
 
