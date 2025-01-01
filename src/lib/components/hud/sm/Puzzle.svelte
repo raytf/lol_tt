@@ -8,7 +8,7 @@
   import { Reset, Close, Pulse } from "$components/svg/icons";
   import { InfoButton } from "$components/ui/button";
   import { steps } from "$components/scientificMethod";
-  import { lolApi, objectivesApi } from "$apis";
+  import { lolApi } from "$apis";
   import { flipElement, doFlip } from "$stores/flip";
 
   let {
@@ -100,11 +100,7 @@
     );
     gsap.to(".container-smPuzzle", { opacity: 1, duration: 1 });
 
-    if ($objectivesApi.hasCompleted("obj_answer-radio")) {
-      playStartAnimation();
-    } else {
-      playEndAnimation();
-    }
+    playStartAnimation();
   });
 
   function playStartAnimation() {

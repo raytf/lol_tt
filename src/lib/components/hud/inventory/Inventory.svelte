@@ -1,12 +1,13 @@
 <script lang="ts">
   import { fly } from "svelte/transition";
+  import { location } from "svelte-spa-router";
   import { Drawer } from "flowbite-svelte";
   import ItemCard from "./ItemCard.svelte";
   import { Lol } from "$components/text";
   import { Close } from "$components/svg/icons";
   import { InfoButton } from "$components/ui/button";
   import { Backpack } from "$components/svg/icons/hud";
-  import { hudApi, inventoryApi, objectivesApi } from "$apis";
+  import { hudApi, inventoryApi, objectivesApi, radioApi } from "$apis";
   import { flipElement } from "$stores/flip";
 
   let {
@@ -32,7 +33,12 @@
       if (bigIconElement) {
         flipElement.set(bigIconElement);
       }
-      $hudApi.showSmPuzzle = true;
+
+      if ($objectivesApi.hasCompleted("obj_answer-radio")) {
+        $hudApi.showSmPuzzle = true;
+      } else {
+        $radioApi.call($location);
+      }
     }
     if (itemId === "notepad") {
       $hudApi.showNotepad = true;
