@@ -100,7 +100,7 @@
     );
     gsap.to(".container-smPuzzle", { opacity: 1, duration: 1 });
 
-    if ($objectivesApi.hasCompleted("obj_contact-mc")) {
+    if ($objectivesApi.hasCompleted("obj_answer-radio")) {
       playStartAnimation();
     } else {
       playEndAnimation();

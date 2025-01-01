@@ -29,7 +29,7 @@ const defaultHint: DialogKey = {
 };
 
 const hintOptionsMap: HintMap = {
-  "obj_contact-mc": [
+  "obj_answer-radio": [
     {
       text: "brief-2_o2",
       imgSrc: neutral,
@@ -112,8 +112,8 @@ class RadioApi {
     }
 
     const objectives = get(objectivesApi);
-    if (objectives.currentIs("obj_contact-mc")) {
-      objectives.completeTask("task_answer-radio");
+    if (objectives.currentIs("obj_answer-radio")) {
+      objectives.completeTask("task_open-radio");
       return;
     }
 
@@ -126,6 +126,21 @@ class RadioApi {
         },
       });
     }
+  }
+
+  incomingCall() {
+    const hud = get(hudApi);
+    hud.startDialog({
+      keys: [
+        {
+          imgSrc: radio,
+          text: "radio_incoming-call",
+        },
+      ],
+      onFinished: () => {
+        hud.showInventory = true;
+      },
+    });
   }
 
   getCurrentHintDialog = () => {
