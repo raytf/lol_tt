@@ -6,7 +6,12 @@
   }: { onclick?: () => void; class?: string; style?: string } = $props();
 </script>
 
-<button {onclick} class={extraClass} style={extraStyle}>
+<button
+  {onclick}
+  aria-label="Info marker"
+  class={extraClass}
+  style={extraStyle}
+>
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="100%"

@@ -63,12 +63,12 @@ class WrecksEvents {
     hud.startDialog({
       keys: [
         {
-          text: "ch1_conch-scare-1",
+          text: "tut_conch-scare-1",
         },
         {
           imgSrc: fearful,
           name: "you",
-          text: "ch1_conch-scare-2",
+          text: "tut_conch-scare-2",
         },
       ],
       onFinished: () => {
@@ -78,7 +78,7 @@ class WrecksEvents {
   }
 
   makeObservation(index: number) {
-    const observationKey = `ch1_observations-${index}`;
+    const observationKey = `tut_observations-${index}`;
     let dialog: DialogKey[] = [
       {
         imgSrc: hushed,
@@ -101,7 +101,7 @@ class WrecksEvents {
     if (index === 3) {
       const laughDialog = [
         {
-          text: "ch1_conch-scare-1",
+          text: "conch-scare-1",
           onStart: () => {
             hud.showNotepad = false;
             audio.playTrack({ src: "sound/spooky-laugh.mp3", volume: 0.5 });
@@ -112,12 +112,12 @@ class WrecksEvents {
         {
           imgSrc: fearful,
           name: "you",
-          text: "ch1_conch-scare-2",
+          text: "conch-scare-2",
         },
         {
           imgSrc: neutral,
           name: "you",
-          text: "ch1_conch-scare-3",
+          text: "conch-scare-3",
           onProceed: () => {
             this.showConchFace = false;
             this.conchLightRadius = 0;

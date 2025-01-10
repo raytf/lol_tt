@@ -92,7 +92,7 @@ class NotepadApi {
   fillObservationPage() {
     if (this.observationPage && this.observationPage.lines.length === 0) {
       for (let i = 1; i <= 3; i++) {
-        const observationKey = `ch1_observations-${i}`;
+        const observationKey = `tut_observations-${i}`;
         if (this.observationPage) this.observationPage.addLine(observationKey);
       }
     }

@@ -1,7 +1,7 @@
 import { writable, get } from "svelte/store";
 import type { DialogKey, DialogOption } from "$apis/dialog.svelte";
 import { objectivesApi, hudApi, lolApi } from "$apis";
-import { noSignal, observationReview } from "$dialog/radio";
+import { noSignal, observationTask, observationReview } from "$dialog/radio";
 import radio from "$assets/icons/radio.svg";
 import { neutral, hushed, thinking, grin } from "$assets/emoji";
 
@@ -112,18 +112,26 @@ class RadioApi {
     }
 
     const objectives = get(objectivesApi);
-    if (objectives.currentIs("obj_answer-radio")) {
+    if (objectives.currentObjectiveIs("obj_answer-radio")) {
       objectives.completeTask("task_open-radio");
       return;
     }
 
-    if (objectives.currentIs("obj_review-observations")) {
+    if (objectives.currentObjectiveIs("obj_review-observations")) {
       objectives.completeTask("task_contact-mc2");
       hud.startDialog({
         keys: observationReview,
         onFinished: () => {
-          get(lolApi).complete();
+          //get(lolApi).complete();
         },
+      });
+      return;
+    }
+
+    if (objectives.currentChapterIs("tutorial")) {
+      console.log("tutorial hints");
+      hud.startDialog({
+        keys: observationTask,
       });
     }
   }

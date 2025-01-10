@@ -31,7 +31,7 @@
 <div class="relative size-full {extraClass}">
   <div class="absolute size-full pointer-events-none {uiClass}">
     <div class="heading-location w-full text-center">
-      <Lol key="location-{title}" class="text-3xl font-bold p-4" />
+      <Lol key="location-{title}" class="text-4xl font-bold p-4" />
     </div>
     {@render ui?.()}
   </div>

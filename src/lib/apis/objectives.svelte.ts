@@ -115,7 +115,11 @@ class ObjectivesApi {
     this.numTotalObjectives = numTotal;
   }
 
-  currentIs = (objectiveKey: string) => {
+  currentChapterIs = (chapterKey: string) => {
+    return this.currentChapter === chapterKey;
+  };
+
+  currentObjectiveIs = (objectiveKey: string) => {
     return this.currentObjective?.key === objectiveKey;
   };
 

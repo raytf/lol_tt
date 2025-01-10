@@ -19,7 +19,7 @@ class SurfaceEvents {
   surfaceSub = $state(false);
   readyToDive = $state(false);
 
-  onEnter(fromStart: boolean) {
+  onEnter(searchParams: URLSearchParams) {
     audio.playTrack({
       src: "sound/ocean-loop.mp3",
       volume: 0.08,
@@ -29,7 +29,7 @@ class SurfaceEvents {
     setTimeout(() => {
       this.surfaceSub = true;
 
-      if (fromStart) {
+      if (searchParams.has("start")) {
         setTimeout(() => {
           if (!objectives.hasCompleted("obj_review-observations")) {
             this.startTutorial();
@@ -40,13 +40,13 @@ class SurfaceEvents {
           }
         }, 1111);
       } else {
-        this.readyToDive = true;
+        //this.readyToDive = true;
       }
     }, 1111);
   }
 
   onClickArea(e: MouseEvent) {
-    if (get(objectivesApi).currentIs("obj_learn-controls")) {
+    if (get(objectivesApi).currentObjectiveIs("obj_learn-controls")) {
       get(objectivesApi).completeTask("task_move-sub");
     }
 
@@ -55,7 +55,7 @@ class SurfaceEvents {
 
   onClickDive() {
     const objectives = get(objectivesApi);
-    if (objectives.currentIs("obj_make-observations")) {
+    if (objectives.currentObjectiveIs("obj_make-observations")) {
       get(hudApi).showNotepad = false;
       objectives.completeTask("task_dive");
     }

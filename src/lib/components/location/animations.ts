@@ -6,6 +6,6 @@ export function hideHeading() {
 
 export function tlRevealHeading(vars?: gsap.TimelineVars) {
   const tl = gsap.timeline(vars);
-  tl.to(".heading-location", { opacity: 1, duration: 1 });
+  tl.to(".heading-location", { opacity: 1, duration: 2 });
   return tl;
 }
