@@ -1,17 +1,17 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { toast } from "@zerodevx/svelte-toast";
+  import { hudApi } from "$apis";
+  import { missionBrief } from "$dialog/radio";
 
-  import { Notepad } from "$components/hud/notepad";
-
-  onMount(() => {});
+  onMount(() => {
+    $hudApi.startDialog({
+      keys: missionBrief,
+      disabledOptions: ["tut_brief-2_o2", "tut_brief-2_o3"],
+      onFinished: () => {
+        console.log("hello");
+      },
+    });
+  });
 </script>
 
-<div class="size-full bg-blue-200 flex justify-center items-center">
-  <p class="font-bold">test tiel</p>
-  <Notepad
-    title="Observations"
-    lines={["test", "anudda one", "another one"]}
-    class="absolute w-[33%] h-3/4 bottom-4 right-4"
-  />
-</div>
+<div class="size-full bg-blue-200 flex justify-center items-center"></div>

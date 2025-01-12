@@ -1,14 +1,15 @@
 <script lang="ts">
-  import type { DialogKey, DialogOption } from "$apis/dialog.svelte";
   import { Button } from "$components/ui/button";
   import { lolApi } from "$apis/lol.svelte";
 
   let {
     key,
+    disabledOptions,
     class: extraClass,
     onclickOption,
   }: {
     key: DialogKey;
+    disabledOptions?: string[];
     class?: string;
     onclickOption: (
       selectedOption: DialogOption,
@@ -21,7 +22,9 @@
   {#if key.options}
     {#each key.options as option}
       <Button
-        class="flex flex-row items-center h-[88px] m-2 text-xl"
+        class="flex flex-row items-center h-[88px] m-2 text-xl {disabledOptions?.includes(
+          option.text,
+        ) && 'opacity-50 !pointer-events-none'}"
         onclick={() => {
           const selected = {
             imgSrc: option.imgSrc,

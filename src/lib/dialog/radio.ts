@@ -29,6 +29,7 @@ const audio = get(audioApi);
 const game = get(gameApi);
 const hud = get(hudApi);
 const sm = get(smApi);
+const dialog = get(dialogApi);
 
 export const checkIn = [
   {
@@ -108,7 +109,6 @@ export const missionBrief = [
         text: "tut_brief-2_o1",
         imgSrc: neutral,
         repeat: true,
-        onProceed: () => {},
         nextDialog: [
           {
             imgSrc: radio,
@@ -138,6 +138,12 @@ export const missionBrief = [
             imgSrc: radio,
             name: "mission-control",
             text: "tut_brief-2_o1-4",
+            onProceed: () => {},
+          },
+          {
+            imgSrc: radio,
+            name: "mission-control",
+            text: "tut_brief-2_o1-5",
             onProceed: () => {
               audio.stopTrack({
                 src: "music/tritons-triangle.mp3",
@@ -146,11 +152,6 @@ export const missionBrief = [
               });
               storyComponent.set(null);
             },
-          },
-          {
-            imgSrc: radio,
-            name: "mission-control",
-            text: "tut_brief-2_o1-5",
             options: [
               {
                 text: "tut_brief-2_o1-5_o1",
@@ -170,6 +171,9 @@ export const missionBrief = [
                     imgSrc: radio,
                     name: "mission-control",
                     text: "tut_brief-2_o1-5_o1-3",
+                    onProceed: () => {
+                      dialog.enableOption("tut_brief-2_o2");
+                    },
                   },
                 ],
               },
@@ -215,6 +219,7 @@ export const missionBrief = [
                     text: "tut_brief-2_o2-2_o1-3",
                     onProceed: () => {
                       hud.closeSmModalWithDialog();
+                      dialog.enableOption("tut_brief-2_o3");
                     },
                   },
                 ],
@@ -253,6 +258,10 @@ export const explainSm = [
             imgSrc: radio,
             name: "mission-control",
             text: "tut_o-1",
+            onStart: () => {
+              hud.openSmModalWithDialog();
+              sm.currentIndex = 0;
+            },
           },
           {
             imgSrc: radio,
@@ -263,11 +272,20 @@ export const explainSm = [
             imgSrc: radio,
             name: "mission-control",
             text: "tut_q-1",
+            onStart: () => {
+              sm.currentIndex = 1;
+            },
+            onProceed: () => {
+              hud.closeSmModalWithDialog();
+            },
           },
           {
             imgSrc: radio,
             name: "mission-control",
             text: "tut_q-2",
+            onStart: () => {
+              hud.showNotepad = true;
+            },
           },
           {
             imgSrc: radio,
@@ -314,7 +332,7 @@ export const observationReview = [
             text: "tut_observations-1",
             onStart: () => {
               get(notepadApi).openPage(1);
-              get(hudApi).showNotepad = true;
+              hud.showNotepad = true;
             },
           },
           {
@@ -327,7 +345,7 @@ export const observationReview = [
             name: "mission-control",
             text: "tut_observations-3",
             onProceed: () => {
-              get(hudApi).showNotepad = false;
+              //get(hudApi).showNotepad = false;
             },
           },
         ],
@@ -343,6 +361,9 @@ export const observationReview = [
     imgSrc: radio,
     name: "mission-control",
     text: "tut_review-3",
+    onProceed: () => {
+      hud.showNotepad = false;
+    },
     options: [
       {
         imgSrc: hushed,

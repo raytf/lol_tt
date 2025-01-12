@@ -1,12 +1,6 @@
 import { writable, get } from "svelte/store";
-import type { DialogKey, DialogOption } from "$apis/dialog.svelte";
+import { Dialog } from "$apis/dialog.svelte";
 import { objectivesApi, dialogApi, inventoryApi, smApi } from "$apis";
-
-interface StartDialogParams {
-  keys: DialogKey[];
-  onFinished?: () => void;
-  blockInput?: boolean;
-}
 
 interface StartItemUnlockParams {
   itemId: string;
@@ -41,12 +35,18 @@ class HudApi {
     sm.reset();
   }
   startDialog(params: StartDialogParams) {
-    const { keys, onFinished, blockInput } = params;
-
     const dApi = get(dialogApi);
-    dApi.blockInput = blockInput || false;
-    dApi.currentDialog = [...keys];
-    if (onFinished) dApi.onDialogFinished = onFinished;
+    const newParams = {
+      ...params,
+      onFinished: () => {
+        params?.onFinished?.();
+        this.endDialog();
+      },
+    };
+    dApi.currentDialog = new Dialog(newParams);
+    // dApi.blockInput = blockInput || false;
+    // dApi.currentDialog = [...keys];
+    // if (onFinished) dApi.onDialogFinished = onFinished;
 
     this.showDialog = true;
   }
@@ -61,9 +61,10 @@ class HudApi {
     this.showDialog = false;
 
     const dApi = get(dialogApi);
-    dApi.currentDialog = [];
-    dApi.onDialogFinished();
-    dApi.onDialogFinished = () => {};
+    dApi.currentDialog = null;
+    // dApi.currentDialog = [];
+    // dApi.onDialogFinished();
+    // dApi.onDialogFinished = () => {};
   }
 
   startItemUnlock(params: StartItemUnlockParams) {

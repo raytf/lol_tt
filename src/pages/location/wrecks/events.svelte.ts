@@ -1,5 +1,4 @@
 import { writable, get } from "svelte/store";
-import type { DialogKey } from "$apis/dialog.svelte";
 import {
   audioApi,
   gameApi,

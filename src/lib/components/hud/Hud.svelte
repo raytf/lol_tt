@@ -50,12 +50,8 @@
     {#if $hudApi.showDialog}
       <div transition:fade>
         <Dialog
-          top={$dialogApi.positionTop}
-          keys={$dialogApi.currentDialog}
-          onFinished={() => {
-            $hudApi.endDialog();
-          }}
-          class="z-[105] {$dialogApi.blockInput ? 'pointer-events-auto' : ''}"
+          dialog={$dialogApi.currentDialog}
+          class="z-[105]"
           optionsClass="z-[106] pointer-events-auto"
         />
       </div>

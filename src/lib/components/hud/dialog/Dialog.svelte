@@ -1,26 +1,22 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import type { DialogKey, DialogOption } from "$apis/dialog.svelte";
+  import type { Dialog } from "$apis/dialog.svelte";
   import { DialogBox, Options } from "$components/hud/dialog";
   import { lolApi } from "$apis/lol.svelte";
 
   let {
-    keys,
-    top = false,
-    onFinished,
+    dialog,
     class: extraClass,
     style: extraStyle,
     optionsClass,
   }: {
-    keys: DialogKey[];
-    top?: boolean;
-    onFinished?: () => void;
+    dialog: Dialog | null;
     class?: string;
     style?: string;
     optionsClass?: string;
   } = $props();
 
-  let dialogArray = $state([...keys]);
+  let dialogArray = $state(dialog ? [...dialog.keys] : []);
   let dialogIndex = $state(0);
   let currentKey = $derived.by(() => {
     if (dialogIndex >= dialogArray.length) {
@@ -59,9 +55,9 @@
 
     if (currentKey) {
       $lolApi.speakText(currentKey.text);
-      if (currentKey.onStart) currentKey.onStart();
+      currentKey?.onStart?.();
     } else {
-      if (onFinished) onFinished();
+      dialog?.onFinished();
     }
   }
 
@@ -80,8 +76,8 @@
   <DialogBox
     onclick={onclickNext}
     options={currentKey.options ? true : false}
-    {top}
-    class={extraClass}
+    top={dialog?.position === "top"}
+    class="{dialog?.blockInput && 'pointer-events-auto'} {extraClass}"
     style={extraStyle}
   >
     {#snippet avatar()}
@@ -107,6 +103,11 @@
     {/snippet}
   </DialogBox>
   {#if currentKey.options && (currentKey.alreadyRead || showOptions)}
-    <Options key={currentKey} {onclickOption} class={optionsClass} />
+    <Options
+      key={currentKey}
+      disabledOptions={dialog?.disabledOptions}
+      {onclickOption}
+      class={optionsClass}
+    />
   {/if}
 {/if}

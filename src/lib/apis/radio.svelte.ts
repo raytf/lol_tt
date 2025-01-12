@@ -1,5 +1,4 @@
 import { writable, get } from "svelte/store";
-import type { DialogKey, DialogOption } from "$apis/dialog.svelte";
 import { objectivesApi, hudApi, lolApi } from "$apis";
 import { noSignal, observationTask, observationReview } from "$dialog/radio";
 import radio from "$assets/icons/radio.svg";

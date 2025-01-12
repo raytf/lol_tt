@@ -97,6 +97,13 @@ class NotepadApi {
       }
     }
   }
+
+  newPage(titleKey: string) {
+    const page = new TextPage(titleKey);
+    this.currentPage = page;
+    this.pages.push(page);
+    this.currentPageIndex++;
+  }
 }
 
 export const notepadApi = writable<NotepadApi>(new NotepadApi());

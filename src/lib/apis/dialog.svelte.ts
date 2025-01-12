@@ -1,31 +1,29 @@
-import type { SvelteComponent } from "svelte";
 import { writable } from "svelte/store";
 
-export type DialogKey = {
-  imgSrc?: string;
-  name?: string;
-  text: string;
-  options?: DialogOption[];
-  alreadyRead?: boolean;
-  italic?: boolean;
-  onStart?: () => void;
-  onProceed?: () => void;
-};
+export class Dialog {
+  keys: DialogKey[];
+  blockInput: boolean;
+  position: "top" | "bottom";
+  disabledOptions: string[];
+  onFinished: () => void;
 
-export type DialogOption = {
-  text: string;
-  nextDialog: DialogKey[];
-  imgSrc?: string;
-  repeat?: boolean;
-  onProceed?: () => void;
-};
+  constructor(params: StartDialogParams) {
+    this.keys = params.keys;
+    this.blockInput = params.blockInput || false;
+    this.position = "top";
+    this.disabledOptions = params.disabledOptions || [];
+    this.onFinished = params.onFinished || (() => {});
+  }
+}
 
 export class DialogApi {
-  blockInput = $state(false);
-  currentDialog = $state<DialogKey[]>([]);
-  positionTop = $state(true);
+  currentDialog = $state<Dialog | null>(null);
 
-  onDialogFinished = () => {};
+  enableOption(key: string) {
+    if (!this.currentDialog) return;
+    this.currentDialog.disabledOptions =
+      this.currentDialog.disabledOptions.filter((k) => k !== key);
+  }
 }
 
 export const dialogApi = writable<DialogApi>(new DialogApi());
