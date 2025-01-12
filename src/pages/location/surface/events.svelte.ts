@@ -7,7 +7,7 @@ import {
   inventoryApi,
   radioApi,
 } from "$apis";
-import { checkIn, missionBrief } from "$dialog/radio";
+import { missionBrief } from "$dialog/radio";
 import { setTarget as setSubTarget } from "$stores/sub";
 import { moveSub } from "$stores/exploration";
 
@@ -83,28 +83,12 @@ class SurfaceEvents {
   startMissionBrief() {
     const hud = get(hudApi);
     hud.startDialog({
-      keys: [...missionBrief],
+      keys: missionBrief,
+      disabledOptions: ["tut_brief2_o2", "tut_brief2_o3"],
       onFinished: () => {
         get(objectivesApi).completeTask("task_start-mission");
-        this.unlockItems();
-      },
-    });
-  }
-
-  unlockItems() {
-    const hud = get(hudApi);
-
-    hud.startItemUnlock({
-      itemId: "sm",
-      onFinished: () => {
-        hud.startItemUnlock({
-          itemId: "notepad",
-          onFinished: () => {
-            objectives.attachStartCallback("obj_make-observations", () => {
-              this.readyToDive = true;
-            });
-            // this.startChapter1();
-          },
+        objectives.attachStartCallback("obj_make-observations", () => {
+          this.readyToDive = true;
         });
       },
     });

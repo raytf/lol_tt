@@ -43,6 +43,9 @@
     if (itemId === "notepad") {
       $hudApi.showNotepad = true;
     }
+    if (itemId === "map") {
+      $hudApi.showMap = true;
+    }
   }
 </script>
 

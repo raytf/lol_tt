@@ -6,6 +6,7 @@
   import { SmModal, SmPuzzle } from "$components/hud/sm";
   import Inventory, { ItemUnlockScreen } from "$components/hud/inventory";
   import { Notepad } from "$components/hud/notepad";
+  import { Map } from "$components/hud/map";
   import {
     hudApi,
     dialogApi,
@@ -42,7 +43,8 @@
         <Objectives
           class="z-100 left-0 {($hudApi.showDialog ||
             $hudApi.showSmModal ||
-            $hudApi.showSmPuzzle) &&
+            $hudApi.showSmPuzzle ||
+            $hudApi.showMap) &&
             disableHideClass}"
         />
       </div>
@@ -103,6 +105,19 @@
         class="absolute w-[44%] h-4/5 bottom-2 right-2 z-[100]"
       >
         <Notepad class="size-full opacity-80" />
+      </div>
+    {/if}
+    {#if $hudApi.showMap}
+      <div
+        transition:fly={{ x: -555 }}
+        class="absolute h-3/4 w-full bottom-0 z-[102]"
+      >
+        <Map
+          onClose={() => {
+            $hudApi.showMap = false;
+          }}
+          class=""
+        />
       </div>
     {/if}
   </div>

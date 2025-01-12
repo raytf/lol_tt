@@ -6,6 +6,7 @@ import smDiagram from "$assets/icons/sm-diagram.png";
 import pressureGauge from "$assets/sprites/pressure-gauge.png";
 import depthGauge from "$assets/sprites/depth-gauge.png";
 import thermistor from "$assets/sprites/thermistor.png";
+import map from "$assets/icons/map.svg";
 
 interface ItemDetails {
   imgSrc: string;
@@ -41,6 +42,12 @@ export const itemMap: ItemMap = {
     descKey: "item_desc_notepad",
     // actionKey: "item_action_notepad",
   },
+  map: {
+    imgSrc: map,
+    id: "map",
+    nameKey: "item_name_map",
+    descKey: "item_desc_map",
+  },
   // pg: {
   //   imgSrc: pressureGauge,
   //   id: "pg",
@@ -62,7 +69,7 @@ export const itemMap: ItemMap = {
 };
 
 export class InventoryApi {
-  unlockedItems = $state<string[]>(["radio"]);
+  unlockedItems = $state<string[]>([]);
   currentHintKey = $state("hint_1");
   showHintDialog = $state(false);
   showGaugeScreen = $state(false);

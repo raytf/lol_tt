@@ -84,10 +84,9 @@
 {/key}
 
 {#snippet coverPage()}
-  <p class="mt-6 text-title text-5xl">
+  <p class="text-title">
     {$notepadApi.currentPage.title}
   </p>
-  <br />
   {#each $notepadApi.currentPage.lines as line}
     <p class="absolute">{line}</p>
     <br />
@@ -96,7 +95,7 @@
 {/snippet}
 
 {#snippet textPage()}
-  <p class="mt-12 text-title">
+  <p class="text-title">
     {$notepadApi.currentPage.title}
   </p>
   {#each $notepadApi.currentPage.lines as line}
@@ -143,7 +142,7 @@
   .section-text {
     position: absolute;
     max-height: 100%;
-    padding: 1em 1em 1em 3em;
+    padding: 3.3em 1em 1em 3em;
     line-height: 1.5em;
     overflow: hidden;
     pointer-events: none;

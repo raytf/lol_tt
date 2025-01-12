@@ -16,18 +16,10 @@
     optionsClass?: string;
   } = $props();
 
-  let dialogArray = $state(dialog ? [...dialog.keys] : []);
-  let dialogIndex = $state(0);
-  let currentKey = $derived.by(() => {
-    if (dialogIndex >= dialogArray.length) {
-      return null;
-    }
-
-    return dialogArray[dialogIndex];
-  });
   let showOptions = $state(false);
 
   function onclickNext() {
+    const currentKey = dialog?.currentKey;
     if (!currentKey) return;
     if (currentKey.options) {
       showOptions = true;
@@ -35,56 +27,43 @@
     }
 
     if (currentKey.onProceed) currentKey.onProceed();
-    nextLine();
+    dialog.nextLine();
   }
 
   function onclickOption(
     selectedOption: DialogOption,
     nextDialog: DialogKey[],
   ) {
+    const currentKey = dialog?.currentKey;
     if (!currentKey) return;
-    insertDialog(nextDialog);
+    dialog.insertDialog(nextDialog);
 
     if (currentKey.onProceed) currentKey.onProceed();
     showOptions = false;
-    nextLine();
-  }
-
-  function nextLine() {
-    dialogIndex++;
-
-    if (currentKey) {
-      $lolApi.speakText(currentKey.text);
-      currentKey?.onStart?.();
-    } else {
-      dialog?.onFinished();
-    }
-  }
-
-  function insertDialog(dialog: DialogKey[] = []) {
-    dialogArray.splice(dialogIndex + 1, 0, ...dialog);
+    dialog.nextLine();
   }
 
   onMount(() => {
+    const currentKey = dialog?.currentKey;
     if (currentKey) {
       $lolApi.speakText(currentKey.text);
     }
   });
 </script>
 
-{#if currentKey}
+{#if dialog && dialog?.currentKey}
   <DialogBox
     onclick={onclickNext}
-    options={currentKey.options ? true : false}
+    options={dialog?.currentKey.options ? true : false}
     top={dialog?.position === "top"}
     class="{dialog?.blockInput && 'pointer-events-auto'} {extraClass}"
     style={extraStyle}
   >
     {#snippet avatar()}
       <div class="relative w-[111px] h-[111px]">
-        {#if currentKey.imgSrc}
+        {#if dialog.currentKey?.imgSrc}
           <img
-            src={currentKey.imgSrc}
+            src={dialog?.currentKey?.imgSrc}
             alt="avatar"
             class="size-full select-none"
           />
@@ -92,19 +71,19 @@
       </div>
     {/snippet}
     {#snippet name()}
-      {#if currentKey.name}
-        {$lolApi.getText(currentKey.name)}
+      {#if dialog.currentKey?.name}
+        {$lolApi.getText(dialog.currentKey?.name)}
       {:else}
         ???
       {/if}
     {/snippet}
     {#snippet text()}
-      {@html $lolApi.getText(currentKey.text)}
+      {@html $lolApi.getText(dialog.currentKey?.text)}
     {/snippet}
   </DialogBox>
-  {#if currentKey.options && (currentKey.alreadyRead || showOptions)}
+  {#if dialog?.currentKey.options && (dialog?.currentKey.alreadyRead || showOptions)}
     <Options
-      key={currentKey}
+      key={dialog?.currentKey}
       disabledOptions={dialog?.disabledOptions}
       {onclickOption}
       class={optionsClass}

@@ -110,7 +110,7 @@ export class LolApi {
     lol_send("saveState", {});
   };
 
-  getText = (key: string) => {
+  getText = (key: string = "") => {
     if (key in this.languageData) {
       return this.languageData[key];
     }

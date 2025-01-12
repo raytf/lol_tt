@@ -13,8 +13,8 @@
   } from "./animations";
 
   const textSequence = [
-    ["intro-1", "intro-2", "intro-3"],
-    ["intro-4", "intro-5"],
+    ["intro1", "intro2", "intro3"],
+    ["intro4", "intro5"],
   ];
   let currentSequence = $state(0);
   let startIntro = $state(true);

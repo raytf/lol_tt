@@ -31,42 +31,11 @@ const hud = get(hudApi);
 const sm = get(smApi);
 const dialog = get(dialogApi);
 
-export const checkIn = [
-  {
-    imgSrc: radio,
-    name: "mission-control",
-    text: "tut_brief-1",
-    options: [
-      {
-        text: "tut_brief-1_o1",
-        imgSrc: cool,
-        nextDialog: [
-          { imgSrc: radio, name: "mission-control", text: "tut_brief-1_o1-1" },
-        ],
-      },
-      {
-        text: "tut_brief-1_o2",
-        imgSrc: openMouth,
-        nextDialog: [
-          { imgSrc: radio, name: "mission-control", text: "tut_brief-1_o2-1" },
-        ],
-      },
-      {
-        text: "tut_brief-1_o3",
-        imgSrc: downcastSweat,
-        nextDialog: [
-          { imgSrc: radio, name: "mission-control", text: "tut_brief-1_o3-1" },
-        ],
-      },
-    ],
-  },
-];
-
 export const observationTask = [
   {
     imgSrc: radio,
     name: "mission-control",
-    text: "tut_observation-1",
+    text: "tut_task1",
     onStart: () => {
       hud.openSmModalWithDialog();
     },
@@ -78,6 +47,11 @@ export const observationTask = [
     onStart: () => {
       sm.currentIndex = 0;
     },
+  },
+  {
+    imgSrc: radio,
+    name: "mission-control",
+    text: "tut_task2",
     onProceed: () => {
       hud.closeSmModalWithDialog();
     },
@@ -85,12 +59,7 @@ export const observationTask = [
   {
     imgSrc: radio,
     name: "mission-control",
-    text: "tut_observation-2",
-  },
-  {
-    imgSrc: radio,
-    name: "mission-control",
-    text: "tut_observation-3",
+    text: "tut_task3",
   },
 ];
 
@@ -98,26 +67,26 @@ export const missionBrief = [
   {
     imgSrc: radio,
     name: "mission-control",
-    text: "tut_brief-1",
+    text: "tut_brief1",
   },
   {
     imgSrc: radio,
     name: "mission-control",
-    text: "tut_brief-2",
+    text: "tut_brief2",
     options: [
       {
-        text: "tut_brief-2_o1",
+        text: "tut_brief2_o1",
         imgSrc: neutral,
         repeat: true,
         nextDialog: [
           {
             imgSrc: radio,
             name: "mission-control",
-            text: "tut_brief-2_o1-1",
+            text: "tut_story1",
             onProceed: () => {
               audio.playTrack({
                 src: "music/tritons-triangle.mp3",
-                volume: 0.44,
+                volume: 0.11,
                 loop: true,
                 fade: true,
               });
@@ -127,23 +96,23 @@ export const missionBrief = [
           {
             imgSrc: radio,
             name: "mission-control",
-            text: "tut_brief-2_o1-2",
+            text: "tut_story2",
           },
           {
             imgSrc: radio,
             name: "mission-control",
-            text: "tut_brief-2_o1-3",
+            text: "tut_story3",
           },
           {
             imgSrc: radio,
             name: "mission-control",
-            text: "tut_brief-2_o1-4",
+            text: "tut_story4",
             onProceed: () => {},
           },
           {
             imgSrc: radio,
             name: "mission-control",
-            text: "tut_brief-2_o1-5",
+            text: "tut_story5",
             onProceed: () => {
               audio.stopTrack({
                 src: "music/tritons-triangle.mp3",
@@ -154,25 +123,46 @@ export const missionBrief = [
             },
             options: [
               {
-                text: "tut_brief-2_o1-5_o1",
+                text: "tut_story5_o1",
                 imgSrc: pensive,
                 nextDialog: [
                   {
                     imgSrc: neutral,
                     name: "mission-control",
-                    text: "tut_brief-2_o1-5_o1-1",
+                    text: "tut_map1",
                   },
                   {
                     imgSrc: radio,
                     name: "mission-control",
-                    text: "tut_brief-2_o1-5_o1-2",
+                    text: "tut_map2",
                   },
                   {
                     imgSrc: radio,
                     name: "mission-control",
-                    text: "tut_brief-2_o1-5_o1-3",
+                    text: "tut_map3",
                     onProceed: () => {
-                      dialog.enableOption("tut_brief-2_o2");
+                      hud.showMap = true;
+                    },
+                  },
+                  {
+                    imgSrc: radio,
+                    name: "mission-control",
+                    text: "tut_map4",
+                  },
+                  {
+                    imgSrc: radio,
+                    name: "mission-control",
+                    text: "tut_map5",
+                    onProceed: () => {
+                      dialog.enableOption("tut_brief2_o2");
+                      hud.showDialog = false;
+                      hud.showMap = false;
+                      hud.startItemUnlock({
+                        itemId: "map",
+                        onFinished: () => {
+                          hud.showDialog = true;
+                        },
+                      });
                     },
                   },
                 ],
@@ -182,33 +172,28 @@ export const missionBrief = [
         ],
       },
       {
-        text: "tut_brief-2_o2",
+        text: "tut_brief2_o2",
         imgSrc: thinking,
         repeat: true,
         nextDialog: [
           {
             imgSrc: radio,
             name: "mission-control",
-            text: "tut_brief-2_o2-1",
-          },
-          {
-            imgSrc: radio,
-            name: "mission-control",
-            text: "tut_brief-2_o2-2",
+            text: "tut_sm1",
             options: [
               {
                 imgSrc: hushed,
-                text: "tut_brief-2_o2-2_o1",
+                text: "tut_sm1_o1",
                 nextDialog: [
                   {
                     imgSrc: radio,
                     name: "mission-control",
-                    text: "tut_brief-2_o2-2_o1-1",
+                    text: "tut_sm2",
                   },
                   {
                     imgSrc: radio,
                     name: "mission-control",
-                    text: "tut_brief-2_o2-2_o1-2",
+                    text: "tut_sm3",
                     onStart: () => {
                       hud.openSmModalWithDialog();
                     },
@@ -216,10 +201,17 @@ export const missionBrief = [
                   {
                     imgSrc: radio,
                     name: "mission-control",
-                    text: "tut_brief-2_o2-2_o1-3",
+                    text: "tut_sm4",
                     onProceed: () => {
+                      dialog.enableOption("tut_brief2_o3");
+                      hud.showDialog = false;
                       hud.closeSmModalWithDialog();
-                      dialog.enableOption("tut_brief-2_o3");
+                      hud.startItemUnlock({
+                        itemId: "sm",
+                        onFinished: () => {
+                          hud.showDialog = true;
+                        },
+                      });
                     },
                   },
                 ],
@@ -229,13 +221,13 @@ export const missionBrief = [
         ],
       },
       {
-        text: "tut_brief-2_o3",
+        text: "tut_brief2_o3",
         imgSrc: smile,
         nextDialog: [
           {
             imgSrc: radio,
             name: "mission-control",
-            text: "tut_brief-2_o3-1",
+            text: "tut_brief3",
           },
           ...observationTask,
         ],

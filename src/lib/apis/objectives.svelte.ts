@@ -60,8 +60,15 @@ const chapterMap: ChapterMap = {
     {
       key: "obj_answer-radio",
       onStart: () => {
-        const radio = get(radioApi);
-        radio.incomingCall();
+        get(hudApi).startItemUnlock({
+          itemId: "radio",
+          onFinished: () => {
+            get(radioApi).incomingCall();
+          },
+        });
+      },
+      onFinished: () => {
+        get(inventoryApi).unlockItem("radio");
       },
     },
     {

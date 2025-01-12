@@ -17,6 +17,7 @@ class HudApi {
   showSmModal = $state(false);
   showSmPuzzle = $state(false);
   showNotepad = $state(false);
+  showMap = $state(false);
 
   debugActivate() {
     //get(inventoryApi).unlockEverything();
@@ -71,6 +72,11 @@ class HudApi {
     const { itemId, onFinished } = params;
 
     const iApi = get(inventoryApi);
+    if (iApi.isItemUnlocked(itemId)) {
+      onFinished?.();
+      return;
+    }
+
     iApi.newItemUnlock = itemId;
     iApi.unlockItem(itemId);
     iApi.onItemUnlockFinished = () => {};
