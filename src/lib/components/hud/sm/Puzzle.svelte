@@ -194,7 +194,7 @@
         >
       {/each}
     </div>
-    <button onclick={resetPassword} class="absolute top-6 -right-12">
+    <button onclick={resetPassword} class="absolute top-6 -right-16">
       <Reset class="w-[55px] h-[55px]" />
     </button>
   </div>

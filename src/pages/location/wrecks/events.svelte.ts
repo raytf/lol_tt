@@ -77,7 +77,7 @@ class WrecksEvents {
   }
 
   makeObservation(index: number) {
-    const observationKey = `tut_observations-${index}`;
+    const observationKey = `tut_observations${index}`;
     let dialog: DialogKey[] = [
       {
         imgSrc: hushed,

@@ -1,102 +1,20 @@
 import { writable, get } from "svelte/store";
 import { objectivesApi, hudApi, lolApi } from "$apis";
-import { noSignal, observationTask, observationReview } from "$dialog/radio";
-import radio from "$assets/icons/radio.svg";
-import { neutral, hushed, thinking, grin } from "$assets/emoji";
+import {
+  incomingCall,
+  noSignal,
+  observationTask,
+  observationReview,
+  response,
+} from "$dialog/radio";
 
 type HintMap = {
-  [key: string]: DialogOption[];
+  [key: string]: DialogKey[];
 };
 
-const defaultHint: DialogKey = {
-  imgSrc: radio,
-  name: "mission-control",
-  text: "hint-1",
-  options: [
-    {
-      text: "hint-1_o1-default",
-      imgSrc: grin,
-      nextDialog: [
-        {
-          imgSrc: radio,
-          name: "mission-control",
-          text: "hint-1_o1-default-1",
-        },
-      ],
-    },
-  ],
-};
-
-const hintOptionsMap: HintMap = {
-  "obj_answer-radio": [
-    {
-      text: "brief-2_o2",
-      imgSrc: neutral,
-      repeat: true,
-      nextDialog: [
-        {
-          imgSrc: radio,
-          name: "mission-control",
-          text: "brief-2_o2-1",
-        },
-        {
-          imgSrc: radio,
-          name: "mission-control",
-          text: "brief-2_o2-2",
-        },
-        {
-          imgSrc: radio,
-          name: "mission-control",
-          text: "brief-2_o2-3",
-          options: [
-            {
-              text: "brief-2_o2-3_o1",
-              imgSrc: hushed,
-              nextDialog: [
-                {
-                  imgSrc: radio,
-                  name: "mission-control",
-                  text: "brief-2_o2-3_o1-1",
-                },
-                {
-                  imgSrc: radio,
-                  name: "mission-control",
-                  text: "brief-2_o2-3_o1-2",
-                },
-              ],
-            },
-            {
-              text: "brief-2_o2-3_o2",
-              imgSrc: neutral,
-              nextDialog: [],
-            },
-          ],
-        },
-      ],
-    },
-    {
-      text: "brief-2_o3",
-      imgSrc: thinking,
-      repeat: true,
-      nextDialog: [
-        {
-          imgSrc: radio,
-          name: "mission-control",
-          text: "brief-2_o3-1",
-        },
-        {
-          imgSrc: radio,
-          name: "mission-control",
-          text: "brief-2_o3-2",
-        },
-        {
-          imgSrc: radio,
-          name: "mission-control",
-          text: "brief-2_o3-3",
-        },
-      ],
-    },
-  ],
+const radioDialogMap: HintMap = {
+  "": [],
+  tutorial: observationTask,
 };
 
 class RadioApi {
@@ -127,39 +45,18 @@ class RadioApi {
       return;
     }
 
-    if (objectives.currentChapterIs("tutorial")) {
-      console.log("tutorial hints");
-      hud.startDialog({
-        keys: observationTask,
-      });
-    }
+    const dialog = [response(radioDialogMap[objectives.currentChapter])];
+    hud.startDialog({
+      keys: dialog,
+    });
   }
 
   incomingCall() {
     const hud = get(hudApi);
     hud.startDialog({
-      keys: [
-        {
-          imgSrc: radio,
-          text: "radio_incoming-call",
-        },
-      ],
+      keys: incomingCall,
     });
   }
-
-  getCurrentHintDialog = () => {
-    const objectives = get(objectivesApi);
-    if (objectives.currentObjective) {
-      const key = objectives.currentObjective.key;
-      if (key in hintOptionsMap) {
-        const hintOptions = hintOptionsMap[key];
-        let hint = { ...defaultHint };
-        if (hint.options) hint.options.push(...hintOptions);
-        return [hint];
-      }
-    }
-    return [defaultHint];
-  };
 }
 
 export const radioApi = writable<RadioApi>(new RadioApi());

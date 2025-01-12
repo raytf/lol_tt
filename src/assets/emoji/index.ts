@@ -10,6 +10,7 @@ import openMouth from "./open-mouth.svg";
 import pensive from "./pensive.svg";
 import smile from "./smile.svg";
 import thinking from "./thinking.svg";
+import kissing from "./kissing.svg";
 
 export {
   confused,
@@ -24,4 +25,5 @@ export {
   pensive,
   smile,
   thinking,
+  kissing,
 };

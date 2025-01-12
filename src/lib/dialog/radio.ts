@@ -21,6 +21,8 @@ import {
   hushed,
   smile,
   frownSlight,
+  grin,
+  kissing,
 } from "$assets/emoji";
 import { MissingCrew } from "$components/visual/story";
 import { storyComponent } from "$stores/story";
@@ -30,6 +32,46 @@ const game = get(gameApi);
 const hud = get(hudApi);
 const sm = get(smApi);
 const dialog = get(dialogApi);
+
+export const response = (extraDialog: DialogKey[]) => {
+  return {
+    imgSrc: radio,
+    name: "mission-control",
+    text: "radio1",
+    options: [
+      {
+        text: "radio1_o-hi",
+        imgSrc: grin,
+        nextDialog: [
+          {
+            imgSrc: radio,
+            name: "mission-control",
+            text: "radio1_o-hi1",
+          },
+        ],
+      },
+      {
+        text: "radio1_o-repeat",
+        imgSrc: kissing,
+        nextDialog: [
+          {
+            imgSrc: radio,
+            name: "mission-control",
+            text: "radio1_o-repeat1",
+          },
+          ...extraDialog,
+        ],
+      },
+    ],
+  };
+};
+
+export const incomingCall = [
+  {
+    imgSrc: radio,
+    text: "radio_incoming-call",
+  },
+];
 
 export const observationTask = [
   {
@@ -321,7 +363,7 @@ export const observationReview = [
           {
             imgSrc: smile,
             name: "mission-control",
-            text: "tut_observations-1",
+            text: "tut_observations1",
             onStart: () => {
               get(notepadApi).openPage(1);
               hud.showNotepad = true;
@@ -330,12 +372,12 @@ export const observationReview = [
           {
             imgSrc: smile,
             name: "mission-control",
-            text: "tut_observations-2",
+            text: "tut_observations2",
           },
           {
             imgSrc: smile,
             name: "mission-control",
-            text: "tut_observations-3",
+            text: "tut_observations3",
             onProceed: () => {
               //get(hudApi).showNotepad = false;
             },

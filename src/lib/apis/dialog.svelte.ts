@@ -37,7 +37,6 @@ export class Dialog {
       this.currentKey?.onStart?.();
     } else {
       this.onFinished();
-      console.log(this.onFinished());
     }
   }
 }
