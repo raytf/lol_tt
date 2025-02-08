@@ -190,11 +190,6 @@ export const missionBrief = [
                     imgSrc: radio,
                     name: "mission-control",
                     text: "tut_map4",
-                  },
-                  {
-                    imgSrc: radio,
-                    name: "mission-control",
-                    text: "tut_map5",
                     onProceed: () => {
                       dialog.enableOption("tut_brief2_o2");
                       hud.showDialog = false;
@@ -287,11 +282,12 @@ export const explainSm = [
       {
         imgSrc: thinking,
         text: "tut_sm_o1",
+        repeat: true,
         nextDialog: [
           {
             imgSrc: radio,
             name: "mission-control",
-            text: "tut_o-1",
+            text: "tut_o1",
             onStart: () => {
               hud.openSmModalWithDialog();
               sm.currentIndex = 0;
@@ -300,12 +296,7 @@ export const explainSm = [
           {
             imgSrc: radio,
             name: "mission-control",
-            text: "tut_o-2",
-          },
-          {
-            imgSrc: radio,
-            name: "mission-control",
-            text: "tut_q-1",
+            text: "tut_q1",
             onStart: () => {
               sm.currentIndex = 1;
             },
@@ -316,7 +307,7 @@ export const explainSm = [
           {
             imgSrc: radio,
             name: "mission-control",
-            text: "tut_q-2",
+            text: "tut_q2",
             onStart: () => {
               hud.showNotepad = true;
             },
@@ -324,27 +315,88 @@ export const explainSm = [
           {
             imgSrc: radio,
             name: "mission-control",
-            text: "tut_q-3",
+            text: "tut_h1",
             options: [
               {
-                imgSrc: thinking,
-                text: "tut_q_o1",
-                nextDialog: [
-                  {
-                    imgSrc: radio,
-                    name: "mission-control",
-                    text: "tut_q_o1-1",
-                  },
-                  {
-                    imgSrc: radio,
-                    name: "mission-control",
-                    text: "tut_q_o1-2",
-                  },
-                ],
+                imgSrc: smile,
+                text: "tut_h1_o1",
+                nextDialog: [],
+              },
+              {
+                imgSrc: smile,
+                text: "tut_h1_o2",
+                nextDialog: [],
+              },
+              {
+                imgSrc: smile,
+                text: "tut_h1_o3",
+                nextDialog: [],
               },
             ],
           },
+          {
+            imgSrc: radio,
+            name: "mission-control",
+            text: "tut_h2",
+            onStart: () => {
+              hud.openSmModalWithDialog();
+              sm.currentIndex = 2;
+            },
+          },
+          {
+            imgSrc: radio,
+            name: "mission-control",
+            text: "tut_e1",
+            onStart: () => {
+              sm.currentIndex = 3;
+            },
+            onProceed: () => {
+              hud.closeSmModalWithDialog();
+            },
+          },
+          {
+            imgSrc: radio,
+            name: "mission-control",
+            text: "tut_e2",
+          },
+          {
+            imgSrc: radio,
+            name: "mission-control",
+            text: "tut_a1",
+          },
+          {
+            imgSrc: radio,
+            name: "mission-control",
+            text: "tut_a2",
+            onStart: () => {
+              hud.openSmModalWithDialog();
+              sm.currentIndex = 4;
+            },
+          },
+          {
+            imgSrc: radio,
+            name: "mission-control",
+            text: "tut_c1",
+            onStart: () => {
+              sm.currentIndex = 5;
+            },
+          },
+          {
+            imgSrc: radio,
+            name: "mission-control",
+            text: "tut_c2",
+            onStart: () => {
+              sm.currentIndex = -1;
+            },
+            onProceed: () => {
+              hud.closeSmModalWithDialog();
+            },
+          },
         ],
+      },
+      {
+        imgSrc: smile,
+        text: "tut_sm_o2",
       },
     ],
   },

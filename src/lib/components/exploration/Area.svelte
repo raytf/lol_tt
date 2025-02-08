@@ -17,7 +17,7 @@
 <div
   role="button"
   tabindex="0"
-  class="relative"
+  class="relative {extraClass}"
   style="width: {size[0]}px; height: {size[1]}px;"
   {onmousedown}
 >

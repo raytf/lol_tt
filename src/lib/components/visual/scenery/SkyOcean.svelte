@@ -74,9 +74,9 @@
         <animate
           xlink:href="#ocean-filter"
           attributeName="baseFrequency"
-          dur="11s"
+          dur="22s"
           keyTimes="0;1"
-          values="0.02 0.06;0.04 0.08"
+          values="0.02 0.06;0.04 0.12"
           repeatCount="indefinite"
         />
       </filter>
@@ -146,7 +146,7 @@
     max-width: none;
     width: 102%;
     height: 102%;
-    opacity: 0.1;
+    opacity: 0.3;
     filter: url(#turbulence);
     user-select: none;
   }

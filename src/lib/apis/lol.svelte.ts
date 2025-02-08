@@ -40,9 +40,9 @@ export class LolApi {
         console.log("start:", payload);
         break;
       case "language":
-        const languageData = JSON.parse(payload);
-        this.languageData = languageData;
-        this.languageLoaded = true;
+        // const languageData = JSON.parse(payload);
+        // this.languageData = languageData;
+        // this.languageLoaded = true;
         console.log(this.languageData);
         break;
       case "loadState":

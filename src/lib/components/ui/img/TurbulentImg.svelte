@@ -60,6 +60,7 @@
     width: 102%;
     height: 102%;
     pointer-events: none;
+    user-select: none;
 
     will-change: transform;
   }

@@ -18,6 +18,7 @@
   import surface from "./events.svelte";
   import island_1 from "$assets/islands/island_1.png";
   import { BgImg, TurbulentImg } from "$components/ui/img";
+  import kelp_floating from "$assets/surface/kelp_floating.png";
 
   const grid = {
     width: $gameApi.windowWidth * 2,
@@ -70,7 +71,7 @@
     size={[grid.width, grid.height]}
     xOffset={$gridOffset.x}
     yOffset={$gridOffset.y}
-    class="bg-red-200 opacity-100"
+    class=""
   >
     <SkyOcean start={true} />
     <Submarine
@@ -81,16 +82,27 @@
       bob={true}
       reveal={$surface.surfaceSub}
     />
-    <BgImg
+    <!-- <BgImg
       src={island_1}
       class="absolute bottom-0 -right-[22%] w-1/2 h-full z-[15]"
-    />
+    /> -->
     {#snippet areas()}
-      <div class="absolute w-full h-1/2 bottom-0 z-10">
+      <div class="absolute flex w-full h-1/2 bottom-0 z-10">
         <Area
-          size={[$gameApi.windowWidth * 1.5, grid.height]}
+          size={[$gameApi.windowWidth * 1.5, grid.height / 2]}
           onmousedown={(e) => $surface.onClickArea(e)}
+          class=""
         ></Area>
+        <Area
+          size={[$gameApi.windowWidth * 0.5, grid.height / 2]}
+          class="opacity-30 pointer-events-none"
+        >
+          <TurbulentImg
+            src={kelp_floating}
+            yoyo={true}
+            class="absolute top-0 size-full"
+          />
+        </Area>
       </div>
     {/snippet}
   </Grid>
