@@ -86,10 +86,18 @@
     "desc_shell": "A large sea snail with a horn-shaped shell. <br>There is something mysterious about this one...",
     "name_otter": "Sea Otter",
     "desc_otter": "A cute marine mammal with thick fur. <br>Can live on land and in water.",
+
+    "newspaper-heading": "THE DAILY NEWS",
+    "newspaper-subheading": "SCIENTIST LOST IN DEEP SEA?",
+    "newspaper-text1": "Dr Triton, a renowned marine scientist, was last seen a month ago when he embarked on a deep-sea expedition into the Triton Triangle.",
+    "newspaper-text2": "Search teams have now discovered wreckage from his ship but found no trace of him or his submarine.",
+    "newspaper-text3": "After weeks of effort, the rescue mission has been officially called off, as 'strange forces' and failing communications made further search impossible.",
+
     "radio_incoming-call": "<em>...Incoming call...</em>",
     "radio_crackle": "...<em>crackle</em>...",
     "radio_no-signal": "There is no signal here... maybe I should try again above water.",
     "radio_signal-lost": "Weird... lost the signal. Just when I was about to report something interesting.",
+
     "intro1": "There is a place in the ocean called the Triton Triangle.",
     "intro2": "Known for stories about sea monsters and strange forces.",
     "intro3": "Yet, despite the danger, many still venture there. Why?",
@@ -103,7 +111,7 @@
     "tut_story3": "Sailors warned them not to disrupt the depths, but they didn't listen.",
     "tut_story4": "The rest remains a mystery...",
     "tut_story5": "...because the entire crew went missing.",
-    "tut_story5_o1": "I know... my dad was part of that crew.",
+    "tut_story5_o1": "Yeah... my dad was part of that crew.",
     "tut_map1": "Maybe I'll find some clues about what happened to him.",
     "tut_map2": "I see... I'm sorry about your dad.",
     "tut_map3": "The only thing we recovered from the wrecks was a drawing.",

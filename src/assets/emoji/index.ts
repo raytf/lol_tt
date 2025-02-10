@@ -3,7 +3,7 @@ import cool from "./cool.svg";
 import downcastSweat from "./downcast-sweat.svg";
 import fearful from "./fearful.svg";
 import frownSlight from "./frown-slight.svg";
-import grin from "./wink.svg";
+import grin from "./grin.svg";
 import hushed from "./hushed.svg";
 import neutral from "./neutral.svg";
 import openMouth from "./open-mouth.svg";
