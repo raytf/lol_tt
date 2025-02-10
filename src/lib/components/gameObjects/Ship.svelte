@@ -1,26 +1,25 @@
 <script lang="ts">
   import ship from "$assets/sprites/ship.png";
+  import { infoApi } from "$apis";
 
   let {
     class: extraClass = "",
   }: {
     class?: string;
   } = $props();
-
-  let hovered = $state(false);
 </script>
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <button
-  onmouseenter={() => (hovered = true)}
-  onmouseleave={() => (hovered = false)}
+  onclick={() => {
+    $infoApi.openModal("i_ship");
+  }}
   class="container-ship w-[500px] h-[250px] {extraClass}"
 >
   <img
     src={ship}
     alt="ship"
-    class="absolute -bottom-[10px] left-[55px] w-3/4 h-auto select-none anim-bob filter {hovered &&
-      'highlight'} transition-all"
+    class="absolute -bottom-[10px] left-[55px] w-3/4 h-auto select-none anim-bob"
   />
 </button>
 
@@ -28,6 +27,14 @@
   .container-ship {
     position: absolute;
     overflow: hidden;
+  }
+
+  .container-ship img {
+    transition: filter 1s;
+  }
+
+  .container-ship:hover img {
+    filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.5));
   }
 
   .anim-bob {

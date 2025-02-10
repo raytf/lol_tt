@@ -1,15 +1,20 @@
-<script>
+<script lang="ts">
   import { Modal, Checkbox, Button } from "flowbite-svelte";
   import { Lol } from "$components/text";
   import { openSettings } from "../settings";
   import { lolApi, audioApi, gameApi } from "$apis";
+
+  let {
+    dialogClass,
+    backdropClass,
+  }: { dialogClass?: string; backdropClass?: string } = $props();
 </script>
 
 <Modal
   bind:open={$openSettings}
   title={$lolApi.getText("settings")}
-  classDialog="absolute"
-  class="pointer-events-auto"
+  classDialog="absolute pointer-events-auto {dialogClass}"
+  classBackdrop={backdropClass}
   autoclose
   outsideclose
 >

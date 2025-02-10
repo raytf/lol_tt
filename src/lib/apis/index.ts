@@ -8,6 +8,7 @@ import { dialogApi } from "./dialog.svelte";
 import { notepadApi } from "./notepad.svelte";
 import { smApi } from "./sm.svelte";
 import { radioApi } from "./radio.svelte";
+import { infoApi } from "./info.svelte";
 
 export {
   audioApi,
@@ -20,4 +21,5 @@ export {
   notepadApi,
   smApi,
   radioApi,
+  infoApi,
 };

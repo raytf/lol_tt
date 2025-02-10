@@ -7,6 +7,7 @@
   import Inventory, { ItemUnlockScreen } from "$components/hud/inventory";
   import { Notepad } from "$components/hud/notepad";
   import { Map } from "$components/hud/map";
+  import { InfoModal } from "$components/hud/info";
   import {
     SettingsModal,
     SettingsToggle,
@@ -58,9 +59,9 @@
       <div transition:fade>
         <SettingsToggle
           onclick={() => ($openSettings = true)}
-          class="right-0"
+          class="right-0 z-[101]"
         />
-        <SettingsModal />
+        <SettingsModal dialogClass="z-[102]" backdropClass="z-[102]" />
       </div>
     {/if}
     {#if $hudApi.showInventory}
@@ -126,6 +127,7 @@
         />
       </div>
     {/if}
+    <InfoModal bind:show={$hudApi.showInfoModal} />
   </div>
 {/if}
 

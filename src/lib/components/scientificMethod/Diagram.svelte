@@ -1,5 +1,13 @@
 <script lang="ts">
   import { gsap } from "gsap";
+  import {
+    Observation,
+    Question,
+    Hypothesis,
+    Experiment,
+    Analysis,
+    Conclusion,
+  } from "$components/svg/icons/sm";
   import steps from "./steps";
   import { lolApi } from "$apis";
 
@@ -35,7 +43,7 @@
   });
 </script>
 
-<div class="grid grid-cols-3 grid-rows-2 {extraClass}">
+<div class="grid grid-cols-3 grid-rows-2 text-black {extraClass}">
   {#each steps as step, i}
     <div
       class="{itemClass} {activeIndex === i
@@ -44,10 +52,22 @@
           ? 'brightness-50'
           : ''} grid-item border-black {step.border} {step.label}"
     >
-      <p class="text-2xl font-bold text-black">
+      <p class="text-2xl font-bold">
         {i + 1}. {$lolApi.getText(step.titleKey)}
       </p>
-      <img src={step.image} alt="icon" class="w-[55px] h-[55px] m-2" />
+      {#if step.label === "sm-o"}
+        <Observation class="w-[55px] h-[55px] m-2" />
+      {:else if step.label === "sm-q"}
+        <Question class="w-[55px] h-[55px] m-2" />
+      {:else if step.label === "sm-h"}
+        <Hypothesis class="w-[55px] h-[55px] m-2" />
+      {:else if step.label === "sm-e"}
+        <Experiment class="w-[55px] h-[55px] m-2" />
+      {:else if step.label === "sm-a"}
+        <Analysis class="w-[55px] h-[55px] m-2" />
+      {:else if step.label === "sm-c"}
+        <Conclusion class="w-[55px] h-[55px] m-2" />
+      {/if}
     </div>
   {/each}
 </div>

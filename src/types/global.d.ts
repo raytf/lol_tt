@@ -1,3 +1,5 @@
+type SM = "sm-o" | "sm-q" | "sm-h" | "sm-e" | "sm-a" | "sm-c";
+
 type DialogKey = {
   imgSrc?: string;
   name?: string;

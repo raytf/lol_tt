@@ -12,6 +12,7 @@
     "start": "Start",
     "play": "Play",
 
+    "info": "Info",
     "settings": "Settings",
     "inventory": "Inventory",
 
@@ -121,6 +122,9 @@
     "newspaper-text-2": "Search teams have now discovered wreckage from his ship but found no trace of him or his submarine: the SM-Explorer.",
     "newspaper-text-3": "After weeks of effort, the rescue mission has been officially called off, as 'strange forces' and failing communications made further search impossible.",
     "years-later": "Years later...",
+
+    "i_ship": "My trusty support ship. I can always come here to rest or make repairs.",
+    "o_floating-kelp": "Looks like I can't dive here. There is kelp blocking the way.",
 
     "radio_incoming-call": "<em>...Incoming call...</em>",
     "radio_crackle": "...<em>crackle</em>...",

@@ -19,6 +19,7 @@ class HudApi {
   showSmPuzzle = $state(false);
   showNotepad = $state(false);
   showMap = $state(false);
+  showInfoModal = $state(false);
 
   debugActivate() {
     //get(inventoryApi).unlockEverything();
