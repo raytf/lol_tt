@@ -111,9 +111,9 @@
     "intro-7": "<strong>The Scientific Method</strong>.",
 
     "newspaper-heading": "THE DAILY NEWS",
-    "newspaper-subheading": "SCIENTIST LOST IN DEEP SEA?",
+    "newspaper-subheading": "SCIENTIST MISSING IN DEEP SEA",
     "newspaper-text-1": "Dr Triton, a renowned marine scientist, was last seen a month ago when he embarked on a deep-sea expedition into the Triton Triangle.",
-    "newspaper-text-2": "Search teams have now discovered wreckage from his ship but found no trace of him or his submarine.",
+    "newspaper-text-2": "Search teams have now discovered wreckage from his ship but found no trace of him or his submarine: the SM-Explorer.",
     "newspaper-text-3": "After weeks of effort, the rescue mission has been officially called off, as 'strange forces' and failing communications made further search impossible.",
     "years-later": "Years later...",
 
@@ -122,12 +122,9 @@
     "radio_no-signal": "There is no signal here... maybe I should try again above water.",
     "radio_signal-lost": "Weird... lost the signal. Just when I was about to report something interesting.",
 
-    "intro1": "There is a place in the ocean called the Triton Triangle.",
-    "intro2": "Known for stories about sea monsters and strange forces.",
-    "intro3": "Yet, despite the danger, many still venture there. Why?",
-    "intro4": "They say something valuable is hidden deep below:",
-    "intro5": "<strong>a treasure...</strong>",
-    "tut_brief1": "SM-Explorer, this is Mission Control.",
+    "tut_brief-1": "SM-Explorer2, this is Mission Control.",
+
+    "tut_brief1": "SM-Explorer2, this is Mission Control.",
     "tut_brief2": "Your mission is to explore, and collect data about the depths of the Triton Triangle.",
     "tut_brief2_o1": "Tell me more about this place.",
     "tut_story1": "To be honest, we don't know much except for the spooky stories.",

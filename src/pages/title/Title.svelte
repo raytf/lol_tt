@@ -64,16 +64,19 @@
   {#if revealTitleSequence}
     <div out:fade class="relative size-full flex flex-col items-center">
       <h1
-        in:fade={{ delay: 1000, duration: 2000 }}
+        in:fade={{ delay: 3000, duration: 2000 }}
         class="text-title text-8xl font-bold mt-24"
       >
         {$lolApi.getText("title")}
       </h1>
-      <p in:fade={{ delay: 3000 }} class="text-title text-4xl font-bold p-4">
+      <p
+        in:fade={{ delay: 1000, duration: 2000 }}
+        class="text-title text-4xl font-bold p-4"
+      >
         {$lolApi.getText("subtitle")}
       </p>
       <div
-        in:fade={{ delay: 4000 }}
+        in:fade={{ delay: 4000, duration: 2000 }}
         class="grow w-full flex flex-col justify-end items-center"
       >
         <button onclick={onPlay} class="text-title p-12">

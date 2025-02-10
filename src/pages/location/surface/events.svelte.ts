@@ -16,7 +16,7 @@ const objectives = get(objectivesApi);
 const inventory = get(inventoryApi);
 
 class SurfaceEvents {
-  surfaceSub = $state(false);
+  surfaceSub = $state(true);
   readyToDive = $state(false);
 
   onEnter(searchParams: URLSearchParams) {

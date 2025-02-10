@@ -8,7 +8,7 @@
   import { Dive } from "$components/svg/icons";
   import { Button } from "$components/ui/button";
   import { SkyOcean } from "$components/visual/scenery";
-  import { Submarine } from "$components/gameObjects";
+  import { Submarine, Ship } from "$components/gameObjects";
   import { gridOffset, minOffset } from "$stores/exploration";
   import {
     setPosition as setSubPosition,
@@ -19,6 +19,7 @@
   import island_1 from "$assets/islands/island_1.png";
   import { BgImg, TurbulentImg } from "$components/ui/img";
   import kelp_floating from "$assets/surface/kelp_floating.png";
+  import ship from "$assets/sprites/ship.png";
 
   const grid = {
     width: $gameApi.windowWidth * 2,
@@ -31,7 +32,7 @@
 
   let initialSubCoords = {
     x: $gameApi.windowWidth / 2,
-    y: $gameApi.windowHeight / 2 + 111,
+    y: $gameApi.windowHeight / 2 + 55,
   };
   const searchParams = new URLSearchParams($querystring);
   if (searchParams.has("from", "wrecks")) {
@@ -76,11 +77,12 @@
     <Submarine
       size={111}
       offset={{ x: 111 / 2, y: 111 }}
-      class="overflow-hidden z-[11]"
+      class="overflow-hidden z-[12]"
       imgClass="bottom-[-44%]"
       bob={true}
       reveal={$surface.surfaceSub}
     />
+    <Ship class="left-[500px] bottom-[270px] z-[11]" />
     <!-- <BgImg
       src={island_1}
       class="absolute bottom-0 -right-[22%] w-1/2 h-full z-[15]"
