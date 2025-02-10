@@ -1,10 +1,16 @@
 <script>
-  import { grin } from "$assets/emoji";
+  import { grinOpen } from "$assets/emoji/round";
+  import { Blackdrop } from "$components/ui";
   import { Lol } from "$components/text";
   import { gameApi } from "$apis";
 
+  let blackdropOpacity = $state(0);
+
   function onProceed() {
-    console.log("hello");
+    blackdropOpacity = 100;
+    setTimeout(() => {
+      $gameApi.fadeScene("/surface?start");
+    }, 2222);
   }
 </script>
 
@@ -16,14 +22,14 @@
     <div class="grid grid-cols-2 gap-8">
       <div class="flex justify-end">
         <div class="w-[300px] h-[300px] border border-black bg-blue-200 p-2">
-          <img src={grin} alt="missing" class="size-full" />
+          <img src={grinOpen} alt="missing" class="size-full" />
         </div>
       </div>
       <div class="flex justify-start overflow-hidden">
-        <div class="max-w-[400px] flex flex-col gap-1">
-          <Lol key="newspaper-text1" />
-          <Lol key="newspaper-text2" />
-          <Lol key="newspaper-text3" />
+        <div class="max-w-[400px] flex flex-col gap-1 text-left">
+          <Lol key="newspaper-text-1" />
+          <Lol key="newspaper-text-2" />
+          <Lol key="newspaper-text-3" />
           <p class="max-h-[150px] blur-[3px]">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
             consequat neque est, nec ultrices nisl aliquam vitae. Cras fringilla
@@ -43,3 +49,10 @@
     </div>
   </div>
 </button>
+<Blackdrop
+  opacity={blackdropOpacity}
+  transitionDuration={2.2}
+  class="top-0 flex items-center justify-center pointer-events-none"
+>
+  <Lol key="years-later" class="text-4xl" />
+</Blackdrop>

@@ -43,7 +43,6 @@
   }
   onMount(() => {
     setSubPosition(initialSubCoords);
-    const searchParams = new URLSearchParams($querystring);
     $surface.onEnter(searchParams);
   });
 </script>

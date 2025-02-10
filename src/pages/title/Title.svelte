@@ -1,51 +1,53 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import { querystring } from "svelte-spa-router";
+  import { fade } from "svelte/transition";
+  import { Dialog } from "$components/hud/dialog";
   import { TurbulentImg } from "$components/ui/img";
-  import { TextOverlay } from "$components/text";
   import ocean from "$assets/title/tritons-triangle.jpg";
   import { gameApi, lolApi, audioApi, hudApi } from "$apis";
-  import {
-    tlZoomIn,
-    tlZoomInMore,
-    tlRevealText,
-    hideHeadings,
-    tlHideText,
-  } from "./animations";
+  import { tlSlowRevealBackground } from "./animations";
+  import { intro } from "./dialog";
 
-  const textSequence = [
-    ["intro1", "intro2", "intro3"],
-    ["intro4", "intro5"],
-  ];
-  let currentSequence = $state(0);
-  let startIntro = $state(true);
-  let blackdropOpacity = $state(100);
+  let revealTitleSequence = $state(false);
+  const searchParams = new URLSearchParams($querystring);
   onMount(() => {
-    $hudApi.enabled = false;
-    hideHeadings();
+    // hideHeadings();
+    tlSlowRevealBackground();
+    if (searchParams.has("intro")) {
+      $hudApi.startDialog({
+        keys: intro,
+        onFinished: () => {
+          startTitleSequence();
+        },
+      });
+    } else {
+      startTitleSequence();
+    }
 
     $audioApi.loadTrack({
       src: "music/into-the-blue.mp3",
     });
-    blackdropOpacity = 66;
   });
 
-  function nextSequence() {
-    currentSequence += 1;
-    if (currentSequence == 1) {
-      tlZoomIn();
-    }
-    if (currentSequence >= textSequence.length) {
-      startIntro = false;
-      blackdropOpacity = 0;
-      tlZoomInMore();
-      tlRevealText({ delay: 4 });
-      $audioApi.playTrack({
-        src: "music/into-the-blue.mp3",
-        volume: 0.66,
-        loop: true,
-        fadeTime: 2222,
-      });
-    }
+  function startTitleSequence() {
+    revealTitleSequence = true;
+    $audioApi.playTrack({
+      src: "music/into-the-blue.mp3",
+      volume: 0.55,
+      loop: true,
+    });
+  }
+
+  function onPlay() {
+    revealTitleSequence = false;
+
+    $gameApi.fadeScene("/newspaper", 2.4, 2);
+    $audioApi.stopTrack({
+      src: "music/into-the-blue.mp3",
+      fade: true,
+      fadeTime: 5555,
+    });
   }
 </script>
 
@@ -56,54 +58,40 @@
     minFrequency={[0.01, 0.01]}
     maxFrequency={[0.012, 0.012]}
     yoyo={true}
-    class="pg-title_bg w-full h-full object-cover"
+    class="title_bg w-full h-full object-cover"
   />
-  <div id="pg-title_blackdrop" style="opacity: {blackdropOpacity}%"></div>
-  {#each textSequence as sequence, i}
-    <TextOverlay
-      active={i === currentSequence}
-      keys={sequence}
-      onFinished={nextSequence}
-      class="z-10"
-    />
-  {/each}
-  <div class="relative size-full flex flex-col items-center">
-    <h1 id="pg-title_header" class="text-title text-8xl font-bold mt-24">
-      {$lolApi.getText("title")}
-    </h1>
-    <p id="pg-title_subheader" class="text-title text-4xl font-bold p-4">
-      {$lolApi.getText("subtitle")}
-    </p>
-    <div class="grow w-full flex flex-col justify-end items-center">
-      <button
-        id="pg-title_button-start"
-        onclick={() => {
-          tlHideText();
-
-          $gameApi.fadeScene("/surface?start", 2.4);
-          $audioApi.stopTrack({
-            src: "music/into-the-blue.mp3",
-            fade: true,
-            fadeTime: 5555,
-          });
-          $hudApi.enabled = true;
-        }}
-        class="text-title p-12"
+  <div id="title_blackdrop"></div>
+  {#if revealTitleSequence}
+    <div out:fade class="relative size-full flex flex-col items-center">
+      <h1
+        in:fade={{ delay: 1000, duration: 2000 }}
+        class="text-title text-8xl font-bold mt-24"
       >
-        <p class="text-2xl">{$lolApi.getText("start")}</p>
-      </button>
+        {$lolApi.getText("title")}
+      </h1>
+      <p in:fade={{ delay: 3000 }} class="text-title text-4xl font-bold p-4">
+        {$lolApi.getText("subtitle")}
+      </p>
+      <div
+        in:fade={{ delay: 4000 }}
+        class="grow w-full flex flex-col justify-end items-center"
+      >
+        <button onclick={onPlay} class="text-title p-12">
+          <p class="text-2xl">{$lolApi.getText("play")}</p>
+        </button>
+      </div>
     </div>
-  </div>
+  {/if}
 </div>
 
 <style>
-  #pg-title_blackdrop {
+  #title_blackdrop {
     position: absolute;
     height: 100%;
     width: 100%;
 
     background: black;
-    transition: opacity 11s;
+    opacity: 1;
   }
   .text-title {
     text-shadow: 1px 1px 2px black;

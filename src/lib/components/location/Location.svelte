@@ -3,6 +3,7 @@
   import { onMount } from "svelte";
   import { Lol } from "$components/text";
   import { hideHeading, tlRevealHeading } from "./animations";
+  import { hudApi } from "$apis";
 
   let {
     title,
@@ -24,6 +25,7 @@
     const tlHeading = tlRevealHeading();
     setTimeout(() => {
       tlHeading.reverse();
+      $hudApi.enabled = true;
     }, 2000);
   });
 </script>

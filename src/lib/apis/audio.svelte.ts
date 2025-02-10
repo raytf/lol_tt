@@ -35,6 +35,8 @@ export class AudioApi {
   constructor() {}
 
   loadTrack = ({ src, onload = () => {} }: TrackOptions) => {
+    if (!this.soundEnabled) return;
+
     if (src in this.tracks) {
       console.log("Track already loaded");
       return;
@@ -61,6 +63,8 @@ export class AudioApi {
     fade = true,
     fadeTime = 1000,
   }: PlayTrackOptions) => {
+    if (!this.soundEnabled) return;
+
     const track = this.tracks.get(src);
     const sound = track?.sound;
     if (sound) {

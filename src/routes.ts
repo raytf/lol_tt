@@ -1,4 +1,5 @@
-import Title, { Missing } from "./pages/title";
+import Logo from "./pages/logo";
+import Title, { Newspaper } from "./pages/title";
 import Dev from "./pages/Dev.svelte";
 // Exploration
 import Surface from "./pages/location/surface";
@@ -22,8 +23,9 @@ import Ch1 from "./pages/chapter1";
 
 export default {
   "/dev": Dev,
-  "/": Title,
-  "/missing": Missing,
+  "/": Logo,
+  "/title": Title,
+  "/newspaper": Newspaper,
   "/surface": Surface,
   "/wrecks": Wrecks,
   "/forest": Forest,
