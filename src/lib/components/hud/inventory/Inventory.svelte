@@ -12,8 +12,9 @@
 
   let {
     class: extraClass,
+    buttonClass,
     drawerClass,
-  }: { class?: string; drawerClass?: string } = $props();
+  }: { class?: string; buttonClass?: string; drawerClass?: string } = $props();
 
   let drawerHidden = $state(true);
   let selectedItem = $state("");
@@ -57,7 +58,7 @@
         drawerHidden = false;
         $objectivesApi.completeTask("task_open-inventory");
       }}
-      class="button-toggle"
+      class="button-toggle {buttonClass}"
     >
       <Backpack class="w-[55px] h-[55px]" />
     </button>
@@ -79,7 +80,7 @@
           drawerHidden = true;
           selectedItem = "";
         }}
-        class="button-toggle"
+        class="button-toggle right-0"
       >
         <Close class="w-[55px] h-[55px]" />
       </button>
@@ -135,7 +136,6 @@
     pointer-events: auto;
     position: absolute;
     top: 0;
-    right: 0;
     margin: 0.44em;
     opacity: 0.88;
   }

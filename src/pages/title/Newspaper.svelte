@@ -26,7 +26,7 @@
           <img src={grinOpen} alt="missing" class="size-full" />
         </div>
       </div>
-      <div class="flex justify-start overflow-hidden">
+      <div class="flex justify-start overflow-scroll-y">
         <div class="max-w-[400px] flex flex-col gap-1 text-left">
           <Lol key="newspaper-text-1" />
           <Lol key="newspaper-text-2" />

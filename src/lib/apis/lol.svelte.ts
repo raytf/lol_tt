@@ -22,6 +22,7 @@ function lol_send(messageName: string, payload: Object) {
 export class LolApi {
   languageLoaded = $state(false);
   languageData = $state<LanguageData>({});
+  ttsEnabled = $state(true);
   // State
 
   constructor() {
@@ -118,6 +119,8 @@ export class LolApi {
   };
 
   speakText = (key: string) => {
+    if (!this.ttsEnabled) return;
+
     lol_send("speakText", { key: key });
   };
 

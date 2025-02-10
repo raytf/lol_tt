@@ -12,6 +12,7 @@ class HudApi {
   showDebug = $state(true);
   showObjectives = $state(false);
   showDialog = $state(false);
+  showSettings = $state(true);
   showInventory = $state(false);
   showItemUnlock = $state(false);
   showSmModal = $state(false);

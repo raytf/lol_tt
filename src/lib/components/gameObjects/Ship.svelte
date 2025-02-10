@@ -6,15 +6,23 @@
   }: {
     class?: string;
   } = $props();
+
+  let hovered = $state(false);
 </script>
 
-<div class="container-ship w-[500px] h-[250px] {extraClass}">
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<button
+  onmouseenter={() => (hovered = true)}
+  onmouseleave={() => (hovered = false)}
+  class="container-ship w-[500px] h-[250px] {extraClass}"
+>
   <img
     src={ship}
     alt="ship"
-    class="absolute -bottom-[10px] left-[55px] w-3/4 h-auto select-none anim-bob"
+    class="absolute -bottom-[10px] left-[55px] w-3/4 h-auto select-none anim-bob filter {hovered &&
+      'highlight'} transition-all"
   />
-</div>
+</button>
 
 <style>
   .container-ship {

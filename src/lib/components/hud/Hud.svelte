@@ -8,6 +8,12 @@
   import { Notepad } from "$components/hud/notepad";
   import { Map } from "$components/hud/map";
   import {
+    SettingsModal,
+    SettingsToggle,
+    openSettings,
+  } from "$components/hud/settings";
+
+  import {
     hudApi,
     dialogApi,
     objectivesApi,
@@ -18,7 +24,7 @@
     radioApi,
   } from "$apis";
   import { noSignal } from "$dialog/radio";
-  import { storyComponent } from "$stores/story";
+  import { storyComponent } from "$stores/component";
 
   const disableHideClass = "disabled opacity-50";
 </script>
@@ -28,16 +34,6 @@
     <div class="absolute size-full z-[104]">
       <svelte:component this={$storyComponent} />
     </div>
-
-    {#if $hudApi.showDebug}
-      <div
-        class="absolute bottom-0 w-full h-[55px] flex justify-center items-center"
-      >
-        <button onclick={() => $lolApi.clearState()} class="pointer-events-auto"
-          >Clear state</button
-        >
-      </div>
-    {/if}
     {#if $hudApi.showObjectives}
       <div transition:fade>
         <Objectives
@@ -58,6 +54,15 @@
         />
       </div>
     {/if}
+    {#if $hudApi.showSettings}
+      <div transition:fade>
+        <SettingsToggle
+          onclick={() => ($openSettings = true)}
+          class="right-0"
+        />
+        <SettingsModal />
+      </div>
+    {/if}
     {#if $hudApi.showInventory}
       <Inventory
         class="z-[101] {($hudApi.showDialog ||
@@ -65,6 +70,7 @@
           $hudApi.showSmPuzzle ||
           $hudApi.showItemUnlock) &&
           disableHideClass}"
+        buttonClass="right-14"
         drawerClass="z-[101]"
       />
     {/if}

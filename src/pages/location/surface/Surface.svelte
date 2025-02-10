@@ -8,7 +8,7 @@
   import { Dive } from "$components/svg/icons";
   import { Button } from "$components/ui/button";
   import { SkyOcean } from "$components/visual/scenery";
-  import { Submarine, Ship } from "$components/gameObjects";
+  import { Submarine, Ship, FloatingKelp } from "$components/gameObjects";
   import { gridOffset, minOffset } from "$stores/exploration";
   import {
     setPosition as setSubPosition,
@@ -96,13 +96,9 @@
         ></Area>
         <Area
           size={[$gameApi.windowWidth * 0.5, grid.height / 2]}
-          class="opacity-30 pointer-events-none"
+          class="pointer-events-none"
         >
-          <TurbulentImg
-            src={kelp_floating}
-            yoyo={true}
-            class="absolute top-0 size-full"
-          />
+          <FloatingKelp class="absolute top-0 size-full" />
         </Area>
       </div>
     {/snippet}

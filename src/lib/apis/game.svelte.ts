@@ -4,6 +4,8 @@ import { gsap } from "gsap";
 import { objectivesApi } from "$apis";
 
 export class GameApi {
+  debugMode = $state(true);
+
   windowWidth = $state(1024);
   windowHeight = $state(576);
   // Fading

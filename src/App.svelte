@@ -32,6 +32,13 @@
     --toastContainerLeft: 1rem;
     --toastContainerRight: auto;
   }
+
+  :global {
+    .highlight {
+      filter: drop-shadow(0 20px 13px #fff);
+    }
+  }
+
   main {
     position: relative;
     /* Magic css number for enforcing 16:9 aspect ratio */

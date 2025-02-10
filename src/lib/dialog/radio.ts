@@ -25,7 +25,7 @@ import {
   kissing,
 } from "$assets/emoji";
 import { MissingCrew } from "$components/visual/story";
-import { storyComponent } from "$stores/story";
+import { storyComponent } from "$stores/component";
 
 const audio = get(audioApi);
 const game = get(gameApi);

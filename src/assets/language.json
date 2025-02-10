@@ -4,18 +4,23 @@
   },
   "en": {
     "sound-enabled": "Sound Enabled",
+    "tts-enabled": "Text-to-Speech Enabled",
     "play-intro": "Play Intro",
+
     "title": "Triton's Treasure",
     "subtitle": "A Scientific Method Adventure",
     "start": "Start",
     "play": "Play",
+
+    "settings": "Settings",
+    "inventory": "Inventory",
 
     "dive": "Dive",
     "surface": "Surface",
     "wrecks": "Wrecks",
     "forest": "Forest",
     "complete": "Complete",
-    "inventory": "Inventory",
+
     "tutorial": "Tutorial",
     "chapter1": "Chapter 1",
     "chapter2": "Chapter 2",
@@ -110,9 +115,9 @@
     "intro-6": "We find out the truth, and learn about the world by following a process:",
     "intro-7": "<strong>The Scientific Method</strong>.",
 
-    "newspaper-heading": "THE DAILY NEWS",
-    "newspaper-subheading": "SCIENTIST MISSING IN DEEP SEA",
-    "newspaper-text-1": "Dr Triton, a renowned marine scientist, was last seen a month ago when he embarked on a deep-sea expedition into the Triton Triangle.",
+    "newspaper-heading": "NEWS",
+    "newspaper-subheading": "MISSING SCIENTIST",
+    "newspaper-text-1": "Dr Triton, a renowned marine scientist, was last seen embarking on a deep-sea expedition into the Triton Triangle.",
     "newspaper-text-2": "Search teams have now discovered wreckage from his ship but found no trace of him or his submarine: the SM-Explorer.",
     "newspaper-text-3": "After weeks of effort, the rescue mission has been officially called off, as 'strange forces' and failing communications made further search impossible.",
     "years-later": "Years later...",
@@ -166,7 +171,6 @@
     "tut_review-3_o1": "Was I suppose to do precise measurements?",
     "tut_review-4": "Not necessarily. Collecting <strong>qualitative data</strong> is always a good start.",
     "tut_review-5": "However, simply making descriptions about things can sometimes be biased.",
-    "tut_review-6": "For example, ",
     "tut_review-6": "We can also collect <strong>quantitative data</strong> by making precise measurements.",
     "tut_review-7": "This is also known as gathering <strong>empirical evidence</strong>.",
     "tut_sm": "A <strong>Scientific Method</strong> exploration involves asking <strong>questions</strong>, and answering them with <strong>empirical evidence</strong>.",

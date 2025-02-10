@@ -34,6 +34,15 @@ export class AudioApi {
   tracks = new Map<string, Track>();
   constructor() {}
 
+  toggleSound = () => {
+    this.soundEnabled = !this.soundEnabled;
+    if (!this.soundEnabled) {
+      Howler.volume(0);
+    } else {
+      Howler.volume(1);
+    }
+  };
+
   loadTrack = ({ src, onload = () => {} }: TrackOptions) => {
     if (!this.soundEnabled) return;
 

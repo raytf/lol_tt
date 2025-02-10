@@ -12,21 +12,12 @@
   }
 </script>
 
-<div class="size-full bg-black flex flex-col items-center">
+<div class="size-full bg-black flex flex-col justify-center items-center">
   <div>dotdothorse</div>
-  <div class="flex flex-col">
-    <div class="flex gap-2">
-      <Checkbox
-        checked={$audioApi.soundEnabled}
-        onchange={() => ($audioApi.soundEnabled = !$audioApi.soundEnabled)}
-        ><Lol key="sound-enabled" class="text-white" /></Checkbox
-      >
-    </div>
-    <div class="flex gap-2">
-      <Checkbox checked={playIntro} onchange={() => (playIntro = !playIntro)}
-        ><Lol key="play-intro" class="text-white" /></Checkbox
-      >
-    </div>
+  <div class="flex flex-col gap-2">
+    <Checkbox checked={playIntro} onchange={() => (playIntro = !playIntro)}
+      ><Lol key="play-intro" class="text-white" /></Checkbox
+    >
     <Button onclick={start}><Lol key="start" /></Button>
   </div>
 </div>
