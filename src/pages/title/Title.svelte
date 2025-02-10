@@ -12,9 +12,8 @@
   let revealTitleSequence = $state(false);
   const searchParams = new URLSearchParams($querystring);
   onMount(() => {
-    // hideHeadings();
-    tlSlowRevealBackground();
     if (searchParams.has("intro")) {
+      tlSlowRevealBackground(44);
       $hudApi.startDialog({
         keys: intro,
         onFinished: () => {
@@ -22,6 +21,7 @@
         },
       });
     } else {
+      tlSlowRevealBackground();
       startTitleSequence();
     }
 
@@ -64,13 +64,13 @@
   {#if revealTitleSequence}
     <div out:fade class="relative size-full flex flex-col items-center">
       <h1
-        in:fade={{ delay: 3000, duration: 2000 }}
+        in:fade={{ delay: 1000, duration: 3000 }}
         class="text-title text-8xl font-bold mt-24"
       >
         {$lolApi.getText("title")}
       </h1>
       <p
-        in:fade={{ delay: 1000, duration: 2000 }}
+        in:fade={{ delay: 3000, duration: 2000 }}
         class="text-title text-4xl font-bold p-4"
       >
         {$lolApi.getText("subtitle")}
