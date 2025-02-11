@@ -13,6 +13,7 @@
     imgClass = "",
     bob = false,
     reveal = true,
+    addCoating = false,
     children,
     ...props
   }: {
@@ -22,13 +23,14 @@
     class?: string;
     bob?: boolean;
     reveal?: boolean;
+    addCoating?: boolean;
     imgClass?: string;
     children?: Snippet;
   } = $props();
 </script>
 
 <div
-  class="container-sub {extraClass}"
+  class="container-sub {addCoating && 'coating'} {extraClass}"
   style="transform: translate({$coords.x - offset.x}px, {$coords.y -
     offset.y}px); width: {size}px; height: {size}px"
   {...props}
@@ -54,6 +56,10 @@
   .container-sub {
     position: absolute;
     pointer-events: none;
+  }
+  .coating {
+    filter: brightness(1.3) contrast(1.5) saturate(0.8)
+      drop-shadow(0 0 8px rgba(255, 255, 255, 0.2));
   }
   .image-sub {
     position: absolute;

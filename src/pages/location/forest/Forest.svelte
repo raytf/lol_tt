@@ -7,11 +7,17 @@
   import { TurbulentImg, BgImg } from "$components/ui/img";
   import { Lol } from "$components/text";
   import { Darkness, UnderwaterGradient } from "$components/visual";
-  import { gridOffset, minOffset, moveSub } from "$stores/exploration";
+  import {
+    gridOffset,
+    minOffset,
+    depthRatio,
+    moveSub,
+  } from "$stores/exploration";
   import {
     setTarget as setSubTarget,
     setPosition as setSubPosition,
     coords as subCoords,
+    direction as subDirection,
   } from "$stores/sub";
   import { gameApi, audioApi } from "$apis";
   import forest from "./events.svelte";
@@ -34,12 +40,6 @@
   minOffset.set({
     x: -grid.width + $gameApi.windowWidth,
     y: -grid.height + $gameApi.windowHeight,
-  });
-  console.log("grid size", grid);
-  console.log("minOffset", $minOffset);
-
-  const depthRatio = $derived.by(() => {
-    return $gridOffset.y / $minOffset.y;
   });
 
   let initialPosition = { x: -222, y: 222 };
@@ -76,7 +76,7 @@
       src={kelp_4}
       class="left-[11%] z-[3]"
       style="filter: brightness({1 -
-        depthRatio -
+        $depthRatio -
         0.2}); transform: translateX({$gridOffset.x / 10}px);"
     />
     <BgImg
@@ -89,7 +89,7 @@
       src={kelp_3}
       class="left-[11%] z-[5]"
       style="filter: brightness({1 -
-        depthRatio}); transform: translateX({$gridOffset.x / 8}px);"
+        $depthRatio}); transform: translateX({$gridOffset.x / 8}px);"
     />
     <BgImg
       src={forest_2}
@@ -101,7 +101,7 @@
       src={kelp_2}
       class="left-[11%] z-[7]"
       style="filter: brightness({1 -
-        depthRatio +
+        $depthRatio +
         0.2}); transform: translateX({$gridOffset.x / 6}px);"
     />
     <ForestPath
@@ -120,16 +120,30 @@
       src={kelp_1}
       class="left-[11%] size-full z-[11]"
       style="filter: brightness({1 -
-        depthRatio +
+        $depthRatio +
         0.4}); transform: translateX({$gridOffset.x / 4}px);"
     />
-    <UnderwaterRock
+    <!-- <UnderwaterRock
       class="absolute h-[1444px] -top-[7%] -left-[23%] z-[12] pointer-events-none"
       style="transform: translateX({$gridOffset.x / 5}px);"
-    />
+    /> -->
     <Darkness
-      level={depthRatio * 0.5 + 0.5}
-      lights={[{ x: $subCoords.x, y: $subCoords.y, unit: "px", radius: 4 }]}
+      level={$depthRatio * 0.5 + 0.5}
+      lights={[
+        {
+          x: $subCoords.x + $subDirection.x * 50,
+          y: $subCoords.y,
+          unit: "px",
+          radius: 4,
+          strength: 0.5,
+        },
+        // {
+        //   x: $subCoords.x,
+        //   y: $subCoords.y,
+        //   unit: "px",
+        //   radius: 8,
+        // },
+      ]}
       class="z-50"
     />
 

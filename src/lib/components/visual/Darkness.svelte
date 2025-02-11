@@ -4,6 +4,7 @@
     y: number;
     unit: string;
     radius: number;
+    strength?: number;
     // color: string;
   };
   let {
@@ -18,7 +19,7 @@
       if (idx !== 0) mask += `, `;
       mask += `radial-gradient(
       circle ${light.radius}rem at ${light.x}${light.unit} ${light.y}${light.unit},
-      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, ${1 - (light?.strength || 1)}) 0%,
       rgba(0, 0, 0, 1) 100%
     )`;
     });

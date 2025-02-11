@@ -1,4 +1,4 @@
-import { writable, get } from "svelte/store";
+import { writable, derived, get } from "svelte/store";
 import type { Spring } from "svelte/motion";
 import { spring } from "svelte/motion";
 import { coords, setTarget as setSubTarget } from "$stores/sub";
@@ -9,6 +9,15 @@ export const gridOffset = spring(
   { stiffness: 0.01, damping: 0.8 },
 );
 export const minOffset = writable({ x: 0, y: 0 });
+
+export const depthRatio = derived(
+  [gridOffset, minOffset],
+  ([$gridOffset, $minOffset]) => {
+    const ratio = $gridOffset.y / $minOffset.y;
+    return ratio;
+  },
+);
+
 export const moveSub = (e: MouseEvent) => {
   const gApi = get(gameApi);
   const currentOffset = get(gridOffset);

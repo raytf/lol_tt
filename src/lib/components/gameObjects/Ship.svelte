@@ -1,5 +1,6 @@
 <script lang="ts">
   import ship from "$assets/sprites/ship.png";
+  import { InfoMarker } from "$components/ui/button";
   import { infoApi } from "$apis";
 
   let {
@@ -21,6 +22,9 @@
     alt="ship"
     class="absolute -bottom-[10px] left-[55px] w-3/4 h-auto select-none anim-bob"
   />
+  <InfoMarker
+    class="absolute left-[222px] top-[111px] w-[55px] h-[55px] text-black"
+  />
 </button>
 
 <style>
@@ -29,12 +33,12 @@
     overflow: hidden;
   }
 
-  .container-ship img {
+  /* .container-ship img {
     transition: filter 1s;
-  }
+  } */
 
   .container-ship:hover img {
-    filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.5));
+    filter: drop-shadow(0 0 4px white);
   }
 
   .anim-bob {

@@ -48,11 +48,11 @@ class WrecksEvents {
       this.conchLightRadius = 11;
     }
 
-    // get(audioApi).playTrack({
-    //   src: "music/deep-echoes.mp3",
-    //   volume: 0.44,
-    //   loop: true,
-    // });
+    get(audioApi).playTrack({
+      src: "music/deep-echoes.mp3",
+      volume: 0.44,
+      loop: true,
+    });
     //if (objectives.hasCompleted(""))
   }
 

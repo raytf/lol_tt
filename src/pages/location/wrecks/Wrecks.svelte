@@ -13,9 +13,16 @@
     setTarget as setSubTarget,
     setPosition as setSubPosition,
     coords as subCoords,
+    direction as subDirection,
   } from "$stores/sub";
-  import { gridOffset, minOffset, moveSub } from "$stores/exploration";
+  import {
+    gridOffset,
+    minOffset,
+    depthRatio,
+    moveSub,
+  } from "$stores/exploration";
   import underwater from "$assets/underwater_1by3.jpg";
+  import wrecks_kelp from "$assets/wrecks/wrecks_kelp.png";
   import wrecks_1 from "$assets/wrecks/wrecks_1.png";
   import wrecks_2 from "$assets/wrecks/wrecks_2.png";
   import wrecks_3 from "$assets/wrecks/wrecks_3.png";
@@ -92,8 +99,14 @@
     style="transform: translateX({$gridOffset.x / 10}px)"
   /> -->
     <Submarine class="z-10" />
-    <UnderwaterRock
+    <!-- <UnderwaterRock
       class="absolute h-[1444px] -top-[7%] -right-[37%] z-[12] pointer-events-none"
+    /> -->
+    <BgImg
+      src={wrecks_kelp}
+      style="filter: brightness({1 -
+        $depthRatio * 0.5}); transform: translateX({$gridOffset.x / 5}px)"
+      class="w-[111%] bottom-0 z-[12] opacity-100"
     />
     <WrecksPath
       style="transform: translateX({$gridOffset.x / 5}px)"
@@ -107,7 +120,13 @@
     <Darkness
       level={$gridOffset.y / $minOffset.y - 0.4}
       lights={[
-        { x: $subCoords.x, y: $subCoords.y, unit: "px", radius: 4 },
+        {
+          x: $subCoords.x + $subDirection.x * 50,
+          y: $subCoords.y,
+          unit: "px",
+          radius: 4,
+          strength: 0.5,
+        },
         { x: 37, y: 92, unit: "%", radius: $wrecks.conchLightRadius },
       ]}
       class="z-50"
