@@ -4,15 +4,15 @@
   import Objectives from "$components/hud/objectives";
   import { Dialog } from "$components/hud/dialog";
   import { SmModal, SmPuzzle } from "$components/hud/sm";
-  import Inventory, { ItemUnlockScreen } from "$components/hud/inventory";
+  import {
+    InventoryToggle,
+    InventoryModal,
+    ItemUnlockScreen,
+  } from "$components/hud/inventory";
   import { Notepad } from "$components/hud/notepad";
   import { Map } from "$components/hud/map";
   import { InfoModal } from "$components/hud/info";
-  import {
-    SettingsModal,
-    SettingsToggle,
-    openSettings,
-  } from "$components/hud/settings";
+  import { SettingsModal, SettingsToggle } from "$components/hud/settings";
 
   import {
     hudApi,
@@ -55,25 +55,16 @@
         />
       </div>
     {/if}
-    {#if $hudApi.showSettings}
-      <div transition:fade>
-        <SettingsToggle
-          onclick={() => ($openSettings = true)}
-          class="right-0 z-[101]"
-        />
-        <SettingsModal dialogClass="z-[102]" backdropClass="z-[102]" />
-      </div>
-    {/if}
-    {#if $hudApi.showInventory}
-      <Inventory
-        class="z-[101] {($hudApi.showDialog ||
-          $hudApi.showSmModal ||
-          $hudApi.showSmPuzzle ||
-          $hudApi.showItemUnlock) &&
-          disableHideClass}"
-        buttonClass="right-14"
-        drawerClass="z-[101]"
+    {#if $hudApi.enableSettings}
+      <SettingsToggle
+        onclick={() => ($hudApi.openSettings = true)}
+        class="right-0 z-[101]"
       />
+      <SettingsModal dialogClass="z-[102]" backdropClass="z-[102]" />
+    {/if}
+    {#if $hudApi.enableInventory}
+      <InventoryToggle buttonClass="z[101] right-14" />
+      <InventoryModal dialogClass="z-[102]" backdropClass="z-[102]" />
     {/if}
     {#if $hudApi.showItemUnlock}
       <div transition:fade>

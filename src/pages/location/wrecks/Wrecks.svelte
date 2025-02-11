@@ -169,6 +169,7 @@
       </button> -->
         {#if $wrecks.startObservationTask && $wrecks.numObserved === 0}
           <InfoMarker
+            type="sm-o"
             onclick={() => {
               $wrecks.makeObservation(1);
             }}

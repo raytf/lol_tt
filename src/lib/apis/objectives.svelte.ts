@@ -54,18 +54,15 @@ const chapterMap: ChapterMap = {
     {
       key: "obj_learn-controls",
       onFinished: () => {
-        get(hudApi).showInventory = true;
+        get(hudApi).enableInventory = true;
       },
     },
     {
       key: "obj_answer-radio",
       onStart: () => {
-        get(hudApi).startItemUnlock({
-          itemId: "radio",
-          onFinished: () => {
-            get(radioApi).incomingCall();
-          },
-        });
+        const hud = get(hudApi);
+        hud.enableInventory = true;
+        get(radioApi).incomingCall();
       },
       onFinished: () => {
         get(inventoryApi).unlockItem("radio");

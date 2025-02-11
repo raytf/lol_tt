@@ -22,9 +22,7 @@
     alt="ship"
     class="absolute -bottom-[10px] left-[55px] w-3/4 h-auto select-none anim-bob"
   />
-  <InfoMarker
-    class="absolute left-[222px] top-[111px] w-[55px] h-[55px] text-black"
-  />
+  <InfoMarker class="absolute left-[222px] top-[160px] w-[55px] h-[55px]" />
 </button>
 
 <style>

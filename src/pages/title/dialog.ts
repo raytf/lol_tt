@@ -79,7 +79,7 @@ export const intro = [
     options: [
       { imgSrc: openMouth, text: "intro-4.1", nextDialog: [] },
       {
-        imgSrc: heartEyes,
+        imgSrc: hushed,
         text: "intro-4.2",
         nextDialog: [],
       },

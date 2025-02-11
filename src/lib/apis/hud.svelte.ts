@@ -12,8 +12,13 @@ class HudApi {
   showDebug = $state(true);
   showObjectives = $state(false);
   showDialog = $state(false);
-  showSettings = $state(true);
-  showInventory = $state(false);
+
+  enableSettings = $state(true);
+  openSettings = $state(false);
+
+  enableInventory = $state(false);
+  openInventory = $state(false);
+
   showItemUnlock = $state(false);
   showSmModal = $state(false);
   showSmPuzzle = $state(false);
@@ -23,7 +28,7 @@ class HudApi {
 
   debugActivate() {
     //get(inventoryApi).unlockEverything();
-    this.showInventory = true;
+    this.enableInventory = true;
   }
 
   openSmModalWithDialog() {

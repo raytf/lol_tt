@@ -27,28 +27,41 @@
     "chapter2": "Chapter 2",
     "chapter3": "Chapter 3",
     "completed-obj": "Completed Objective",
+
     "obj_learn-controls": "Learn the controls",
     "task_move-sub": "Click around the screen to move the sub",
-    "obj_answer-radio": "Answer the radio call",
+
+    "obj_check-inventory": "Check your inventory",
     "task_open-inventory": "Open your inventory",
+    "task_review-sm": "Review the Scientific Method",
+    "task_review-notepad": "Review your notepad",
+
+    "obj_answer-radio": "Pick up the radio",
     "task_open-radio": "Open the radio",
+
     "obj_mission": "Mission Brief",
     "task_start-mission": "Start the mission",
+
     "obj_prepare": "Prepare notes",
     "task_review-SM": "Review the Scientific Method steps",
     "task_open-notepad": "Open your notepad",
     "task_new-page": "Start a new page for <span class='color sm-o'>observations</span>",
+
     "obj_make-observations": "Explore and make <span class='color sm-o'>observations</span>",
     "task_dive": "Start your dive",
     "task_record-observations": "Record 3 <span class='color sm-o'>observations</span> about depth using the notepad",
+
     "obj_review-observations": "<span class='color sm-o'>Observations</span> review",
     "task_contact-mc2": "Contact Mission Control again using the radio",
     "task_show-observations": "Review your <span class='color sm-o'>observations</span> with Mission Control",
+
     "obj_question": "Ask a <span class='color sm-q'>scientific question</span>",
     "task_ask-question": "Ask <span class='color sm-q'>scientific question</span> based on your <span class='color sm-o'>observations</span>",
+
     "location-surface": "The Triton Triangle",
     "location-wrecks": "Wrecks",
     "location-forest": "Forest",
+
     "item-unlocked": "Item Unlocked",
     "sm-observation": "Observation",
     "sm-question": "Question",
@@ -104,16 +117,16 @@
     "intro-1.1-2": "No one has ever fully explored the depths before.",
     "intro-2": "I'm going there on an expedition.",
     "intro-2.1": "Really! Can I come with you?",
-    "intro-2.1-1": "No, not this time kid.",
-    "intro-2.1-2": "Why not? You suck dad...",
-    "intro-2.1-3": "Haha, I'll take you one day... might be too dangerous for you now.",
+    "intro-2.1-1": "Absolutely not.",
+    "intro-2.1-2": "Why not? You suck Dad...",
+    "intro-2.1-3": "I'll take you one day... might be too dangerous for you now.",
     "intro-3": "The Triton Triangle is known for stories about sea monsters, strange forces...",
     "intro-4": "...and something hidden deep below, a treasure...",
     "intro-4.1": "Woah, a treasure!",
-    "intro-4.2": "Sea monsters? That's so cool!",
+    "intro-4.2": "Sea monsters, really?",
     "intro-4.3": "Strange forces?...",
-    "intro-5": "That's right kid, but true scientists don't just listen to stories...",
-    "intro-6": "We find out the truth, and learn about the world by following a process.",
+    "intro-5": "I don't know kid, true scientists don't just listen to stories...",
+    "intro-6": "We find out the truth, and learn about the world around us by following a process.",
     "intro-7": "A process called the <strong>The Scientific Method</strong>.",
 
     "newspaper-heading": "NEWS",
@@ -123,7 +136,7 @@
     "newspaper-text-3": "After weeks of searching, the search mission was called off due to 'strange forces' and failing communications.",
     "years-later": "Years later...",
 
-    "i_ship": "My trusty support ship. I can always come here to rest or make repairs.",
+    "i_ship": "My trusty support ship. I can come here to rest or make repairs.",
     "o_floating-kelp": "Looks like I can't get past here. There is kelp blocking the way.",
 
     "radio_incoming-call": "<em>...Incoming call...</em>",
@@ -131,11 +144,16 @@
     "radio_no-signal": "There is no signal here... maybe I should try again above water.",
     "radio_signal-lost": "Weird... lost the signal. Just when I was about to report something interesting.",
 
-    "tut_brief-1": "SM-Explorer2, this is Mission Control.",
+    "surface-1": "Wow, the Triton Triangle.",
+    "surface-2": "It really is a beautiful place...just like Dad said.",
+
+    "tut_brief-1": "SM-Explorer-2, this is Mission Control. How are you feeling?",
+    "tut_brief-1.1": "Good, this place is beautiful. Just like how my dad described.",
+    "tut_brief-1.2": "Bit nervous... but I'm ready to explore.",
 
     "tut_brief1": "SM-Explorer2, this is Mission Control.",
     "tut_brief2": "Your mission is to explore, and collect data about the depths of the Triton Triangle.",
-    "tut_brief2_o1": "Tell me more about this place.",
+    "tut_brief2_o1": "What do we know about this place?",
     "tut_story1": "To be honest, we don't know much except for the spooky stories.",
     "tut_story2": "Years ago, a crew ventured to the Triangle to hunt for a treasure.",
     "tut_story3": "Sailors warned them not to disrupt the depths, but they didn't listen.",

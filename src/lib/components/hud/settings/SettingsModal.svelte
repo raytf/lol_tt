@@ -1,17 +1,19 @@
 <script lang="ts">
   import { Modal, Checkbox, Button } from "flowbite-svelte";
   import { Lol } from "$components/text";
-  import { openSettings } from "../settings";
-  import { lolApi, audioApi, gameApi } from "$apis";
+  import { hudApi, lolApi, audioApi, gameApi } from "$apis";
 
   let {
     dialogClass,
     backdropClass,
-  }: { dialogClass?: string; backdropClass?: string } = $props();
+  }: {
+    dialogClass?: string;
+    backdropClass?: string;
+  } = $props();
 </script>
 
 <Modal
-  bind:open={$openSettings}
+  bind:open={$hudApi.openSettings}
   title={$lolApi.getText("settings")}
   classDialog="absolute pointer-events-auto {dialogClass}"
   classBackdrop={backdropClass}

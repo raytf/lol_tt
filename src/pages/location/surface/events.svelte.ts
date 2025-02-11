@@ -10,6 +10,7 @@ import {
 import { missionBrief } from "$dialog/radio";
 import { setTarget as setSubTarget } from "$stores/sub";
 import { moveSub } from "$stores/exploration";
+import { arrival } from "./dialog";
 
 const audio = get(audioApi);
 const objectives = get(objectivesApi);
@@ -38,7 +39,7 @@ class SurfaceEvents {
           if (objectives.hasCompleted("obj_prepare")) {
             this.readyToDive = true;
           }
-        }, 1111);
+        }, 2222);
       } else {
         //this.readyToDive = true;
       }
@@ -72,12 +73,22 @@ class SurfaceEvents {
   }
 
   startTutorial() {
+    const hud = get(hudApi);
     const objectives = get(objectivesApi);
-
     objectives.startChapter("tutorial", () => {});
     objectives.attachStartCallback("obj_mission", () => {
       this.startMissionBrief();
     });
+
+    // hud.startDialog({
+    //   keys: arrival,
+    //   onFinished: () => {
+    //     objectives.startChapter("tutorial", () => {});
+    //     objectives.attachStartCallback("obj_mission", () => {
+    //       this.startMissionBrief();
+    //     });
+    //   },
+    // });
   }
 
   startMissionBrief() {
