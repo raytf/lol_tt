@@ -1,5 +1,6 @@
 <script lang="ts">
   import { querystring } from "svelte-spa-router";
+  import { fade } from "svelte/transition";
   import { onMount } from "svelte";
   import { Location } from "$components/location";
   import { TurbulentImg, BgImg } from "$components/ui/img";
@@ -7,6 +8,7 @@
   import { Grid, Area } from "$components/exploration";
   import { InfoMarker } from "$components/ui/button";
   import { Lol } from "$components/text";
+  import { Button } from "$components/ui/button";
   import Conch from "$components/gameObjects/Conch.svelte";
   import { Submarine } from "$components/gameObjects";
   import {
@@ -62,6 +64,30 @@
       { hard: true },
     );
   }
+  let subNearSurface = $state(false);
+  let subNearForest = $state(false);
+
+  //#region events
+  function onClickTopArea(e: MouseEvent) {
+    const x = e.clientX - $gridOffset.x;
+    const y = e.clientY - $gridOffset.y;
+    if (y < 222 && x < 1555) {
+      subNearSurface = true;
+    } else {
+      subNearSurface = false;
+    }
+    onClickArea(e);
+  }
+  function onClickArea(e: MouseEvent) {
+    const x = e.clientX - $gridOffset.x;
+    if (x > 1555) {
+      subNearForest = true;
+    } else {
+      subNearForest = false;
+    }
+    moveSub(e);
+  }
+  //#endregion
 
   setSubPosition(initialPosition);
   onMount(() => {
@@ -74,6 +100,49 @@
 </script>
 
 <Location title="wrecks" uiClass="z-[11]">
+  {#snippet ui()}
+    {#if subNearSurface}
+      <div
+        transition:fade
+        class="absolute z-[11] top-0 w-full h-[222px] flex justify-center items-start pt-4"
+      >
+        <Button
+          onclick={() => {
+            setSubTarget({ x: $subCoords.x, y: 0 });
+            $audioApi.stopTrack({
+              src: "music/deep-echoes.mp3",
+            });
+            $gameApi.fadeScene("/surface?from=wrecks", 1, 1);
+          }}
+          class="w-[99px] h-[88px] flex-col items-center"
+        >
+          <ArrowUp class="w-[44px] h-[44px]" />
+          <Lol key="surface" />
+        </Button>
+      </div>
+    {/if}
+    {#if subNearForest}
+      <div
+        transition:fade
+        class="absolute z-[11] top-0 right-0 w-[222px] h-full flex flex-col justify-center items-end pr-4"
+      >
+        <Button
+          onclick={() => {
+            setSubTarget({ x: grid.width, y: $subCoords.y });
+            $audioApi.stopTrack({
+              src: "music/deep-echoes.mp3",
+            });
+            $gameApi.fadeScene("/forest?from=wrecks");
+          }}
+          class="w-[99px] h-[88px] flex-col items-center"
+        >
+          <Lol key="forest" class="mr-1" />
+          <ArrowRight class="w-[33px] h-[33px]" />
+        </Button>
+      </div>
+    {/if}
+  {/snippet}
+
   <Grid
     size={[grid.width, grid.height]}
     xOffset={$gridOffset.x}
@@ -134,7 +203,7 @@
     {#snippet areas()}
       <Area
         size={[grid.width, $gameApi.windowHeight]}
-        onmousedown={moveSub}
+        onmousedown={onClickTopArea}
         class="flex flex-row"
       >
         <UnderwaterGradient
@@ -142,9 +211,7 @@
           --color-top="#03E5B7"
           --color-bottom="#00C1EF"
         />
-        <!-- {#if $subNearSurface}
-      {/if} -->
-        <button
+        <!-- <button
           onclick={() => {
             $audioApi.stopTrack({
               src: "music/deep-echoes.mp3",
@@ -155,18 +222,8 @@
         >
           <ArrowUp class="w-[44px] h-[44px]" />
           <Lol key="surface" />
-        </button>
+        </button> -->
 
-        <!-- <button
-        onclick={() => {
-          setSubTarget({ x: grid.width + 111, y: 111 });
-          $gameApi.fadeScene("/forest", 0.44);
-        }}
-        class="absolute right-[4%] top-[22%] text-2xl flex items-center z-[25]"
-      >
-        <Lol key="forest" class="mr-1" />
-        <ArrowRight class="w-[33px] h-[33px]" />
-      </button> -->
         {#if $wrecks.startObservationTask && $wrecks.numObserved === 0}
           <InfoMarker
             type="sm-o"
@@ -177,7 +234,10 @@
           />
         {/if}
       </Area>
-      <Area size={[grid.width, $gameApi.windowHeight]} onmousedown={moveSub}>
+      <Area
+        size={[grid.width, $gameApi.windowHeight]}
+        onmousedown={onClickArea}
+      >
         <UnderwaterGradient
           class="absolute w-full h-[101%]"
           --color-top="#00C1EF"
@@ -192,7 +252,10 @@
           />
         {/if}
       </Area>
-      <Area size={[grid.width, $gameApi.windowHeight]} onmousedown={moveSub}>
+      <Area
+        size={[grid.width, $gameApi.windowHeight]}
+        onmousedown={onClickArea}
+      >
         <UnderwaterGradient
           class="absolute size-full"
           --color-top="#037ADE"
@@ -206,18 +269,6 @@
             class="absolute w-[55px] h-[55px] bottom-[33%] left-[44%] z-20"
           />
         {/if}
-        <button
-          onclick={() => {
-            $audioApi.stopTrack({
-              src: "music/deep-echoes.mp3",
-            });
-            $gameApi.fadeScene("/forest?from=wrecks");
-          }}
-          class="absolute right-[2%] bottom-[44%] text-2xl flex items-center z-[20]"
-        >
-          <Lol key="forest" class="mr-1" />
-          <ArrowRight class="w-[33px] h-[33px]" />
-        </button>
       </Area>
     {/snippet}
   </Grid>

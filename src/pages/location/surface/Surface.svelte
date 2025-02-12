@@ -29,7 +29,7 @@
 
   let initialSubCoords = {
     x: $gameApi.windowWidth / 2,
-    y: $gameApi.windowHeight / 2 + 55,
+    y: $gameApi.windowHeight / 2 + 111,
   };
   const searchParams = new URLSearchParams($querystring);
   if (searchParams.has("from", "wrecks")) {
@@ -45,7 +45,6 @@
 
   //#region events
   function onEnter() {
-    setSubPosition(initialSubCoords);
     $audioApi.playTrack({
       src: "sound/ocean-loop.mp3",
       volume: 0.08,
@@ -116,6 +115,7 @@
   }
   //#endregion
 
+  setSubPosition(initialSubCoords);
   onMount(() => {
     onEnter();
   });
@@ -124,13 +124,13 @@
 <Location title="surface" uiClass="z-[11]">
   {#snippet ui()}
     <div
-      class="absolute z-[11] bottom-0 w-full h-[222px] flex justify-center items-end pb-11"
+      class="absolute z-[11] bottom-0 w-full h-[222px] flex justify-center items-end pb-4"
     >
       {#if readyToDive}
         <div transition:fade>
           <Button
             onclick={onClickDive}
-            class="w-[99px] h-[88px] flex-col items-center pointer-events-auto"
+            class="w-[99px] h-[88px] flex-col items-center"
           >
             <Lol key="dive" class="text-2xl" />
             <Dive class="w-[33px] h-[33px]" />
