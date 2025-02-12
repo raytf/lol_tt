@@ -32,11 +32,11 @@ type ChapterMap = {
 
 const objectiveMap: ObjectiveMap = {
   "obj_learn-controls": [{ key: "task_move-sub" }],
-  "obj_answer-radio": [
+  obj_mission: [
     { key: "task_open-inventory" },
-    { key: "task_open-radio" },
+    { key: "task_call-radio" },
+    { key: "task_start-mission" },
   ],
-  obj_mission: [{ key: "task_start-mission" }],
   obj_prepare: [{ key: "task_open-notepad" }, { key: "task_new-page" }],
   "obj_make-observations": [
     { key: "task_dive" },
@@ -55,17 +55,6 @@ const chapterMap: ChapterMap = {
       key: "obj_learn-controls",
       onFinished: () => {
         get(hudApi).enableInventory = true;
-      },
-    },
-    {
-      key: "obj_answer-radio",
-      onStart: () => {
-        const hud = get(hudApi);
-        hud.enableInventory = true;
-        get(radioApi).incomingCall();
-      },
-      onFinished: () => {
-        get(inventoryApi).unlockItem("radio");
       },
     },
     {

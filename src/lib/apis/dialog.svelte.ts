@@ -30,10 +30,13 @@ export class Dialog {
 
   nextLine() {
     if (!this.currentKey) return;
+    this.currentKey.alreadyRead = true;
     this.currentIdx++;
 
     if (this.currentKey) {
-      get(lolApi).speakText(this.currentKey.text);
+      if (!this.currentKey.alreadyRead) {
+        get(lolApi).speakText(this.currentKey.text);
+      }
       this.currentKey?.onStart?.();
     } else {
       this.onFinished();

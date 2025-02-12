@@ -77,14 +77,12 @@ class HudApi {
 
   startItemUnlock(params: StartItemUnlockParams) {
     const { itemId, onFinished } = params;
-
     const iApi = get(inventoryApi);
     if (iApi.isItemUnlocked(itemId)) {
       onFinished?.();
       return;
     }
 
-    iApi.newItemUnlock = itemId;
     iApi.unlockItem(itemId);
     iApi.onItemUnlockFinished = () => {};
     if (onFinished) iApi.onItemUnlockFinished = onFinished;
@@ -95,7 +93,6 @@ class HudApi {
     this.showItemUnlock = false;
 
     const iApi = get(inventoryApi);
-    iApi.newItemUnlock = "";
     iApi.onItemUnlockFinished();
   }
 }

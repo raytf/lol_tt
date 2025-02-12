@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { onMount } from "svelte";
+  import { fade } from "svelte/transition";
   import { location } from "svelte-spa-router";
   import { Modal, Drawer } from "flowbite-svelte";
   import ItemCard from "./ItemCard.svelte";
@@ -7,7 +9,7 @@
   import { InfoButton } from "$components/ui/button";
 
   import { hudApi, lolApi, inventoryApi, objectivesApi, radioApi } from "$apis";
-  import { flipElement } from "$stores/flip";
+  import { flipElement, doFlip } from "$stores/flip";
 
   let {
     dialogClass,
@@ -17,17 +19,17 @@
     backdropClass?: string;
   } = $props();
 
-  let selectedItem = $state("");
+  let selectedItem = $state<ItemDetails>();
   let smallIconElements = $state<HTMLElement[]>([]);
   let bigIconElement = $state<HTMLElement>();
 
-  function onItemClicked(itemId: string, index: number = 0) {
-    selectedItem = "";
+  function onItemClicked(item: ItemDetails, index: number = 0) {
+    selectedItem = undefined;
     $hudApi.openInventory = false;
-    if (itemId === "sm") {
+    if (item.id === "sm") {
       $hudApi.showSmModal = true;
     }
-    if (itemId === "radio") {
+    if (item.id === "radio") {
       if (smallIconElements[index]) {
         flipElement.set(smallIconElements[index]);
       }
@@ -41,27 +43,31 @@
         $radioApi.call($location);
       }
     }
-    if (itemId === "notepad") {
+    if (item.id === "notepad") {
       $hudApi.showNotepad = true;
     }
-    if (itemId === "map") {
+    if (item.id === "map") {
       $hudApi.showMap = true;
     }
   }
+
+  onMount(() => {});
 </script>
 
 <Modal
   bind:open={$hudApi.openInventory}
   title={$lolApi.getText("inventory")}
+  placement="top-center"
   classDialog="absolute pointer-events-auto {dialogClass}"
   classBackdrop={backdropClass}
   autoclose
   outsideclose
 >
-  <div class="flex flex-col items-center text-black p-4">
+  <div class="flex flex-col text-black p-4">
     <div class="grid grid-cols-5 gap-2">
       {#each $inventoryApi.unlockedItems as item, i}
         <div
+          transition:fade
           class="relative pointer-events-auto flex justify-center items-center border-2 border-gray-900 rounded p-5"
         >
           <button
@@ -70,8 +76,8 @@
           >
             <img
               bind:this={smallIconElements[i]}
-              src={$inventoryApi.getItem(item).imgSrc}
-              alt={item}
+              src={item.imgSrc}
+              alt={item.id}
               class="size-full"
             />
           </button>
@@ -87,11 +93,13 @@
   <div
     class="pointer-events-auto cursor-pointer w-full flex justify-center pb-8"
   >
-    {#if selectedItem !== ""}
+    {#if selectedItem}
       <ItemCard
         bind:imgRef={bigIconElement}
-        onclick={() => onItemClicked(selectedItem)}
-        id={selectedItem}
+        onclick={() => {
+          if (selectedItem) onItemClicked(selectedItem);
+        }}
+        item={selectedItem}
       />
     {/if}
   </div>

@@ -15,6 +15,7 @@
 <Modal
   bind:open={$hudApi.openSettings}
   title={$lolApi.getText("settings")}
+  placement="top-center"
   classDialog="absolute pointer-events-auto {dialogClass}"
   classBackdrop={backdropClass}
   autoclose

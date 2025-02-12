@@ -3,21 +3,25 @@
   import { lolApi } from "$apis";
 
   let {
-    itemId,
+    item,
     onFinish,
     class: extraClass,
   }: {
-    itemId: string;
+    item: ItemDetails;
     onFinish?: () => void;
     class?: string;
   } = $props();
+
+  function onClick() {
+    onFinish?.();
+  }
 </script>
 
-<button onclick={onFinish} class="container-unlock {extraClass}">
+<button onclick={onClick} class="container-unlock {extraClass}">
   <h1 class="text-6xl font-bold uppercase p-14">
     {$lolApi.getText("item-unlocked")}
   </h1>
-  <ItemCard id={itemId} />
+  <ItemCard {item} />
 </button>
 
 <style>

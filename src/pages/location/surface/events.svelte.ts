@@ -7,10 +7,9 @@ import {
   inventoryApi,
   radioApi,
 } from "$apis";
-import { missionBrief } from "$dialog/radio";
+import { missionBrief } from "$dialog/tutorial";
 import { setTarget as setSubTarget } from "$stores/sub";
 import { moveSub } from "$stores/exploration";
-import { arrival } from "./dialog";
 
 const audio = get(audioApi);
 const objectives = get(objectivesApi);
@@ -76,9 +75,9 @@ class SurfaceEvents {
     const hud = get(hudApi);
     const objectives = get(objectivesApi);
     objectives.startChapter("tutorial", () => {});
-    objectives.attachStartCallback("obj_mission", () => {
-      this.startMissionBrief();
-    });
+    // objectives.attachStartCallback("obj_mission", () => {
+    //   this.startMissionBrief();
+    // });
 
     // hud.startDialog({
     //   keys: arrival,
@@ -91,19 +90,19 @@ class SurfaceEvents {
     // });
   }
 
-  startMissionBrief() {
-    const hud = get(hudApi);
-    hud.startDialog({
-      keys: missionBrief,
-      disabledOptions: ["tut_brief2_o2", "tut_brief2_o3"],
-      onFinished: () => {
-        get(objectivesApi).completeTask("task_start-mission");
-        objectives.attachStartCallback("obj_make-observations", () => {
-          this.readyToDive = true;
-        });
-      },
-    });
-  }
+  // startMissionBrief() {
+  //   const hud = get(hudApi);
+  //   hud.startDialog({
+  //     keys: missionBrief,
+  //     disabledOptions: ["tut_brief2_o2", "tut_brief2_o3"],
+  //     onFinished: () => {
+  //       get(objectivesApi).completeTask("task_start-mission");
+  //       objectives.attachStartCallback("obj_make-observations", () => {
+  //         this.readyToDive = true;
+  //       });
+  //     },
+  //   });
+  // }
 
   startChapter1() {
     const objectives = get(objectivesApi);

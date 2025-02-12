@@ -4,13 +4,27 @@
   import { hudApi, inventoryApi, objectivesApi } from "$apis";
 
   let { buttonClass }: { buttonClass?: string } = $props();
+
+  function openInventory() {
+    $objectivesApi.completeTask("task_open-inventory");
+    $hudApi.openInventory = true;
+  }
 </script>
 
 <button
   transition:fly={{ y: -222 }}
   onclick={() => {
-    $hudApi.openInventory = true;
-    $objectivesApi.completeTask("task_open-inventory");
+    if (!$inventoryApi.isItemUnlocked("radio")) {
+      $hudApi.startItemUnlock({
+        itemId: "radio",
+        onFinished: () => {
+          openInventory();
+        },
+      });
+      return;
+    }
+
+    openInventory();
   }}
   class="button-toggle {buttonClass}"
 >

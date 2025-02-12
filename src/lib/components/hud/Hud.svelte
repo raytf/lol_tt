@@ -58,7 +58,7 @@
     {#if $hudApi.enableSettings}
       <SettingsToggle
         onclick={() => ($hudApi.openSettings = true)}
-        class="right-0 z-[101]"
+        class="z-[101] right-0"
       />
       <SettingsModal dialogClass="z-[102]" backdropClass="z-[102]" />
     {/if}
@@ -68,13 +68,15 @@
     {/if}
     {#if $hudApi.showItemUnlock}
       <div transition:fade>
-        <ItemUnlockScreen
-          itemId={$inventoryApi.newItemUnlock}
-          onFinish={() => {
-            $hudApi.endItemUnlock();
-          }}
-          class="z-[110] pointer-events-auto"
-        />
+        {#if $inventoryApi.newItemUnlock}
+          <ItemUnlockScreen
+            item={$inventoryApi.newItemUnlock}
+            onFinish={() => {
+              $hudApi.endItemUnlock();
+            }}
+            class="z-[110] pointer-events-auto"
+          />
+        {/if}
       </div>
     {/if}
     {#if $hudApi.showSmModal}

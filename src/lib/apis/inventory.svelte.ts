@@ -8,14 +8,6 @@ import depthGauge from "$assets/sprites/depth-gauge.png";
 import thermistor from "$assets/sprites/thermistor.png";
 import map from "$assets/icons/map.svg";
 
-interface ItemDetails {
-  imgSrc: string;
-  id: string;
-  nameKey: string;
-  descKey: string;
-  actionKey?: string;
-}
-
 type ItemMap = {
   [key: string]: ItemDetails;
 };
@@ -69,32 +61,34 @@ export const itemMap: ItemMap = {
 };
 
 export class InventoryApi {
-  unlockedItems = $state<string[]>([]);
+  unlockedItems = $state<ItemDetails[]>([]);
   currentHintKey = $state("hint_1");
   showHintDialog = $state(false);
   showGaugeScreen = $state(false);
   // Item Unlock Screen
-  newItemUnlock = $state("");
+  newItemUnlock = $state<ItemDetails>();
   onItemUnlockFinished = () => {};
 
   constructor() {}
 
-  getItem(key: string) {
-    return itemMap[key];
-  }
+  // getItem(key: string) {
+  //   return itemMap[key];
+  // }
 
   unlockEverything() {
-    this.unlockedItems = [...Object.keys(itemMap)];
+    this.unlockedItems = [...Object.values(itemMap)];
   }
 
-  unlockItem(item: string) {
-    if (this.isItemUnlocked(item)) return;
+  unlockItem(itemId: string) {
+    if (this.isItemUnlocked(itemId)) return;
 
+    const item = itemMap[itemId];
+    this.newItemUnlock = item;
     this.unlockedItems.push(item);
   }
 
   isItemUnlocked(item: string): boolean {
-    return this.unlockedItems.includes(item);
+    return !!this.unlockedItems.find((i) => i.id === item);
   }
 }
 

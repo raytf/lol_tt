@@ -9,18 +9,15 @@
   import { Button } from "$components/ui/button";
   import { SkyOcean } from "$components/visual/scenery";
   import { Submarine, Ship, FloatingKelp } from "$components/gameObjects";
-  import { gridOffset, minOffset } from "$stores/exploration";
+  import { gridOffset, minOffset, moveSub } from "$stores/exploration";
   import {
     setPosition as setSubPosition,
     coords as subCoords,
   } from "$stores/sub";
-  import { gameApi } from "$apis";
-  import surface from "./events.svelte";
-  import island_1 from "$assets/islands/island_1.png";
-  import { BgImg, TurbulentImg } from "$components/ui/img";
-  import kelp_floating from "$assets/surface/kelp_floating.png";
-  import ship from "$assets/sprites/ship.png";
+  import { gameApi, audioApi, objectivesApi, radioApi, hudApi } from "$apis";
+  import { status, missionBrief } from "$dialog/tutorial";
 
+  //#region setup
   const grid = {
     width: $gameApi.windowWidth * 2,
     height: $gameApi.windowHeight,
@@ -42,9 +39,85 @@
     };
     gridOffset.set({ x: $gridOffset.x, y: 0 }, { hard: true });
   }
-  onMount(() => {
+  let surfaceSub = $state(searchParams.has("start") ? true : false);
+  let readyToDive = $state(false);
+  //#endregion
+
+  //#region events
+  function onEnter() {
     setSubPosition(initialSubCoords);
-    $surface.onEnter(searchParams);
+    $audioApi.playTrack({
+      src: "sound/ocean-loop.mp3",
+      volume: 0.08,
+      loop: true,
+    });
+
+    if (searchParams.has("start")) {
+      if ($objectivesApi.currentChapter === "tutorial") {
+        setTimeout(() => {
+          $objectivesApi.startChapter("tutorial", () => {});
+
+          if ($objectivesApi.hasCompleted("obj_mission")) {
+            readyToDive = true;
+            $radioApi.attachCallback(() => {
+              $hudApi.startDialog({
+                keys: [...missionBrief],
+              });
+            });
+          } else {
+            $radioApi.attachCallback(() => {
+              $hudApi.startDialog({
+                keys: [...status, ...missionBrief],
+                disabledOptions: [
+                  "tut_mb-1.2",
+                  "tut_mb-1.3",
+                  "tut_data.qn",
+                  "tut_data.ok",
+                ],
+                onFinished: () => {
+                  $objectivesApi.completeTask("task_start-mission");
+                  readyToDive = true;
+                },
+              });
+              $objectivesApi.completeTask("task_call-radio");
+            });
+          }
+        }, 3000);
+      }
+
+      return;
+    }
+
+    // Non-start
+    setTimeout(() => {
+      surfaceSub = true;
+      readyToDive = true;
+    }, 1111);
+  }
+
+  function onClickArea(e: MouseEvent) {
+    if ($objectivesApi.currentObjectiveIs("obj_learn-controls")) {
+      $objectivesApi.completeTask("task_move-sub");
+    }
+
+    moveSub(e);
+  }
+
+  function onClickDive() {
+    readyToDive = false;
+    surfaceSub = false;
+
+    setTimeout(() => {
+      $gameApi.fadeScene("/wrecks?from=surface");
+      $audioApi.stopTrack({
+        src: "sound/ocean-loop.mp3",
+      });
+    }, 1111);
+  }
+  //#endregion
+
+  onMount(() => {
+    onEnter();
   });
 </script>
 
@@ -53,10 +126,10 @@
     <div
       class="absolute z-[11] bottom-0 w-full h-[222px] flex justify-center items-end pb-11"
     >
-      {#if $surface.readyToDive}
+      {#if readyToDive}
         <div transition:fade>
           <Button
-            onclick={() => $surface.onClickDive()}
+            onclick={onClickDive}
             class="w-[99px] h-[88px] flex-col items-center pointer-events-auto"
           >
             <Lol key="dive" class="text-2xl" />
@@ -80,7 +153,7 @@
       class="overflow-hidden z-[12]"
       imgClass="bottom-[-44%]"
       bob={true}
-      reveal={$surface.surfaceSub}
+      reveal={surfaceSub}
     />
     <Ship class="left-[500px] bottom-[270px] z-[11]" />
     <!-- <BgImg
@@ -91,7 +164,7 @@
       <div class="absolute flex w-full h-1/2 bottom-0 z-10">
         <Area
           size={[$gameApi.windowWidth * 1.5, grid.height / 2]}
-          onmousedown={(e) => $surface.onClickArea(e)}
+          onmousedown={onClickArea}
           class=""
         ></Area>
         <Area

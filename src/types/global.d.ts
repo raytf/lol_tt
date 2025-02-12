@@ -25,3 +25,12 @@ interface StartDialogParams {
   blockInput?: boolean;
   disabledOptions?: string[];
 }
+
+interface ItemDetails {
+  imgSrc: string;
+  id: string;
+  nameKey: string;
+  descKey: string;
+  actionKey?: string;
+  new?: boolean;
+}

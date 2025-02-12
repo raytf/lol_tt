@@ -7,6 +7,7 @@ import {
   observationReview,
   response,
 } from "$dialog/radio";
+import { missionBrief } from "$dialog/tutorial";
 
 type HintMap = {
   [key: string]: DialogKey[];
@@ -18,7 +19,16 @@ const radioDialogMap: HintMap = {
 };
 
 class RadioApi {
-  // onCall = () => {};
+  onCall = () => {};
+
+  attachCallback(onCall: () => void) {
+    this.onCall = onCall;
+  }
+
+  clearCallback() {
+    this.onCall = () => {};
+  }
+
   call(location: string) {
     const hud = get(hudApi);
     if (!location.includes("surface")) {
@@ -28,27 +38,37 @@ class RadioApi {
       return;
     }
 
-    const objectives = get(objectivesApi);
-    if (objectives.currentObjectiveIs("obj_answer-radio")) {
-      objectives.completeTask("task_open-radio");
-      return;
-    }
+    this.onCall?.();
+    return;
 
-    if (objectives.currentObjectiveIs("obj_review-observations")) {
-      objectives.completeTask("task_contact-mc2");
-      hud.startDialog({
-        keys: observationReview,
-        onFinished: () => {
-          //get(lolApi).complete();
-        },
-      });
-      return;
-    }
+    // const objectives = get(objectivesApi);
+    // if (objectives.currentObjectiveIs("obj_mission")) {
+    //   hud.startDialog({
+    //     keys: missionBrief,
+    //     // disabledOptions: ["tut_brief2_o2", "tut_brief2_o3"],
+    //     onFinished: () => {
+    //       //objectives.completeTask("task_start-mission");
+    //     },
+    //   });
+    //   objectives.completeTask("task_call-radio");
+    //   return;
+    // }
 
-    const dialog = [response(radioDialogMap[objectives.currentChapter])];
-    hud.startDialog({
-      keys: dialog,
-    });
+    // if (objectives.currentObjectiveIs("obj_review-observations")) {
+    //   objectives.completeTask("task_contact-mc2");
+    //   hud.startDialog({
+    //     keys: observationReview,
+    //     onFinished: () => {
+    //       //get(lolApi).complete();
+    //     },
+    //   });
+    //   return;
+    // }
+
+    // const dialog = [response(radioDialogMap[objectives.currentChapter])];
+    // hud.startDialog({
+    //   keys: dialog,
+    // });
   }
 
   incomingCall() {
