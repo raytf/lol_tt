@@ -59,8 +59,15 @@
         setTimeout(() => {
           $objectivesApi.startChapter("tutorial", () => {});
 
-          if ($objectivesApi.hasCompleted("obj_mission")) {
+          if ($objectivesApi.hasCompleted("obj_check-equipment")) {
             readyToDive = true;
+          } else {
+            $objectivesApi.attachStartCallback("obj_explore", () => {
+              readyToDive = true;
+            });
+          }
+
+          if ($objectivesApi.hasCompleted("obj_mission")) {
             $radioApi.setCallback(() => {
               $hudApi.startDialog({
                 keys: [...missionBrief],
@@ -79,7 +86,6 @@
                 blockInput: true,
                 onFinished: () => {
                   $objectivesApi.completeTask("task_start-mission");
-                  readyToDive = true;
                   $radioApi.setCallback(() => {
                     $hudApi.startDialog({
                       keys: [...missionBrief],
@@ -112,6 +118,10 @@
   }
 
   function onClickDive() {
+    if ($objectivesApi.currentObjectiveIs("obj_explore")) {
+      $objectivesApi.completeTask("task_dive");
+    }
+
     readyToDive = false;
     surfaceSub = false;
 

@@ -29,9 +29,8 @@ class CoverPage extends Page {
 
   constructor(titleKey: string) {
     super(titleKey);
-    this.addBulletLine("notepad-line_look-clues");
     this.addBulletLine("notepad-line_explore-depths");
-    this.addBulletLine("notepad-line_find-treasure");
+    this.addBulletLine("notepad-line_look-clues");
   }
 }
 

@@ -27,7 +27,7 @@
     selectedItem = undefined;
     $hudApi.openInventory = false;
     if (item.id === "sm") {
-      if ($objectivesApi.currentObjectiveIs("obj_review-sm-o")) {
+      if ($objectivesApi.currentObjectiveIs("obj_check-equipment")) {
         $objectivesApi.completeTask("task_open-sm");
       }
       $hudApi.showSmModal = true;
@@ -43,6 +43,9 @@
       $radioApi.call($location);
     }
     if (item.id === "notepad") {
+      if ($objectivesApi.currentObjectiveIs("obj_check-equipment")) {
+        $objectivesApi.completeTask("task_open-notepad");
+      }
       $hudApi.showNotepad = true;
     }
     if (item.id === "map") {

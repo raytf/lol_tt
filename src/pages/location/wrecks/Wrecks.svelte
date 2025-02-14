@@ -33,6 +33,7 @@
   import wrecks from "./events.svelte";
   import { ArrowUp, ArrowRight } from "$components/svg/icons/animated";
 
+  //#region state
   const grid = {
     width: $gameApi.windowWidth * 2,
     height: $gameApi.windowHeight * 3,
@@ -66,6 +67,7 @@
   }
   let subNearSurface = $state(false);
   let subNearForest = $state(false);
+  //#endregion
 
   //#region events
   function onClickTopArea(e: MouseEvent) {
@@ -80,7 +82,9 @@
   }
   function onClickArea(e: MouseEvent) {
     const x = e.clientX - $gridOffset.x;
-    if (x > 1555) {
+    const y = e.clientY - $gridOffset.y;
+    console.log(x, y);
+    if (x > 1555 && y < 1300) {
       subNearForest = true;
     } else {
       subNearForest = false;

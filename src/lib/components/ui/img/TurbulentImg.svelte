@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { cn } from "$lib/utils";
   let {
     src,
     minFrequency = [0.02, 0.06],
@@ -7,6 +8,7 @@
     scale = 20,
     yoyo = false,
     class: extraClass,
+    style: extraStyle,
   }: {
     src: string;
     duration?: number;
@@ -15,6 +17,7 @@
     maxFrequency?: number[];
     yoyo?: boolean;
     class?: string;
+    style?: string;
   } = $props();
 
   const randId = Math.floor(Math.random() * 100);
@@ -28,8 +31,8 @@
 <img
   {src}
   alt=""
-  class="image-turbulent {extraClass}"
-  style="filter: url(#turbulence-{randId});"
+  class={cn("image-turbulent", extraClass)}
+  style="filter: url(#turbulence-{randId});{extraStyle}"
 />
 <svg>
   <filter id="turbulence-{randId}" x="0" y="0" width="100%" height="100%">

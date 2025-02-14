@@ -36,17 +36,20 @@
     "task_call-radio": "Call the radio",
     "task_start-mission": "Start the mission",
 
-    "obj_review-sm-o": "Review the Scientific Method steps",
+    "obj_check-equipment": "Double check equipment",
+    "task_open-notepad": "Open your notepad",
     "task_open-sm": "Open the SM Diagram",
     "task_review-o": "Review the <span class='color sm-o'>Observations</span> step",
 
+    "obj_explore": "Explore!",
+    "task_dive": "Start your dive",
+
     "obj_prepare": "Prepare notes",
     "task_review-SM": "Review the Scientific Method steps",
-    "task_open-notepad": "Open your notepad",
+
     "task_new-page": "Start a new page for <span class='color sm-o'>observations</span>",
 
     "obj_make-observations": "Explore and make <span class='color sm-o'>observations</span>",
-    "task_dive": "Start your dive",
     "task_record-observations": "Record 3 <span class='color sm-o'>observations</span> about depth using the notepad",
 
     "obj_review-observations": "<span class='color sm-o'>Observations</span> review",

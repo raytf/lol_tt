@@ -44,7 +44,12 @@ const objectiveMap: ObjectiveMap = {
     { key: "task_call-radio" },
     { key: "task_start-mission" },
   ],
-  "obj_review-sm-o": [{ key: "task_open-sm" }, { key: "task_review-o" }],
+  "obj_check-equipment": [
+    { key: "task_open-notepad" },
+    { key: "task_open-sm" },
+    { key: "task_review-o" },
+  ],
+  obj_explore: [{ key: "task_dive" }],
   obj_prepare: [{ key: "task_open-notepad" }, { key: "task_new-page" }],
   "obj_make-observations": [
     { key: "task_dive" },
@@ -74,24 +79,27 @@ const chapterMap: ChapterMap = {
       },
     },
     {
-      key: "obj_review-sm-o",
-      onStart: () => {},
+      key: "obj_check-equipment",
     },
     {
-      key: "obj_prepare",
-      onFinished: () => {
-        get(notepadApi).startObservationPage("notepad-title_observations");
-      },
+      key: "obj_explore",
+      onFinished: () => {},
     },
-    {
-      key: "obj_make-observations",
-      onFinished: () => {
-        get(notepadApi).fillObservationPage();
-      },
-    },
-    {
-      key: "obj_review-observations",
-    },
+    // {
+    //   key: "obj_prepare",
+    //   onFinished: () => {
+    //     get(notepadApi).startObservationPage("notepad-title_observations");
+    //   },
+    // },
+    // {
+    //   key: "obj_make-observations",
+    //   onFinished: () => {
+    //     get(notepadApi).fillObservationPage();
+    //   },
+    // },
+    // {
+    //   key: "obj_review-observations",
+    // },
   ],
   chapter1: [
     {
