@@ -1,6 +1,13 @@
 import { writable, get } from "svelte/store";
 import { toast } from "@zerodevx/svelte-toast";
-import { lolApi, hudApi, notepadApi, inventoryApi, radioApi } from "$apis";
+import {
+  lolApi,
+  hudApi,
+  notepadApi,
+  inventoryApi,
+  radioApi,
+  smApi,
+} from "$apis";
 
 interface Todo {
   key: string;
@@ -37,6 +44,7 @@ const objectiveMap: ObjectiveMap = {
     { key: "task_call-radio" },
     { key: "task_start-mission" },
   ],
+  "obj_review-sm-o": [{ key: "task_open-sm" }, { key: "task_review-o" }],
   obj_prepare: [{ key: "task_open-notepad" }, { key: "task_new-page" }],
   "obj_make-observations": [
     { key: "task_dive" },
@@ -60,9 +68,14 @@ const chapterMap: ChapterMap = {
     {
       key: "obj_mission",
       onFinished: () => {
+        get(inventoryApi).unlockItem("radio");
         get(inventoryApi).unlockItem("sm");
         get(inventoryApi).unlockItem("notepad");
       },
+    },
+    {
+      key: "obj_review-sm-o",
+      onStart: () => {},
     },
     {
       key: "obj_prepare",

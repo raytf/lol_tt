@@ -120,7 +120,7 @@
         />
       </div>
     {/if}
-    <InfoModal bind:show={$hudApi.showInfoModal} />
+    <InfoModal bind:show={$hudApi.showInfoModal} dialogClass="z-[103]" />
   </div>
 {/if}
 

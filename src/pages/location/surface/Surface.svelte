@@ -52,19 +52,22 @@
     });
 
     if (searchParams.has("start")) {
-      if ($objectivesApi.currentChapter === "tutorial") {
+      if (
+        $objectivesApi.currentChapterIs("") ||
+        $objectivesApi.currentChapterIs("tutorial")
+      ) {
         setTimeout(() => {
           $objectivesApi.startChapter("tutorial", () => {});
 
           if ($objectivesApi.hasCompleted("obj_mission")) {
             readyToDive = true;
-            $radioApi.attachCallback(() => {
+            $radioApi.setCallback(() => {
               $hudApi.startDialog({
                 keys: [...missionBrief],
               });
             });
           } else {
-            $radioApi.attachCallback(() => {
+            $radioApi.setCallback(() => {
               $hudApi.startDialog({
                 keys: [...status, ...missionBrief],
                 disabledOptions: [
@@ -73,9 +76,15 @@
                   "tut_data.qn",
                   "tut_data.ok",
                 ],
+                blockInput: true,
                 onFinished: () => {
                   $objectivesApi.completeTask("task_start-mission");
                   readyToDive = true;
+                  $radioApi.setCallback(() => {
+                    $hudApi.startDialog({
+                      keys: [...missionBrief],
+                    });
+                  });
                 },
               });
               $objectivesApi.completeTask("task_call-radio");

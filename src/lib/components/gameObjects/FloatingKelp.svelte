@@ -11,7 +11,7 @@
 <InfoMarker
   type="sm-o"
   onclick={() => {
-    $infoApi.openModal("o_floating-kelp", "sm-o");
+    $infoApi.openModal({ textKey: "o_floating-kelp", infoType: "sm-o" });
   }}
   class="absolute left-[222px] top-[111px] h-[55px] w-[55px] pointer-events-auto"
 />

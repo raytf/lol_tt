@@ -33,7 +33,7 @@ class HudApi {
 
   openSmModalWithDialog() {
     const sm = get(smApi);
-    sm.modalClass = "pt-[111px]";
+    sm.modalClass = "pt-[222px] z-[103]";
     sm.isInteractable = false;
     this.showSmModal = true;
   }

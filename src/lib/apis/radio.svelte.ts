@@ -21,7 +21,7 @@ const radioDialogMap: HintMap = {
 class RadioApi {
   onCall = () => {};
 
-  attachCallback(onCall: () => void) {
+  setCallback(onCall: () => void) {
     this.onCall = onCall;
   }
 

@@ -1,5 +1,6 @@
 <script lang="ts">
   import { lolApi } from "$apis";
+  import { cn } from "$lib/utils";
 
   let {
     key,
@@ -9,7 +10,7 @@
   let text = $state($lolApi.getText(key));
 </script>
 
-<p class="{shadow && 'shadow'} {extraClass}">{@html text}</p>
+<p class={cn(shadow && "shadow", extraClass)}>{@html text}</p>
 
 <style>
   .shadow {

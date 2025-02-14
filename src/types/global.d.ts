@@ -1,5 +1,12 @@
 type SM = "sm-o" | "sm-q" | "sm-h" | "sm-e" | "sm-a" | "sm-c";
 
+interface SMStep {
+  titleKey: string;
+  description: string;
+  border: string;
+  label: string;
+}
+
 type DialogKey = {
   imgSrc?: string;
   name?: string;

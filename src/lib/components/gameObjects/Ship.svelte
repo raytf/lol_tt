@@ -13,7 +13,9 @@
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <button
   onclick={() => {
-    $infoApi.openModal("i_ship");
+    $infoApi.openModal({
+      textKey: "i_ship",
+    });
   }}
   class="container-ship w-[500px] h-[250px] {extraClass}"
 >

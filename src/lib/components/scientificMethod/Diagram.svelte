@@ -10,15 +10,18 @@
   } from "$components/svg/icons/sm";
   import steps from "./steps";
   import { lolApi } from "$apis";
+  import { cn } from "$lib/utils";
 
   let {
     visible = true,
     activeIndex = 0,
+    onClickStep,
     class: extraClass,
     itemClass,
   }: {
     visible?: boolean;
     activeIndex?: number;
+    onClickStep?: (step: SMStep) => void;
     class?: string;
     itemClass?: string;
   } = $props();
@@ -45,30 +48,35 @@
 
 <div class="grid grid-cols-3 grid-rows-2 text-black {extraClass}">
   {#each steps as step, i}
-    <div
-      class="{itemClass} {activeIndex === i
-        ? ''
-        : activeIndex >= 0 && activeIndex < steps.length
-          ? 'brightness-50'
-          : ''} grid-item border-black {step.border} {step.label}"
+    <button
+      onclick={() => onClickStep?.(step)}
+      class={cn(
+        itemClass,
+        activeIndex >= 0 && activeIndex < steps.length && activeIndex !== i
+          ? "brightness-50"
+          : "",
+        i == 1 && "mb-4",
+        `grid-item border-black ${step.border} ${step.label}`,
+        "hover:brightness-125",
+      )}
     >
       <p class="text-2xl font-bold">
         {i + 1}. {$lolApi.getText(step.titleKey)}
       </p>
       {#if step.label === "sm-o"}
-        <Observation class="w-[55px] h-[55px] m-2" />
+        <Observation class="w-[55px] h-[55px] m-2 pointer-events-none" />
       {:else if step.label === "sm-q"}
-        <Question class="w-[55px] h-[55px] m-2" />
+        <Question class="w-[55px] h-[55px] m-2 pointer-events-none" />
       {:else if step.label === "sm-h"}
-        <Hypothesis class="w-[55px] h-[55px] m-2" />
+        <Hypothesis class="w-[55px] h-[55px] m-2 pointer-events-none" />
       {:else if step.label === "sm-e"}
-        <Experiment class="w-[55px] h-[55px] m-2" />
+        <Experiment class="w-[55px] h-[55px] m-2 pointer-events-none" />
       {:else if step.label === "sm-a"}
-        <Analysis class="w-[55px] h-[55px] m-2" />
+        <Analysis class="w-[55px] h-[55px] m-2 pointer-events-none" />
       {:else if step.label === "sm-c"}
-        <Conclusion class="w-[55px] h-[55px] m-2" />
+        <Conclusion class="w-[55px] h-[55px] m-2 pointer-events-none" />
       {/if}
-    </div>
+    </button>
   {/each}
 </div>
 

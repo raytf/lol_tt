@@ -1,11 +1,4 @@
-export interface Step {
-  titleKey: string;
-  description: string;
-  border: string;
-  label: string;
-}
-
-export default [
+const steps: SMStep[] = [
   {
     titleKey: "sm-observation",
     description:
@@ -17,7 +10,7 @@ export default [
     titleKey: "sm-question",
     description:
       "After making an observation, you should ask a question about what you observed.",
-    border: "border-t-4 border-2",
+    border: "border-2 border-t-4 ",
     label: "sm-q",
   },
   {
@@ -38,7 +31,7 @@ export default [
     titleKey: "sm-analysis",
     description:
       "After conducting an experiment, you should analyze the results to see if they support your hypothesis.",
-    border: "border-b-4 border-2",
+    border: "border-2 border-b-4 ",
     label: "sm-a",
   },
   {
@@ -49,3 +42,5 @@ export default [
     label: "sm-c",
   },
 ];
+
+export default steps;

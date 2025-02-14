@@ -27,6 +27,9 @@
     selectedItem = undefined;
     $hudApi.openInventory = false;
     if (item.id === "sm") {
+      if ($objectivesApi.currentObjectiveIs("obj_review-sm-o")) {
+        $objectivesApi.completeTask("task_open-sm");
+      }
       $hudApi.showSmModal = true;
     }
     if (item.id === "radio") {
@@ -37,11 +40,7 @@
         flipElement.set(bigIconElement);
       }
 
-      if ($objectivesApi.hasCompleted("obj_answer-radio")) {
-        $hudApi.showSmPuzzle = true;
-      } else {
-        $radioApi.call($location);
-      }
+      $radioApi.call($location);
     }
     if (item.id === "notepad") {
       $hudApi.showNotepad = true;
