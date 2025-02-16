@@ -9,10 +9,10 @@
   let index = $state(0);
   let blackdropOpacity = $state(0);
 
-  const lolKeys = ["newspaper-text-1", "newspaper-text-2", "newspaper-text-3"];
+  const lolKeys = ["newspaper-text-1"];
 
   function onProceed() {
-    if (index < 3) {
+    if (index < lolKeys.length) {
       $lolApi.speakText(lolKeys[index]);
       index++;
       return;
@@ -36,21 +36,16 @@
             <img src={grinOpen} alt="missing" class="size-full" />
           </div>
         </div>
-        <div class="flex justify-start overflow-scroll-y">
+        <div class="flex overflow-scroll-y">
           <div class="max-w-[400px] flex flex-col gap-1 text-left">
             {#each lolKeys as key, i}
               {#if index > i}
-                <div transition:fade>
-                  <Lol {key} />
+                <div in:fade class="w-[111px] h-[111px] border border-black">
+                  <img src={sub} alt="missing" class="size-full" />
                 </div>
-                {#if i === 1}
-                  <div
-                    in:fade|global={{ delay: 1000 }}
-                    class="w-[111px] h-[111px] border border-black"
-                  >
-                    <img src={sub} alt="missing" class="size-full" />
-                  </div>
-                {/if}
+                <div transition:fade={{ delay: 1000 }}>
+                  <Lol {key} class="text-xl" />
+                </div>
               {/if}
             {/each}
           </div>
