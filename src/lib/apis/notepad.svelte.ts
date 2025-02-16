@@ -6,8 +6,7 @@ class Page {
   title = $state("");
   lines = $state<string[]>([]);
 
-  constructor(titleKey: string) {
-    this.title = this.getLolText(titleKey);
+  constructor() {
     this.lines = [];
   }
 
@@ -26,19 +25,19 @@ class Page {
 
 class CoverPage extends Page {
   type = "cover";
-
-  constructor(titleKey: string) {
-    super(titleKey);
-    this.addBulletLine("notepad-line_explore-depths");
-    this.addBulletLine("notepad-line_look-clues");
-  }
 }
 
 class TextPage extends Page {
   type = "text";
+
+  constructor(titleKey: string) {
+    super();
+    this.title = this.getLolText(titleKey);
+    this.lines = [];
+  }
 }
 
-class ObservationsNotepadPage extends TextPage {
+class ObservationsPage extends TextPage {
   observationKeys = $state<string[]>([]);
   constructor(titleKey: string) {
     super(titleKey);
@@ -55,8 +54,8 @@ class ObservationsNotepadPage extends TextPage {
 class NotepadApi {
   pages = $state<Page[]>([]);
   currentPageIndex = $state(0);
-  currentPage = $state<Page>(new CoverPage("notepad-title_mission"));
-  observationPage = $state<Page>();
+  currentPage = $state<Page>(new CoverPage());
+  observationPage = $state<ObservationsPage>();
 
   constructor() {
     this.pages = [this.currentPage];
@@ -82,7 +81,7 @@ class NotepadApi {
   }
 
   startObservationPage(titleKey: string) {
-    this.observationPage = new ObservationsNotepadPage(titleKey);
+    this.observationPage = new ObservationsPage(titleKey);
     this.currentPage = this.observationPage;
     this.pages.push(this.currentPage);
     this.currentPageIndex++;

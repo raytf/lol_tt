@@ -110,7 +110,7 @@
   }
 
   function onClickArea(e: MouseEvent) {
-    if ($objectivesApi.currentObjectiveIs("obj_learn-controls")) {
+    if ($objectivesApi.currentObjectiveIs("obj_explore")) {
       $objectivesApi.completeTask("task_move-sub");
     }
 

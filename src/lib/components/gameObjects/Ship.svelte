@@ -14,7 +14,7 @@
 <button
   onclick={() => {
     $infoApi.openModal({
-      textKey: "i_ship",
+      textKeys: ["i_ship"],
     });
   }}
   class="container-ship w-[500px] h-[250px] {extraClass}"

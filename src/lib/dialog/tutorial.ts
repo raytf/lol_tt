@@ -6,6 +6,7 @@ import {
   hushed,
   smile,
   thinking,
+  confused,
 } from "$assets/emoji";
 import radio from "$assets/icons/radio.svg";
 import { hudApi, dialogApi } from "$apis";
@@ -158,7 +159,7 @@ export const missionBrief = [
         ],
       },
       {
-        imgSrc: neutral,
+        imgSrc: smile,
         text: "tut_mb-1.3",
         nextDialog: [
           {
@@ -172,13 +173,13 @@ export const missionBrief = [
             text: "tut_info-2",
           },
           {
-            imgSrc: radio,
-            name: "mission-control",
+            imgSrc: confused,
+            name: "you",
             text: "tut_info-3",
           },
           {
-            imgSrc: openMouth,
-            name: "you",
+            imgSrc: radio,
+            name: "mission-control",
             text: "tut_info-4",
           },
           {
@@ -192,7 +193,7 @@ export const missionBrief = [
             text: "tut_info-6",
           },
           {
-            imgSrc: neutral,
+            imgSrc: thinking,
             name: "you",
             text: "tut_info-7",
           },

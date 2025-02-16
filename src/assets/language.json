@@ -29,7 +29,6 @@
     "completed-obj": "Completed Objective",
 
     "obj_learn-controls": "Learn the controls",
-    "task_move-sub": "Click around the screen to move the sub",
 
     "obj_mission": "Mission Brief",
     "task_open-inventory": "Open your inventory",
@@ -38,10 +37,12 @@
 
     "obj_check-equipment": "Double check equipment",
     "task_open-notepad": "Open your notepad",
+    "task_review-notes": "Review your mission brief notes",
     "task_open-sm": "Open the SM Diagram",
     "task_review-o": "Review the <span class='color sm-o'>Observations</span> step",
 
     "obj_explore": "Explore!",
+    "task_move-sub": "Click around the screen to move the sub",
     "task_dive": "Start your dive",
 
     "obj_prepare": "Prepare notes",
@@ -63,6 +64,11 @@
     "location-wrecks": "Wrecks",
     "location-forest": "Forest",
 
+    "i_ship": "My trusty support ship. I can come here to rest or make repairs.",
+    "o_floating-kelp": "There is kelp blocking the way. Maybe I can get through underwater.",
+
+    "ql-data": "Qualitative Data",
+    "qn-data": "Quantitative Data",
     "sm-heading": "The Scientific Method steps",
     "sm-subheading": "Click a step for more info.",
     "sm-observation": "Observation",
@@ -147,9 +153,6 @@
     "newspaper-text-3": "After weeks of searching, the search mission was called off due to 'strange forces' and failing communications.",
     "years-later": "Years later...",
 
-    "i_ship": "My trusty support ship. I can come here to rest or make repairs.",
-    "o_floating-kelp": "There is kelp blocking the way. Maybe I can get through underwater.",
-
     "radio_incoming-call": "<em>...Incoming call...</em>",
     "radio_crackle": "...<em>crackle</em>...",
     "radio_no-signal": "There is no signal here... maybe I should try again above water.",
@@ -176,15 +179,15 @@
     "tut_data.qn-3": "They require specific tools and instruments to measure, but provide more accurate data.",
     "tut_data.ok": "Ok, I understand.",
     "tut_data.ok-1": "Great. Collecting both types of data is known as gathering <strong>empirical evidence</strong>.",
-    "tut_data.ok-2": "Recording your <strong>empirical evidence</strong> is how you can repeat and verify your findings with others.",
+    "tut_data.ok-2": "Recording <strong>empirical evidence</strong> is how we can repeat and verify our findings with each other.",
     "tut_mb-1.3": "Copy that. I'm ready to explore.",
-    "tut_info-1": "Very well. At your location below is where we found the wreckage of your dad's ship.",
-    "tut_info-2": "Nearby is a kelp forest, where it goes even deeper.",
-    "tut_info-3": "We suspect that is where your dad went missing.",
-    "tut_info-4": "Really? Did they find anything there?",
-    "tut_info-5": "There were reports of eerie sounds and strange creatures.",
-    "tut_info-6": "Equipment then started to malfunction so unfortunately, the mission ended there.",
-    "tut_info-7": "I see, maybe I can find some clues there.",
+    "tut_info-1": "Very well. On the last search mission, we found wreckage of your dad's ship...",
+    "tut_info-2": "... but him or his submarine were no where to be found.",
+    "tut_info-3": "That's strange...",
+    "tut_info-4": "Also nearby is a kelp forest, but we were not able to get very far.",
+    "tut_info-5": "Equipment started to malfunction, and there were reports of strange creatures...",
+    "tut_info-6": "... we suspect it gets much deeper there.",
+    "tut_info-7": "I see, I will investigate.",
     "tut_info-8": "Call us whenever need a recap. Good luck, SM-Explorer-2.",
 
     "tut_data.ql-5": "Past the kelp forest, lies an even deeper abyss.",

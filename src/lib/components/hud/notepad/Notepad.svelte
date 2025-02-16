@@ -2,8 +2,10 @@
   import { onMount } from "svelte";
   import { fly } from "svelte/transition";
   import { Close, NewPage } from "$components/svg/icons";
+  import { Lol } from "$components/text";
   import { Left, Right } from "$components/svg/icons/caret";
-  import { notepadApi, hudApi, lolApi, objectivesApi } from "$apis";
+  import { InfoButton } from "$components/ui/button";
+  import { notepadApi, hudApi, lolApi, objectivesApi, infoApi } from "$apis";
   import Dive from "$components/svg/icons/Dive.svelte";
 
   let {
@@ -15,6 +17,9 @@
   const disabledClass = "pointer-events-none opacity-50";
 
   function onClose() {
+    if ($objectivesApi.currentObjectiveIs("obj_check-equipment")) {
+      $objectivesApi.completeTask("task_review-notes");
+    }
     $hudApi.showNotepad = false;
   }
 
@@ -84,23 +89,40 @@
 {/key}
 
 {#snippet coverPage()}
-  <p class="text-title">
-    {$notepadApi.currentPage.title}
-  </p>
-  {#each $notepadApi.currentPage.lines as line}
-    <p class="absolute">{line}</p>
-    <br />
-    <br />
-  {/each}
+  <Lol key="notepad-title_mission" class="font-bold underline" />
+  <!-- <Lol key="notepad-line_look-clues" /> -->
+  <div class="flex"><Lol key="notepad-line_explore-depths" />:</div>
+  <button
+    onclick={() => {
+      $infoApi.openModal({
+        textKeys: ["tut_data.ql-1", "tut_data.ql-2"],
+      });
+    }}
+    class="flex items-center hover:font-bold pointer-events-auto"
+  >
+    <InfoButton /><Lol key="ql-data" />
+  </button>
+  <button
+    onclick={() => {
+      $infoApi.openModal({
+        textKeys: ["tut_data.qn-1", "tut_data.qn-2"],
+      });
+    }}
+    class="flex items-center hover:font-bold pointer-events-auto"
+  >
+    <InfoButton /><Lol key="qn-data" />
+  </button>
 {/snippet}
 
 {#snippet textPage()}
-  <p class="text-title">
-    {$notepadApi.currentPage.title}
-  </p>
-  {#each $notepadApi.currentPage.lines as line}
-    <p>{line}</p>
-  {/each}
+  {#if $notepadApi.currentPage}
+    <p class="text-title">
+      {$notepadApi.currentPage?.title}
+    </p>
+    {#each $notepadApi.currentPage?.lines as line}
+      <p>{line}</p>
+    {/each}
+  {/if}
 {/snippet}
 
 <style>

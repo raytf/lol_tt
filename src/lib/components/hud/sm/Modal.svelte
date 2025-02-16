@@ -18,7 +18,7 @@
   function onClickStep(step: SMStep) {
     $infoApi.openModal({
       infoType: step.label as SM,
-      textKey: `${step.titleKey}_desc`,
+      textKeys: [`${step.titleKey}_desc`],
     });
 
     if (step.label === "sm-o") {

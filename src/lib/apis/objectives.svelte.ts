@@ -38,7 +38,6 @@ type ChapterMap = {
 };
 
 const objectiveMap: ObjectiveMap = {
-  "obj_learn-controls": [{ key: "task_move-sub" }],
   obj_mission: [
     { key: "task_open-inventory" },
     { key: "task_call-radio" },
@@ -46,10 +45,11 @@ const objectiveMap: ObjectiveMap = {
   ],
   "obj_check-equipment": [
     { key: "task_open-notepad" },
+    { key: "task_review-notes" },
     { key: "task_open-sm" },
     { key: "task_review-o" },
   ],
-  obj_explore: [{ key: "task_dive" }],
+  obj_explore: [{ key: "task_move-sub" }, { key: "task_dive" }],
   obj_prepare: [{ key: "task_open-notepad" }, { key: "task_new-page" }],
   "obj_make-observations": [
     { key: "task_dive" },
@@ -65,13 +65,10 @@ const objectiveMap: ObjectiveMap = {
 const chapterMap: ChapterMap = {
   tutorial: [
     {
-      key: "obj_learn-controls",
-      onFinished: () => {
+      key: "obj_mission",
+      onStart: () => {
         get(hudApi).enableInventory = true;
       },
-    },
-    {
-      key: "obj_mission",
       onFinished: () => {
         get(inventoryApi).unlockItem("radio");
         get(inventoryApi).unlockItem("sm");
@@ -166,7 +163,7 @@ class ObjectivesApi {
       if (this.completedObjectives.includes(objective.key)) {
         // If the objective has already been completed
         isCompleted = true;
-        //objective.onStart?.();
+        objective.onStart?.();
         objective.onFinished?.();
         this.currentObjectiveIndex++;
       }
