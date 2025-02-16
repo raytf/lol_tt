@@ -58,10 +58,15 @@
     gridOffset.set({ x: $gridOffset.x, y: 0 }, { hard: true });
   }
   if (searchParams.has("from", "forest")) {
-    initialPosition = { x: grid.width + 111, y: $gameApi.windowHeight * 2.5 };
+    initialPosition = { x: grid.width + 111, y: $subCoords.y };
     initialTarget = { x: grid.width - 222, y: initialPosition.y };
-    gridOffset.set(
-      { x: $minOffset.x, y: -$gameApi.windowHeight * 2 },
+    gridOffset.update(
+      ({ x, y }) => {
+        return {
+          x: -grid.width + $gameApi.windowWidth,
+          y: y,
+        };
+      },
       { hard: true },
     );
   }
@@ -70,6 +75,13 @@
   //#endregion
 
   //#region events
+  function onEnter() {
+    $audioApi.playTrack({
+      src: "music/deep-echoes.mp3",
+      volume: 0.44,
+      loop: true,
+    });
+  }
   function onClickTopArea(e: MouseEvent) {
     const x = e.clientX - $gridOffset.x;
     const y = e.clientY - $gridOffset.y;
@@ -83,8 +95,8 @@
   function onClickArea(e: MouseEvent) {
     const x = e.clientX - $gridOffset.x;
     const y = e.clientY - $gridOffset.y;
-    console.log(x, y);
-    if (x > 1555 && y < 1300) {
+
+    if (x > 1500 && y < 1400) {
       subNearForest = true;
     } else {
       subNearForest = false;
@@ -99,7 +111,7 @@
       setSubTarget(initialTarget);
     }, 555);
 
-    $wrecks.onEnter();
+    onEnter();
   });
 </script>
 
@@ -166,20 +178,12 @@
         'brightness-50 pointer-events-none'}"
       style="transform: translateX({$gridOffset.x / 10}px)"
     />
-    <!-- <InfoMarker
-    onclick={onclickConch}
-    class="absolute w-[55px] h-[55px] top-[92%] left-[37%] z-[14]"
-    style="transform: translateX({$gridOffset.x / 10}px)"
-  /> -->
     <Submarine class="z-10" />
-    <!-- <UnderwaterRock
-      class="absolute h-[1444px] -top-[7%] -right-[37%] z-[12] pointer-events-none"
-    /> -->
     <BgImg
       src={wrecks_kelp}
       style="filter: brightness({1 -
         $depthRatio * 0.5}); transform: translateX({$gridOffset.x / 5}px)"
-      class="w-[111%] bottom-0 z-[12] opacity-100"
+      class="w-[111%] bottom-0 z-[14] opacity-100"
     />
     <WrecksPath
       style="transform: translateX({$gridOffset.x / 5}px)"

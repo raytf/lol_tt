@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { fade } from "svelte/transition";
   import { querystring } from "svelte-spa-router";
   import { onMount } from "svelte";
   import { Location } from "$components/location";
@@ -20,8 +21,7 @@
     direction as subDirection,
   } from "$stores/sub";
   import { gameApi, audioApi } from "$apis";
-  import forest from "./events.svelte";
-
+  import { Button } from "$components/ui/button";
   import { ForestPath, UnderwaterRock } from "$components/svg/environment";
   import underwater from "$assets/underwater_wide.jpg";
   import forest_1 from "$assets/forest/forest_1.png";
@@ -43,16 +43,10 @@
     x: -grid.width + $gameApi.windowWidth,
     y: -grid.height + $gameApi.windowHeight,
   });
-  gridOffset.update(
-    ({ x, y }) => {
-      return { x: 0, y: y };
-    },
-    { hard: true },
-  );
 
-  let initialPosition = { x: -222, y: $subCoords.y };
+  let initialPosition = { x: -111, y: $subCoords.y };
   let initialTarget = {
-    x: 222,
+    x: 444,
     y: $subCoords.y,
   };
   let initialMonsterPosition = {
@@ -61,9 +55,39 @@
   };
   const searchParams = new URLSearchParams($querystring);
   if (searchParams.has("from", "wrecks")) {
-    // initialPosition = { x: -222, y: $gameApi.windowHeight * 2.5 };
-    // initialTarget = { x: 222, y: initialPosition.y };
-    // gridOffset.set({ x: 0, y: -$gameApi.windowHeight * 2 }, { hard: true });
+    initialPosition = { x: -111, y: $subCoords.y };
+    initialTarget = {
+      x: 444,
+      y: $subCoords.y,
+    };
+    gridOffset.update(
+      ({ x, y }) => {
+        return { x: 0, y: y };
+      },
+      { hard: true },
+    );
+  }
+  let subNearWrecks = $state(false);
+  //#endregion
+  //#region events
+  function onEnter() {
+    $audioApi.playTrack({
+      src: "music/tangled-depths.mp3",
+      volume: 0.55,
+      loop: true,
+    });
+  }
+  function onClickArea(e: MouseEvent) {
+    const x = e.clientX - $gridOffset.x;
+    const y = e.clientY - $gridOffset.y;
+
+    if (x < 1000 && y < 1400) {
+      subNearWrecks = true;
+    } else {
+      subNearWrecks = false;
+    }
+
+    moveSub(e);
   }
   //#endregion
 
@@ -73,11 +97,31 @@
       setSubTarget(initialTarget);
     }, 555);
 
-    $forest.onEnter();
+    onEnter();
   });
 </script>
 
 <Location title="forest" uiClass="z-[11]">
+  {#snippet ui()}
+    {#if subNearWrecks}
+      <div
+        transition:fade
+        class="absolute z-[11] top-0 left-0 w-[222px] h-full flex flex-col justify-center items-start pl-4"
+      >
+        <Button
+          onclick={() => {
+            setSubTarget({ x: -111, y: $subCoords.y });
+            $audioApi.stopTrack({ src: "music/tangled-depths.mp3" });
+            $gameApi.fadeScene("/wrecks?from=forest");
+          }}
+          class="w-[99px] h-[88px] flex-col items-center"
+        >
+          <Lol key="wrecks" class="mr-1" />
+          <ArrowLeft class="w-[33px] h-[33px]" />
+        </Button>
+      </div>
+    {/if}
+  {/snippet}
   <Grid
     size={[grid.width, grid.height]}
     xOffset={$gridOffset.x}
@@ -85,42 +129,6 @@
     class=""
   >
     <TurbulentImg src={underwater} class="opacity-35 z-[1]" />
-    <!-- <BgImg
-      src={kelp_4}
-      class="left-[11%] z-[3]"
-      style="filter: brightness({1 -
-        $depthRatio -
-        0.2}); transform: translateX({$gridOffset.x / 10}px);"
-    /> -->
-    <!-- <BgImg
-      src={forest_3}
-      class="left-[11%] z-[4]"
-      style="filter: brightness(0.5); transform: translateX({$gridOffset.x /
-        10}px);"
-    /> -->
-    <!-- <BgImg
-      src={kelp_3}
-      class="left-[11%] z-[5]"
-      style="filter: brightness({1 -
-        $depthRatio}); transform: translateX({$gridOffset.x / 8}px);"
-    /> -->
-    <!-- <BgImg
-      src={forest_2}
-      class="z-[6]"
-      style="filter: brightness(0.5); transform: translateX({$gridOffset.x /
-        8}px);"
-    /> -->
-    <!-- <BgImg
-      src={kelp_2}
-      class="left-[11%] z-[7]"
-      style="filter: brightness({1 -
-        $depthRatio +
-        0.2}); transform: translateX({$gridOffset.x / 6}px);"
-    /> -->
-    <!-- <ForestPath
-      class="absolute size-full z-[8] opacity-0 pointer-events-none"
-      style="transform: translateX({$gridOffset.x / 6}px);"
-    /> -->
     <BgImg
       src={forest_3}
       class="w-[111%] z-[7]"
@@ -148,6 +156,10 @@
         $depthRatio +
         0.4}); transform: translateX({$gridOffset.x / 6}px);"
     />
+    <ForestPath
+      class="z-[11] opacity-0 pointer-events-none"
+      style="transform: translateX({$gridOffset.x / 6}px);"
+    />
     <BgImg
       src={forest_1}
       class="z-[11]"
@@ -155,6 +167,7 @@
         $depthRatio +
         0.4}); transform: translateX({$gridOffset.x / 6}px);"
     />
+
     <BgImg
       src={kelp_1}
       class="left-0 size-full z-[12]"
@@ -185,7 +198,7 @@
     {#snippet areas()}
       <Area
         size={[grid.width, $gameApi.windowHeight]}
-        onmousedown={(e) => $forest.onClickArea(e)}
+        onmousedown={onClickArea}
       >
         <UnderwaterGradient
           class="absolute w-full h-[101%]"
@@ -195,7 +208,7 @@
       </Area>
       <Area
         size={[grid.width, $gameApi.windowHeight]}
-        onmousedown={(e) => $forest.onClickArea(e)}
+        onmousedown={onClickArea}
       >
         <UnderwaterGradient
           class="absolute w-full h-[101%]"
@@ -205,27 +218,17 @@
       </Area>
       <Area
         size={[grid.width, $gameApi.windowHeight]}
-        onmousedown={(e) => $forest.onClickArea(e)}
+        onmousedown={onClickArea}
       >
         <UnderwaterGradient
           class="absolute size-full"
           --color-top="#037ADE"
           --color-bottom="#182B3A"
         />
-        <button
-          onclick={() => {
-            $audioApi.stopTrack({ src: "music/tangled-depths.mp3" });
-            $gameApi.fadeScene("/wrecks?from=forest");
-          }}
-          class="absolute left-[1%] top-[44%] text-2xl flex items-center z-[20]"
-        >
-          <ArrowLeft class="w-[33px] h-[33px]" />
-          <Lol key="wrecks" class="mr-1" />
-        </button>
       </Area>
       <Area
         size={[grid.width, $gameApi.windowHeight]}
-        onmousedown={(e) => $forest.onClickArea(e)}
+        onmousedown={onClickArea}
       >
         <UnderwaterGradient
           class="absolute size-full"

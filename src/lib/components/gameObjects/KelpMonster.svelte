@@ -8,7 +8,7 @@
 
   const coords = spring(
     { x: startCoords.x, y: startCoords.y },
-    { stiffness: 0.005, damping: 1 },
+    { stiffness: 0.005, damping: 0.4 },
   );
   let direction = $state(1);
   subCoords.subscribe(({ x, y }) => {
