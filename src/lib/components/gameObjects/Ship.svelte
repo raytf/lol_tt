@@ -1,6 +1,7 @@
 <script lang="ts">
   import ship from "$assets/sprites/ship.png";
   import { InfoMarker } from "$components/ui/button";
+  import { fixPropellor } from "$stores/sub";
   import { infoApi } from "$apis";
 
   let {
@@ -16,6 +17,7 @@
     $infoApi.openModal({
       textKeys: ["i_ship"],
     });
+    fixPropellor();
   }}
   class="container-ship w-[500px] h-[250px] {extraClass}"
 >

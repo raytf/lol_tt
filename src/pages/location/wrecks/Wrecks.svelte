@@ -342,7 +342,9 @@
           --color-bottom="#182B3A"
         />
         <Conch
-          onclick={() => $wrecks.onClickConch()}
+          onclick={() => {
+            console.log("hello");
+          }}
           faceRevealed={enableConch}
           class={cn(
             "absolute right-[22%] bottom-[48%] w-[55px] h-[55px] z-[9]",

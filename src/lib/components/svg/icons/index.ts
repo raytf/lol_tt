@@ -11,6 +11,7 @@ import Radio from "./Radio.svelte";
 import Celebrate from "./Celebrate.svelte";
 import Pulse from "./animated/Pulse.svelte";
 import NewPage from "./NewPage.svelte";
+import Warning from "./Warning.svelte";
 
 export {
   HandClick,
@@ -26,4 +27,5 @@ export {
   Celebrate,
   Pulse,
   NewPage,
+  Warning,
 };

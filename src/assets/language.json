@@ -66,6 +66,7 @@
     "location-forest": "Forest",
 
     "i_ship": "My trusty support ship. I can come here to rest or make repairs.",
+    "w_propellor": "The propellor is malfunctioning. I should go back to the ship to fix it.",
     "o_floating-kelp": "There is a kelp forest here. It looks very dense.",
     "o_sunlight-surface": "Sunlight is visible near the surface.",
     "o_color-change": "The colors of the ocean and the kelp change as I go deeper.",

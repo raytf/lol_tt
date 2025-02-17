@@ -9,7 +9,7 @@
     Analysis,
     Conclusion,
   } from "$components/svg/icons/sm";
-  import { Info } from "$components/svg/icons";
+  import { Info, Warning } from "$components/svg/icons";
   import { cn } from "$lib/utils";
   import { infoApi, hudApi } from "$apis";
 
@@ -28,7 +28,7 @@
     "text-black p-2",
   )}
   autoclose
-  outsideclose
+  outsideclose={$infoApi.outsideClose}
 >
   <div class="absolute -top-2 left-6">
     {#if $infoApi.smStep}
@@ -54,6 +54,8 @@
         {/if}
         <Lol key={$infoApi.smStep.titleKey} class="font-bold text-xl" />
       </button>
+    {:else if $infoApi?.warning}
+      <Warning class="w-[44px] h-[44px] text-red-500" />
     {:else}
       <Info class="w-[44px] h-[44px]" />
     {/if}

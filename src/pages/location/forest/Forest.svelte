@@ -1,7 +1,8 @@
 <script lang="ts">
+  import { Spring } from "svelte/motion";
   import { fade } from "svelte/transition";
   import { querystring } from "svelte-spa-router";
-  import { onMount } from "svelte";
+  import { onMount, untrack } from "svelte";
   import { Location } from "$components/location";
   import { Grid, Area } from "$components/exploration";
   import { Submarine, KelpMonster } from "$components/gameObjects";
@@ -14,8 +15,9 @@
     setPosition as setSubPosition,
     coords as subCoords,
     direction as subDirection,
+    breakPropellor,
   } from "$stores/sub";
-  import { gameApi, audioApi } from "$apis";
+  import { gameApi, audioApi, infoApi } from "$apis";
   import { Button } from "$components/ui/button";
   import { ForestPath, UnderwaterRock } from "$components/svg/environment";
   import underwater from "$assets/underwater_wide.jpg";
@@ -45,7 +47,7 @@
     y: subCoords.current.y,
   };
   let initialMonsterPosition = {
-    x: grid.width / 2,
+    x: grid.width,
     y: grid.height / 2,
   };
   const searchParams = new URLSearchParams($querystring);
@@ -61,8 +63,75 @@
     const ratio = gridOffset.current.y / $minOffset.y;
     return ratio;
   });
-  let subNearWrecks = $state(false);
+  //#region KelpMonster
+  let monsterCoords = new Spring(initialMonsterPosition, {
+    stiffness: 0.005,
+    damping: 0.4,
+  });
+  let monsterDirection = $state(1);
+  let maxDistance = 200;
+  let maxDepth = 1300;
+  let touched = $state(false);
   let activateMonster = $state(false);
+
+  function setMonsterTarget() {
+    const x = subCoords.current.x;
+    const y = subCoords.current.y;
+    const deltaX = x - monsterCoords.current.x;
+    const deltaY = y - monsterCoords.current.y;
+
+    if (deltaX > 100) {
+      monsterDirection = -1;
+    }
+    if (deltaX < 0) {
+      monsterDirection = 1;
+    }
+
+    let distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+    //console.log(distance);
+    if (distance <= maxDistance) {
+      if (!touched) {
+        onTouched();
+      }
+      touched = true;
+    }
+
+    // let unitX = deltaX / distance;
+    // let unitY = deltaY / distance;
+
+    // let scaledX = unitX * maxDistance;
+    // let scaledY = unitY * maxDistance;
+
+    // let targetX = x - scaledX;
+    // let targetY = y - scaledY;
+    //monsterCoords.set({ x: targetX, y: targetY });
+    if (monsterCoords.current.y <= maxDepth) {
+      monsterCoords.set({ x: x, y: Math.min(y, maxDepth) });
+    } else {
+      monsterCoords.set({
+        x: x,
+        y: monsterCoords.current.y,
+      });
+    }
+  }
+
+  function onTouched() {
+    setTimeout(() => {
+      breakPropellor();
+      $infoApi.openModal({
+        warning: true,
+        textKeys: ["w_propellor"],
+        outsideClose: false,
+      });
+    }, 1111);
+  }
+
+  $effect(() => {
+    setMonsterTarget();
+  });
+  //#endregion
+
+  let subNearWrecks = $state(false);
   //#endregion
   //#region events
   function onEnter() {
@@ -82,7 +151,7 @@
       subNearWrecks = false;
     }
 
-    if (x > 400) activateMonster = true;
+    // if (x > 400) activateMonster = true;
 
     moveSub(e);
   }
@@ -141,8 +210,8 @@
         0.3}); transform: translateX({gridOffset.current.x / 7}px);"
     />
     <KelpMonster
-      startCoords={initialMonsterPosition}
-      activate={activateMonster}
+      coords={monsterCoords.current}
+      direction={monsterDirection}
       class="w-[555px] h-[666px] z-[9]"
     />
     <Submarine class="z-10" />
