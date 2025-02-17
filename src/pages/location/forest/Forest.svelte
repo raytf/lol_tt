@@ -8,12 +8,7 @@
   import { TurbulentImg, BgImg } from "$components/ui/img";
   import { Lol } from "$components/text";
   import { Darkness, UnderwaterGradient } from "$components/visual";
-  import {
-    gridOffset,
-    minOffset,
-    depthRatio,
-    moveSub,
-  } from "$stores/exploration";
+  import { gridOffset, minOffset, moveSub } from "$stores/exploration";
   import {
     setTarget as setSubTarget,
     setPosition as setSubPosition,
@@ -44,30 +39,30 @@
     y: -grid.height + $gameApi.windowHeight,
   });
 
-  let initialPosition = { x: -111, y: $subCoords.y };
+  let initialPosition = { x: -111, y: subCoords.current.y };
   let initialTarget = {
     x: 444,
-    y: $subCoords.y,
+    y: subCoords.current.y,
   };
   let initialMonsterPosition = {
-    x: $gameApi.windowWidth * 2,
-    y: $gameApi.windowHeight,
+    x: grid.width / 2,
+    y: grid.height / 2,
   };
   const searchParams = new URLSearchParams($querystring);
   if (searchParams.has("from", "wrecks")) {
-    initialPosition = { x: -111, y: $subCoords.y };
+    initialPosition = { x: -111, y: subCoords.current.y };
     initialTarget = {
-      x: 444,
-      y: $subCoords.y,
+      x: 222,
+      y: subCoords.current.y,
     };
-    gridOffset.update(
-      ({ x, y }) => {
-        return { x: 0, y: y };
-      },
-      { hard: true },
-    );
+    gridOffset.set({ x: 0, y: gridOffset.current.y }, { instant: true });
   }
+  let depthRatio = $derived.by(() => {
+    const ratio = gridOffset.current.y / $minOffset.y;
+    return ratio;
+  });
   let subNearWrecks = $state(false);
+  let activateMonster = $state(false);
   //#endregion
   //#region events
   function onEnter() {
@@ -78,14 +73,16 @@
     });
   }
   function onClickArea(e: MouseEvent) {
-    const x = e.clientX - $gridOffset.x;
-    const y = e.clientY - $gridOffset.y;
+    const x = e.clientX - gridOffset.current.x;
+    const y = e.clientY - gridOffset.current.y;
 
-    if (x < 1000 && y < 1400) {
+    if (x < 300 && y < 1400) {
       subNearWrecks = true;
     } else {
       subNearWrecks = false;
     }
+
+    if (x > 400) activateMonster = true;
 
     moveSub(e);
   }
@@ -110,7 +107,7 @@
       >
         <Button
           onclick={() => {
-            setSubTarget({ x: -111, y: $subCoords.y });
+            setSubTarget({ x: -111, y: subCoords.current.y });
             $audioApi.stopTrack({ src: "music/tangled-depths.mp3" });
             $gameApi.fadeScene("/wrecks?from=forest");
           }}
@@ -124,8 +121,8 @@
   {/snippet}
   <Grid
     size={[grid.width, grid.height]}
-    xOffset={$gridOffset.x}
-    yOffset={$gridOffset.y}
+    xOffset={gridOffset.current.x}
+    yOffset={gridOffset.current.y}
     class=""
   >
     <TurbulentImg src={underwater} class="opacity-35 z-[1]" />
@@ -133,18 +130,19 @@
       src={forest_3}
       class="w-[111%] z-[7]"
       style="filter: brightness({1 -
-        $depthRatio +
-        0.2}); transform: translateX({$gridOffset.x / 8}px);"
+        depthRatio +
+        0.2}); transform: translateX({gridOffset.current.x / 8}px);"
     />
     <BgImg
       src={forest_2}
       class="z-[7]"
       style="filter: brightness({1 -
-        $depthRatio +
-        0.3}); transform: translateX({$gridOffset.x / 7}px);"
+        depthRatio +
+        0.3}); transform: translateX({gridOffset.current.x / 7}px);"
     />
     <KelpMonster
       startCoords={initialMonsterPosition}
+      activate={activateMonster}
       class="w-[555px] h-[666px] z-[9]"
     />
     <Submarine class="z-10" />
@@ -153,41 +151,41 @@
       src={forest_right}
       class="-right-[9%] z-[11]"
       style="filter: brightness({1 -
-        $depthRatio +
-        0.4}); transform: translateX({$gridOffset.x / 6}px);"
+        depthRatio +
+        0.4}); transform: translateX({gridOffset.current.x / 6}px);"
     />
     <ForestPath
       class="z-[11] opacity-0 pointer-events-none"
-      style="transform: translateX({$gridOffset.x / 6}px);"
+      style="transform: translateX({gridOffset.current.x / 6}px);"
     />
     <BgImg
       src={forest_1}
       class="z-[11]"
       style="filter: brightness({1 -
-        $depthRatio +
-        0.4}); transform: translateX({$gridOffset.x / 6}px);"
+        depthRatio +
+        0.4}); transform: translateX({gridOffset.current.x / 6}px);"
     />
 
     <BgImg
       src={kelp_1}
       class="left-0 size-full z-[12]"
       style="filter: brightness({1 -
-        $depthRatio +
-        0.4}); transform: translateX({$gridOffset.x / 4}px);"
+        depthRatio +
+        0.4}); transform: translateX({gridOffset.current.x / 4}px);"
     />
     <Darkness
-      level={$depthRatio * 0.5 + 0.2}
+      level={depthRatio * 0.5 + 0.2}
       lights={[
         {
-          x: $subCoords.x + $subDirection.x * 50,
-          y: $subCoords.y,
+          x: subCoords.current.x + $subDirection.x * 50,
+          y: subCoords.current.y,
           unit: "px",
           radius: 4,
           strength: 0.5,
         },
         // {
-        //   x: $subCoords.x,
-        //   y: $subCoords.y,
+        //   x: subCoords.current.x,
+        //   y: subCoords.current.y,
         //   unit: "px",
         //   radius: 8,
         // },

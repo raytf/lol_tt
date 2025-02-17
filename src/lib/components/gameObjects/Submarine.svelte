@@ -31,8 +31,8 @@
 
 <div
   class="container-sub {addCoating && 'coating'} {extraClass}"
-  style="transform: translate({$coords.x - offset.x}px, {$coords.y -
-    offset.y}px); width: {size}px; height: {size}px"
+  style="transform: translate({coords.current.x - offset.x}px, {coords.current
+    .y - offset.y}px); width: {size}px; height: {size}px"
   {...props}
 >
   {#if reveal}

@@ -17,12 +17,7 @@
     coords as subCoords,
     direction as subDirection,
   } from "$stores/sub";
-  import {
-    gridOffset,
-    minOffset,
-    depthRatio,
-    moveSub,
-  } from "$stores/exploration";
+  import { gridOffset, minOffset, moveSub } from "$stores/exploration";
   import underwater from "$assets/underwater_1by3.jpg";
   import wrecks_kelp from "$assets/wrecks/wrecks_kelp.png";
   import wrecks_1 from "$assets/wrecks/wrecks_1.png";
@@ -50,26 +45,28 @@
   };
   const searchParams = new URLSearchParams($querystring);
   if (searchParams.has("from", "surface")) {
-    initialPosition = { x: $subCoords.x, y: -222 };
+    initialPosition = { x: subCoords.current.x, y: -222 };
     initialTarget = {
       x: initialPosition.x,
       y: $gameApi.windowHeight / 2,
     };
-    gridOffset.set({ x: $gridOffset.x, y: 0 }, { hard: true });
+    gridOffset.set({ x: gridOffset.current.x, y: 0 }, { instant: true });
   }
   if (searchParams.has("from", "forest")) {
-    initialPosition = { x: grid.width + 111, y: $subCoords.y };
+    initialPosition = { x: grid.width + 111, y: subCoords.current.y };
     initialTarget = { x: grid.width - 222, y: initialPosition.y };
-    gridOffset.update(
-      ({ x, y }) => {
-        return {
-          x: -grid.width + $gameApi.windowWidth,
-          y: y,
-        };
+    gridOffset.set(
+      {
+        x: -grid.width + $gameApi.windowWidth,
+        y: gridOffset.current.y,
       },
-      { hard: true },
+      { instant: true },
     );
   }
+  let depthRatio = $derived.by(() => {
+    const ratio = gridOffset.current.y / $minOffset.y;
+    return ratio;
+  });
   let subNearSurface = $state(false);
   let subNearForest = $state(false);
   //#endregion
@@ -83,8 +80,8 @@
     });
   }
   function onClickTopArea(e: MouseEvent) {
-    const x = e.clientX - $gridOffset.x;
-    const y = e.clientY - $gridOffset.y;
+    const x = e.clientX - gridOffset.current.x;
+    const y = e.clientY - gridOffset.current.y;
     if (y < 222 && x < 1555) {
       subNearSurface = true;
     } else {
@@ -93,8 +90,8 @@
     onClickArea(e);
   }
   function onClickArea(e: MouseEvent) {
-    const x = e.clientX - $gridOffset.x;
-    const y = e.clientY - $gridOffset.y;
+    const x = e.clientX - gridOffset.current.x;
+    const y = e.clientY - gridOffset.current.y;
 
     if (x > 1500 && y < 1400) {
       subNearForest = true;
@@ -124,7 +121,7 @@
       >
         <Button
           onclick={() => {
-            setSubTarget({ x: $subCoords.x, y: 0 });
+            setSubTarget({ x: subCoords.current.x, y: 0 });
             $audioApi.stopTrack({
               src: "music/deep-echoes.mp3",
             });
@@ -144,7 +141,7 @@
       >
         <Button
           onclick={() => {
-            setSubTarget({ x: grid.width, y: $subCoords.y });
+            setSubTarget({ x: grid.width, y: subCoords.current.y });
             $audioApi.stopTrack({
               src: "music/deep-echoes.mp3",
             });
@@ -161,14 +158,14 @@
 
   <Grid
     size={[grid.width, grid.height]}
-    xOffset={$gridOffset.x}
-    yOffset={$gridOffset.y}
+    xOffset={gridOffset.current.x}
+    yOffset={gridOffset.current.y}
   >
     <TurbulentImg src={underwater} class="opacity-35 z-[1]" />
     <BgImg src={wrecks_3} class="w-[133%] left-[-22%] bottom-0 z-[7]" />
     <BgImg
       src={wrecks_2}
-      style="transform: translateX({$gridOffset.x / 10}px)"
+      style="transform: translateX({gridOffset.current.x / 10}px)"
       class="w-[122%] left-[-11%] bottom-0 z-[9]"
     />
     <Conch
@@ -176,30 +173,30 @@
       faceRevealed={$wrecks.showConchFace}
       class="absolute w-[55px] h-[55px] top-[92%] left-[37%] z-[9] {!$wrecks.revealConch &&
         'brightness-50 pointer-events-none'}"
-      style="transform: translateX({$gridOffset.x / 10}px)"
+      style="transform: translateX({gridOffset.current.x / 10}px)"
     />
     <Submarine class="z-10" />
     <BgImg
       src={wrecks_kelp}
       style="filter: brightness({1 -
-        $depthRatio * 0.5}); transform: translateX({$gridOffset.x / 5}px)"
+        depthRatio * 0.5}); transform: translateX({gridOffset.current.x / 5}px)"
       class="w-[111%] bottom-0 z-[14] opacity-100"
     />
     <WrecksPath
-      style="transform: translateX({$gridOffset.x / 5}px)"
+      style="transform: translateX({gridOffset.current.x / 5}px)"
       class="absolute w-[111%] bottom-0 z-[13] pointer-events-none opacity-0"
     />
     <BgImg
       src={wrecks_1}
-      style="transform: translateX({$gridOffset.x / 5}px)"
+      style="transform: translateX({gridOffset.current.x / 5}px)"
       class="w-[111%] bottom-0 z-[13] opacity-100"
     />
     <Darkness
-      level={$gridOffset.y / $minOffset.y - 0.4}
+      level={depthRatio - 0.4}
       lights={[
         {
-          x: $subCoords.x + $subDirection.x * 50,
-          y: $subCoords.y,
+          x: subCoords.current.x + $subDirection.x * 50,
+          y: subCoords.current.y,
           unit: "px",
           radius: 4,
           strength: 0.5,

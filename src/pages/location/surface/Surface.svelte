@@ -34,10 +34,10 @@
   const searchParams = new URLSearchParams($querystring);
   if (searchParams.has("from", "wrecks")) {
     initialSubCoords = {
-      x: $subCoords.x,
+      x: subCoords.current.x,
       y: initialSubCoords.y,
     };
-    gridOffset.set({ x: $gridOffset.x, y: 0 }, { hard: true });
+    gridOffset.set({ x: gridOffset.current.x, y: 0 }, { instant: true });
   }
   let surfaceSub = $state(searchParams.has("start") ? true : false);
   let readyToDive = $state(false);
@@ -161,8 +161,8 @@
 
   <Grid
     size={[grid.width, grid.height]}
-    xOffset={$gridOffset.x}
-    yOffset={$gridOffset.y}
+    xOffset={gridOffset.current.x}
+    yOffset={gridOffset.current.y}
     class=""
   >
     <SkyOcean start={true} />
