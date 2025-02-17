@@ -174,7 +174,7 @@
         0.4}); transform: translateX({gridOffset.current.x / 4}px);"
     />
     <Darkness
-      level={depthRatio * 0.5 + 0.2}
+      level={depthRatio * 0.5 + 0.4}
       lights={[
         {
           x: subCoords.current.x + $subDirection.x * 50,

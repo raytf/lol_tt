@@ -15,6 +15,7 @@ import unamused from "./unamused.svg";
 import smileOpen from "./smile-open.svg";
 import heartEyes from "./heart-eyes.svg";
 import smileSlight from "./smile-slight.svg";
+import grinSweat from "./grin-sweat.svg";
 
 export {
   confused,
@@ -34,4 +35,5 @@ export {
   smileOpen,
   heartEyes,
   smileSlight,
+  grinSweat,
 };

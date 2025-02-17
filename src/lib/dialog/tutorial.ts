@@ -1,5 +1,6 @@
 import { get } from "svelte/store";
 import {
+  frownSlight,
   smileSlight,
   neutral,
   openMouth,
@@ -28,14 +29,9 @@ export const status = [
     text: "tut_status-3",
   },
   {
-    imgSrc: hushed,
-    name: "you",
-    text: "tut_status-4",
-  },
-  {
     imgSrc: radio,
     name: "mission-control",
-    text: "tut_status-5",
+    text: "tut_status-4",
   },
 ];
 
@@ -46,35 +42,8 @@ export const missionBrief = [
     text: "tut_mb-1",
     options: [
       {
-        imgSrc: thinking,
-        text: "tut_mb-1.1",
-        repeat: true,
-        nextDialog: [
-          {
-            imgSrc: radio,
-            name: "mission-control",
-            text: "tut_sm-1",
-            onStart: () => {
-              get(hudApi).openSmModalWithDialog();
-            },
-          },
-          {
-            imgSrc: radio,
-            name: "mission-control",
-            text: "tut_sm-2",
-            onProceed: () => {
-              get(hudApi).closeSmModalWithDialog();
-              get(hudApi).startItemUnlock({
-                itemId: "sm",
-              });
-              get(dialogApi).enableOption("tut_mb-1.2");
-            },
-          },
-        ],
-      },
-      {
         imgSrc: hushed,
-        text: "tut_mb-1.2",
+        text: "tut_mb-1.1",
         repeat: true,
         nextDialog: [
           {
@@ -140,21 +109,53 @@ export const missionBrief = [
                     imgSrc: radio,
                     name: "mission-control",
                     text: "tut_data.ok-1",
-                  },
-                  {
-                    imgSrc: radio,
-                    name: "mission-control",
-                    text: "tut_data.ok-2",
                     onProceed: () => {
                       get(hudApi).startItemUnlock({
                         itemId: "notepad",
                       });
-                      get(dialogApi).enableOption("tut_mb-1.3");
+                      get(dialogApi).enableOption("tut_mb-1.2");
                     },
                   },
                 ],
               },
             ],
+          },
+        ],
+      },
+      {
+        imgSrc: thinking,
+        text: "tut_mb-1.2",
+        repeat: true,
+        nextDialog: [
+          {
+            imgSrc: radio,
+            name: "mission-control",
+            text: "tut_sm-1",
+          },
+          {
+            imgSrc: radio,
+            name: "mission-control",
+            text: "tut_sm-2",
+            onStart: () => {
+              get(hudApi).openSmModalWithDialog();
+            },
+          },
+          {
+            imgSrc: radio,
+            name: "mission-control",
+            text: "tut_sm-3",
+          },
+          {
+            imgSrc: radio,
+            name: "mission-control",
+            text: "tut_sm-4",
+            onProceed: () => {
+              get(hudApi).closeSmModalWithDialog();
+              get(hudApi).startItemUnlock({
+                itemId: "sm",
+              });
+              get(dialogApi).enableOption("tut_mb-1.3");
+            },
           },
         ],
       },
@@ -173,13 +174,13 @@ export const missionBrief = [
             text: "tut_info-2",
           },
           {
-            imgSrc: confused,
-            name: "you",
+            imgSrc: radio,
+            name: "mission-control",
             text: "tut_info-3",
           },
           {
-            imgSrc: radio,
-            name: "mission-control",
+            imgSrc: neutral,
+            name: "you",
             text: "tut_info-4",
           },
           {
@@ -193,8 +194,8 @@ export const missionBrief = [
             text: "tut_info-6",
           },
           {
-            imgSrc: thinking,
-            name: "you",
+            imgSrc: radio,
+            name: "mission-control",
             text: "tut_info-7",
           },
           {

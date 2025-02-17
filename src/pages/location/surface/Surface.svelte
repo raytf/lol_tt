@@ -134,6 +134,7 @@
   }
   //#endregion
 
+  $gameApi.startedGame = true;
   setSubPosition(initialSubCoords);
   onMount(() => {
     onEnter();

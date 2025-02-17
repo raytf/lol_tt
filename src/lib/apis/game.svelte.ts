@@ -4,6 +4,7 @@ import { gsap } from "gsap";
 import { objectivesApi } from "$apis";
 
 export class GameApi {
+  startedGame = $state(false);
   debugMode = $state(true);
 
   windowWidth = $state(1024);

@@ -46,8 +46,8 @@ const objectiveMap: ObjectiveMap = {
   "obj_check-equipment": [
     { key: "task_open-notepad" },
     { key: "task_review-notes" },
-    { key: "task_open-sm" },
-    { key: "task_review-o" },
+    // { key: "task_open-sm" },
+    // { key: "task_review-o" },
   ],
   obj_explore: [{ key: "task_move-sub" }, { key: "task_dive" }],
   obj_prepare: [{ key: "task_open-notepad" }, { key: "task_new-page" }],
@@ -71,8 +71,8 @@ const chapterMap: ChapterMap = {
       },
       onFinished: () => {
         get(inventoryApi).unlockItem("radio");
-        get(inventoryApi).unlockItem("sm");
         get(inventoryApi).unlockItem("notepad");
+        get(inventoryApi).unlockItem("sm");
       },
     },
     {

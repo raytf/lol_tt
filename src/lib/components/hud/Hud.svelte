@@ -23,6 +23,7 @@
     smApi,
     lolApi,
     radioApi,
+    gameApi,
   } from "$apis";
   import { noSignal } from "$dialog/radio";
   import { storyComponent } from "$stores/component";
@@ -62,7 +63,7 @@
       />
       <SettingsModal dialogClass="z-[102]" backdropClass="z-[102]" />
     {/if}
-    {#if $hudApi.enableInventory}
+    {#if $gameApi.startedGame && $hudApi.enableInventory}
       <InventoryToggle buttonClass="z[101] right-14" />
       <InventoryModal dialogClass="z-[102]" backdropClass="z-[102]" />
     {/if}
@@ -102,7 +103,7 @@
     {#if $hudApi.showNotepad}
       <div
         transition:fly={{ x: 555 }}
-        class="absolute w-[44%] h-5/6 bottom-2 right-2 z-[100]"
+        class="absolute w-[44%] h-[88%] bottom-2 right-2 z-[100]"
       >
         <Notepad class="size-full opacity-80" />
       </div>

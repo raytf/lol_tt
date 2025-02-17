@@ -13,7 +13,7 @@
   .button {
     pointer-events: auto;
     position: absolute;
-    margin: 0.44em;
+    margin: 0.22em;
     opacity: 0.88;
   }
 </style>

@@ -91,14 +91,14 @@
 {#snippet coverPage()}
   <Lol key="notepad-title_mission" class="font-bold underline" />
   <!-- <Lol key="notepad-line_look-clues" /> -->
-  <div class="flex"><Lol key="notepad-line_explore-depths" />:</div>
+  <Lol key="notepad-line_explore-depths" />
   <button
     onclick={() => {
       $infoApi.openModal({
         textKeys: ["tut_data.ql-1", "tut_data.ql-2"],
       });
     }}
-    class="flex items-center hover:font-bold pointer-events-auto"
+    class="flex hover:font-bold pointer-events-auto"
   >
     <InfoButton /><Lol key="ql-data" />
   </button>
@@ -108,10 +108,26 @@
         textKeys: ["tut_data.qn-1", "tut_data.qn-2"],
       });
     }}
-    class="flex items-center hover:font-bold pointer-events-auto"
+    class="flex hover:font-bold pointer-events-auto"
   >
     <InfoButton /><Lol key="qn-data" />
   </button>
+  <!-- <Lol key="notepad-line_ee-1" class="inline-block" /> -->
+  <p class="inline-block">
+    {$lolApi.getText("notepad-line_ee-1")}
+    <button
+      onclick={() => {
+        $infoApi.openModal({
+          textKeys: ["ee_desc-1", "ee_desc-2"],
+        });
+      }}
+      class="inline-block hover:font-bold pointer-events-auto"
+    >
+      <InfoButton />{$lolApi.getText("ee_name")}
+    </button>
+  </p>
+  <br />
+  <Lol key="notepad-line_ee-2" />
 {/snippet}
 
 {#snippet textPage()}

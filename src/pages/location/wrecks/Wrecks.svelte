@@ -24,9 +24,11 @@
   import wrecks_2 from "$assets/wrecks/wrecks_2.png";
   import wrecks_3 from "$assets/wrecks/wrecks_3.png";
   import { WrecksPath, UnderwaterRock } from "$components/svg/environment";
-  import { audioApi, gameApi } from "$apis";
+  import { hudApi, audioApi, gameApi, objectivesApi } from "$apis";
+  import { conchScare } from "$dialog/chapter1";
   import wrecks from "./events.svelte";
   import { ArrowUp, ArrowRight } from "$components/svg/icons/animated";
+  import { cn } from "$lib/utils";
 
   //#region state
   const grid = {
@@ -87,6 +89,22 @@
     } else {
       subNearSurface = false;
     }
+    onClickArea(e);
+  }
+  function onClickMiddleArea(e: MouseEvent) {
+    if ($objectivesApi.currentChapterIs("")) {
+      $audioApi.playTrack({ src: "sound/spooky-laugh.mp3", volume: 0.5 });
+      $hudApi.startDialog({
+        keys: [...conchScare],
+        blockInput: true,
+        onFinished: () => {
+          $objectivesApi.startChapter("chapter1", () => {});
+        },
+      });
+    }
+    onClickArea(e);
+  }
+  function onClickBottomArea(e: MouseEvent) {
     onClickArea(e);
   }
   function onClickArea(e: MouseEvent) {
@@ -168,13 +186,6 @@
       style="transform: translateX({gridOffset.current.x / 10}px)"
       class="w-[122%] left-[-11%] bottom-0 z-[9]"
     />
-    <Conch
-      onclick={() => $wrecks.onClickConch()}
-      faceRevealed={$wrecks.showConchFace}
-      class="absolute w-[55px] h-[55px] top-[92%] left-[37%] z-[9] {!$wrecks.revealConch &&
-        'brightness-50 pointer-events-none'}"
-      style="transform: translateX({gridOffset.current.x / 10}px)"
-    />
     <Submarine class="z-10" />
     <BgImg
       src={wrecks_kelp}
@@ -216,18 +227,6 @@
           --color-top="#03E5B7"
           --color-bottom="#00C1EF"
         />
-        <!-- <button
-          onclick={() => {
-            $audioApi.stopTrack({
-              src: "music/deep-echoes.mp3",
-            });
-            $gameApi.fadeScene("/surface?from=wrecks");
-          }}
-          class="absolute right-[44%] top-[4%] text-2xl flex flex-col items-center select-none z-[20]"
-        >
-          <ArrowUp class="w-[44px] h-[44px]" />
-          <Lol key="surface" />
-        </button> -->
 
         {#if $wrecks.startObservationTask && $wrecks.numObserved === 0}
           <InfoMarker
@@ -241,7 +240,7 @@
       </Area>
       <Area
         size={[grid.width, $gameApi.windowHeight]}
-        onmousedown={onClickArea}
+        onmousedown={onClickMiddleArea}
       >
         <UnderwaterGradient
           class="absolute w-full h-[101%]"
@@ -259,12 +258,21 @@
       </Area>
       <Area
         size={[grid.width, $gameApi.windowHeight]}
-        onmousedown={onClickArea}
+        onmousedown={onClickBottomArea}
       >
         <UnderwaterGradient
           class="absolute size-full"
           --color-top="#037ADE"
           --color-bottom="#182B3A"
+        />
+        <Conch
+          onclick={() => $wrecks.onClickConch()}
+          faceRevealed={$wrecks.showConchFace}
+          class={cn(
+            "absolute right-[22%] bottom-[48%] w-[55px] h-[55px] z-[9]",
+            !$wrecks.revealConch && "brightness-50 pointer-events-none",
+          )}
+          style="transform: translateX({gridOffset.current.x / 5}px)"
         />
         {#if $wrecks.startObservationTask && $wrecks.numObserved === 2}
           <InfoMarker
