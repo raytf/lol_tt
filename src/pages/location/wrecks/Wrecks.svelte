@@ -24,7 +24,7 @@
   import wrecks_2 from "$assets/wrecks/wrecks_2.png";
   import wrecks_3 from "$assets/wrecks/wrecks_3.png";
   import { WrecksPath, UnderwaterRock } from "$components/svg/environment";
-  import { hudApi, audioApi, gameApi, objectivesApi } from "$apis";
+  import { hudApi, audioApi, gameApi, objectivesApi, infoApi } from "$apis";
   import { conchScare } from "$dialog/chapter1";
   import wrecks from "./events.svelte";
   import { ArrowUp, ArrowRight } from "$components/svg/icons/animated";
@@ -71,6 +71,11 @@
   });
   let subNearSurface = $state(false);
   let subNearForest = $state(false);
+  let startedObservationTask = $state(false);
+  let enableConch = $state(false);
+  let conchLightRadius = $state(0);
+
+  let observed = $state<string[]>([]);
   //#endregion
 
   //#region events
@@ -80,6 +85,24 @@
       volume: 0.44,
       loop: true,
     });
+
+    if ($objectivesApi.chapterStarted) {
+      if ($objectivesApi.currentObjectiveIs("obj_explore-wrecks")) {
+        startedObservationTask = true;
+      }
+    } else {
+      // Chapter not started
+      if (
+        $objectivesApi.currentChapterIs("") ||
+        $objectivesApi.currentChapterIs("tutorial") ||
+        $objectivesApi.currentChapterIs("chapter1")
+      ) {
+        $objectivesApi.startChapter("chapter1", () => {});
+        $objectivesApi.attachStartCallback("obj_explore-wrecks", () => {
+          startedObservationTask = true;
+        });
+      }
+    }
   }
   function onClickTopArea(e: MouseEvent) {
     const x = e.clientX - gridOffset.current.x;
@@ -92,16 +115,6 @@
     onClickArea(e);
   }
   function onClickMiddleArea(e: MouseEvent) {
-    if ($objectivesApi.currentChapterIs("")) {
-      $audioApi.playTrack({ src: "sound/spooky-laugh.mp3", volume: 0.5 });
-      $hudApi.startDialog({
-        keys: [...conchScare],
-        blockInput: true,
-        onFinished: () => {
-          $objectivesApi.startChapter("chapter1", () => {});
-        },
-      });
-    }
     onClickArea(e);
   }
   function onClickBottomArea(e: MouseEvent) {
@@ -117,6 +130,22 @@
       subNearForest = false;
     }
     moveSub(e);
+  }
+  function makeObservation(observationKey: string) {
+    $infoApi.openModal({
+      infoType: "sm-o",
+      textKeys: [observationKey],
+    });
+    if (!observed.includes(observationKey)) {
+      observed = [...observed, observationKey];
+      if (observed.length === 4) {
+        enableConch = true;
+      }
+      if (observed.length === 5) {
+        startedObservationTask = false;
+        $objectivesApi.completeTask("obj_explore-wrecks");
+      }
+    }
   }
   //#endregion
 
@@ -212,7 +241,12 @@
           radius: 4,
           strength: 0.5,
         },
-        { x: 37, y: 92, unit: "%", radius: $wrecks.conchLightRadius },
+        {
+          x: 68,
+          y: 80,
+          unit: "%",
+          radius: conchLightRadius,
+        },
       ]}
       class="z-50"
     />
@@ -228,11 +262,11 @@
           --color-bottom="#00C1EF"
         />
 
-        {#if $wrecks.startObservationTask && $wrecks.numObserved === 0}
+        {#if startedObservationTask}
           <InfoMarker
             type="sm-o"
             onclick={() => {
-              $wrecks.makeObservation(1);
+              makeObservation("o_sunlight-surface");
             }}
             class="absolute w-[55px] h-[55px] bottom-[55%] left-[44%] z-20"
           />
@@ -247,12 +281,22 @@
           --color-top="#00C1EF"
           --color-bottom="#037ADE"
         />
-        {#if $wrecks.startObservationTask && $wrecks.numObserved === 1}
+        {#if startedObservationTask}
           <InfoMarker
+            type="sm-o"
             onclick={() => {
-              $wrecks.makeObservation(2);
+              makeObservation("o_color-change");
             }}
-            class="absolute w-[55px] h-[55px] bottom-[55%] left-[44%] z-20"
+            class="absolute w-[55px] h-[55px] bottom-[50%] right-[16%] z-20"
+          />
+        {/if}
+        {#if startedObservationTask}
+          <InfoMarker
+            type="sm-o"
+            onclick={() => {
+              makeObservation("o_wreckage");
+            }}
+            class="absolute w-[55px] h-[55px] bottom-0 left-[50%] z-20"
           />
         {/if}
       </Area>
@@ -274,12 +318,35 @@
           )}
           style="transform: translateX({gridOffset.current.x / 5}px)"
         />
-        {#if $wrecks.startObservationTask && $wrecks.numObserved === 2}
+        {#if startedObservationTask}
+          {#if enableConch}
+            <InfoMarker
+              type="sm-o"
+              onclick={() => {
+                conchLightRadius = 8;
+                $audioApi.playTrack({
+                  src: "sound/spooky-laugh.mp3",
+                  volume: 0.5,
+                });
+                $hudApi.startDialog({
+                  keys: [...conchScare],
+                  blockInput: true,
+                  onFinished: () => {
+                    conchLightRadius = 0;
+                    makeObservation("o_glowing-shell");
+                  },
+                });
+              }}
+              class="absolute right-[22%] bottom-[50%] w-[55px] h-[55px] z-20"
+              style="transform: translateX({gridOffset.current.x / 5}px)"
+            />
+          {/if}
           <InfoMarker
+            type="sm-o"
             onclick={() => {
-              $wrecks.makeObservation(3);
+              makeObservation("o_darkness");
             }}
-            class="absolute w-[55px] h-[55px] bottom-[33%] left-[44%] z-20"
+            class="absolute w-[55px] h-[55px] bottom-[33%] left-[22%] z-20"
           />
         {/if}
       </Area>

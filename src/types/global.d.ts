@@ -41,3 +41,16 @@ interface ItemDetails {
   actionKey?: string;
   new?: boolean;
 }
+
+type PageData = CoverPageData | TextPageData;
+
+interface CoverPageData {
+  type: "cover";
+}
+
+interface TextPageData {
+  type: "text";
+  titleKey: string;
+  lines: string[];
+  delimiter?: string;
+}

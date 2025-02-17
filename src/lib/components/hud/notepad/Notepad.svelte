@@ -17,7 +17,7 @@
   const disabledClass = "pointer-events-none opacity-50";
 
   function onClose() {
-    if ($objectivesApi.currentObjectiveIs("obj_check-equipment")) {
+    if ($objectivesApi.currentObjectiveIs("obj_prepare-dive")) {
       $objectivesApi.completeTask("task_review-notes");
     }
     $hudApi.showNotepad = false;
@@ -26,20 +26,19 @@
   function newPage() {
     if (!$objectivesApi.currentObjective) return;
 
-    if ($objectivesApi.currentObjective.key === "obj_prepare") {
-      if (!$objectivesApi.hasCompleted("obj_prepare")) {
-        $objectivesApi.completeTask("task_new-page");
-        newPageEnabled = false;
-      }
+    if ($objectivesApi.currentObjectiveIs("obj_prepare-notes")) {
+      $notepadApi.newPage({
+        type: "text",
+        titleKey: "notepad-title_wrecks-o",
+        lines: [],
+      });
+      $objectivesApi.completeTask("task_new-page");
+      newPageEnabled = false;
     }
   }
 
   onMount(() => {
-    if (
-      $objectivesApi.currentObjective &&
-      $objectivesApi.currentObjective.key === "obj_prepare"
-    ) {
-      $objectivesApi.completeTask("task_open-notepad");
+    if ($objectivesApi.currentObjectiveIs("obj_prepare-notes")) {
       newPageEnabled = true;
     }
   });
@@ -82,7 +81,10 @@
       {#if $notepadApi.currentPage.type === "cover"}
         {@render coverPage()}
       {:else if $notepadApi.currentPage.type === "text"}
-        {@render textPage()}
+        <Lol key={$notepadApi.currentPage.titleKey} />
+        {#each $notepadApi.currentPage.lines as line}
+          <Lol key={line} />
+        {/each}
       {/if}
     </div>
   </div>
@@ -127,19 +129,11 @@
     </button>
   </p>
   <br />
+  <br />
   <Lol key="notepad-line_ee-2" />
 {/snippet}
 
-{#snippet textPage()}
-  {#if $notepadApi.currentPage}
-    <p class="text-title">
-      {$notepadApi.currentPage?.title}
-    </p>
-    {#each $notepadApi.currentPage?.lines as line}
-      <p>{line}</p>
-    {/each}
-  {/if}
-{/snippet}
+{#snippet textPage()}{/snippet}
 
 <style>
   .paper {
@@ -167,7 +161,7 @@
         transparent calc(12% + 8px),
         transparent
       ),
-      linear-gradient(180deg, #fbee9f 22%, transparent 0),
+      linear-gradient(180deg, #fbee9f 20%, transparent 0),
       repeating-linear-gradient(
         180deg,
         #c9d798,

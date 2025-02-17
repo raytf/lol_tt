@@ -3,7 +3,7 @@
   import { onMount } from "svelte";
   import { Lol } from "$components/text";
   import { hideHeading, tlRevealHeading } from "./animations";
-  import { hudApi } from "$apis";
+  import { hudApi, gameApi } from "$apis";
 
   let {
     title,
@@ -20,6 +20,7 @@
   } = $props();
 
   onMount(() => {
+    $gameApi.startedGame = true;
     hideHeading();
 
     const tlHeading = tlRevealHeading();

@@ -1,7 +1,7 @@
 import { onDestroy } from "svelte";
 import { writable, get } from "svelte/store";
 import backupLanguageData from "$assets/language.json";
-import { objectivesApi } from "$apis";
+import { objectivesApi, notepadApi } from "$apis";
 
 interface LanguageData {
   [key: string]: string;
@@ -85,7 +85,10 @@ export class LolApi {
       const objectives = get(objectivesApi);
       objectives.completedObjectives = data.completedObjectives;
       objectives.completedChapters = data.completedChapters;
+      objectives.currentChapter = data.currentChapter;
       objectives.recallCompletedChapters();
+      const notepad = get(notepadApi);
+      notepad.restorePages(data.pages);
     }
   };
 
@@ -95,9 +98,12 @@ export class LolApi {
 
   saveState = () => {
     const objectives = get(objectivesApi);
+    const notepad = get(notepadApi);
     let data = {
       completedObjectives: objectives.completedObjectives,
       completedChapters: objectives.completedChapters,
+      currentChapter: objectives.currentChapter,
+      pages: notepad.pages,
     };
 
     lol_send("saveState", {

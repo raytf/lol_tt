@@ -12,11 +12,16 @@
   const lolKeys = ["newspaper-text-1"];
 
   function onProceed() {
+    if (index < 0) return;
+
     if (index < lolKeys.length) {
       $lolApi.speakText(lolKeys[index]);
       index++;
       return;
     }
+
+    index = -1;
+    $lolApi.speakText("years-later");
     blackdropOpacity = 100;
     setTimeout(() => {
       $gameApi.fadeScene("/surface?start");

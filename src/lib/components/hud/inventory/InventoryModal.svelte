@@ -27,7 +27,7 @@
     selectedItem = undefined;
     $hudApi.openInventory = false;
     if (item.id === "sm") {
-      if ($objectivesApi.currentObjectiveIs("obj_check-equipment")) {
+      if ($objectivesApi.currentObjectiveIs("obj_start-sm")) {
         $objectivesApi.completeTask("task_open-sm");
       }
       $hudApi.showSmModal = true;
@@ -43,7 +43,10 @@
       $radioApi.call($location);
     }
     if (item.id === "notepad") {
-      if ($objectivesApi.currentObjectiveIs("obj_check-equipment")) {
+      if (
+        $objectivesApi.currentObjectiveIs("obj_prepare-dive") ||
+        $objectivesApi.currentObjectiveIs("obj_prepare-notes")
+      ) {
         $objectivesApi.completeTask("task_open-notepad");
       }
       $hudApi.showNotepad = true;

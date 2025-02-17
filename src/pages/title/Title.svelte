@@ -62,7 +62,10 @@
   />
   <div id="title_blackdrop"></div>
   {#if revealTitleSequence}
-    <div out:fade class="relative size-full flex flex-col items-center">
+    <div
+      out:fade={{ duration: 2000 }}
+      class="relative size-full flex flex-col items-center"
+    >
       <h1
         in:fade={{ delay: 1000, duration: 3000 }}
         class="text-title text-8xl font-bold mt-24"

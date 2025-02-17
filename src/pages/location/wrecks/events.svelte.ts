@@ -84,15 +84,15 @@ class WrecksEvents {
         name: "you",
         text: observationKey,
         onProceed: () => {
-          if (notepad.observationPage) {
-            hud.showNotepad = true;
-            notepad.openPage(1);
-            notepad.observationPage.addLine(observationKey);
-            this.numObserved++;
-            if (notepad.observationPage.lines.length >= 3) {
-              objectives.completeTask("task_record-observations");
-            }
-          }
+          // if (notepad.observationPage) {
+          //   hud.showNotepad = true;
+          //   notepad.openPage(1);
+          //   notepad.observationPage.addLine(observationKey);
+          //   this.numObserved++;
+          //   if (notepad.observationPage.lines.length >= 3) {
+          //     objectives.completeTask("task_record-observations");
+          //   }
+          // }
         },
       },
     ];

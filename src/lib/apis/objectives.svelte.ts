@@ -43,18 +43,17 @@ const objectiveMap: ObjectiveMap = {
     { key: "task_call-radio" },
     { key: "task_start-mission" },
   ],
-  "obj_check-equipment": [
+  "obj_prepare-dive": [
     { key: "task_open-notepad" },
     { key: "task_review-notes" },
-    // { key: "task_open-sm" },
-    // { key: "task_review-o" },
   ],
   obj_explore: [{ key: "task_move-sub" }, { key: "task_dive" }],
-  obj_prepare: [{ key: "task_open-notepad" }, { key: "task_new-page" }],
-  "obj_make-observations": [
-    { key: "task_dive" },
-    { key: "task_record-observations" },
-  ],
+
+  "obj_start-sm": [{ key: "task_open-sm" }, { key: "task_review-o" }],
+  "obj_prepare-notes": [{ key: "task_open-notepad" }, { key: "task_new-page" }],
+  "obj_explore-wrecks": [{ key: "task_record-o" }],
+  "obj_explore-forest": [{ key: "task_record-o" }],
+
   "obj_review-observations": [
     { key: "task_contact-mc2" },
     { key: "task_show-observations" },
@@ -76,31 +75,26 @@ const chapterMap: ChapterMap = {
       },
     },
     {
-      key: "obj_check-equipment",
+      key: "obj_prepare-dive",
     },
     {
       key: "obj_explore",
       onFinished: () => {},
     },
-    // {
-    //   key: "obj_prepare",
-    //   onFinished: () => {
-    //     get(notepadApi).startObservationPage("notepad-title_observations");
-    //   },
-    // },
-    // {
-    //   key: "obj_make-observations",
-    //   onFinished: () => {
-    //     get(notepadApi).fillObservationPage();
-    //   },
-    // },
-    // {
-    //   key: "obj_review-observations",
-    // },
   ],
   chapter1: [
     {
-      key: "obj_question",
+      key: "obj_start-sm",
+    },
+    {
+      key: "obj_prepare-notes",
+      onFinished: () => {},
+    },
+    {
+      key: "obj_explore-wrecks",
+    },
+    {
+      key: "obj_explore-forest",
     },
   ],
 };
@@ -111,6 +105,7 @@ class ObjectivesApi {
   currentObjectiveIndex = $state(0);
   currentObjective = $state<Objective>();
   currentTasks = $state<Task[]>([]);
+  chapterStarted = $state(false);
   chapterFinished = $state(false);
   onChapterFinished = () => {};
 
@@ -153,6 +148,8 @@ class ObjectivesApi {
   };
 
   startChapter = (chapterKey: string, onFinished?: () => void) => {
+    console.log("Started chapter:", chapterKey);
+    this.chapterStarted = true;
     this.chapterFinished = false;
     this.currentChapter = chapterKey;
 
@@ -178,13 +175,13 @@ class ObjectivesApi {
 
     this.onChapterFinished = onFinished || (() => {});
 
-    if (this.currentObjectiveIndex >= this.currentObjectives.length) {
-      this.completeChapter();
-    } else {
+    if (this.currentObjectiveIndex < this.currentObjectives.length) {
       this.startObjective();
-    }
 
-    get(hudApi).showObjectives = true;
+      get(hudApi).showObjectives = true;
+    } else {
+      this.chapterStarted = false;
+    }
   };
 
   attachStartCallback = (objectiveKey: string, onStart: () => void) => {
@@ -264,6 +261,7 @@ class ObjectivesApi {
   };
 
   completeChapter = () => {
+    this.chapterStarted = false;
     this.chapterFinished = true;
     this.completedChapters.push(this.currentChapter);
 

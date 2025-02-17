@@ -59,7 +59,7 @@
         setTimeout(() => {
           $objectivesApi.startChapter("tutorial", () => {});
 
-          if ($objectivesApi.hasCompleted("obj_check-equipment")) {
+          if ($objectivesApi.hasCompleted("obj_prepare-dive")) {
             readyToDive = true;
           } else {
             $objectivesApi.attachStartCallback("obj_explore", () => {
@@ -97,6 +97,8 @@
             });
           }
         }, 3000);
+      } else {
+        readyToDive = true;
       }
 
       return;
@@ -134,7 +136,6 @@
   }
   //#endregion
 
-  $gameApi.startedGame = true;
   setSubPosition(initialSubCoords);
   onMount(() => {
     onEnter();

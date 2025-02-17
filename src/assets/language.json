@@ -28,30 +28,30 @@
     "chapter3": "Chapter 3",
     "completed-obj": "Completed Objective",
 
-    "obj_learn-controls": "Learn the controls",
-
     "obj_mission": "Mission Brief",
     "task_open-inventory": "Open your inventory",
     "task_call-radio": "Call the radio",
     "task_start-mission": "Start the mission",
 
-    "obj_check-equipment": "Double check equipment",
+    "obj_prepare-dive": "Prepare to dive",
     "task_open-notepad": "Open your notepad",
     "task_review-notes": "Review your mission brief notes",
-    "task_open-sm": "Open the SM Diagram",
-    "task_review-o": "Review the <span class='color sm-o'>Observations</span> step",
 
     "obj_explore": "Explore!",
     "task_move-sub": "Click around the screen to move the sub",
     "task_dive": "Start your dive",
 
-    "obj_prepare": "Prepare notes",
-    "task_review-SM": "Review the Scientific Method steps",
+    "obj_start-sm": "Starting the Scientific Method",
+    "task_open-sm": "Open the SM Diagram",
+    "task_review-o": "Review the <span class='color sm-o'>Observations</span> step",
 
+    "obj_prepare-notes": "Prepare notepad",
     "task_new-page": "Start a new page for <span class='color sm-o'>observations</span>",
 
-    "obj_make-observations": "Explore and make <span class='color sm-o'>observations</span>",
-    "task_record-observations": "Record 3 <span class='color sm-o'>observations</span> about depth using the notepad",
+    "obj_explore-wrecks": "Explore the wrecks.",
+    "task_record-o": "Record <span class='color sm-o'>observations</span>.",
+
+    "obj_explore-forest": "Explore the kelp forest.",
 
     "obj_review-observations": "<span class='color sm-o'>Observations</span> review",
     "task_contact-mc2": "Contact Mission Control again using the radio",
@@ -65,7 +65,12 @@
     "location-forest": "Forest",
 
     "i_ship": "My trusty support ship. I can come here to rest or make repairs.",
-    "o_floating-kelp": "There is kelp blocking the way. Maybe I can get through underwater.",
+    "o_floating-kelp": "There is a kelp forest here. It looks very dense.",
+    "o_sunlight-surface": "Sunlight is visible near the surface.",
+    "o_color-change": "The colors of the ocean and the kelp change as I go deeper.",
+    "o_darkness": "It is much darker at the deep end.",
+    "o_wreckage": "Wreckage of a ship. Looks like it has been here for a long time.",
+    "o_glowing-shell": "Looks like a shell. I thought I saw it glow before.",
 
     "sm-heading": "The Scientific Method steps",
     "sm-subheading": "Click a step for more info.",
@@ -102,7 +107,7 @@
     "notepad-line_ee-2": "By asking questions, and answering them with empirical evidence, we can understand the deep ocean better.",
 
     "notepad-line_find-treasure": "Find the treasure (if it even exists)",
-    "notepad-title_observations": "Observations about depth",
+    "notepad-title_wrecks-o": "Observations in the Wrecks",
 
     "sm-puzzle_title": "Enter radio code",
     "hint": "Hint",
