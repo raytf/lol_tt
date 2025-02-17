@@ -52,6 +52,7 @@
     "task_record-o": "Record <span class='color sm-o'>observations</span>.",
 
     "obj_explore-forest": "Explore the kelp forest.",
+    "task_enter-forest": "Enter the kelp forest.",
 
     "obj_review-observations": "<span class='color sm-o'>Observations</span> review",
     "task_contact-mc2": "Contact Mission Control again using the radio",
@@ -69,8 +70,8 @@
     "o_sunlight-surface": "Sunlight is visible near the surface.",
     "o_color-change": "The colors of the ocean and the kelp change as I go deeper.",
     "o_darkness": "It is much darker at the deep end.",
-    "o_wreckage": "Wreckage of a ship. Looks like it has been here for a long time.",
-    "o_glowing-shell": "Looks like a shell. I thought I saw it glow before.",
+    "o_wreckage": "There is a wreckage of a ship here. Looks like it has been here for a long time.",
+    "o_glowing-shell": "There is an interesting shell lying down here. I thought I saw it glowing.",
 
     "sm-heading": "The Scientific Method steps",
     "sm-subheading": "Click a step for more info.",

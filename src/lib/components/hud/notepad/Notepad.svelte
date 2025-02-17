@@ -31,6 +31,7 @@
         type: "text",
         titleKey: "notepad-title_wrecks-o",
         lines: [],
+        delimiter: "- ",
       });
       $objectivesApi.completeTask("task_new-page");
       newPageEnabled = false;
@@ -81,9 +82,14 @@
       {#if $notepadApi.currentPage.type === "cover"}
         {@render coverPage()}
       {:else if $notepadApi.currentPage.type === "text"}
-        <Lol key={$notepadApi.currentPage.titleKey} />
+        <Lol
+          key={$notepadApi.currentPage.titleKey}
+          class="font-bold underline"
+        />
         {#each $notepadApi.currentPage.lines as line}
-          <Lol key={line} />
+          <div class="flex">
+            {$notepadApi.currentPage?.delimiter}<Lol key={line} />
+          </div>
         {/each}
       {/if}
     </div>
@@ -133,8 +139,6 @@
   <Lol key="notepad-line_ee-2" />
 {/snippet}
 
-{#snippet textPage()}{/snippet}
-
 <style>
   .paper {
     color: black;
@@ -178,9 +182,5 @@
     line-height: 1.5em;
     overflow: hidden;
     pointer-events: none;
-  }
-  .text-title {
-    font-weight: 700;
-    text-decoration: underline;
   }
 </style>

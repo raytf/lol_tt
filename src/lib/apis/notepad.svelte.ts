@@ -18,6 +18,12 @@ class NotepadApi {
     this.currentPageIndex = index;
   }
 
+  addLine(key: string) {
+    if (this.currentPage.type === "text") {
+      this.currentPage.lines.push(key);
+    }
+  }
+
   prevPage() {
     if (this.currentPageIndex > 0) {
       this.currentPageIndex--;

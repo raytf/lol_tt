@@ -24,7 +24,14 @@
   import wrecks_2 from "$assets/wrecks/wrecks_2.png";
   import wrecks_3 from "$assets/wrecks/wrecks_3.png";
   import { WrecksPath, UnderwaterRock } from "$components/svg/environment";
-  import { hudApi, audioApi, gameApi, objectivesApi, infoApi } from "$apis";
+  import {
+    hudApi,
+    audioApi,
+    gameApi,
+    objectivesApi,
+    infoApi,
+    notepadApi,
+  } from "$apis";
   import { conchScare } from "$dialog/chapter1";
   import wrecks from "./events.svelte";
   import { ArrowUp, ArrowRight } from "$components/svg/icons/animated";
@@ -74,8 +81,8 @@
   let startedObservationTask = $state(false);
   let enableConch = $state(false);
   let conchLightRadius = $state(0);
-
   let observed = $state<string[]>([]);
+  let forestUnlocked = $state(false);
   //#endregion
 
   //#region events
@@ -90,6 +97,9 @@
       if ($objectivesApi.currentObjectiveIs("obj_explore-wrecks")) {
         startedObservationTask = true;
       }
+      if ($objectivesApi.currentObjectiveIs("obj_explore-forest")) {
+        forestUnlocked = true;
+      }
     } else {
       // Chapter not started
       if (
@@ -100,6 +110,9 @@
         $objectivesApi.startChapter("chapter1", () => {});
         $objectivesApi.attachStartCallback("obj_explore-wrecks", () => {
           startedObservationTask = true;
+        });
+        $objectivesApi.attachStartCallback("obj_explore-forest", () => {
+          forestUnlocked = true;
         });
       }
     }
@@ -138,12 +151,15 @@
     });
     if (!observed.includes(observationKey)) {
       observed = [...observed, observationKey];
+
+      // Add to notepad
+      $notepadApi.openPage(1);
+      $notepadApi.addLine(observationKey);
+      //$hudApi.showNotepad = true;
+
       if (observed.length === 4) {
-        enableConch = true;
-      }
-      if (observed.length === 5) {
         startedObservationTask = false;
-        $objectivesApi.completeTask("obj_explore-wrecks");
+        $objectivesApi.completeTask("task_record-o");
       }
     }
   }
@@ -181,7 +197,7 @@
         </Button>
       </div>
     {/if}
-    {#if subNearForest}
+    {#if subNearForest && forestUnlocked}
       <div
         transition:fade
         class="absolute z-[11] top-0 right-0 w-[222px] h-full flex flex-col justify-center items-end pr-4"
@@ -193,6 +209,9 @@
               src: "music/deep-echoes.mp3",
             });
             $gameApi.fadeScene("/forest?from=wrecks");
+            if ($objectivesApi.currentObjectiveIs("obj_explore-forest")) {
+              $objectivesApi.completeTask("task_enter-forest");
+            }
           }}
           class="w-[99px] h-[88px] flex-col items-center"
         >
@@ -294,7 +313,20 @@
           <InfoMarker
             type="sm-o"
             onclick={() => {
-              makeObservation("o_wreckage");
+              enableConch = true;
+              conchLightRadius = 8;
+              $audioApi.playTrack({
+                src: "sound/spooky-laugh.mp3",
+                volume: 0.5,
+              });
+              $hudApi.startDialog({
+                keys: [...conchScare],
+                blockInput: true,
+                onFinished: () => {
+                  conchLightRadius = 0;
+                  makeObservation("o_wreckage");
+                },
+              });
             }}
             class="absolute w-[55px] h-[55px] bottom-0 left-[50%] z-20"
           />
@@ -311,36 +343,22 @@
         />
         <Conch
           onclick={() => $wrecks.onClickConch()}
-          faceRevealed={$wrecks.showConchFace}
+          faceRevealed={enableConch}
           class={cn(
             "absolute right-[22%] bottom-[48%] w-[55px] h-[55px] z-[9]",
-            !$wrecks.revealConch && "brightness-50 pointer-events-none",
+            !enableConch && "brightness-50 pointer-events-none",
           )}
           style="transform: translateX({gridOffset.current.x / 5}px)"
         />
         {#if startedObservationTask}
-          {#if enableConch}
+          <!-- {#if enableConch}
             <InfoMarker
               type="sm-o"
-              onclick={() => {
-                conchLightRadius = 8;
-                $audioApi.playTrack({
-                  src: "sound/spooky-laugh.mp3",
-                  volume: 0.5,
-                });
-                $hudApi.startDialog({
-                  keys: [...conchScare],
-                  blockInput: true,
-                  onFinished: () => {
-                    conchLightRadius = 0;
-                    makeObservation("o_glowing-shell");
-                  },
-                });
-              }}
-              class="absolute right-[22%] bottom-[50%] w-[55px] h-[55px] z-20"
+              onclick={() => {}}
+              class="absolute right-[22%] bottom-[60%] w-[55px] h-[55px] z-20"
               style="transform: translateX({gridOffset.current.x / 5}px)"
             />
-          {/if}
+          {/if} -->
           <InfoMarker
             type="sm-o"
             onclick={() => {

@@ -52,7 +52,10 @@ const objectiveMap: ObjectiveMap = {
   "obj_start-sm": [{ key: "task_open-sm" }, { key: "task_review-o" }],
   "obj_prepare-notes": [{ key: "task_open-notepad" }, { key: "task_new-page" }],
   "obj_explore-wrecks": [{ key: "task_record-o" }],
-  "obj_explore-forest": [{ key: "task_record-o" }],
+  "obj_explore-forest": [
+    { key: "task_enter-forest" },
+    { key: "task_record-o" },
+  ],
 
   "obj_review-observations": [
     { key: "task_contact-mc2" },
@@ -249,7 +252,9 @@ class ObjectivesApi {
     });
     this.currentObjective.completed = true;
     this.currentObjective.onFinished?.();
-    this.completedObjectives.push(this.currentObjective.key);
+    if (!this.hasCompleted(this.currentObjective.key)) {
+      this.completedObjectives.push(this.currentObjective.key);
+    }
     this.currentObjectiveIndex += 1;
 
     this.startObjective();
