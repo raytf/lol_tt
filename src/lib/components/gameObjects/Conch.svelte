@@ -3,23 +3,21 @@
   import devious from "$assets/conch/conch_devious.png";
   import smile from "$assets/characters/conch/smile.png";
   import scary from "$assets/characters/conch/scary.png";
+  import { showConchFace, conchLightRadius } from "$stores/conch";
+  import { cn } from "$lib/utils";
   let {
     class: extraClass,
     style: extraStyle,
     onclick,
     onmouseenter,
     onmouseleave,
-    faceRevealed = false,
   }: {
     class?: string;
     style?: string;
     onclick?: () => void;
     onmouseenter?: () => void;
     onmouseleave?: () => void;
-    faceRevealed?: boolean;
   } = $props();
-
-  let revealFace = $state(false);
 </script>
 
 <button
@@ -27,22 +25,28 @@
   style={extraStyle}
   {onclick}
   onmouseenter={() => {
-    revealFace = true;
+    $showConchFace = true;
+    $conchLightRadius = 8;
     onmouseenter && onmouseenter();
   }}
   onmouseleave={() => {
-    revealFace = false;
+    $showConchFace = false;
+    $conchLightRadius = 0;
     onmouseleave && onmouseleave();
   }}
 >
-  <img src={conch} alt="conch" class="absolute bottom-0 size-full z-0" />
+  <img
+    src={conch}
+    alt="conch"
+    class="absolute bottom-0 size-full select-none brightness-[20%] z-0"
+  />
   <img
     src={devious}
     alt="conch_smile"
-    class="conch-face absolute bottom-0 size-full z-[1] {faceRevealed ||
-    revealFace
-      ? 'opacity-100'
-      : 'opacity-0'}"
+    class={cn(
+      "conch-face absolute bottom-0 size-full z-[1] select-none",
+      $showConchFace ? "opacity-100" : "opacity-0",
+    )}
   />
 </button>
 

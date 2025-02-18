@@ -32,8 +32,8 @@
     infoApi,
     notepadApi,
   } from "$apis";
-  import { conchScare } from "$dialog/chapter1";
-  import wrecks from "./events.svelte";
+  import { shipWreck, conchScare } from "$dialog/chapter1";
+  import { showConchFace, conchLightRadius } from "$stores/conch";
   import { ArrowUp, ArrowRight } from "$components/svg/icons/animated";
   import { cn } from "$lib/utils";
 
@@ -79,8 +79,6 @@
   let subNearSurface = $state(false);
   let subNearForest = $state(false);
   let startedObservationTask = $state(false);
-  let enableConch = $state(false);
-  let conchLightRadius = $state(0);
   let observed = $state<string[]>([]);
   let forestUnlocked = $state(false);
   //#endregion
@@ -261,10 +259,10 @@
           strength: 0.5,
         },
         {
-          x: 68,
+          x: 72,
           y: 80,
           unit: "%",
-          radius: conchLightRadius,
+          radius: $conchLightRadius,
         },
       ]}
       class="z-50"
@@ -309,22 +307,14 @@
             class="absolute w-[55px] h-[55px] bottom-[50%] right-[16%] z-20"
           />
         {/if}
-        {#if startedObservationTask}
+        {#if true}
           <InfoMarker
-            type="sm-o"
             onclick={() => {
-              enableConch = true;
-              conchLightRadius = 8;
-              $audioApi.playTrack({
-                src: "sound/spooky-laugh.mp3",
-                volume: 0.5,
-              });
               $hudApi.startDialog({
-                keys: [...conchScare],
+                keys: [...shipWreck, ...conchScare],
                 blockInput: true,
                 onFinished: () => {
-                  conchLightRadius = 0;
-                  makeObservation("o_wreckage");
+                  //makeObservation("o_wreckage");
                 },
               });
             }}
@@ -345,10 +335,8 @@
           onclick={() => {
             console.log("hello");
           }}
-          faceRevealed={enableConch}
           class={cn(
-            "absolute right-[22%] bottom-[48%] w-[55px] h-[55px] z-[9]",
-            !enableConch && "brightness-50 pointer-events-none",
+            "absolute right-[18%] bottom-[48%] w-[111px] h-[111px] z-[9]",
           )}
           style="transform: translateX({gridOffset.current.x / 5}px)"
         />
