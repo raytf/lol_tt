@@ -5,6 +5,7 @@ import Dev from "./pages/Dev.svelte";
 import Surface from "./pages/location/surface";
 import Wrecks from "./pages/location/wrecks";
 import Forest from "./pages/location/forest";
+import Abyss from "./pages/location/abyss";
 // Chapter 1
 import Ch1 from "./pages/chapter1";
 // import Ch1_Encounter_Shell from "./pages/chapter1/encounters/Shell.svelte";
@@ -29,6 +30,7 @@ export default {
   "/surface": Surface,
   "/wrecks": Wrecks,
   "/forest": Forest,
+  "/abyss": Abyss,
   "/ch1": Ch1,
   // "/ch1_encounter_shell": Ch1_Encounter_Shell,
   // "/ch1_lesson_sm-intro": Ch1_Lesson_SMIntro,

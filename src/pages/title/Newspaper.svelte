@@ -45,11 +45,14 @@
           <div class="max-w-[400px] flex flex-col gap-1 text-left">
             {#each lolKeys as key, i}
               {#if index > i}
-                <div in:fade class="w-[111px] h-[111px] border border-black">
-                  <img src={sub} alt="missing" class="size-full" />
-                </div>
-                <div transition:fade={{ delay: 1000 }}>
+                <div transition:fade>
                   <Lol {key} class="text-xl" />
+                </div>
+                <div
+                  in:fade={{ delay: 1000 }}
+                  class="w-[111px] h-[111px] border border-black"
+                >
+                  <img src={sub} alt="missing" class="size-full" />
                 </div>
               {/if}
             {/each}

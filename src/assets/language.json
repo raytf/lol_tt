@@ -18,8 +18,6 @@
 
     "dive": "Dive",
     "surface": "Surface",
-    "wrecks": "Wrecks",
-    "forest": "Forest",
     "complete": "Complete",
 
     "tutorial": "Tutorial",
@@ -49,7 +47,7 @@
     "task_new-page": "Start a new page for <span class='color sm-o'>observations</span>",
 
     "obj_explore-wrecks": "Explore the wrecks.",
-    "task_record-o": "Record <span class='color sm-o'>observations</span>.",
+    "task_record-o": "Record some <span class='color sm-o'>observations</span>.",
 
     "obj_explore-forest": "Explore the kelp forest.",
     "task_enter-forest": "Enter the kelp forest.",
@@ -64,6 +62,7 @@
     "location-surface": "The Triton Triangle",
     "location-wrecks": "Wrecks",
     "location-forest": "Forest",
+    "location-abyss": "Abyss",
 
     "i_ship": "My trusty support ship. I can come here to rest or make repairs.",
     "w_propellor": "The propellor is malfunctioning. I should go back to the ship to fix it.",

@@ -76,10 +76,15 @@
     const ratio = gridOffset.current.y / $minOffset.y;
     return ratio;
   });
+  let xRatio = $derived.by(() => {
+    const ratio = gridOffset.current.x / $minOffset.x;
+    return ratio;
+  });
   let subNearSurface = $state(false);
   let subNearForest = $state(false);
   let startedObservationTask = $state(false);
   let observed = $state<string[]>([]);
+  let completedObservationTask = $state(false);
   let forestUnlocked = $state(false);
   //#endregion
 
@@ -155,9 +160,10 @@
       $notepadApi.addLine(observationKey);
       //$hudApi.showNotepad = true;
 
-      if (observed.length === 4) {
+      if (observed.length === 3) {
+        $hudApi.showNotepad = true;
         startedObservationTask = false;
-        $objectivesApi.completeTask("task_record-o");
+        completedObservationTask = true;
       }
     }
   }
@@ -195,7 +201,7 @@
         </Button>
       </div>
     {/if}
-    {#if subNearForest && forestUnlocked}
+    {#if subNearForest}
       <div
         transition:fade
         class="absolute z-[11] top-0 right-0 w-[222px] h-full flex flex-col justify-center items-end pr-4"
@@ -213,7 +219,7 @@
           }}
           class="w-[99px] h-[88px] flex-col items-center"
         >
-          <Lol key="forest" class="mr-1" />
+          <Lol key="location-forest" class="mr-1" />
           <ArrowRight class="w-[33px] h-[33px]" />
         </Button>
       </div>
@@ -259,7 +265,7 @@
           strength: 0.5,
         },
         {
-          x: 72,
+          x: 72 - (xRatio - 0.7) * 8,
           y: 80,
           unit: "%",
           radius: $conchLightRadius,
@@ -285,7 +291,7 @@
             onclick={() => {
               makeObservation("o_sunlight-surface");
             }}
-            class="absolute w-[55px] h-[55px] bottom-[55%] left-[44%] z-20"
+            class="absolute w-[55px] h-[55px] bottom-[55%] left-[44%] z-[9]"
           />
         {/if}
       </Area>
@@ -304,21 +310,21 @@
             onclick={() => {
               makeObservation("o_color-change");
             }}
-            class="absolute w-[55px] h-[55px] bottom-[50%] right-[16%] z-20"
+            class="absolute w-[55px] h-[55px] bottom-[50%] right-[16%] z-[15]"
           />
         {/if}
-        {#if true}
+        {#if completedObservationTask}
           <InfoMarker
             onclick={() => {
               $hudApi.startDialog({
                 keys: [...shipWreck, ...conchScare],
                 blockInput: true,
                 onFinished: () => {
-                  //makeObservation("o_wreckage");
+                  $objectivesApi.completeTask("task_record-o");
                 },
               });
             }}
-            class="absolute w-[55px] h-[55px] bottom-0 left-[50%] z-20"
+            class="absolute w-[55px] h-[55px] bottom-0 left-[50%] z-[9]"
           />
         {/if}
       </Area>
@@ -337,24 +343,25 @@
           }}
           class={cn(
             "absolute right-[18%] bottom-[48%] w-[111px] h-[111px] z-[9]",
+            false && "pointer-events-none",
           )}
           style="transform: translateX({gridOffset.current.x / 5}px)"
         />
+        {#if true}
+          <InfoMarker
+            type="sm-o"
+            onclick={() => {}}
+            class="absolute right-[20%] bottom-[64%] w-[55px] h-[55px] z-20"
+            style="transform: translateX({gridOffset.current.x / 5}px)"
+          />
+        {/if}
         {#if startedObservationTask}
-          <!-- {#if enableConch}
-            <InfoMarker
-              type="sm-o"
-              onclick={() => {}}
-              class="absolute right-[22%] bottom-[60%] w-[55px] h-[55px] z-20"
-              style="transform: translateX({gridOffset.current.x / 5}px)"
-            />
-          {/if} -->
           <InfoMarker
             type="sm-o"
             onclick={() => {
               makeObservation("o_darkness");
             }}
-            class="absolute w-[55px] h-[55px] bottom-[33%] left-[22%] z-20"
+            class="absolute w-[55px] h-[55px] bottom-[33%] left-[22%] z-[9]"
           />
         {/if}
       </Area>

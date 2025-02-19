@@ -19,7 +19,11 @@
   } from "$stores/sub";
   import { gameApi, audioApi, infoApi } from "$apis";
   import { Button } from "$components/ui/button";
-  import { ForestPath, UnderwaterRock } from "$components/svg/environment";
+  import {
+    ForestPath,
+    ForestRightPath,
+    UnderwaterRock,
+  } from "$components/svg/environment";
   import underwater from "$assets/underwater_wide.jpg";
   import forest_1 from "$assets/forest/forest_1.png";
   import forest_2 from "$assets/forest/forest_2.png";
@@ -29,7 +33,8 @@
   import kelp_2 from "$assets/forest/kelp_2.png";
   import kelp_3 from "$assets/forest/kelp_3.png";
   import kelp_4 from "$assets/forest/kelp_4.png";
-  import { ArrowLeft } from "$components/svg/icons/animated";
+  import { ArrowLeft, ArrowDown } from "$components/svg/icons/animated";
+  import { cn } from "$lib/utils";
 
   //#region state
   const grid = {
@@ -58,6 +63,20 @@
       y: subCoords.current.y,
     };
     gridOffset.set({ x: 0, y: gridOffset.current.y }, { instant: true });
+  }
+  if (searchParams.has("from", "abyss")) {
+    initialPosition = { x: grid.width - 111, y: grid.height + 111 };
+    initialTarget = {
+      x: initialPosition.x,
+      y: grid.height - 111,
+    };
+    gridOffset.set(
+      {
+        x: -grid.width + $gameApi.windowWidth,
+        y: -grid.height + $gameApi.windowHeight,
+      },
+      { instant: true },
+    );
   }
   let depthRatio = $derived.by(() => {
     const ratio = gridOffset.current.y / $minOffset.y;
@@ -116,14 +135,14 @@
   }
 
   function onTouched() {
-    setTimeout(() => {
-      breakPropellor();
-      $infoApi.openModal({
-        warning: true,
-        textKeys: ["w_propellor"],
-        outsideClose: false,
-      });
-    }, 1111);
+    // setTimeout(() => {
+    //   breakPropellor();
+    //   $infoApi.openModal({
+    //     warning: true,
+    //     textKeys: ["w_propellor"],
+    //     outsideClose: false,
+    //   });
+    // }, 1111);
   }
 
   $effect(() => {
@@ -132,6 +151,7 @@
   //#endregion
 
   let subNearWrecks = $state(false);
+  let subNearAbyss = $state(false);
   //#endregion
   //#region events
   function onEnter() {
@@ -149,6 +169,12 @@
       subNearWrecks = true;
     } else {
       subNearWrecks = false;
+    }
+
+    if (x > 1500 && y > 1500) {
+      subNearAbyss = true;
+    } else {
+      subNearAbyss = false;
     }
 
     // if (x > 400) activateMonster = true;
@@ -182,7 +208,7 @@
           }}
           class="w-[99px] h-[88px] flex-col items-center"
         >
-          <Lol key="wrecks" class="mr-1" />
+          <Lol key="location-wrecks" class="mr-1" />
           <ArrowLeft class="w-[33px] h-[33px]" />
         </Button>
       </div>
@@ -198,16 +224,12 @@
     <BgImg
       src={forest_3}
       class="w-[111%] z-[7]"
-      style="filter: brightness({1 -
-        depthRatio +
-        0.2}); transform: translateX({gridOffset.current.x / 8}px);"
+      style="transform: translateX({gridOffset.current.x / 8}px);"
     />
     <BgImg
       src={forest_2}
       class="z-[7]"
-      style="filter: brightness({1 -
-        depthRatio +
-        0.3}); transform: translateX({gridOffset.current.x / 7}px);"
+      style="transform: translateX({gridOffset.current.x / 7}px);"
     />
     <KelpMonster
       coords={monsterCoords.current}
@@ -219,9 +241,11 @@
     <BgImg
       src={forest_right}
       class="-right-[9%] z-[11]"
-      style="filter: brightness({1 -
-        depthRatio +
-        0.4}); transform: translateX({gridOffset.current.x / 6}px);"
+      style="transform: translateX({gridOffset.current.x / 6}px);"
+    />
+    <ForestRightPath
+      class="absolute -right-[9%] opacity-0 z-[11] pointer-events-none"
+      style="transform: translateX({gridOffset.current.x / 6}px);"
     />
     <ForestPath
       class="z-[11] opacity-0 pointer-events-none"
@@ -230,9 +254,7 @@
     <BgImg
       src={forest_1}
       class="z-[11]"
-      style="filter: brightness({1 -
-        depthRatio +
-        0.4}); transform: translateX({gridOffset.current.x / 6}px);"
+      style="transform: translateX({gridOffset.current.x / 6}px);"
     />
 
     <BgImg
@@ -243,14 +265,14 @@
         0.4}); transform: translateX({gridOffset.current.x / 4}px);"
     />
     <Darkness
-      level={depthRatio * 0.5 + 0.4}
+      level={depthRatio * 0.5 + 0.3}
       lights={[
         {
           x: subCoords.current.x + $subDirection.x * 50,
           y: subCoords.current.y,
           unit: "px",
           radius: 4,
-          strength: 0.5,
+          strength: 1,
         },
         // {
         //   x: subCoords.current.x,
@@ -292,6 +314,28 @@
           --color-top="#037ADE"
           --color-bottom="#182B3A"
         />
+        {#if subNearAbyss}
+          <div
+            transition:fade
+            class={cn(
+              "absolute bottom-0 right-0 w-[500px] h-[100px]",
+              "flex justify-center items-center z-[11]",
+            )}
+          >
+            <Button
+              onclick={() => {
+                setSubTarget({ x: grid.width - 111, y: grid.height + 111 });
+                $audioApi.stopTrack({ src: "music/tangled-depths.mp3" });
+                $gameApi.fadeScene("/abyss");
+                // $gameApi.fadeScene("/surface?from=wrecks", 1, 1);
+              }}
+              class="w-[99px] h-[88px] flex-col items-center gap-1"
+            >
+              <Lol key="location-abyss" />
+              <ArrowDown class="w-[44px] h-[44px]" />
+            </Button>
+          </div>
+        {/if}
       </Area>
       <Area
         size={[grid.width, $gameApi.windowHeight]}
