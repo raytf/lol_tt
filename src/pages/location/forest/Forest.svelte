@@ -30,9 +30,6 @@
   import forest_3 from "$assets/forest/forest_3.png";
   import forest_right from "$assets/forest/forest_right.png";
   import kelp_1 from "$assets/forest/kelp_1.png";
-  import kelp_2 from "$assets/forest/kelp_2.png";
-  import kelp_3 from "$assets/forest/kelp_3.png";
-  import kelp_4 from "$assets/forest/kelp_4.png";
   import { ArrowLeft, ArrowDown } from "$components/svg/icons/animated";
   import { cn } from "$lib/utils";
 
