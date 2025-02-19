@@ -16,8 +16,9 @@
     coords as subCoords,
     direction as subDirection,
   } from "$stores/sub";
-  import { gameApi, audioApi } from "$apis";
+  import { gameApi, audioApi, hudApi } from "$apis";
   import { cn } from "$lib/utils";
+  import { hiddenEntrance } from "$dialog/chapter3";
   import underwater from "$assets/underwater_swirls.jpg";
   import abyss_1 from "$assets/abyss/abyss_1.png";
   import abyss_2 from "$assets/abyss/abyss_2.png";
@@ -62,6 +63,20 @@
 </script>
 
 <Location title="abyss">
+  {#snippet ui()}
+    <button
+      onclick={() => {
+        $hudApi.startDialog({
+          keys: hiddenEntrance,
+          onFinished: () => {
+            $gameApi.fadeScene("/vent");
+          },
+        });
+      }}
+      class="absolute top-1/2 left-1/2 z-[12] pointer-events-auto"
+      >Vent
+    </button>
+  {/snippet}
   <Grid
     size={[grid.width, grid.height]}
     xOffset={gridOffset.current.x}
