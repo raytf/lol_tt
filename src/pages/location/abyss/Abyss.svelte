@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   import { fade } from "svelte/transition";
   import { Location } from "$components/location";
   import { Grid, Area } from "$components/exploration";
@@ -23,11 +23,12 @@
   import abyss_1 from "$assets/abyss/abyss_1.png";
   import abyss_2 from "$assets/abyss/abyss_2.png";
   import abyss_3 from "$assets/abyss/abyss_3.png";
+  import jellyfish from "$assets/characters/jellyfish/jellyfish.png";
 
   //#region state
   const grid = {
-    width: $gameApi.windowWidth * 2,
-    height: $gameApi.windowHeight * 3,
+    width: $gameApi.windowWidth * 3,
+    height: $gameApi.windowHeight * 4,
   };
   minOffset.set({
     x: -grid.width + $gameApi.windowWidth,
@@ -43,9 +44,16 @@
     x: 111,
     y: 111,
   };
+  let showEntranceOptions = $state(false);
   //#endregion
   //#region events
-  function onEnter() {}
+  function onEnter() {
+    $audioApi.playTrack({
+      src: "music/in-the-abyss.mp3",
+      volume: 0.5,
+      loop: true,
+    });
+  }
   function onClickArea(e: MouseEvent) {
     moveSub(e);
   }
@@ -60,6 +68,10 @@
 
     onEnter();
   });
+
+  onDestroy(() => {
+    $audioApi.stopTrack({ src: "music/in-the-abyss.mp3" });
+  });
 </script>
 
 <Location title="abyss">
@@ -69,23 +81,54 @@
         $hudApi.startDialog({
           keys: hiddenEntrance,
           onFinished: () => {
-            $gameApi.fadeScene("/vent");
+            showEntranceOptions = true;
           },
         });
       }}
       class="absolute top-1/2 left-1/2 z-[12] pointer-events-auto"
       >Vent
     </button>
+    {#if showEntranceOptions}
+      <div
+        transition:fade
+        class={cn(
+          "absolute size-full z-[12]",
+          "flex flex-col justify-center items-center",
+        )}
+      >
+        <Button
+          onclick={() => {
+            $audioApi.loadTrack({
+              src: "music/theme.mp3",
+            });
+            $gameApi.fadeScene("/vent", 1, 1);
+          }}
+        >
+          Yes
+        </Button>
+        <Button
+          onclick={() => {
+            showEntranceOptions = false;
+          }}>No</Button
+        >
+      </div>
+    {/if}
   {/snippet}
   <Grid
     size={[grid.width, grid.height]}
     xOffset={gridOffset.current.x}
     yOffset={gridOffset.current.y}
   >
+    <TurbulentImg
+      src={jellyfish}
+      maxFrequency={[0.02, 0.07]}
+      yoyo={true}
+      class="!w-[222px] !h-[222px] blur opacity-50 z-10"
+    />
     <TurbulentImg src={underwater} class="opacity-35 z-[1]" />
-    <BgImg src={abyss_3} class="blur-lg z-[7]" />
-    <BgImg src={abyss_2} class="blur z-[8]" />
-    <BgImg src={abyss_1} class="blur-sm z-[9]" />
+    <BgImg src={abyss_3} class="w-full -bottom-[100px] blur z-[7]" />
+    <BgImg src={abyss_2} class="w-full -bottom-[100px] blur z-[8]" />
+    <BgImg src={abyss_1} class="w-full -bottom-[100px] blur z-[9]" />
     <Submarine size={88} class="z-10" />
 
     <Darkness
@@ -157,6 +200,16 @@
           class="absolute size-full"
           --color-top="#00172a"
           --color-bottom="#00172a"
+        />
+      </Area>
+      <Area
+        size={[grid.width, $gameApi.windowHeight]}
+        onmousedown={onClickArea}
+      >
+        <UnderwaterGradient
+          class="absolute size-full"
+          --color-top="#00172a"
+          --color-bottom="#00060a"
         />
       </Area>
     {/snippet}

@@ -1,5 +1,18 @@
 <script lang="ts">
-  import { gameApi } from "$apis";
+  import { onMount, onDestroy } from "svelte";
+  import { gameApi, audioApi } from "$apis";
+
+  onMount(() => {
+    $audioApi.playTrack({
+      src: "music/theme.mp3",
+      loop: true,
+      volume: 0.5,
+    });
+  });
+
+  onDestroy(() => {
+    $audioApi.stopTrack({ src: "music/theme.mp3" });
+  });
 </script>
 
 <button
