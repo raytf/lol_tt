@@ -96,6 +96,15 @@ export const missionBrief = [
                     name: "mission-control",
                     text: "tut_data.qn-3",
                     onProceed: () => {
+                      const hud = get(hudApi);
+                      hud.startItemUnlock({
+                        itemId: "pg",
+                        onFinished: () => {
+                          hud.startItemUnlock({
+                            itemId: "th",
+                          });
+                        },
+                      });
                       get(dialogApi).enableOption("tut_data.ok");
                     },
                   },
@@ -109,6 +118,11 @@ export const missionBrief = [
                     imgSrc: radio,
                     name: "mission-control",
                     text: "tut_data.ok-1",
+                  },
+                  {
+                    imgSrc: radio,
+                    name: "mission-control",
+                    text: "tut_data.ok-2",
                     onProceed: () => {
                       get(hudApi).startItemUnlock({
                         itemId: "notepad",
@@ -197,11 +211,6 @@ export const missionBrief = [
             imgSrc: radio,
             name: "mission-control",
             text: "tut_info-7",
-          },
-          {
-            imgSrc: radio,
-            name: "mission-control",
-            text: "tut_info-8",
           },
         ],
       },

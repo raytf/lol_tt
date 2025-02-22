@@ -40,24 +40,24 @@ export const itemMap: ItemMap = {
     nameKey: "item_name_map",
     descKey: "item_desc_map",
   },
-  // pg: {
-  //   imgSrc: pressureGauge,
-  //   id: "pg",
-  //   nameKey: "item_name_pg",
-  //   descKey: "item_desc_pg",
-  // },
-  // dg: {
-  //   imgSrc: depthGauge,
-  //   id: "dg",
-  //   nameKey: "item_name_dg",
-  //   descKey: "item_desc_dg",
-  // },
-  // th: {
-  //   imgSrc: thermistor,
-  //   id: "th",
-  //   nameKey: "item_name_th",
-  //   descKey: "item_desc_th",
-  // },
+  pg: {
+    imgSrc: pressureGauge,
+    id: "pg",
+    nameKey: "item_name_pg",
+    descKey: "item_desc_pg",
+  },
+  th: {
+    imgSrc: thermistor,
+    id: "th",
+    nameKey: "item_name_th",
+    descKey: "item_desc_th",
+  },
+  dg: {
+    imgSrc: depthGauge,
+    id: "dg",
+    nameKey: "item_name_dg",
+    descKey: "item_desc_dg",
+  },
 };
 
 export class InventoryApi {

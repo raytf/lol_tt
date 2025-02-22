@@ -8,10 +8,10 @@
 </script>
 
 <TurbulentImg src={kelp_floating} yoyo={true} class="opacity-30 {extraClass}" />
-<InfoMarker
+<!-- <InfoMarker
   type="sm-o"
   onclick={() => {
     $infoApi.openModal({ textKeys: ["o_floating-kelp"], infoType: "sm-o" });
   }}
   class="absolute left-[222px] top-[111px] h-[55px] w-[55px] pointer-events-auto"
-/>
+/> -->

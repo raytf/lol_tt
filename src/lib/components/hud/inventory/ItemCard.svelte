@@ -17,12 +17,12 @@
 </script>
 
 <Card {onclick} size="lg" class="text-left py-2">
-  <div class="flex flex-row items-center">
-    <div class="mr-4 w-[111px] h-[111px]">
-      <img bind:this={imgRef} src={item.imgSrc} alt="icon" class="size-full" />
+  <div class="flex flex-row justify-evenly items-center">
+    <div class="mr-4 w-[111px]">
+      <img bind:this={imgRef} src={item.imgSrc} alt="icon" class="w-full" />
     </div>
 
-    <div class="flex flex-col">
+    <div class="flex flex-col w-2/3">
       <h2 class="mb-2 text-4xl font-bold tracking-tight text-gray-900">
         {$lolApi.getText(item.nameKey)}
       </h2>
