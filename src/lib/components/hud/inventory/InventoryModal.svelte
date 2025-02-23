@@ -68,32 +68,23 @@
   autoclose
   outsideclose
 >
-  <div class="flex flex-col text-black p-4">
-    <div class="grid grid-cols-5 gap-2">
-      {#each $inventoryApi.unlockedItems as item, i}
-        <div
-          transition:fade
-          class="relative pointer-events-auto flex justify-center items-center border-2 border-gray-900 rounded p-5"
-        >
-          <button
-            onclick={() => onItemClicked(item, i)}
-            class="w-[55px] h-[55px]"
-          >
-            <img
-              bind:this={smallIconElements[i]}
-              src={item.imgSrc}
-              alt={item.id}
-              class="size-full"
-            />
-          </button>
-          <InfoButton
-            onclick={() => (selectedItem = item)}
-            buttonClass="absolute top-[-1%] right-[-1%]"
-            imgClass="w-[33px] h-[33px]"
-          ></InfoButton>
-        </div>
-      {/each}
-    </div>
+  <div class="flex flex-col text-black">
+    {#if $inventoryApi.normalItems.length > 0}
+      <Lol key="standard-tools" class="font-bold text-xl py-2" />
+      <div class="grid grid-cols-5 gap-2">
+        {#each $inventoryApi.normalItems as item, i}
+          {@render itemList(item, i)}
+        {/each}
+      </div>
+    {/if}
+    {#if $inventoryApi.measuringItems.length > 0}
+      <Lol key="measuring-tools" class="font-bold text-xl py-2" />
+      <div class="grid grid-cols-5 gap-2">
+        {#each $inventoryApi.measuringItems as item, i}
+          {@render itemList(item, i)}
+        {/each}
+      </div>
+    {/if}
   </div>
   <div
     class="pointer-events-auto cursor-pointer w-full flex justify-center pb-8"
@@ -109,3 +100,24 @@
     {/if}
   </div>
 </Modal>
+
+{#snippet itemList(item: ItemDetails, i: number)}
+  <div
+    transition:fade
+    class="relative pointer-events-auto flex justify-center items-center border-2 border-gray-900 rounded p-5"
+  >
+    <button onclick={() => onItemClicked(item, i)} class="w-[55px] h-[55px]">
+      <img
+        bind:this={smallIconElements[i]}
+        src={item.imgSrc}
+        alt={item.id}
+        class="size-full"
+      />
+    </button>
+    <InfoButton
+      onclick={() => (selectedItem = item)}
+      buttonClass="absolute top-[-1%] right-[-1%]"
+      imgClass="w-[33px] h-[33px]"
+    ></InfoButton>
+  </div>
+{/snippet}

@@ -65,11 +65,6 @@ export const missionBrief = [
                     imgSrc: radio,
                     name: "mission-control",
                     text: "tut_data.ql-2",
-                  },
-                  {
-                    imgSrc: radio,
-                    name: "mission-control",
-                    text: "tut_data.ql-3",
                     onProceed: () => {
                       get(dialogApi).enableOption("tut_data.qn");
                     },
@@ -118,11 +113,6 @@ export const missionBrief = [
                     imgSrc: radio,
                     name: "mission-control",
                     text: "tut_data.ok-1",
-                  },
-                  {
-                    imgSrc: radio,
-                    name: "mission-control",
-                    text: "tut_data.ok-2",
                     onProceed: () => {
                       get(hudApi).startItemUnlock({
                         itemId: "notepad",

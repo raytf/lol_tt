@@ -39,7 +39,7 @@ interface ItemDetails {
   nameKey: string;
   descKey: string;
   actionKey?: string;
-  new?: boolean;
+  measuring?: boolean;
 }
 
 type PageData = CoverPageData | TextPageData;

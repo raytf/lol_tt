@@ -45,18 +45,21 @@ export const itemMap: ItemMap = {
     id: "pg",
     nameKey: "item_name_pg",
     descKey: "item_desc_pg",
+    measuring: true,
   },
   th: {
     imgSrc: thermistor,
     id: "th",
     nameKey: "item_name_th",
     descKey: "item_desc_th",
+    measuring: true,
   },
   dg: {
     imgSrc: depthGauge,
     id: "dg",
     nameKey: "item_name_dg",
     descKey: "item_desc_dg",
+    measuring: true,
   },
 };
 
@@ -70,6 +73,14 @@ export class InventoryApi {
   onItemUnlockFinished = () => {};
 
   constructor() {}
+
+  get normalItems() {
+    return this.unlockedItems.filter((i) => !i.measuring);
+  }
+
+  get measuringItems() {
+    return this.unlockedItems.filter((i) => i.measuring);
+  }
 
   // getItem(key: string) {
   //   return itemMap[key];
