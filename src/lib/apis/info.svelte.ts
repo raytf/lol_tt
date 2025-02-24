@@ -8,6 +8,7 @@ interface InfoModalParams {
   textKeys?: string[];
   warning?: boolean;
   outsideClose?: boolean;
+  onClose?: () => void;
 }
 
 class InfoApi {
@@ -17,6 +18,8 @@ class InfoApi {
   warning = $state<boolean>(false);
   outsideClose = $state<boolean>(true);
 
+  onClose = () => {};
+
   openModal(params: InfoModalParams) {
     const {
       descKey,
@@ -24,7 +27,9 @@ class InfoApi {
       infoType,
       warning = false,
       outsideClose = true,
+      onClose,
     } = params;
+
     this.smStep = steps.find((s) => s.label === infoType);
     if (textKeys) {
       this.textKeys = textKeys;
@@ -33,6 +38,10 @@ class InfoApi {
 
     if (descKey) {
       this.descKey = descKey;
+    }
+
+    if (onClose) {
+      this.onClose = onClose;
     }
 
     this.warning = !!warning;
@@ -44,6 +53,9 @@ class InfoApi {
   closeModal() {
     this.descKey = "";
     get(hudApi).showInfoModal = false;
+
+    this.onClose();
+    this.onClose = () => {};
   }
 }
 

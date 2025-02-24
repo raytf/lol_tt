@@ -15,7 +15,10 @@ class NotepadApi {
   }
 
   openPage(index: number) {
-    this.currentPageIndex = index;
+    if (index < this.pages.length) {
+      console.log("opening", this.currentPage);
+      this.currentPageIndex = index;
+    }
   }
 
   addLine(key: string) {

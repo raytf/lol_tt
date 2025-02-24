@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { writable } from "svelte/store";
   import { querystring } from "svelte-spa-router";
   import { fade } from "svelte/transition";
   import { onMount } from "svelte";
@@ -32,9 +33,10 @@
     infoApi,
     notepadApi,
   } from "$apis";
-  import { shipWreck, conchScare } from "$dialog/chapter1";
+  import { shipWreck, conchScare, conchEncounter } from "$dialog/chapter1";
   import { showConchFace, conchLightRadius } from "$stores/conch";
   import { ArrowUp, ArrowRight } from "$components/svg/icons/animated";
+  import ch1 from "$stores/chapter1.svelte";
   import { cn } from "$lib/utils";
 
   //#region state
@@ -82,10 +84,6 @@
   });
   let subNearSurface = $state(false);
   let subNearForest = $state(false);
-  let startedObservationTask = $state(false);
-  let observed = $state<string[]>([]);
-  let completedObservationTask = $state(false);
-  let forestUnlocked = $state(false);
   //#endregion
 
   //#region events
@@ -98,10 +96,10 @@
 
     if ($objectivesApi.chapterStarted) {
       if ($objectivesApi.currentObjectiveIs("obj_explore-wrecks")) {
-        startedObservationTask = true;
+        $ch1.startedObservationTask = true;
       }
       if ($objectivesApi.currentObjectiveIs("obj_explore-forest")) {
-        forestUnlocked = true;
+        $ch1.forestUnlocked = true;
       }
     } else {
       // Chapter not started
@@ -112,10 +110,10 @@
       ) {
         $objectivesApi.startChapter("chapter1", () => {});
         $objectivesApi.attachStartCallback("obj_explore-wrecks", () => {
-          startedObservationTask = true;
+          $ch1.startedObservationTask = true;
         });
         $objectivesApi.attachStartCallback("obj_explore-forest", () => {
-          forestUnlocked = true;
+          $ch1.forestUnlocked = true;
         });
       }
     }
@@ -134,6 +132,9 @@
     onClickArea(e);
   }
   function onClickBottomArea(e: MouseEvent) {
+    if ($objectivesApi.currentObjectiveIs("obj_explore-wrecks")) {
+      $objectivesApi.completeTask("task_enter-wrecks");
+    }
     onClickArea(e);
   }
   function onClickArea(e: MouseEvent) {
@@ -147,30 +148,44 @@
     }
     moveSub(e);
   }
-  function makeObservation(observationKey: string) {
+  function makeObservation(
+    observationKey: string,
+    useNotepad: boolean,
+    onClose?: () => void,
+  ) {
     $infoApi.openModal({
       infoType: "sm-o",
       textKeys: [observationKey],
+      onClose: onClose,
     });
-    if (!observed.includes(observationKey)) {
-      observed = [...observed, observationKey];
+    if (!$ch1.observedList.includes(observationKey)) {
+      $ch1.observedList = [...$ch1.observedList, observationKey];
 
       // Add to notepad
-      $notepadApi.openPage(1);
-      $notepadApi.addLine(observationKey);
+      if (useNotepad) {
+        $notepadApi.openPage(1);
+        $notepadApi.addLine(observationKey);
+      }
       //$hudApi.showNotepad = true;
 
-      if (observed.length === 3) {
-        $hudApi.showNotepad = true;
-        startedObservationTask = false;
-        completedObservationTask = true;
-      }
+      // if ($ch1.observedList.length === 3) {
+      //   $hudApi.showNotepad = true;
+      //   $ch1.startedObservationTask = false;
+      //   $ch1.completedObservationTask = true;
+      // }
     }
   }
   //#endregion
 
   setSubPosition(initialPosition);
   onMount(() => {
+    //#region Debug
+    if ($gameApi.debugMode) {
+      $objectivesApi.completedChapters = ["tutorial"];
+      $objectivesApi.completedObjectives = [];
+      $objectivesApi.recallCompletedChapters();
+    }
+    //#endregion
     setTimeout(() => {
       setSubTarget(initialTarget);
     }, 555);
@@ -285,14 +300,14 @@
           --color-bottom="#00C1EF"
         />
 
-        {#if startedObservationTask}
-          <InfoMarker
+        {#if $ch1.startedObservationTask}
+          <!-- <InfoMarker
             type="sm-o"
             onclick={() => {
               makeObservation("o_sunlight-surface");
             }}
             class="absolute w-[55px] h-[55px] bottom-[55%] left-[44%] z-[9]"
-          />
+          /> -->
         {/if}
       </Area>
       <Area
@@ -304,28 +319,14 @@
           --color-top="#00C1EF"
           --color-bottom="#037ADE"
         />
-        {#if startedObservationTask}
-          <InfoMarker
+        {#if $ch1.startedObservationTask}
+          <!-- <InfoMarker
             type="sm-o"
             onclick={() => {
               makeObservation("o_color-change");
             }}
             class="absolute w-[55px] h-[55px] bottom-[50%] right-[16%] z-[15]"
-          />
-        {/if}
-        {#if completedObservationTask}
-          <InfoMarker
-            onclick={() => {
-              $hudApi.startDialog({
-                keys: [...shipWreck, ...conchScare],
-                blockInput: true,
-                onFinished: () => {
-                  $objectivesApi.completeTask("task_record-o");
-                },
-              });
-            }}
-            class="absolute w-[55px] h-[55px] bottom-0 left-[50%] z-[9]"
-          />
+          /> -->
         {/if}
       </Area>
       <Area
@@ -342,27 +343,55 @@
             console.log("hello");
           }}
           class={cn(
-            "absolute right-[18%] bottom-[48%] w-[111px] h-[111px] z-[9]",
-            false && "pointer-events-none",
+            "absolute right-[18%] bottom-[49%] w-[111px] h-[111px] z-[9]",
+            true && "pointer-events-none",
           )}
           style="transform: translateX({gridOffset.current.x / 5}px)"
         />
         {#if true}
           <InfoMarker
             type="sm-o"
-            onclick={() => {}}
-            class="absolute right-[20%] bottom-[64%] w-[55px] h-[55px] z-20"
+            onclick={() => {
+              makeObservation("o_wreckage", false, () => {
+                $hudApi.startDialog({
+                  keys: conchScare,
+                  blockInput: true,
+                });
+              });
+            }}
+            class={cn(
+              "absolute right-[47%] bottom-[94%] w-[55px] h-[55px] z-20",
+              $ch1.numObserved === 0 ? "opacity-100" : "opacity-25",
+            )}
+          />
+          <InfoMarker
+            type="sm-o"
+            onclick={() => {
+              $hudApi.startDialog({
+                keys: conchEncounter,
+                blockInput: true,
+                onFinished: () => {
+                  makeObservation("o_shell", false, () => {
+                    $objectivesApi.completeTask("task_make-o");
+                  });
+                },
+              });
+            }}
+            class={cn(
+              "absolute right-[19%] bottom-[66%] w-[55px] h-[55px] z-20",
+              $ch1.numObserved === 1 ? "opacity-100" : "opacity-25",
+            )}
             style="transform: translateX({gridOffset.current.x / 5}px)"
           />
         {/if}
-        {#if startedObservationTask}
-          <InfoMarker
+        {#if $ch1.startedObservationTask}
+          <!-- <InfoMarker
             type="sm-o"
             onclick={() => {
               makeObservation("o_darkness");
             }}
             class="absolute w-[55px] h-[55px] bottom-[33%] left-[22%] z-[9]"
-          />
+          /> -->
         {/if}
       </Area>
     {/snippet}

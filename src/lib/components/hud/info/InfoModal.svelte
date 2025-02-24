@@ -12,12 +12,24 @@
   import { Info, Warning } from "$components/svg/icons";
   import { cn } from "$lib/utils";
   import { infoApi, hudApi } from "$apis";
+  import { untrack } from "svelte";
 
   let {
     show = $bindable(),
     dialogClass,
   }: { show: boolean; dialogClass?: string } = $props();
   let iconClass = "w-[44px] h-[44px] pointer-events-none";
+
+  $effect(() => {
+    if (show) {
+      //console.log("show modal");
+    } else {
+      //console.log("hide modal");
+      untrack(() => {
+        $infoApi.closeModal();
+      });
+    }
+  });
 </script>
 
 <Modal

@@ -13,7 +13,7 @@
     class: extraClass,
     style: extraStyle,
   }: {
-    onclick?: () => void;
+    onclick?: (e: MouseEvent) => void;
     type?: SM | "";
     class?: string;
     style?: string;

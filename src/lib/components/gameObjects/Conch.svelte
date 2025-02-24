@@ -1,9 +1,7 @@
 <script lang="ts">
   import conch from "$assets/conch/conch.png";
-  import devious from "$assets/conch/conch_devious.png";
-  import smile from "$assets/characters/conch/smile.png";
-  import scary from "$assets/characters/conch/scary.png";
-  import { showConchFace, conchLightRadius } from "$stores/conch";
+  import { conch_angry as angry } from "$assets/conch";
+  import { showConchFace, conchLightRadius, conchFace } from "$stores/conch";
   import { cn } from "$lib/utils";
   let {
     class: extraClass,
@@ -41,7 +39,7 @@
     class="absolute bottom-0 size-full select-none brightness-[20%] z-0"
   />
   <img
-    src={devious}
+    src={$conchFace === "" ? angry : $conchFace}
     alt="conch_smile"
     class={cn(
       "conch-face absolute bottom-0 size-full z-[1] select-none",

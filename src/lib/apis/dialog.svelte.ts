@@ -37,6 +37,7 @@ export class Dialog {
       if (!this.currentKey.alreadyRead) {
         get(lolApi).speakText(this.currentKey.text);
       }
+      console.log("currentKey", this.currentKey);
       this.currentKey?.onStart?.();
     } else {
       this.onFinished();

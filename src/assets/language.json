@@ -41,15 +41,16 @@
     "task_move-sub": "Click around the screen to move the sub",
     "task_dive": "Start your dive",
 
+    "obj_explore-wrecks": "Explore the wrecks.",
+    "task_enter-wrecks": "Enter the wrecks.",
+    "task_make-o": "Make some <span class='color sm-o'>observations</span>",
+
     "obj_start-sm": "Starting the Scientific Method",
     "task_open-sm": "Open the SM Diagram",
     "task_review-o": "Review the <span class='color sm-o'>Observations</span> step",
 
     "obj_prepare-notes": "Prepare notepad",
     "task_new-page": "Start a new page for <span class='color sm-o'>observations</span>",
-
-    "obj_explore-wrecks": "Explore the wrecks.",
-    "task_record-o": "Record some <span class='color sm-o'>observations</span>.",
 
     "obj_explore-forest": "Explore the kelp forest.",
     "task_enter-forest": "Enter the kelp forest.",
@@ -72,12 +73,9 @@
     "o_sunlight-surface": "Sunlight is visible near the surface.",
     "o_color-change": "The colors of the ocean and the kelp change as I go deeper.",
     "o_darkness": "It is darker at the deep end. But is this the deepest part?",
-    "o_wreckage": "There is a wreckage of a ship here. Looks like it has been here for a long time.",
-    "o_glowing-shell": "There is an interesting shell lying down here. I thought I saw it glowing.",
+    "o_wreckage": "Found a wreckage of a ship. Looks like it has been here for a long time.",
+    "o_shell": "Met a talking shell! It keeps warning me about the depths.",
 
-    "ch1_ship-1": "Looks like a wreckage of a ship.",
-    "ch1_ship-2": "They said my dad went missing here... but there is no sign of his submarine anywhere",
-    "ch1_ship-3": "There must be somewhere I haven't explored yet.",
     "conch-scare-1": "<em>...spooky laugh...</em>",
     "conch-scare-2": "What was that noise?",
     "conch-scare-3": "Must be my imagination...",
@@ -209,6 +207,15 @@
     "tut_info-5": "I see, I'm sorry to hear that...",
     "tut_info-6": "Maybe you will find some clues during your exploration.",
     "tut_info-7": "Call us whenever need a recap. Good luck, SM-Explorer-2.",
+
+    "ch1_conch-1": "Hey you...",
+    "ch1_conch-2": "Leave this place now... for your own good.",
+    "ch1_conch-3": "No way, a talking shell?! That is so cool!",
+    "ch1_conch-4": "Are you even listening... and don't call me a shell.",
+    "ch1_conch-5": "I am a Conch.",
+    "ch1_conch-6": "These depths contain many dangers. Turn back now before it is too late.",
+    "ch1_conch-6.1": "Ok. But I will be back.",
+    "ch1_conch-6.2": "I can't leave now. Not until I complete my mission.",
 
     "ch3_find-entrance-1": "There is an entrance here!",
     "ch3_find-entrance-2": "Should I enter?",

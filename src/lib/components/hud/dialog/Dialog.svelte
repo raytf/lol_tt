@@ -46,6 +46,7 @@
   onMount(() => {
     const currentKey = dialog?.currentKey;
     if (currentKey) {
+      currentKey?.onStart?.();
       $lolApi.speakText(currentKey.text);
     }
   });
