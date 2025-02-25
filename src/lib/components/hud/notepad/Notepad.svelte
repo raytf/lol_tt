@@ -26,10 +26,10 @@
   function newPage() {
     if (!$objectivesApi.currentObjective) return;
 
-    if ($objectivesApi.currentObjectiveIs("obj_prepare-notes")) {
+    if ($objectivesApi.currentObjectiveIs("obj_depth-o")) {
       $notepadApi.newPage({
         type: "text",
-        titleKey: "notepad-title_wrecks-o",
+        titleKey: "notepad-title_depth-o",
         lines: [],
         delimiter: "- ",
       });
@@ -39,7 +39,7 @@
   }
 
   onMount(() => {
-    if ($objectivesApi.currentObjectiveIs("obj_prepare-notes")) {
+    if ($objectivesApi.currentObjectiveIs("obj_depth-o")) {
       newPageEnabled = true;
     }
   });

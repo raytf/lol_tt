@@ -7,6 +7,7 @@ import {
   openMouth,
   smileOpen,
   neutral,
+  smileSlight,
 } from "$assets/emoji";
 import {
   conch_devious,
@@ -69,49 +70,58 @@ export const conchEncounter = [
   {
     text: "ch1_conch-1",
     onStart: () => {
+      conchFace.set(conch_angry);
       showConchFace.set(true);
       conchLightRadius.set(8);
     },
   },
   {
     text: "ch1_conch-2",
+    options: [
+      {
+        imgSrc: smileOpen,
+        name: "you",
+        text: "ch1_conch-2.1",
+        nextDialog: [
+          {
+            text: "ch1_conch-2.1-1",
+            onStart: () => {
+              conchFace.set(conch_neutral);
+            },
+          },
+        ],
+      },
+    ],
   },
   {
-    imgSrc: smileOpen,
-    name: "you",
+    name: "conch",
     text: "ch1_conch-3",
+    onStart: () => {
+      conchFace.set(conch_devious);
+    },
   },
   {
+    name: "conch",
     text: "ch1_conch-4",
     onStart: () => {
-      conchFace.set(conch_neutral);
+      conchFace.set(conch_angry);
     },
+    options: [
+      {
+        imgSrc: neutral,
+        text: "ch1_conch-4.1",
+        nextDialog: [
+          {
+            name: "conch",
+            text: "ch1_conch-4.1-1",
+          },
+        ],
+      },
+    ],
   },
   {
     name: "conch",
     text: "ch1_conch-5",
-    onStart: () => {
-      conchFace.set(conch_angry);
-    },
-  },
-  {
-    name: "conch",
-    text: "ch1_conch-6",
-    options: [
-      {
-        imgSrc: neutral,
-        text: "ch1_conch-6.1",
-        nextDialog: [],
-        onProceed: () => {
-          get(gameApi).fadeScene("/surface?from=wrecks");
-        },
-      },
-      {
-        imgSrc: neutral,
-        text: "ch1_conch-6.2",
-        nextDialog: [],
-      },
-    ],
     onProceed: () => {
       showConchFace.set(false);
       conchLightRadius.set(0);

@@ -182,7 +182,10 @@
     //#region Debug
     if ($gameApi.debugMode) {
       $objectivesApi.completedChapters = ["tutorial"];
-      $objectivesApi.completedObjectives = [];
+      $objectivesApi.completedObjectives = [
+        "obj_start-sm",
+        "obj_explore-wrecks",
+      ];
       $objectivesApi.recallCompletedChapters();
     }
     //#endregion
@@ -346,17 +349,16 @@
             "absolute right-[18%] bottom-[49%] w-[111px] h-[111px] z-[9]",
             true && "pointer-events-none",
           )}
-          style="transform: translateX({gridOffset.current.x / 5}px)"
+          style="scaleX: -1; transform: translateX({gridOffset.current.x /
+            5}px)"
         />
-        {#if true}
+        {#if $objectivesApi.currentObjectiveIs("obj_explore-wrecks")}
           <InfoMarker
             type="sm-o"
             onclick={() => {
+              showConchFace.set(true);
               makeObservation("o_wreckage", false, () => {
-                $hudApi.startDialog({
-                  keys: conchScare,
-                  blockInput: true,
-                });
+                showConchFace.set(false);
               });
             }}
             class={cn(

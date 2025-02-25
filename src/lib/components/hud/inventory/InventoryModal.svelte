@@ -45,7 +45,7 @@
     if (item.id === "notepad") {
       if (
         $objectivesApi.currentObjectiveIs("obj_prepare-dive") ||
-        $objectivesApi.currentObjectiveIs("obj_prepare-notes")
+        $objectivesApi.currentObjectiveIs("obj_depth-o")
       ) {
         $objectivesApi.completeTask("task_open-notepad");
       }

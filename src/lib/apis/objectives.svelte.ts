@@ -49,9 +49,15 @@ const objectiveMap: ObjectiveMap = {
   ],
   obj_explore: [{ key: "task_move-sub" }, { key: "task_dive" }],
 
-  "obj_explore-wrecks": [{ key: "task_enter-wrecks" }, { key: "task_make-o" }],
   "obj_start-sm": [{ key: "task_open-sm" }, { key: "task_review-o" }],
-  "obj_prepare-notes": [{ key: "task_open-notepad" }, { key: "task_new-page" }],
+  "obj_explore-wrecks": [{ key: "task_enter-wrecks" }, { key: "task_make-o" }],
+  "obj_depth-o": [
+    { key: "task_open-notepad" },
+    { key: "task_new-page" },
+    {
+      key: "task_record-depth-o",
+    },
+  ],
   "obj_explore-forest": [
     { key: "task_enter-forest" },
     { key: "task_record-o" },
@@ -90,13 +96,13 @@ const chapterMap: ChapterMap = {
   ],
   chapter1: [
     {
-      key: "obj_explore-wrecks",
-    },
-    {
       key: "obj_start-sm",
     },
     {
-      key: "obj_prepare-notes",
+      key: "obj_explore-wrecks",
+    },
+    {
+      key: "obj_depth-o",
     },
     {
       key: "obj_explore-forest",
