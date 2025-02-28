@@ -49,8 +49,10 @@
     "task_open-sm": "Open the SM Diagram",
     "task_review-o": "Review the <span class='color sm-o'>Observations</span> step",
 
-    "obj_depth-o": "Depth <span class='color sm-o'>observations</span>",
+    "obj_notepad-o": "Prepare notes",
     "task_new-page": "Start a new page",
+
+    "obj_depth-o": "Depth <span class='color sm-o'>observations</span>",
     "task_record-depth-o": "Record 3 <span class='color sm-o'>observations</span> related to depth",
 
     "obj_explore-forest": "Explore the kelp forest.",
@@ -74,8 +76,9 @@
     "o_sunlight-surface": "Sunlight is visible near the surface.",
     "o_color-change": "The colors of the ocean and the kelp change as I go deeper.",
     "o_darkness": "It is darker at the deep end. But is this the deepest part?",
-    "o_wreckage": "Found a wreckage of a ship. Looks like it has been here for a long time.",
-    "o_shell": "Met a talking shell! It keeps warning me about the depths.",
+    "o_floor": "A pile of trash lying on the ocean floor. They have been crushed by something.",
+    "o_wreckage": "A wreckage of a ship. Looks like it has been here for a long time.",
+    "o_shell": "Met a talking shell! It doesn't seem very cheerful though.",
 
     "conch-scare-1": "<em>...spooky laugh...</em>",
     "conch-scare-2": "What was that noise?",
@@ -216,8 +219,8 @@
     "ch1_conch-3": "I am a Conch.",
     "ch1_conch-4": "There are many dangers here. Turn back now while you still can.",
     "ch1_conch-4.1": "I can't leave yet. Not until I learn more about this place.",
-    "ch1_conch-4.1-1": "Suit yourself... just know that things change when you go deeper.",
-    "ch1_conch-5": "So make sure you understand what changes with depth first.",
+    "ch1_conch-4.1-1": "Suit yourself... but know this, things change as you go deeper.",
+    "ch1_conch-5": "You won't survive unless you understand those changes first.",
 
     "ch3_find-entrance-1": "There is an entrance here!",
     "ch3_find-entrance-2": "Should I enter?",

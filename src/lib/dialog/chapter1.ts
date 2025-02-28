@@ -97,7 +97,8 @@ export const conchEncounter = [
     name: "conch",
     text: "ch1_conch-3",
     onStart: () => {
-      conchFace.set(conch_devious);
+      conchFace.set(conch_angry);
+      //conchFace.set(conch_devious);
     },
   },
   {

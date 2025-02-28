@@ -26,7 +26,7 @@
   function newPage() {
     if (!$objectivesApi.currentObjective) return;
 
-    if ($objectivesApi.currentObjectiveIs("obj_depth-o")) {
+    if ($objectivesApi.currentObjectiveIs("obj_notepad-o")) {
       $notepadApi.newPage({
         type: "text",
         titleKey: "notepad-title_depth-o",
@@ -39,7 +39,7 @@
   }
 
   onMount(() => {
-    if ($objectivesApi.currentObjectiveIs("obj_depth-o")) {
+    if ($objectivesApi.currentObjectiveIs("obj_notepad-o")) {
       newPageEnabled = true;
     }
   });

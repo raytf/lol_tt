@@ -21,6 +21,7 @@
   import { gridOffset, minOffset, moveSub } from "$stores/exploration";
   import underwater from "$assets/underwater_1by3.jpg";
   import wrecks_kelp from "$assets/wrecks/wrecks_kelp.png";
+  import wrecks_trash from "$assets/wrecks/wrecks_trash.png";
   import wrecks_1 from "$assets/wrecks/wrecks_1.png";
   import wrecks_2 from "$assets/wrecks/wrecks_2.png";
   import wrecks_3 from "$assets/wrecks/wrecks_3.png";
@@ -129,12 +130,12 @@
     onClickArea(e);
   }
   function onClickMiddleArea(e: MouseEvent) {
-    onClickArea(e);
-  }
-  function onClickBottomArea(e: MouseEvent) {
     if ($objectivesApi.currentObjectiveIs("obj_explore-wrecks")) {
       $objectivesApi.completeTask("task_enter-wrecks");
     }
+    onClickArea(e);
+  }
+  function onClickBottomArea(e: MouseEvent) {
     onClickArea(e);
   }
   function onClickArea(e: MouseEvent) {
@@ -160,19 +161,14 @@
     });
     if (!$ch1.observedList.includes(observationKey)) {
       $ch1.observedList = [...$ch1.observedList, observationKey];
-
-      // Add to notepad
-      if (useNotepad) {
+    }
+    // Add to notepad
+    if (useNotepad) {
+      if (!$ch1.recordedList.includes(observationKey)) {
+        $ch1.recordedList = [...$ch1.recordedList, observationKey];
         $notepadApi.openPage(1);
         $notepadApi.addLine(observationKey);
       }
-      //$hudApi.showNotepad = true;
-
-      // if ($ch1.observedList.length === 3) {
-      //   $hudApi.showNotepad = true;
-      //   $ch1.startedObservationTask = false;
-      //   $ch1.completedObservationTask = true;
-      // }
     }
   }
   //#endregion
@@ -182,10 +178,7 @@
     //#region Debug
     if ($gameApi.debugMode) {
       $objectivesApi.completedChapters = ["tutorial"];
-      $objectivesApi.completedObjectives = [
-        "obj_start-sm",
-        "obj_explore-wrecks",
-      ];
+      $objectivesApi.completedObjectives = ["obj_start-sm"];
       $objectivesApi.recallCompletedChapters();
     }
     //#endregion
@@ -256,12 +249,17 @@
       style="transform: translateX({gridOffset.current.x / 10}px)"
       class="w-[122%] left-[-11%] bottom-0 z-[9]"
     />
+    <BgImg
+      src={wrecks_trash}
+      style="transform: translateX({gridOffset.current.x / 5}px)"
+      class="w-[111%] bottom-0 z-[9] brightness-50"
+    />
     <Submarine class="z-10" />
     <BgImg
       src={wrecks_kelp}
       style="filter: brightness({1 -
         depthRatio * 0.5}); transform: translateX({gridOffset.current.x / 5}px)"
-      class="w-[111%] bottom-0 z-[14] opacity-100"
+      class="w-[111%] bottom-0 z-[14]"
     />
     <WrecksPath
       style="transform: translateX({gridOffset.current.x / 5}px)"
@@ -270,7 +268,7 @@
     <BgImg
       src={wrecks_1}
       style="transform: translateX({gridOffset.current.x / 5}px)"
-      class="w-[111%] bottom-0 z-[13] opacity-100"
+      class="w-[111%] bottom-0 z-[13]"
     />
     <Darkness
       level={depthRatio - 0.4}
@@ -303,7 +301,7 @@
           --color-bottom="#00C1EF"
         />
 
-        {#if $ch1.startedObservationTask}
+        {#if $objectivesApi.currentObjectiveIs("obj_depth-o")}
           <!-- <InfoMarker
             type="sm-o"
             onclick={() => {
@@ -322,6 +320,20 @@
           --color-top="#00C1EF"
           --color-bottom="#037ADE"
         />
+        {#if $objectivesApi.currentObjectiveIs("obj_explore-wrecks")}
+          {#if $ch1.numObserved >= 0}
+            <InfoMarker
+              type="sm-o"
+              onclick={() => {
+                makeObservation("o_wreckage", false);
+              }}
+              class={cn(
+                "absolute right-[48%] bottom-[40%] w-[55px] h-[55px] z-20",
+                $ch1.numObserved === 0 ? "opacity-100" : "opacity-50",
+              )}
+            />
+          {/if}
+        {/if}
         {#if $ch1.startedObservationTask}
           <!-- <InfoMarker
             type="sm-o"
@@ -346,45 +358,46 @@
             console.log("hello");
           }}
           class={cn(
-            "absolute right-[18%] bottom-[49%] w-[111px] h-[111px] z-[9]",
+            "absolute right-[18%] bottom-[48%] w-[111px] h-[111px] z-[9]",
             true && "pointer-events-none",
           )}
-          style="scaleX: -1; transform: translateX({gridOffset.current.x /
-            5}px)"
+          style="transform: translateX({gridOffset.current.x / 5}px)"
         />
         {#if $objectivesApi.currentObjectiveIs("obj_explore-wrecks")}
-          <InfoMarker
-            type="sm-o"
-            onclick={() => {
-              showConchFace.set(true);
-              makeObservation("o_wreckage", false, () => {
-                showConchFace.set(false);
-              });
-            }}
-            class={cn(
-              "absolute right-[47%] bottom-[94%] w-[55px] h-[55px] z-20",
-              $ch1.numObserved === 0 ? "opacity-100" : "opacity-25",
-            )}
-          />
-          <InfoMarker
-            type="sm-o"
-            onclick={() => {
-              $hudApi.startDialog({
-                keys: conchEncounter,
-                blockInput: true,
-                onFinished: () => {
-                  makeObservation("o_shell", false, () => {
-                    $objectivesApi.completeTask("task_make-o");
-                  });
-                },
-              });
-            }}
-            class={cn(
-              "absolute right-[19%] bottom-[66%] w-[55px] h-[55px] z-20",
-              $ch1.numObserved === 1 ? "opacity-100" : "opacity-25",
-            )}
-            style="transform: translateX({gridOffset.current.x / 5}px)"
-          />
+          {#if $ch1.numObserved >= 1}
+            <InfoMarker
+              type="sm-o"
+              onclick={() => {
+                makeObservation("o_floor", false);
+              }}
+              class={cn(
+                "absolute left-[33%] bottom-[73%] w-[55px] h-[55px] z-20",
+                $ch1.numObserved === 1 ? "opacity-100" : "opacity-50",
+              )}
+              style="transform: translateX({gridOffset.current.x / 5}px)"
+            />
+          {/if}
+          {#if $ch1.numObserved >= 2}
+            <InfoMarker
+              type="sm-o"
+              onclick={() => {
+                $hudApi.startDialog({
+                  keys: conchEncounter,
+                  blockInput: true,
+                  onFinished: () => {
+                    makeObservation("o_shell", false, () => {
+                      $objectivesApi.completeTask("task_make-o");
+                    });
+                  },
+                });
+              }}
+              class={cn(
+                "absolute right-[19%] bottom-[66%] w-[55px] h-[55px] z-20",
+                $ch1.numObserved === 2 ? "opacity-100" : "opacity-50",
+              )}
+              style="transform: translateX({gridOffset.current.x / 5}px)"
+            />
+          {/if}
         {/if}
         {#if $ch1.startedObservationTask}
           <!-- <InfoMarker

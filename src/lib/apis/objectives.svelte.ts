@@ -51,9 +51,8 @@ const objectiveMap: ObjectiveMap = {
 
   "obj_start-sm": [{ key: "task_open-sm" }, { key: "task_review-o" }],
   "obj_explore-wrecks": [{ key: "task_enter-wrecks" }, { key: "task_make-o" }],
+  "obj_notepad-o": [{ key: "task_open-notepad" }, { key: "task_new-page" }],
   "obj_depth-o": [
-    { key: "task_open-notepad" },
-    { key: "task_new-page" },
     {
       key: "task_record-depth-o",
     },
@@ -100,6 +99,9 @@ const chapterMap: ChapterMap = {
     },
     {
       key: "obj_explore-wrecks",
+    },
+    {
+      key: "obj_notepad-o",
     },
     {
       key: "obj_depth-o",
