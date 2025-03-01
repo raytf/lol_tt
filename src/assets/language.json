@@ -43,7 +43,7 @@
 
     "obj_explore-wrecks": "Explore the wrecks.",
     "task_enter-wrecks": "Enter the wrecks.",
-    "task_make-o": "Make some <span class='color sm-o'>observations</span>",
+    "task_make-o": "Record some <span class='color sm-o'>observations</span>",
 
     "obj_start-sm": "Starting the Scientific Method",
     "task_open-sm": "Open the SM Diagram",
