@@ -150,8 +150,8 @@
     moveSub(e);
   }
   function makeObservation(
+    notepadPage: string,
     observationKey: string,
-    useNotepad: boolean,
     onClose?: () => void,
   ) {
     $infoApi.openModal({
@@ -159,16 +159,11 @@
       textKeys: [observationKey],
       onClose: onClose,
     });
+
     if (!$ch1.observedList.includes(observationKey)) {
       $ch1.observedList = [...$ch1.observedList, observationKey];
-    }
-    // Add to notepad
-    if (useNotepad) {
-      if (!$ch1.recordedList.includes(observationKey)) {
-        $ch1.recordedList = [...$ch1.recordedList, observationKey];
-        $notepadApi.openPage(1);
-        $notepadApi.addLine(observationKey);
-      }
+      $notepadApi.openPage(notepadPage);
+      $notepadApi.addLine(observationKey);
     }
   }
   //#endregion
@@ -178,7 +173,7 @@
     //#region Debug
     if ($gameApi.debugMode) {
       $objectivesApi.completedChapters = ["tutorial"];
-      $objectivesApi.completedObjectives = ["obj_start-sm"];
+      // $objectivesApi.completedObjectives = ["obj_start-sm"];
       $objectivesApi.recallCompletedChapters();
     }
     //#endregion
@@ -325,7 +320,7 @@
             <InfoMarker
               type="sm-o"
               onclick={() => {
-                makeObservation("o_wreckage", false);
+                makeObservation("observations-wrecks", "o_wreckage");
               }}
               class={cn(
                 "absolute right-[48%] bottom-[40%] w-[55px] h-[55px] z-20",
@@ -368,7 +363,7 @@
             <InfoMarker
               type="sm-o"
               onclick={() => {
-                makeObservation("o_floor", false);
+                makeObservation("observations-wrecks", "o_floor");
               }}
               class={cn(
                 "absolute left-[33%] bottom-[73%] w-[55px] h-[55px] z-20",
@@ -385,7 +380,7 @@
                   keys: conchEncounter,
                   blockInput: true,
                   onFinished: () => {
-                    makeObservation("o_shell", false, () => {
+                    makeObservation("observations-wrecks", "o_shell", () => {
                       $objectivesApi.completeTask("task_make-o");
                     });
                   },

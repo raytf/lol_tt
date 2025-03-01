@@ -1,23 +1,34 @@
 import { writable, get } from "svelte/store";
 
+interface Notepad {
+  [key: string]: PageData;
+}
+
 class NotepadApi {
-  pages = $state<PageData[]>([{ type: "cover" }]);
-  currentPageIndex = $state(0);
-  //currentPage = $state<PageData>();
-  // observationPage = $state<ObservationsPage>();
+  pages = $state<Notepad>({ cover: { type: "cover" } });
+  currentPageKey = $state("cover");
 
   get currentPage() {
-    return this.pages[this.currentPageIndex];
+    return this.pages[this.currentPageKey];
   }
 
-  restorePages(pages: PageData[]) {
+  get currentPageIndex() {
+    const keys = Object.keys(this.pages);
+    return keys.indexOf(this.currentPageKey);
+  }
+
+  get numPages() {
+    return Object.keys(this.pages).length;
+  }
+
+  restorePages(pages: Notepad) {
     this.pages = pages;
   }
 
-  openPage(index: number) {
-    if (index < this.pages.length) {
+  openPage(key: string) {
+    if (key in this.pages) {
+      this.currentPageKey = key;
       console.log("opening", this.currentPage);
-      this.currentPageIndex = index;
     }
   }
 
@@ -28,20 +39,24 @@ class NotepadApi {
   }
 
   prevPage() {
-    if (this.currentPageIndex > 0) {
-      this.currentPageIndex--;
+    const keys = Object.keys(this.pages);
+    const currentIndex = keys.indexOf(this.currentPageKey);
+    if (currentIndex > 0) {
+      this.currentPageKey = keys[currentIndex - 1];
     }
   }
 
   nextPage() {
-    if (this.currentPageIndex < this.pages.length - 1) {
-      this.currentPageIndex++;
+    const keys = Object.keys(this.pages);
+    const currentIndex = keys.indexOf(this.currentPageKey);
+    if (currentIndex < keys.length - 1) {
+      this.currentPageKey = keys[currentIndex + 1];
     }
   }
 
-  newPage(page: PageData) {
-    this.pages.push(page);
-    this.currentPageIndex = this.pages.length - 1;
+  newPage(key: string, page: PageData) {
+    this.pages[key] = page;
+    this.currentPageKey = key;
   }
 }
 

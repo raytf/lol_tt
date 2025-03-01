@@ -17,29 +17,34 @@
   const disabledClass = "pointer-events-none opacity-50";
 
   function onClose() {
-    if ($objectivesApi.currentObjectiveIs("obj_prepare-dive")) {
-      $objectivesApi.completeTask("task_review-notes");
-    }
     $hudApi.showNotepad = false;
   }
 
   function newPage() {
     if (!$objectivesApi.currentObjective) return;
 
-    if ($objectivesApi.currentObjectiveIs("obj_notepad-o")) {
-      $notepadApi.newPage({
+    if ($objectivesApi.hasCompleted("obj_explore-wrecks")) {
+      $notepadApi.newPage("observations-depth", {
         type: "text",
         titleKey: "notepad-title_depth-o",
         lines: [],
         delimiter: "- ",
       });
-      $objectivesApi.completeTask("task_new-page");
-      newPageEnabled = false;
+    } else {
+      $notepadApi.newPage("observations-wrecks", {
+        type: "text",
+        titleKey: "notepad-title_o",
+        lines: [],
+        delimiter: "- ",
+      });
     }
+
+    $objectivesApi.completeTask("task_new-page");
+    newPageEnabled = false;
   }
 
   onMount(() => {
-    if ($objectivesApi.currentObjectiveIs("obj_notepad-o")) {
+    if ($objectivesApi.currentObjectiveIs("obj_prepare-notepad")) {
       newPageEnabled = true;
     }
   });
@@ -62,11 +67,11 @@
         >
           <Left class="w-[33px] h-[33px] " />
         </button>
-        <p>{$notepadApi.currentPageIndex + 1}/{$notepadApi.pages.length}</p>
+        <p>{$notepadApi.currentPageIndex + 1}/{$notepadApi.numPages}</p>
         <button
           onclick={() => $notepadApi.nextPage()}
-          class="s {$notepadApi.currentPageIndex ===
-            $notepadApi.pages.length - 1 && disabledClass}"
+          class="s {$notepadApi.currentPageIndex === $notepadApi.numPages - 1 &&
+            disabledClass}"
         >
           <Right class="w-[33px] h-[33px] " />
         </button>

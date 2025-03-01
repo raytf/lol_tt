@@ -33,9 +33,9 @@
     "task_call-radio": "Call the radio",
     "task_start-mission": "Start the mission",
 
-    "obj_prepare-dive": "Prepare to dive",
+    "obj_prepare-notepad": "Prepare notes",
     "task_open-notepad": "Open your notepad",
-    "task_review-notes": "Review your mission brief notes",
+    "task_new-page": "Start a new page",
 
     "obj_explore": "Explore!",
     "task_move-sub": "Click around the screen to move the sub",
@@ -48,9 +48,6 @@
     "obj_start-sm": "Starting the Scientific Method",
     "task_open-sm": "Open the SM Diagram",
     "task_review-o": "Review the <span class='color sm-o'>Observations</span> step",
-
-    "obj_notepad-o": "Prepare notes",
-    "task_new-page": "Start a new page",
 
     "obj_depth-o": "Depth <span class='color sm-o'>observations</span>",
     "task_record-depth-o": "Record 3 <span class='color sm-o'>observations</span> related to depth",
@@ -119,6 +116,7 @@
     "notepad-line_ee-2": "By asking questions, and answering them with empirical evidence, we can understand the deep ocean better.",
 
     "notepad-line_find-treasure": "Find the treasure (if it even exists)",
+    "notepad-title_o": "Observations in the Wrecks",
     "notepad-title_depth-o": "Depth Observations",
 
     "sm-puzzle_title": "Enter radio code",

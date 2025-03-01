@@ -43,10 +43,7 @@
       $radioApi.call($location);
     }
     if (item.id === "notepad") {
-      if (
-        $objectivesApi.currentObjectiveIs("obj_prepare-dive") ||
-        $objectivesApi.currentObjectiveIs("obj_notepad-o")
-      ) {
+      if ($objectivesApi.currentObjectiveIs("obj_prepare-notepad")) {
         $objectivesApi.completeTask("task_open-notepad");
       }
       $hudApi.showNotepad = true;

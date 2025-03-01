@@ -43,15 +43,14 @@ const objectiveMap: ObjectiveMap = {
     { key: "task_call-radio" },
     { key: "task_start-mission" },
   ],
-  "obj_prepare-dive": [
+  "obj_prepare-notepad": [
     { key: "task_open-notepad" },
-    { key: "task_review-notes" },
+    { key: "task_new-page" },
   ],
   obj_explore: [{ key: "task_move-sub" }, { key: "task_dive" }],
 
   "obj_start-sm": [{ key: "task_open-sm" }, { key: "task_review-o" }],
   "obj_explore-wrecks": [{ key: "task_enter-wrecks" }, { key: "task_make-o" }],
-  "obj_notepad-o": [{ key: "task_open-notepad" }, { key: "task_new-page" }],
   "obj_depth-o": [
     {
       key: "task_record-depth-o",
@@ -86,7 +85,15 @@ const chapterMap: ChapterMap = {
       },
     },
     {
-      key: "obj_prepare-dive",
+      key: "obj_prepare-notepad",
+      onFinished: () => {
+        get(notepadApi).newPage("observations-wrecks", {
+          type: "text",
+          titleKey: "notepad-title_o",
+          lines: [],
+          delimiter: "- ",
+        });
+      },
     },
     {
       key: "obj_explore",
@@ -101,7 +108,7 @@ const chapterMap: ChapterMap = {
       key: "obj_explore-wrecks",
     },
     {
-      key: "obj_notepad-o",
+      key: "obj_prepare-notepad",
     },
     {
       key: "obj_depth-o",

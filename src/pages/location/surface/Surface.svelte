@@ -14,7 +14,14 @@
     setPosition as setSubPosition,
     coords as subCoords,
   } from "$stores/sub";
-  import { gameApi, audioApi, objectivesApi, radioApi, hudApi } from "$apis";
+  import {
+    gameApi,
+    audioApi,
+    objectivesApi,
+    radioApi,
+    hudApi,
+    notepadApi,
+  } from "$apis";
   import { status, missionBrief } from "$dialog/tutorial";
 
   //#region setup
@@ -59,7 +66,7 @@
         setTimeout(() => {
           $objectivesApi.startChapter("tutorial", () => {});
 
-          if ($objectivesApi.hasCompleted("obj_prepare-dive")) {
+          if ($objectivesApi.hasCompleted("obj_prepare-notepad")) {
             readyToDive = true;
           } else {
             $objectivesApi.attachStartCallback("obj_explore", () => {
@@ -124,6 +131,7 @@
       $objectivesApi.completeTask("task_dive");
     }
 
+    $hudApi.showNotepad = false;
     readyToDive = false;
     surfaceSub = false;
 
