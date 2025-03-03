@@ -96,6 +96,25 @@
             {$notepadApi.currentPage?.delimiter}<Lol key={line} />
           </div>
         {/each}
+      {:else if $notepadApi.currentPage.type === "table"}
+        <Lol
+          key={$notepadApi.currentPage.titleKey}
+          class="font-bold underline"
+        />
+        <table class="table-auto">
+          <tbody>
+            <tr>
+              <th><Lol key="th_depth-level" /></th>
+              <th><Lol key="th_observation" /></th>
+            </tr>
+            {#each $notepadApi.currentPage.rows as row}
+              <tr>
+                <td><Lol key={row[0]} /></td>
+                <td><Lol key={row[1]} /></td>
+              </tr>
+            {/each}
+          </tbody>
+        </table>
       {/if}
     </div>
   </div>
@@ -184,8 +203,14 @@
     position: absolute;
     max-height: 100%;
     padding: 3.3em 1em 1em 3em;
-    line-height: 1.5em;
+    line-height: 1.45em;
     overflow: hidden;
     pointer-events: none;
+  }
+
+  th,
+  td {
+    border: 1px solid black;
+    padding: 0 0.25em;
   }
 </style>

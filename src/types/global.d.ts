@@ -42,7 +42,7 @@ interface ItemDetails {
   measuring?: boolean;
 }
 
-type PageData = CoverPageData | TextPageData;
+type PageData = CoverPageData | TextPageData | TablePageData;
 
 interface CoverPageData {
   type: "cover";
@@ -53,4 +53,10 @@ interface TextPageData {
   titleKey: string;
   lines: string[];
   delimiter?: string;
+}
+
+interface TablePageData {
+  type: "table";
+  titleKey: string;
+  rows: string[][];
 }

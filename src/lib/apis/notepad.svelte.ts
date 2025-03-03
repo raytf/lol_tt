@@ -5,7 +5,9 @@ interface Notepad {
 }
 
 class NotepadApi {
-  pages = $state<Notepad>({ cover: { type: "cover" } });
+  pages = $state<Notepad>({
+    cover: { type: "table", titleKey: "notepad-title_depth-o", rows: [] },
+  });
   currentPageKey = $state("cover");
 
   get currentPage() {
@@ -35,6 +37,12 @@ class NotepadApi {
   addLine(key: string) {
     if (this.currentPage.type === "text") {
       this.currentPage.lines.push(key);
+    }
+  }
+
+  addTableRow(key1: string, key2: string) {
+    if (this.currentPage.type === "table") {
+      this.currentPage.rows.push([key1, key2]);
     }
   }
 
