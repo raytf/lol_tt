@@ -7,5 +7,9 @@
 
 <li in:fade|global class="flex flex-row items-center pl-4">
   <input type="checkbox" checked={task.completed} />
+
   <Lol key={task.key} class="ml-2 {task.completed ? 'line-through' : ''}" />
+  {#if task.numTimes}
+    <p class="ml-1">({task.currentNum}/{task.numTimes})</p>
+  {/if}
 </li>

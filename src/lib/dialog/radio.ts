@@ -417,7 +417,7 @@ export const observationReview = [
             name: "mission-control",
             text: "tut_observations1",
             onStart: () => {
-              get(notepadApi).openPage(1);
+              //get(notepadApi).openPage(1);
               hud.showNotepad = true;
             },
           },

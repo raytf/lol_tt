@@ -49,8 +49,9 @@
     "task_open-sm": "Open the SM Diagram",
     "task_review-o": "Review the <span class='color sm-o'>Observations</span> step",
 
-    "obj_depth-o": "Depth <span class='color sm-o'>observations</span>",
-    "task_record-depth-o": "Record 3 <span class='color sm-o'>observations</span> related to depth",
+    "obj_depth-o": "Learn about the depths",
+    "task_visit-depths": "Visit 3 different depth levels",
+    "task_record-depth-o": "Record an <span class='color sm-o'>observation</span> at each depth",
 
     "obj_explore-forest": "Explore the kelp forest.",
     "task_enter-forest": "Enter the kelp forest.",
@@ -70,9 +71,9 @@
     "i_ship": "My trusty support ship. I can come here to rest or make repairs.",
     "w_propellor": "The propellor is malfunctioning. I should go back to the ship to fix it.",
     "o_floating-kelp": "There is a kelp forest here. It looks very dense.",
-    "o_sunlight-surface": "Sunlight is visible near the surface.",
-    "o_color-change": "The colors of the ocean and the kelp change as I go deeper.",
-    "o_darkness": "It is darker at the deep end. But is this the deepest part?",
+    "o_sunlight-surface": "Sunlight is visible. Colors are bright.",
+    "o_color-change": "Ocean and kelp start to change color.",
+    "o_darkness": "Much darker. Colors fade. Sub starts creaking.",
     "o_floor": "A pile of trash lying on the ocean floor. They have been crushed by something.",
     "o_wreckage": "A wreckage of a ship. Looks like it has been here for a long time.",
     "o_shell": "Met a talking shell! It doesn't seem very cheerful though.",
@@ -117,7 +118,14 @@
 
     "notepad-line_find-treasure": "Find the treasure (if it even exists)",
     "notepad-title_o": "Observations in the Wrecks",
-    "notepad-title_depth-o": "Depth Observations",
+    "notepad-title_depth-o": "What things change with depth?",
+    "th_depth-level": "Depth",
+    "depth-shallow": "Shallow",
+    "depth-medium": "Medium",
+    "depth-deep": "Deeper",
+    "th_observation": "Observation",
+
+    "sub-creak": "...Creak",
 
     "sm-puzzle_title": "Enter radio code",
     "hint": "Hint",

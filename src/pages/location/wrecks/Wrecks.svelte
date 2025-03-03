@@ -34,6 +34,7 @@
     infoApi,
     notepadApi,
   } from "$apis";
+  import { pressureCreak } from "$dialog/common";
   import { shipWreck, conchScare, conchEncounter } from "$dialog/chapter1";
   import { showConchFace, conchLightRadius } from "$stores/conch";
   import { ArrowUp, ArrowRight } from "$components/svg/icons/animated";
@@ -127,15 +128,41 @@
     } else {
       subNearSurface = false;
     }
+
+    if ($objectivesApi.currentObjectiveIs("obj_depth-o")) {
+      if (!$ch1.visitedTop) {
+        $ch1.visitedTop = true;
+        $objectivesApi.incrementTask("task_visit-depths");
+      }
+    }
     onClickArea(e);
   }
   function onClickMiddleArea(e: MouseEvent) {
     if ($objectivesApi.currentObjectiveIs("obj_explore-wrecks")) {
       $objectivesApi.completeTask("task_enter-wrecks");
     }
+    if ($objectivesApi.currentObjectiveIs("obj_depth-o")) {
+      if (!$ch1.visitedMiddle) {
+        $ch1.visitedMiddle = true;
+        $objectivesApi.incrementTask("task_visit-depths");
+      }
+    }
     onClickArea(e);
   }
   function onClickBottomArea(e: MouseEvent) {
+    const y = e.clientY - gridOffset.current.y;
+
+    if ($objectivesApi.currentObjectiveIs("obj_depth-o")) {
+      if (!$ch1.visitedBottom) {
+        $ch1.visitedBottom = true;
+        $objectivesApi.incrementTask("task_visit-depths");
+      }
+    }
+    if (y > 1300) {
+      $hudApi.startDialog({
+        keys: pressureCreak,
+      });
+    }
     onClickArea(e);
   }
   function onClickArea(e: MouseEvent) {
@@ -173,7 +200,11 @@
     //#region Debug
     if ($gameApi.debugMode) {
       $objectivesApi.completedChapters = ["tutorial"];
-      // $objectivesApi.completedObjectives = ["obj_start-sm"];
+      $objectivesApi.completedObjectives = [
+        "obj_start-sm",
+        "obj_explore-wrecks",
+        "obj_prepare-notepad",
+      ];
       $objectivesApi.recallCompletedChapters();
     }
     //#endregion
@@ -207,7 +238,7 @@
         </Button>
       </div>
     {/if}
-    {#if subNearForest}
+    {#if $ch1.forestUnlocked && subNearForest}
       <div
         transition:fade
         class="absolute z-[11] top-0 right-0 w-[222px] h-full flex flex-col justify-center items-end pr-4"
@@ -247,7 +278,7 @@
     <BgImg
       src={wrecks_trash}
       style="transform: translateX({gridOffset.current.x / 5}px)"
-      class="w-[111%] bottom-0 z-[9] brightness-50"
+      class={cn("w-[111%] bottom-0 z-[9] brightness-50")}
     />
     <Submarine class="z-10" />
     <BgImg
@@ -300,9 +331,9 @@
           <!-- <InfoMarker
             type="sm-o"
             onclick={() => {
-              makeObservation("o_sunlight-surface");
+              makeObservation("observations-depth", "o_sunlight-surface");
             }}
-            class="absolute w-[55px] h-[55px] bottom-[55%] left-[44%] z-[9]"
+            class="absolute w-[55px] h-[55px] top-[44%] left-[44%] z-[9]"
           /> -->
         {/if}
       </Area>
@@ -324,19 +355,19 @@
               }}
               class={cn(
                 "absolute right-[48%] bottom-[40%] w-[55px] h-[55px] z-20",
-                $ch1.numObserved === 0 ? "opacity-100" : "opacity-50",
+                $ch1.numObserved === 0 ? "opacity-100" : "opacity-30",
               )}
             />
           {/if}
         {/if}
-        {#if $ch1.startedObservationTask}
-          <!-- <InfoMarker
+        {#if $objectivesApi.currentObjectiveIs("obj_depth-o")}
+          <InfoMarker
             type="sm-o"
             onclick={() => {
-              makeObservation("o_color-change");
+              makeObservation("observations-depth", "o_color-change");
             }}
-            class="absolute w-[55px] h-[55px] bottom-[50%] right-[16%] z-[15]"
-          /> -->
+            class="absolute w-[55px] h-[55px] bottom-[55%] right-[33%] z-[15]"
+          />
         {/if}
       </Area>
       <Area
@@ -367,7 +398,7 @@
               }}
               class={cn(
                 "absolute left-[33%] bottom-[73%] w-[55px] h-[55px] z-20",
-                $ch1.numObserved === 1 ? "opacity-100" : "opacity-50",
+                $ch1.numObserved === 1 ? "opacity-100" : "opacity-30",
               )}
               style="transform: translateX({gridOffset.current.x / 5}px)"
             />
@@ -376,6 +407,8 @@
             <InfoMarker
               type="sm-o"
               onclick={() => {
+                setSubTarget({ x: 1300, y: 1300 });
+                gridOffset.set({ x: -900, y: -900 });
                 $hudApi.startDialog({
                   keys: conchEncounter,
                   blockInput: true,
@@ -388,7 +421,7 @@
               }}
               class={cn(
                 "absolute right-[19%] bottom-[66%] w-[55px] h-[55px] z-20",
-                $ch1.numObserved === 2 ? "opacity-100" : "opacity-50",
+                $ch1.numObserved === 2 ? "opacity-100" : "opacity-30",
               )}
               style="transform: translateX({gridOffset.current.x / 5}px)"
             />

@@ -52,6 +52,7 @@ const objectiveMap: ObjectiveMap = {
   "obj_start-sm": [{ key: "task_open-sm" }, { key: "task_review-o" }],
   "obj_explore-wrecks": [{ key: "task_enter-wrecks" }, { key: "task_make-o" }],
   "obj_depth-o": [
+    { key: "task_visit-depths", numTimes: 3 },
     {
       key: "task_record-depth-o",
     },
@@ -109,6 +110,14 @@ const chapterMap: ChapterMap = {
     },
     {
       key: "obj_prepare-notepad",
+      onFinished: () => {
+        get(notepadApi).newPage("observations-depth", {
+          type: "text",
+          titleKey: "notepad-title_depth-o",
+          lines: [],
+          delimiter: "- ",
+        });
+      },
     },
     {
       key: "obj_depth-o",
@@ -229,12 +238,40 @@ class ObjectivesApi {
     this.currentObjective = this.currentObjectives[this.currentObjectiveIndex];
     if (this.currentObjective) {
       this.currentTasks = objectiveMap[this.currentObjective.key].map(
-        (todo) => ({
-          key: todo.key,
-          completed: false,
-        }),
+        (todo) => {
+          if (todo.numTimes) {
+            return {
+              key: todo.key,
+              completed: false,
+              currentNum: 0,
+              numTimes: todo.numTimes,
+            };
+          }
+
+          return {
+            key: todo.key,
+            completed: false,
+          };
+        },
       );
       this.currentObjective.onStart?.();
+    }
+  };
+
+  incrementTask = (taskKey: string, onSuccess?: () => void) => {
+    const task = this.currentTasks.find(
+      (task) => task.key === taskKey && !task.completed,
+    );
+
+    if (task && task.currentNum != undefined && task.numTimes) {
+      task.currentNum++;
+      if (task.currentNum >= task.numTimes) {
+        task.completed = true;
+        onSuccess?.();
+        if (this.getNumRemainingTasks() === 0) {
+          this.completeObjective();
+        }
+      }
     }
   };
 

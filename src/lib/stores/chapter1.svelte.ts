@@ -5,6 +5,9 @@ class Chapter1State {
   completedObservationTask = $state(false);
   forestUnlocked = $state(false);
   observedList = $state<string[]>([]);
+  visitedTop = $state(false);
+  visitedMiddle = $state(false);
+  visitedBottom = $state(false);
 
   get numObserved() {
     return this.observedList.length;
