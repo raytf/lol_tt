@@ -58,5 +58,6 @@ interface TextPageData {
 interface TablePageData {
   type: "table";
   titleKey: string;
+  header: string[];
   rows: string[][];
 }

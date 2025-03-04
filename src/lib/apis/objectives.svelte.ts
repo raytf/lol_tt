@@ -112,10 +112,10 @@ const chapterMap: ChapterMap = {
       key: "obj_prepare-notepad",
       onFinished: () => {
         get(notepadApi).newPage("observations-depth", {
-          type: "text",
+          type: "table",
           titleKey: "notepad-title_depth-o",
-          lines: [],
-          delimiter: "- ",
+          header: ["th_depth-level", "th_observation"],
+          rows: [],
         });
       },
     },

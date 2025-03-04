@@ -176,8 +176,21 @@
     }
     moveSub(e);
   }
-  function makeObservation(
-    notepadPage: string,
+  function makeObservation(observationKey: string, onClose?: () => void) {
+    $infoApi.openModal({
+      infoType: "sm-o",
+      textKeys: [observationKey],
+      onClose: onClose,
+    });
+
+    if (!$ch1.wrecksObserved.includes(observationKey)) {
+      $ch1.wrecksObserved = [...$ch1.wrecksObserved, observationKey];
+      $notepadApi.openPage("observation-wrecks");
+      $notepadApi.addLine(observationKey);
+    }
+  }
+  function makeTableObservation(
+    key: string,
     observationKey: string,
     onClose?: () => void,
   ) {
@@ -187,10 +200,14 @@
       onClose: onClose,
     });
 
-    if (!$ch1.observedList.includes(observationKey)) {
-      $ch1.observedList = [...$ch1.observedList, observationKey];
-      $notepadApi.openPage(notepadPage);
-      $notepadApi.addLine(observationKey);
+    if (!$ch1.depthsObserved.includes(observationKey)) {
+      $ch1.depthsObserved = [...$ch1.depthsObserved, observationKey];
+      $notepadApi.openPage("observation-depths");
+      $notepadApi.addTableRow(key, observationKey);
+
+      if ($ch1.depthsObserved.length === 3) {
+        $objectivesApi.completeTask("task_record-depth-o");
+      }
     }
   }
   //#endregion
@@ -328,13 +345,18 @@
         />
 
         {#if $objectivesApi.currentObjectiveIs("obj_depth-o")}
-          <!-- <InfoMarker
-            type="sm-o"
-            onclick={() => {
-              makeObservation("observations-depth", "o_sunlight-surface");
-            }}
-            class="absolute w-[55px] h-[55px] top-[44%] left-[44%] z-[9]"
-          /> -->
+          {#if $ch1.numDepthsObserved >= 0}
+            <InfoMarker
+              type="sm-o"
+              onclick={() => {
+                makeTableObservation("depth-shallow", "o_sunlight-surface");
+              }}
+              class={cn(
+                "absolute w-[55px] h-[55px] top-[44%] left-[44%] z-[9]",
+                $ch1.numDepthsObserved === 0 ? "opacity-100" : "opacity-30",
+              )}
+            />
+          {/if}
         {/if}
       </Area>
       <Area
@@ -347,27 +369,32 @@
           --color-bottom="#037ADE"
         />
         {#if $objectivesApi.currentObjectiveIs("obj_explore-wrecks")}
-          {#if $ch1.numObserved >= 0}
+          {#if $ch1.numWrecksObserved >= 0}
             <InfoMarker
               type="sm-o"
               onclick={() => {
-                makeObservation("observations-wrecks", "o_wreckage");
+                makeObservation("o_wreckage");
               }}
               class={cn(
                 "absolute right-[48%] bottom-[40%] w-[55px] h-[55px] z-20",
-                $ch1.numObserved === 0 ? "opacity-100" : "opacity-30",
+                $ch1.numWrecksObserved === 0 ? "opacity-100" : "opacity-30",
               )}
             />
           {/if}
         {/if}
         {#if $objectivesApi.currentObjectiveIs("obj_depth-o")}
-          <InfoMarker
-            type="sm-o"
-            onclick={() => {
-              makeObservation("observations-depth", "o_color-change");
-            }}
-            class="absolute w-[55px] h-[55px] bottom-[55%] right-[33%] z-[15]"
-          />
+          {#if $ch1.numDepthsObserved >= 1}
+            <InfoMarker
+              type="sm-o"
+              onclick={() => {
+                makeTableObservation("depth-medium", "o_color-change");
+              }}
+              class={cn(
+                "absolute w-[55px] h-[55px] bottom-[55%] right-[33%] z-[15]",
+                $ch1.numDepthsObserved === 1 ? "opacity-100" : "opacity-30",
+              )}
+            />
+          {/if}
         {/if}
       </Area>
       <Area
@@ -390,20 +417,20 @@
           style="transform: translateX({gridOffset.current.x / 5}px)"
         />
         {#if $objectivesApi.currentObjectiveIs("obj_explore-wrecks")}
-          {#if $ch1.numObserved >= 1}
+          {#if $ch1.numWrecksObserved >= 1}
             <InfoMarker
               type="sm-o"
               onclick={() => {
-                makeObservation("observations-wrecks", "o_floor");
+                makeObservation("o_floor");
               }}
               class={cn(
                 "absolute left-[33%] bottom-[73%] w-[55px] h-[55px] z-20",
-                $ch1.numObserved === 1 ? "opacity-100" : "opacity-30",
+                $ch1.numWrecksObserved === 1 ? "opacity-100" : "opacity-30",
               )}
               style="transform: translateX({gridOffset.current.x / 5}px)"
             />
           {/if}
-          {#if $ch1.numObserved >= 2}
+          {#if $ch1.numWrecksObserved >= 2}
             <InfoMarker
               type="sm-o"
               onclick={() => {
@@ -413,7 +440,7 @@
                   keys: conchEncounter,
                   blockInput: true,
                   onFinished: () => {
-                    makeObservation("observations-wrecks", "o_shell", () => {
+                    makeObservation("o_shell", () => {
                       $objectivesApi.completeTask("task_make-o");
                     });
                   },
@@ -421,20 +448,25 @@
               }}
               class={cn(
                 "absolute right-[19%] bottom-[66%] w-[55px] h-[55px] z-20",
-                $ch1.numObserved === 2 ? "opacity-100" : "opacity-30",
+                $ch1.numWrecksObserved === 2 ? "opacity-100" : "opacity-30",
               )}
               style="transform: translateX({gridOffset.current.x / 5}px)"
             />
           {/if}
         {/if}
-        {#if $ch1.startedObservationTask}
-          <!-- <InfoMarker
-            type="sm-o"
-            onclick={() => {
-              makeObservation("o_darkness");
-            }}
-            class="absolute w-[55px] h-[55px] bottom-[33%] left-[22%] z-[9]"
-          /> -->
+        {#if $objectivesApi.currentObjectiveIs("obj_depth-o")}
+          {#if $ch1.numDepthsObserved >= 2}
+            <InfoMarker
+              type="sm-o"
+              onclick={() => {
+                makeTableObservation("depth-deep", "o_darkness");
+              }}
+              class={cn(
+                "absolute w-[55px] h-[55px] bottom-[66%] right-[22%] z-[15]",
+                $ch1.numDepthsObserved === 2 ? "opacity-100" : "opacity-30",
+              )}
+            />
+          {/if}
         {/if}
       </Area>
     {/snippet}

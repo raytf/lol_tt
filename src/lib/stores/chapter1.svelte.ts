@@ -4,13 +4,18 @@ class Chapter1State {
   startedObservationTask = $state(false);
   completedObservationTask = $state(false);
   forestUnlocked = $state(false);
-  observedList = $state<string[]>([]);
+  wrecksObserved = $state<string[]>([]);
+  depthsObserved = $state<string[]>([]);
   visitedTop = $state(false);
   visitedMiddle = $state(false);
   visitedBottom = $state(false);
 
-  get numObserved() {
-    return this.observedList.length;
+  get numWrecksObserved() {
+    return this.wrecksObserved.length;
+  }
+
+  get numDepthsObserved() {
+    return this.depthsObserved.length;
   }
 }
 

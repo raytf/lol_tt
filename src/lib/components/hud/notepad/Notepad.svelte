@@ -25,10 +25,10 @@
 
     if ($objectivesApi.hasCompleted("obj_explore-wrecks")) {
       $notepadApi.newPage("observations-depth", {
-        type: "text",
+        type: "table",
         titleKey: "notepad-title_depth-o",
-        lines: [],
-        delimiter: "- ",
+        header: ["th_depth-level", "th_observation"],
+        rows: [],
       });
     } else {
       $notepadApi.newPage("observations-wrecks", {
@@ -101,11 +101,11 @@
           key={$notepadApi.currentPage.titleKey}
           class="font-bold underline"
         />
-        <table class="table-auto">
+        <table class="table-auto w-full">
           <tbody>
             <tr>
-              <th><Lol key="th_depth-level" /></th>
-              <th><Lol key="th_observation" /></th>
+              <th><Lol key={$notepadApi.currentPage.header[0]} /></th>
+              <th><Lol key={$notepadApi.currentPage.header[1]} /></th>
             </tr>
             {#each $notepadApi.currentPage.rows as row}
               <tr>

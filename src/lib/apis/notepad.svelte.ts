@@ -6,7 +6,7 @@ interface Notepad {
 
 class NotepadApi {
   pages = $state<Notepad>({
-    cover: { type: "table", titleKey: "notepad-title_depth-o", rows: [] },
+    cover: { type: "cover" },
   });
   currentPageKey = $state("cover");
 
