@@ -1,7 +1,12 @@
 import { writable, derived, get } from "svelte/store";
 import { Spring } from "svelte/motion";
 import { coords, setTarget as setSubTarget } from "$stores/sub";
-import { gameApi } from "$apis";
+import { pressureCreak } from "$dialog/common";
+import { gameApi, hudApi } from "$apis";
+
+export const creakThreshold = 1300;
+const pressureTimerId = writable<NodeJS.Timeout>();
+const underPressure = writable(false);
 
 export const gridOffset = new Spring(
   { x: 0, y: 0 },
@@ -28,5 +33,27 @@ export const moveSub = (e: MouseEvent) => {
   const x = e.clientX - gridOffset.current.x;
   const y = e.clientY - gridOffset.current.y;
   setSubTarget({ x, y });
+  checkPressure({ x, y });
   return { x, y };
+};
+
+export const checkPressure = ({ x, y }: { x: number; y: number }) => {
+  if (y > creakThreshold) {
+    if (!get(underPressure)) {
+      underPressure.set(true);
+      pressureTimerId.set(
+        setTimeout(() => {
+          get(hudApi).startDialog({
+            keys: pressureCreak,
+            onFinished: () => {
+              underPressure.set(false);
+            },
+          });
+        }, 2000),
+      );
+    }
+  } else {
+    clearTimeout(get(pressureTimerId));
+    underPressure.set(false);
+  }
 };

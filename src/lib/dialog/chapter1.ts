@@ -129,3 +129,5 @@ export const conchEncounter = [
     },
   },
 ];
+
+export const enterForest = [];

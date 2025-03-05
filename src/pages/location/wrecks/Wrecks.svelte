@@ -100,7 +100,7 @@
       if ($objectivesApi.currentObjectiveIs("obj_explore-wrecks")) {
         $ch1.startedObservationTask = true;
       }
-      if ($objectivesApi.currentObjectiveIs("obj_explore-forest")) {
+      if ($objectivesApi.currentObjectiveIs("obj_keep-exploring")) {
         $ch1.forestUnlocked = true;
       }
     } else {
@@ -114,7 +114,7 @@
         $objectivesApi.attachStartCallback("obj_explore-wrecks", () => {
           $ch1.startedObservationTask = true;
         });
-        $objectivesApi.attachStartCallback("obj_explore-forest", () => {
+        $objectivesApi.attachStartCallback("obj_keep-exploring", () => {
           $ch1.forestUnlocked = true;
         });
       }
@@ -158,11 +158,11 @@
         $objectivesApi.incrementTask("task_visit-depths");
       }
     }
-    if (y > 1300) {
-      $hudApi.startDialog({
-        keys: pressureCreak,
-      });
-    }
+    // if (y > 1300) {
+    //   $hudApi.startDialog({
+    //     keys: pressureCreak,
+    //   });
+    // }
     onClickArea(e);
   }
   function onClickArea(e: MouseEvent) {
@@ -224,6 +224,7 @@
         "obj_start-sm",
         "obj_explore-wrecks",
         "obj_prepare-notepad",
+        "obj_depth-o",
       ];
       $objectivesApi.recallCompletedChapters();
     }

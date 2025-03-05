@@ -17,7 +17,7 @@
     direction as subDirection,
     breakPropellor,
   } from "$stores/sub";
-  import { gameApi, audioApi, infoApi } from "$apis";
+  import { gameApi, audioApi, infoApi, objectivesApi, hudApi } from "$apis";
   import { Button } from "$components/ui/button";
   import {
     ForestPath,
@@ -49,7 +49,7 @@
     y: subCoords.current.y,
   };
   let initialMonsterPosition = {
-    x: grid.width,
+    x: (2 * grid.width) / 3,
     y: grid.height / 2,
   };
   const searchParams = new URLSearchParams($querystring);
@@ -132,18 +132,20 @@
   }
 
   function onTouched() {
-    // setTimeout(() => {
-    //   breakPropellor();
-    //   $infoApi.openModal({
-    //     warning: true,
-    //     textKeys: ["w_propellor"],
-    //     outsideClose: false,
-    //   });
-    // }, 1111);
+    setTimeout(() => {
+      breakPropellor();
+      $infoApi.openModal({
+        warning: true,
+        textKeys: ["w_propellor"],
+        outsideClose: false,
+      });
+    }, 1111);
   }
 
   $effect(() => {
-    setMonsterTarget();
+    if (activateMonster) {
+      setMonsterTarget();
+    }
   });
   //#endregion
 
@@ -157,6 +159,15 @@
       volume: 0.55,
       loop: true,
     });
+
+    if ($objectivesApi.currentObjectiveIs("obj_keep-exploring")) {
+      $hudApi.startDialog({
+        keys: [],
+        onFinished: () => {
+          activateMonster = true;
+        },
+      });
+    }
   }
   function onClickArea(e: MouseEvent) {
     const x = e.clientX - gridOffset.current.x;

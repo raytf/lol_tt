@@ -128,7 +128,8 @@
     "depth-deep": "Deeper",
     "th_observation": "Observation",
 
-    "sub-creak": "...Creak",
+    "sub-creak-1": "...<i>Creak</i>...",
+    "sub-creak-2": "That sound just came from the sub's hull... that can't be good.",
 
     "sm-puzzle_title": "Enter radio code",
     "hint": "Hint",
@@ -230,6 +231,9 @@
     "ch1_conch-4.1": "I can't leave yet. Not until I learn more about this place.",
     "ch1_conch-4.1-1": "Suit yourself... but know this, things change as you go deeper.",
     "ch1_conch-5": "You won't survive unless you understand those changes first.",
+
+    "ch1_enter-forest-1": "Wow",
+    "ch1_enter-forest-2": "!!!",
 
     "ch3_find-entrance-1": "There is an entrance here!",
     "ch3_find-entrance-2": "Should I enter?",
