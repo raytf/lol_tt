@@ -53,6 +53,9 @@
     "task_visit-depths": "Visit 3 different depth levels",
     "task_record-depth-o": "Record an <span class='color sm-o'>observation</span> at each depth",
 
+    "obj_keep-exploring": "Keep exploring",
+    "task_explore-more": "Explore more of the depths",
+
     "obj_explore-forest": "Explore the kelp forest.",
     "task_enter-forest": "Enter the kelp forest.",
 
@@ -73,7 +76,7 @@
     "o_floating-kelp": "There is a kelp forest here. It looks very dense.",
     "o_sunlight-surface": "Sunlight is visible. Colors are bright.",
     "o_color-change": "Ocean and kelp start to change color.",
-    "o_darkness": "Much darker. Colors are fading. Sub starts to creak.",
+    "o_darkness": "Much darker. Colors fade. Sub starts to creak.",
     "o_floor": "A pile of trash lying on the ocean floor. They have been crushed by something.",
     "o_wreckage": "A wreckage of a ship. Looks like it has been here for a long time.",
     "o_shell": "Met a talking shell! It doesn't seem very cheerful though.",

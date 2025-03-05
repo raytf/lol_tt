@@ -57,10 +57,8 @@ const objectiveMap: ObjectiveMap = {
       key: "task_record-depth-o",
     },
   ],
-  "obj_explore-forest": [
-    { key: "task_enter-forest" },
-    { key: "task_record-o" },
-  ],
+  "obj_keep-exploring": [{ key: "task_explore-more" }],
+  "obj_explore-forest": [{ key: "task_enter-forest" }],
 
   "obj_review-observations": [
     { key: "task_contact-mc2" },
@@ -123,7 +121,7 @@ const chapterMap: ChapterMap = {
       key: "obj_depth-o",
     },
     {
-      key: "obj_explore-forest",
+      key: "obj_keep-exploring",
     },
   ],
 };

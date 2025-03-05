@@ -207,6 +207,9 @@
 
       if ($ch1.depthsObserved.length === 3) {
         $objectivesApi.completeTask("task_record-depth-o");
+        $notepadApi.openPage("observations-depth");
+        $hudApi.showNotepad = true;
+        $ch1.forestUnlocked = true;
       }
     }
   }
