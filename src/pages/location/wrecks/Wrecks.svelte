@@ -35,7 +35,12 @@
     notepadApi,
   } from "$apis";
   import { pressureCreak } from "$dialog/common";
-  import { shipWreck, conchScare, conchEncounter } from "$dialog/chapter1";
+  import {
+    shipWreck,
+    conchScare,
+    conchEncounter,
+    returnToWrecks,
+  } from "$dialog/chapter1";
   import { showConchFace, conchLightRadius } from "$stores/conch";
   import { ArrowUp, ArrowRight } from "$components/svg/icons/animated";
   import ch1 from "$stores/chapter1.svelte";
@@ -102,6 +107,17 @@
       }
       if ($objectivesApi.currentObjectiveIs("obj_keep-exploring")) {
         $ch1.forestUnlocked = true;
+        if (searchParams.has("from", "forest") && $ch1.encounteredMonster) {
+          setSubTarget({ x: 1300, y: 1300 });
+          gridOffset.set({ x: -900, y: -900 });
+
+          setTimeout(() => {
+            $hudApi.startDialog({
+              keys: returnToWrecks,
+              blockInput: true,
+            });
+          }, 1000);
+        }
       }
     } else {
       // Chapter not started

@@ -8,6 +8,8 @@ import {
   smileOpen,
   neutral,
   smileSlight,
+  fearful,
+  confused,
 } from "$assets/emoji";
 import {
   conch_devious,
@@ -130,4 +132,26 @@ export const conchEncounter = [
   },
 ];
 
-export const enterForest = [];
+export const enterForest = [
+  {
+    imgSrc: hushed,
+    name: "you",
+    text: "ch1_enter-forest-1",
+  },
+  {
+    text: "ch1_enter-forest-2",
+  },
+  {
+    imgSrc: fearful,
+    name: "you",
+    text: "ch1_enter-forest-3",
+  },
+];
+
+export const returnToWrecks = [
+  {
+    imgSrc: confused,
+    name: "you",
+    text: "ch1_return-1",
+  },
+];

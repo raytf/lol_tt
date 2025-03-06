@@ -17,7 +17,14 @@
     direction as subDirection,
     breakPropellor,
   } from "$stores/sub";
-  import { gameApi, audioApi, infoApi, objectivesApi, hudApi } from "$apis";
+  import {
+    gameApi,
+    audioApi,
+    infoApi,
+    objectivesApi,
+    hudApi,
+    interfaceApi,
+  } from "$apis";
   import { Button } from "$components/ui/button";
   import {
     ForestPath,
@@ -32,6 +39,9 @@
   import kelp_1 from "$assets/forest/kelp_1.png";
   import { ArrowLeft, ArrowDown } from "$components/svg/icons/animated";
   import { cn } from "$lib/utils";
+  import ch1 from "$stores/chapter1.svelte";
+  import ch2 from "$stores/chapter2.svelte";
+  import { enterForest } from "$dialog/chapter1";
 
   //#region state
   const grid = {
@@ -49,7 +59,7 @@
     y: subCoords.current.y,
   };
   let initialMonsterPosition = {
-    x: grid.width / 3,
+    x: grid.width / 2,
     y: grid.height / 2,
   };
   const searchParams = new URLSearchParams($querystring);
@@ -132,14 +142,27 @@
   }
 
   function onTouched() {
-    setTimeout(() => {
-      breakPropellor();
-      $infoApi.openModal({
-        warning: true,
-        textKeys: ["w_propellor"],
-        outsideClose: false,
-      });
-    }, 1111);
+    $hudApi.startDialog({
+      keys: [{ text: "thwomp" }],
+      blockInput: true,
+      onFinished: () => {
+        breakPropellor();
+        $interfaceApi.showWarning({
+          level: "danger",
+          text: "warning-propellor",
+        });
+
+        $ch1.encounteredMonster = true;
+
+        $infoApi.openModal({
+          textKeys: ["i_propellor"],
+        });
+
+        // if ($objectivesApi.currentObjectiveIs("obj_keep-exploring")) {
+        //   $gameApi.fadeScene("/wrecks?from=forest");
+        // }
+      },
+    });
   }
 
   $effect(() => {
@@ -160,13 +183,21 @@
       loop: true,
     });
 
-    if ($objectivesApi.currentObjectiveIs("obj_keep-exploring")) {
+    if (
+      !$ch1.encounteredMonster &&
+      $objectivesApi.currentObjectiveIs("obj_keep-exploring")
+    ) {
       $hudApi.startDialog({
-        keys: [],
+        keys: enterForest,
+        blockInput: true,
         onFinished: () => {
           activateMonster = true;
         },
       });
+    } else {
+      setTimeout(() => {
+        activateMonster = true;
+      }, 1000);
     }
   }
   function onClickArea(e: MouseEvent) {
@@ -322,7 +353,7 @@
           --color-top="#037ADE"
           --color-bottom="#182B3A"
         />
-        {#if subNearAbyss}
+        {#if $ch2.abyssUnlocked && subNearAbyss}
           <div
             transition:fade
             class={cn(

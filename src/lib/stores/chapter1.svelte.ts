@@ -9,6 +9,7 @@ class Chapter1State {
   visitedTop = $state(false);
   visitedMiddle = $state(false);
   visitedBottom = $state(false);
+  encounteredMonster = $state(false);
 
   get numWrecksObserved() {
     return this.wrecksObserved.length;

@@ -2,6 +2,7 @@
   import { fade, fly, slide } from "svelte/transition";
   import { location } from "svelte-spa-router";
   import Objectives from "$components/hud/objectives";
+  import { InterfaceScreen } from "$components/hud/interface";
   import { Dialog } from "$components/hud/dialog";
   import { SmModal, SmPuzzle } from "$components/hud/sm";
   import {
@@ -36,6 +37,7 @@
     <div class="absolute size-full z-[104]">
       <svelte:component this={$storyComponent} />
     </div>
+    <InterfaceScreen class="z-[100]" />
     {#if $hudApi.showObjectives}
       <div transition:fade>
         <Objectives

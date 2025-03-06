@@ -2,7 +2,7 @@ import { writable, derived, get } from "svelte/store";
 import { Spring } from "svelte/motion";
 import { coords, setTarget as setSubTarget } from "$stores/sub";
 import { pressureCreak } from "$dialog/common";
-import { gameApi, hudApi } from "$apis";
+import { gameApi, hudApi, interfaceApi } from "$apis";
 
 export const creakThreshold = 1300;
 const pressureTimerId = writable<NodeJS.Timeout>();
@@ -39,6 +39,10 @@ export const moveSub = (e: MouseEvent) => {
 
 export const checkPressure = ({ x, y }: { x: number; y: number }) => {
   if (y > creakThreshold) {
+    get(interfaceApi).showWarning({
+      level: "warning",
+      text: "warning-pressure",
+    });
     if (!get(underPressure)) {
       underPressure.set(true);
       pressureTimerId.set(
@@ -49,11 +53,12 @@ export const checkPressure = ({ x, y }: { x: number; y: number }) => {
               underPressure.set(false);
             },
           });
-        }, 2000),
+        }, 3000),
       );
     }
   } else {
     clearTimeout(get(pressureTimerId));
     underPressure.set(false);
+    get(interfaceApi).hideWarning("warning-pressure");
   }
 };
