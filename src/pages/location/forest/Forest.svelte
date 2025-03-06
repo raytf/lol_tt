@@ -49,7 +49,7 @@
     y: subCoords.current.y,
   };
   let initialMonsterPosition = {
-    x: (2 * grid.width) / 3,
+    x: grid.width / 3,
     y: grid.height / 2,
   };
   const searchParams = new URLSearchParams($querystring);
