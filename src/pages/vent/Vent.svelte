@@ -1,6 +1,9 @@
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
-  import { gameApi, audioApi } from "$apis";
+  import { gameApi, audioApi, hudApi } from "$apis";
+  import { ventDescription } from "$dialog/chapter3";
+
+  let videoElement: HTMLVideoElement;
 
   onMount(() => {
     $audioApi.playTrack({
@@ -8,11 +11,23 @@
       loop: true,
       volume: 0.5,
     });
+
+    $hudApi.startDialog({
+      keys: ventDescription,
+    });
+
+    videoElement.play();
   });
 
   onDestroy(() => {
     $audioApi.stopTrack({ src: "music/theme.mp3" });
   });
+
+  function onVideoEnded() {
+    videoElement.currentTime = 2;
+    videoElement.play();
+    console.log("video ended");
+  }
 </script>
 
 <button
@@ -23,6 +38,11 @@
 >
   Back
 </button>
-<video src="tt_vent.mp4" class="size-full" autoplay loop>
+<video
+  bind:this={videoElement}
+  onended={onVideoEnded}
+  src="tt_vent.mp4"
+  class="size-full"
+>
   <track kind="captions" />
 </video>

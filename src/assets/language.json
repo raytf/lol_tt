@@ -217,7 +217,7 @@
     "tut_sm-2": "By asking <strong>questions</strong>, and answering them with <strong>empirical evidence</strong>, we can understand the deep ocean better.",
     "tut_sm-3": "Recording our <strong>empirical evidence</strong> is also how we can repeat and verify our findings with each other.",
     "tut_sm-4": "This process is known as the <strong>Scientific Method</strong>, use it as a guideline for your exploration.",
-    "tut_mb-1.3": "Copy that. I'm ready to explore.",
+    "tut_mb-1.3": "Copy that. I'm ready to start.",
     "tut_info-1": "Call us whenever need a recap. Good luck, SM-Explorer-2.",
 
     "ch1_conch-1": "Hey you...",
@@ -232,12 +232,37 @@
 
     "ch1_enter-forest-1": "I'm surrounded by thick strands of kelp. It's like a maze.",
     "ch1_enter-forest-2": "<i>Rustle...</i> <i>rustle...</i>",
-    "ch1_enter-forest-3": "Something's coming!",
+    "ch1_enter-forest-3": "Something big is coming, run!",
     "thwomp": "<i>Thwomp!</i>",
 
-    "ch1_return-1": "What the heck was that?",
+    "ch1_return-1": "What was that creature?!",
+    "ch1_return-2": "I see you have met the kelp monster.",
+    "ch1_return-3": "It doesn't take kindly to intruders in their forest.",
+    "ch1_return-4": "Kelp monster?! It must have tangled the propellor with kelp.",
+    "ch1_return-5": "I have to go back to the ship to fix it.",
+    "ch1_return-6": "I warned you kid... go home before it's too late.",
+    "ch1_return-7": "There are spooky stories about this place for a reason.",
+    "ch1_return-8": "Well, my dad used to tell me:",
+    "ch1_return-9": "True scientists don't just listen to stories...",
+    "ch1_return-10": "We use the Scientific Method, and learn the truth for ourselves.",
+    "ch1_return-11": "Your dad was a scientist?",
+    "ch1_return-12": "Yes, he came here years ago, and never returned...",
+    "ch1_return-13": "I'm not leaving until I find out what happened to him.",
+    "ch1_return-14": "!!...",
+    "ch1_return-15": "I see... then you must be prepared.",
+    "ch1_return-16": "Asking the right questions is important... ",
+    "ch1_return-17": "You're on the right track... good luck, kid.",
 
     "ch3_find-entrance-1": "There is an entrance here!",
-    "ch3_find-entrance-2": "Should I enter?"
+    "ch3_find-entrance-2": "Should I enter?",
+
+    "vent_desc-1": "<i>As the conch’s light cuts through the darkness, a hidden world is revealed.</i>",
+    "vent_desc-2": "<i>A place where sunlight has never touched, freezing water seeps down the gaps of the ocean bottom.</i>",
+    "vent_desc-3": "<i>Mixing with the hot magma deep below, the water spews out as black smoke-like plumes…</i>",
+    "vent_desc-4": "<i>...forming great towering vents, shaped like chimneys.</i>",
+    "vent_desc-5": "<i>Like a hidden treasure trove, valuable minerals from deep within the earth are scattered across the sea floor - but that’s not all.</i>",
+    "vent_desc-6": "<i>All sorts strange creatures and plants thrive here, feeding on the minerals and heat.</i>",
+    "vent_desc-7": "<i>In the deepest, darkest, most crushing depths of the ocean, nothing should survive…</i>",
+    "vent_desc-8": "<i>…yet, against all odds, life flourishes.</i>"
   }
 }
