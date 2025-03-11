@@ -150,8 +150,18 @@ export const enterForest = [
 
 export const returnToWrecks = [
   {
-    imgSrc: confused,
+    imgSrc: frownSlight,
     name: "you",
     text: "ch1_return-1",
+  },
+  {
+    imgSrc: frownSlight,
+    name: "you",
+    text: "ch1_return-2",
+  },
+  {
+    imgSrc: confused,
+    name: "you",
+    text: "ch1_return-3",
   },
 ];

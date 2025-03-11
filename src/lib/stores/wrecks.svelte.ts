@@ -1,6 +1,6 @@
 import { writable, get } from "svelte/store";
 
-class Chapter1State {
+class WrecksState {
   startedObservationTask = $state(false);
   completedObservationTask = $state(false);
   forestUnlocked = $state(false);
@@ -9,7 +9,6 @@ class Chapter1State {
   visitedTop = $state(false);
   visitedMiddle = $state(false);
   visitedBottom = $state(false);
-  encounteredMonster = $state(false);
 
   get numWrecksObserved() {
     return this.wrecksObserved.length;
@@ -20,4 +19,4 @@ class Chapter1State {
   }
 }
 
-export default writable(new Chapter1State());
+export default writable(new WrecksState());

@@ -43,7 +43,8 @@
   } from "$dialog/chapter1";
   import { showConchFace, conchLightRadius } from "$stores/conch";
   import { ArrowUp, ArrowRight } from "$components/svg/icons/animated";
-  import ch1 from "$stores/chapter1.svelte";
+  import wrecks from "$stores/wrecks.svelte";
+  import forest from "$stores/forest.svelte";
   import { cn } from "$lib/utils";
 
   //#region state
@@ -72,7 +73,7 @@
   }
   if (searchParams.has("from", "forest")) {
     initialPosition = { x: grid.width + 111, y: subCoords.current.y };
-    initialTarget = { x: grid.width - 222, y: initialPosition.y };
+    initialTarget = { x: grid.width - 444, y: initialPosition.y };
     gridOffset.set(
       {
         x: -grid.width + $gameApi.windowWidth,
@@ -103,20 +104,20 @@
 
     if ($objectivesApi.chapterStarted) {
       if ($objectivesApi.currentObjectiveIs("obj_explore-wrecks")) {
-        $ch1.startedObservationTask = true;
+        $wrecks.startedObservationTask = true;
       }
       if ($objectivesApi.currentObjectiveIs("obj_keep-exploring")) {
-        $ch1.forestUnlocked = true;
-        if (searchParams.has("from", "forest") && $ch1.encounteredMonster) {
-          setSubTarget({ x: 1300, y: 1300 });
-          gridOffset.set({ x: -900, y: -900 });
+        $wrecks.forestUnlocked = true;
+        if (searchParams.has("from", "forest") && $forest.encounteredMonster) {
+          // setSubTarget({ x: 1300, y: 1300 });
+          // gridOffset.set({ x: -900, y: -900 });
 
           setTimeout(() => {
             $hudApi.startDialog({
               keys: returnToWrecks,
               blockInput: true,
             });
-          }, 1000);
+          }, 2000);
         }
       }
     } else {
@@ -128,10 +129,10 @@
       ) {
         $objectivesApi.startChapter("chapter1", () => {});
         $objectivesApi.attachStartCallback("obj_explore-wrecks", () => {
-          $ch1.startedObservationTask = true;
+          $wrecks.startedObservationTask = true;
         });
         $objectivesApi.attachStartCallback("obj_keep-exploring", () => {
-          $ch1.forestUnlocked = true;
+          $wrecks.forestUnlocked = true;
         });
       }
     }
@@ -146,8 +147,8 @@
     }
 
     if ($objectivesApi.currentObjectiveIs("obj_depth-o")) {
-      if (!$ch1.visitedTop) {
-        $ch1.visitedTop = true;
+      if (!$wrecks.visitedTop) {
+        $wrecks.visitedTop = true;
         $objectivesApi.incrementTask("task_visit-depths");
       }
     }
@@ -158,8 +159,8 @@
       $objectivesApi.completeTask("task_enter-wrecks");
     }
     if ($objectivesApi.currentObjectiveIs("obj_depth-o")) {
-      if (!$ch1.visitedMiddle) {
-        $ch1.visitedMiddle = true;
+      if (!$wrecks.visitedMiddle) {
+        $wrecks.visitedMiddle = true;
         $objectivesApi.incrementTask("task_visit-depths");
       }
     }
@@ -169,8 +170,8 @@
     const y = e.clientY - gridOffset.current.y;
 
     if ($objectivesApi.currentObjectiveIs("obj_depth-o")) {
-      if (!$ch1.visitedBottom) {
-        $ch1.visitedBottom = true;
+      if (!$wrecks.visitedBottom) {
+        $wrecks.visitedBottom = true;
         $objectivesApi.incrementTask("task_visit-depths");
       }
     }
@@ -199,8 +200,8 @@
       onClose: onClose,
     });
 
-    if (!$ch1.wrecksObserved.includes(observationKey)) {
-      $ch1.wrecksObserved = [...$ch1.wrecksObserved, observationKey];
+    if (!$wrecks.wrecksObserved.includes(observationKey)) {
+      $wrecks.wrecksObserved = [...$wrecks.wrecksObserved, observationKey];
       $notepadApi.openPage("observation-wrecks");
       $notepadApi.addLine(observationKey);
     }
@@ -216,16 +217,16 @@
       onClose: onClose,
     });
 
-    if (!$ch1.depthsObserved.includes(observationKey)) {
-      $ch1.depthsObserved = [...$ch1.depthsObserved, observationKey];
+    if (!$wrecks.depthsObserved.includes(observationKey)) {
+      $wrecks.depthsObserved = [...$wrecks.depthsObserved, observationKey];
       $notepadApi.openPage("observation-depths");
       $notepadApi.addTableRow(key, observationKey);
 
-      if ($ch1.depthsObserved.length === 3) {
+      if ($wrecks.depthsObserved.length === 3) {
         $objectivesApi.completeTask("task_record-depth-o");
         $notepadApi.openPage("observations-depth");
         $hudApi.showNotepad = true;
-        $ch1.forestUnlocked = true;
+        $wrecks.forestUnlocked = true;
       }
     }
   }
@@ -275,7 +276,7 @@
         </Button>
       </div>
     {/if}
-    {#if $ch1.forestUnlocked && subNearForest}
+    {#if $wrecks.forestUnlocked && subNearForest}
       <div
         transition:fade
         class="absolute z-[11] top-0 right-0 w-[222px] h-full flex flex-col justify-center items-end pr-4"
@@ -322,7 +323,7 @@
       src={wrecks_kelp}
       style="filter: brightness({1 -
         depthRatio * 0.5}); transform: translateX({gridOffset.current.x / 5}px)"
-      class="w-[111%] bottom-0 z-[14]"
+      class="w-[111%] opacity-[90%] bottom-0 z-[14]"
     />
     <WrecksPath
       style="transform: translateX({gridOffset.current.x / 5}px)"
@@ -365,7 +366,7 @@
         />
 
         {#if $objectivesApi.currentObjectiveIs("obj_depth-o")}
-          {#if $ch1.numDepthsObserved >= 0}
+          {#if $wrecks.numDepthsObserved >= 0}
             <InfoMarker
               type="sm-o"
               onclick={() => {
@@ -373,7 +374,7 @@
               }}
               class={cn(
                 "absolute w-[55px] h-[55px] top-[44%] left-[44%] z-[9]",
-                $ch1.numDepthsObserved === 0 ? "opacity-100" : "opacity-30",
+                $wrecks.numDepthsObserved === 0 ? "opacity-100" : "opacity-30",
               )}
             />
           {/if}
@@ -389,7 +390,7 @@
           --color-bottom="#037ADE"
         />
         {#if $objectivesApi.currentObjectiveIs("obj_explore-wrecks")}
-          {#if $ch1.numWrecksObserved >= 0}
+          {#if $wrecks.numWrecksObserved >= 0}
             <InfoMarker
               type="sm-o"
               onclick={() => {
@@ -397,13 +398,13 @@
               }}
               class={cn(
                 "absolute right-[48%] bottom-[40%] w-[55px] h-[55px] z-20",
-                $ch1.numWrecksObserved === 0 ? "opacity-100" : "opacity-30",
+                $wrecks.numWrecksObserved === 0 ? "opacity-100" : "opacity-30",
               )}
             />
           {/if}
         {/if}
         {#if $objectivesApi.currentObjectiveIs("obj_depth-o")}
-          {#if $ch1.numDepthsObserved >= 1}
+          {#if $wrecks.numDepthsObserved >= 1}
             <InfoMarker
               type="sm-o"
               onclick={() => {
@@ -411,7 +412,7 @@
               }}
               class={cn(
                 "absolute w-[55px] h-[55px] bottom-[55%] right-[33%] z-[15]",
-                $ch1.numDepthsObserved === 1 ? "opacity-100" : "opacity-30",
+                $wrecks.numDepthsObserved === 1 ? "opacity-100" : "opacity-30",
               )}
             />
           {/if}
@@ -437,7 +438,7 @@
           style="transform: translateX({gridOffset.current.x / 5}px)"
         />
         {#if $objectivesApi.currentObjectiveIs("obj_explore-wrecks")}
-          {#if $ch1.numWrecksObserved >= 1}
+          {#if $wrecks.numWrecksObserved >= 1}
             <InfoMarker
               type="sm-o"
               onclick={() => {
@@ -445,12 +446,12 @@
               }}
               class={cn(
                 "absolute left-[33%] bottom-[73%] w-[55px] h-[55px] z-20",
-                $ch1.numWrecksObserved === 1 ? "opacity-100" : "opacity-30",
+                $wrecks.numWrecksObserved === 1 ? "opacity-100" : "opacity-30",
               )}
               style="transform: translateX({gridOffset.current.x / 5}px)"
             />
           {/if}
-          {#if $ch1.numWrecksObserved >= 2}
+          {#if $wrecks.numWrecksObserved >= 2}
             <InfoMarker
               type="sm-o"
               onclick={() => {
@@ -468,14 +469,14 @@
               }}
               class={cn(
                 "absolute right-[19%] bottom-[66%] w-[55px] h-[55px] z-20",
-                $ch1.numWrecksObserved === 2 ? "opacity-100" : "opacity-30",
+                $wrecks.numWrecksObserved === 2 ? "opacity-100" : "opacity-30",
               )}
               style="transform: translateX({gridOffset.current.x / 5}px)"
             />
           {/if}
         {/if}
         {#if $objectivesApi.currentObjectiveIs("obj_depth-o")}
-          {#if $ch1.numDepthsObserved >= 2}
+          {#if $wrecks.numDepthsObserved >= 2}
             <InfoMarker
               type="sm-o"
               onclick={() => {
@@ -483,7 +484,7 @@
               }}
               class={cn(
                 "absolute w-[55px] h-[55px] bottom-[66%] right-[22%] z-[15]",
-                $ch1.numDepthsObserved === 2 ? "opacity-100" : "opacity-30",
+                $wrecks.numDepthsObserved === 2 ? "opacity-100" : "opacity-30",
               )}
             />
           {/if}

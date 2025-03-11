@@ -39,8 +39,8 @@
   import kelp_1 from "$assets/forest/kelp_1.png";
   import { ArrowLeft, ArrowDown } from "$components/svg/icons/animated";
   import { cn } from "$lib/utils";
-  import ch1 from "$stores/chapter1.svelte";
-  import ch2 from "$stores/chapter2.svelte";
+  import wrecks from "$stores/wrecks.svelte";
+  import forest from "$stores/forest.svelte";
   import { enterForest } from "$dialog/chapter1";
 
   //#region state
@@ -98,7 +98,8 @@
   let maxDistance = 200;
   let maxDepth = 1300;
   let touched = $state(false);
-  let activateMonster = $state(false);
+  let tooDeep = $state(false);
+  let returnTimeout = $state<NodeJS.Timeout>();
 
   function setMonsterTarget() {
     const x = subCoords.current.x;
@@ -118,8 +119,8 @@
     if (distance <= maxDistance) {
       if (!touched) {
         onTouched();
+        touched = true;
       }
-      touched = true;
     }
 
     // let unitX = deltaX / distance;
@@ -131,13 +132,18 @@
     // let targetX = x - scaledX;
     // let targetY = y - scaledY;
     //monsterCoords.set({ x: targetX, y: targetY });
-    if (monsterCoords.current.y <= maxDepth) {
-      monsterCoords.set({ x: x, y: Math.min(y, maxDepth) });
+    // Math.min(y, maxDepth)
+    if (y <= maxDepth) {
+      clearTimeout(returnTimeout);
+      tooDeep = false;
+      monsterCoords.set({ x: x, y: y });
     } else {
-      monsterCoords.set({
-        x: x,
-        y: monsterCoords.current.y,
-      });
+      if (!tooDeep) {
+        returnTimeout = setTimeout(() => {
+          monsterCoords.set(initialMonsterPosition);
+        }, 5000);
+        tooDeep = true;
+      }
     }
   }
 
@@ -152,21 +158,23 @@
           text: "warning-propellor",
         });
 
-        $ch1.encounteredMonster = true;
+        $forest.encounteredMonster = true;
 
-        $infoApi.openModal({
-          textKeys: ["i_propellor"],
-        });
+        // $infoApi.openModal({
+        //   textKeys: ["i_propellor"],
+        // });
 
-        // if ($objectivesApi.currentObjectiveIs("obj_keep-exploring")) {
-        //   $gameApi.fadeScene("/wrecks?from=forest");
-        // }
+        if ($objectivesApi.currentObjectiveIs("obj_keep-exploring")) {
+          setTimeout(() => {
+            $gameApi.fadeScene("/wrecks?from=forest");
+          }, 1000);
+        }
       },
     });
   }
 
   $effect(() => {
-    if (activateMonster) {
+    if ($forest.monsterActivated) {
       setMonsterTarget();
     }
   });
@@ -177,6 +185,7 @@
   //#endregion
   //#region events
   function onEnter() {
+    $forest.monsterActivated = false;
     $audioApi.playTrack({
       src: "music/tangled-depths.mp3",
       volume: 0.55,
@@ -184,20 +193,23 @@
     });
 
     if (
-      !$ch1.encounteredMonster &&
+      !$forest.encounteredMonster &&
       $objectivesApi.currentObjectiveIs("obj_keep-exploring")
     ) {
-      $hudApi.startDialog({
-        keys: enterForest,
-        blockInput: true,
-        onFinished: () => {
-          activateMonster = true;
-        },
-      });
+      setTimeout(() => {
+        $hudApi.startDialog({
+          keys: enterForest,
+          blockInput: true,
+          onFinished: () => {
+            setSubTarget({ x: 0, y: subCoords.current.y });
+            $forest.monsterActivated = true;
+          },
+        });
+      }, 2000);
     } else {
       setTimeout(() => {
-        activateMonster = true;
-      }, 1000);
+        $forest.monsterActivated = true;
+      }, 2000);
     }
   }
   function onClickArea(e: MouseEvent) {
@@ -353,7 +365,7 @@
           --color-top="#037ADE"
           --color-bottom="#182B3A"
         />
-        {#if $ch2.abyssUnlocked && subNearAbyss}
+        {#if $forest.abyssUnlocked && subNearAbyss}
           <div
             transition:fade
             class={cn(

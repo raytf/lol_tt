@@ -1,5 +1,6 @@
 import { writable, get } from "svelte/store";
 import { Spring } from "svelte/motion";
+import { interfaceApi } from "$apis";
 
 export const nearVent = writable(false);
 export const depthOffset = writable(0);
@@ -15,6 +16,7 @@ export const breakPropellor = () => {
 export const fixPropellor = () => {
   coords.stiffness = 0.022;
   subBroken.set(false);
+  get(interfaceApi).hideWarning("warning-propellor");
 };
 
 export const coords = new Spring(
