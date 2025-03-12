@@ -45,16 +45,16 @@ export const checkPressure = ({ x, y }: { x: number; y: number }) => {
     });
     if (!get(underPressure)) {
       underPressure.set(true);
-      pressureTimerId.set(
-        setTimeout(() => {
-          get(hudApi).startDialog({
-            keys: pressureCreak,
-            onFinished: () => {
-              underPressure.set(false);
-            },
-          });
-        }, 3000),
-      );
+      // pressureTimerId.set(
+      //   setTimeout(() => {
+      //     get(hudApi).startDialog({
+      //       keys: pressureCreak,
+      //       onFinished: () => {
+      //         underPressure.set(false);
+      //       },
+      //     });
+      //   }, 3000),
+      // );
     }
   } else {
     clearTimeout(get(pressureTimerId));
