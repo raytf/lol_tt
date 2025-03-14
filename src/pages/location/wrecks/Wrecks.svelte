@@ -307,17 +307,17 @@
     yOffset={gridOffset.current.y}
   >
     <TurbulentImg src={underwater} class="opacity-35 z-[1]" />
-    <BgImg src={wrecks_3} class="w-[133%] left-[-22%] bottom-0 z-[7]" />
+    <BgImg src={wrecks_3} class="w-[133%] left-[-22%] bottom-0 z-[7] opacity-75" />
     <BgImg
       src={wrecks_2}
       style="transform: translateX({gridOffset.current.x / 10}px)"
       class="w-[122%] left-[-11%] bottom-0 z-[9]"
     />
-    <BgImg
+    <!-- <BgImg
       src={wrecks_trash}
       style="transform: translateX({gridOffset.current.x / 5}px)"
       class={cn("w-[111%] bottom-0 z-[9] brightness-50")}
-    />
+    /> -->
     <Submarine class="z-10" />
     <BgImg
       src={wrecks_kelp}

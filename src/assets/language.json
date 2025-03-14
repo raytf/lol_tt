@@ -184,11 +184,12 @@
     "intro-6": "We find out the truth, and learn about the world around us by following a process.",
     "intro-7": "A process called the <strong>The Scientific Method</strong>.",
 
-    "newspaper-heading": "NEWS",
+    "newspaper-heading": "THE DAILY NEWS",
     "newspaper-subheading": "MYSTERY OF MISSING SCIENTIST",
-    "newspaper-text-1": "Renowned marine scientist Dr. Conch, and his submarine SM-Explorer, has gone missing since deep-sea expedition into the Triton Triangle.",
-    "newspaper-text-2": "Search teams found wreckage of his ship, but no sign of him or his submarine, the SM-Explorer.",
-    "newspaper-text-3": "After weeks of searching, the search mission was called off due to 'strange forces' and failing communications.",
+    "newspaper-text-1": "Renowned scientist Dr. Conch has gone missing during a deep sea expedition into the infamous Triton Triangle.",
+    "newspaper-text-2": "Search teams found no trace of the scientist or his submarine... only a few pieces of research notes left behind.",
+    "newspaper-text-3": "Little is known about the Triton's Triangle, but many tell of strange events, lurking sea monsters...",
+    "newspaper-text-4": "... and rumours of a treasure hidden deep below.",
     "years-later": "Years later...",
 
     "radio_incoming-call": "<em>...Incoming call...</em>",
@@ -257,7 +258,7 @@
     "ch3_find-entrance-2": "Should I enter?",
 
     "vent_desc-1": "<i>As the conch’s light cuts through the darkness, a hidden world is revealed.</i>",
-    "vent_desc-2": "<i>A place where sunlight has never touched, freezing water seeps down the gaps of the ocean bottom.</i>",
+    "vent_desc-2": "<i>In a place where sunlight has never touched, freezing water seeps down the gaps of the ocean bottom.</i>",
     "vent_desc-3": "<i>Mixing with the hot magma deep below, the water spews out as black smoke-like plumes…</i>",
     "vent_desc-4": "<i>...forming great towering vents, shaped like chimneys.</i>",
     "vent_desc-5": "<i>Valuable minerals from deep within the earth are scattered across the sea floor - but that’s not all.</i>",

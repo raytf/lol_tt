@@ -32,7 +32,13 @@ export interface StopTrackOptions {
 export class AudioApi {
   soundEnabled = $state(false);
   tracks = new Map<string, Track>();
-  constructor() {}
+  constructor() {
+    if (!this.soundEnabled) {
+      Howler.volume(0);
+    } else {
+      Howler.volume(1);
+    }
+  }
 
   toggleSound = () => {
     this.soundEnabled = !this.soundEnabled;
@@ -44,7 +50,7 @@ export class AudioApi {
   };
 
   loadTrack = ({ src, onload = () => {} }: TrackOptions) => {
-    if (!this.soundEnabled) return;
+    //if (!this.soundEnabled) return;
 
     if (src in this.tracks) {
       console.log("Track already loaded");
@@ -72,7 +78,7 @@ export class AudioApi {
     fade = true,
     fadeTime = 1000,
   }: PlayTrackOptions) => {
-    if (!this.soundEnabled) return;
+    //if (!this.soundEnabled) return;
 
     const track = this.tracks.get(src);
     const sound = track?.sound;
