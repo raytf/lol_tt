@@ -200,6 +200,7 @@
           onFinished: () => {
             $forest.encounteredMonster = true;
             setSubTarget({ x: 0, y: subCoords.current.y });
+            $audioApi.stopTrack({ src: "music/tangled-depths.mp3" });
             $gameApi.fadeScene("/wrecks?from=forest");
           },
         });
