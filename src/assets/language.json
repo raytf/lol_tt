@@ -22,7 +22,7 @@
     "surface": "Surface",
     "complete": "Complete",
     "warning": "Warning",
-    "warning-pressure": "Structural stress detected",
+    "warning-pressure": "High pressure detected",
     "warning-propellor": "Propellor malfunction",
     "danger": "Danger",
 
@@ -37,8 +37,12 @@
     "task_call-radio": "Call the radio",
     "task_start-mission": "Start the mission",
 
+    "obj_review-inventory": "Review your inventory",
+    "task_open-notepad": "Open your Notepad",
+    "task_open-sm": "Open the SM Diagram",
+
     "obj_prepare-notepad": "Prepare notes",
-    "task_open-notepad": "Open your notepad",
+
     "task_new-page": "Start a new page",
 
     "obj_explore": "Explore!",
@@ -50,7 +54,7 @@
     "task_make-o": "Record some <span class='color sm-o'>observations</span>",
 
     "obj_start-sm": "Starting the Scientific Method",
-    "task_open-sm": "Open the SM Diagram",
+
     "task_review-o": "Review the <span class='color sm-o'>Observations</span> step",
 
     "obj_depth-o": "Learn about the depths",
@@ -84,10 +88,6 @@
     "o_floor": "A pile of trash lying on the ocean floor. They have been crushed by something.",
     "o_wreckage": "A wreckage of a ship. Looks like it has been here for a long time.",
     "o_shell": "Met a talking shell! It doesn't seem very cheerful though.",
-
-    "conch-scare-1": "<em>...spooky laugh...</em>",
-    "conch-scare-2": "What was that noise?",
-    "conch-scare-3": "Must be my imagination...",
 
     "sm-heading": "The Scientific Method steps",
     "sm-subheading": "Click a step for more info.",
@@ -167,28 +167,10 @@
     "name_otter": "Sea Otter",
     "desc_otter": "A cute marine mammal with thick fur. <br>Can live on land and in water.",
 
-    "intro-1": "Have you ever heard of the Triton Triangle?",
-    "intro-1.1": "No, what's that?",
-    "intro-1.1-1": "It is a beautiful and mysterious place in the ocean.",
-    "intro-1.1-2": "No one has ever fully explored the depths before.",
-    "intro-2": "I'm going there on an expedition.",
-    "intro-2.1": "Really! Can I come with you?",
-    "intro-2.1-1": "Absolutely not.",
-    "intro-2.1-2": "Why not? You suck Dad...",
-    "intro-2.1-3": "I'll take you one day... might be too dangerous for you now.",
-    "intro-3": "The Triton Triangle is known for stories about sea monsters, strange forces...",
-    "intro-4": "...and something hidden deep below, a treasure...",
-    "intro-4.1": "Woah, a treasure!",
-    "intro-4.2": "Sea monsters, really?",
-    "intro-4.3": "Strange forces?...",
-    "intro-5": "I don't know kid, true scientists don't just listen to stories...",
-    "intro-6": "We find out the truth, and learn about the world around us by following a process.",
-    "intro-7": "A process called the <strong>The Scientific Method</strong>.",
-
     "newspaper-heading": "THE DAILY NEWS",
     "newspaper-subheading": "MYSTERY OF MISSING SCIENTIST",
     "newspaper-text-1": "Renowned scientist Dr. Conch has gone missing during a deep sea expedition into the infamous Triton Triangle.",
-    "newspaper-text-2": "Search teams found no trace of the scientist or his submarine... only a few pieces of research notes left behind.",
+    "newspaper-text-2": "Search teams found no trace of the scientist or his submarine.",
     "newspaper-text-3": "Little is known about the Triton's Triangle, but many tell of strange events, lurking sea monsters...",
     "newspaper-text-4": "... and rumours of a treasure hidden deep below.",
     "years-later": "Years later...",

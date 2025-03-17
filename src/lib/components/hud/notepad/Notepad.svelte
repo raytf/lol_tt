@@ -50,9 +50,9 @@
   }
 
   onMount(() => {
-    if ($objectivesApi.currentObjectiveIs("obj_prepare-notepad")) {
-      newPageEnabled = true;
-    }
+    // if ($objectivesApi.currentObjectiveIs("obj_prepare-notepad")) {
+    //   newPageEnabled = true;
+    // }
   });
 
   let newPageEnabled = $state(false);

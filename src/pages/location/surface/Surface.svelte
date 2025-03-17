@@ -68,14 +68,9 @@
       ) {
         setTimeout(() => {
           $objectivesApi.startChapter("tutorial", () => {});
-
-          if ($objectivesApi.hasCompleted("obj_prepare-notepad")) {
+          $objectivesApi.attachStartCallback("obj_explore", () => {
             readyToDive = true;
-          } else {
-            $objectivesApi.attachStartCallback("obj_explore", () => {
-              readyToDive = true;
-            });
-          }
+          });
 
           if ($objectivesApi.hasCompleted("obj_mission")) {
             $radioApi.setCallback(() => {
@@ -146,7 +141,7 @@
   onMount(() => {
     // Debug
     if ($gameApi.debugMode) {
-      $objectivesApi.completedObjectives = ["obj_mission"];
+      $objectivesApi.completedObjectives = [];
       $objectivesApi.recallCompletedChapters();
     }
     onEnter();

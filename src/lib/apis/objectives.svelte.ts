@@ -43,6 +43,10 @@ const objectiveMap: ObjectiveMap = {
     { key: "task_call-radio" },
     { key: "task_start-mission" },
   ],
+  "obj_review-inventory": [
+    { key: "task_open-notepad" },
+    { key: "task_open-sm" },
+  ],
   "obj_prepare-notepad": [
     { key: "task_open-notepad" },
     { key: "task_new-page" },
@@ -77,23 +81,25 @@ const chapterMap: ChapterMap = {
       onFinished: () => {
         const inventory = get(inventoryApi);
         inventory.unlockItem("radio");
-        inventory.unlockItem("pg");
-        inventory.unlockItem("th");
         inventory.unlockItem("notepad");
         inventory.unlockItem("sm");
       },
     },
     {
-      key: "obj_prepare-notepad",
-      onFinished: () => {
-        get(notepadApi).newPage("observations-wrecks", {
-          type: "text",
-          titleKey: "notepad-title_o",
-          lines: [],
-          delimiter: "- ",
-        });
-      },
+      key: "obj_review-inventory",
+      onFinished: () => {},
     },
+    // {
+    //   key: "obj_prepare-notepad",
+    //   onFinished: () => {
+    //     get(notepadApi).newPage("observations-wrecks", {
+    //       type: "text",
+    //       titleKey: "notepad-title_o",
+    //       lines: [],
+    //       delimiter: "- ",
+    //     });
+    //   },
+    // },
     {
       key: "obj_explore",
       onFinished: () => {},
