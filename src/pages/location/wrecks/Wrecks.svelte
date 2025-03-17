@@ -148,40 +148,15 @@
       subNearSurface = false;
     }
 
-    if ($objectivesApi.currentObjectiveIs("obj_depth-o")) {
-      if (!$wrecks.visitedTop) {
-        $wrecks.visitedTop = true;
-        $objectivesApi.incrementTask("task_visit-depths");
-      }
-    }
     onClickArea(e);
   }
   function onClickMiddleArea(e: MouseEvent) {
     if ($objectivesApi.currentObjectiveIs("obj_explore-wrecks")) {
       $objectivesApi.completeTask("task_enter-wrecks");
     }
-    if ($objectivesApi.currentObjectiveIs("obj_depth-o")) {
-      if (!$wrecks.visitedMiddle) {
-        $wrecks.visitedMiddle = true;
-        $objectivesApi.incrementTask("task_visit-depths");
-      }
-    }
     onClickArea(e);
   }
   function onClickBottomArea(e: MouseEvent) {
-    const y = e.clientY - gridOffset.current.y;
-
-    if ($objectivesApi.currentObjectiveIs("obj_depth-o")) {
-      if (!$wrecks.visitedBottom) {
-        $wrecks.visitedBottom = true;
-        $objectivesApi.incrementTask("task_visit-depths");
-      }
-    }
-    // if (y > 1300) {
-    //   $hudApi.startDialog({
-    //     keys: pressureCreak,
-    //   });
-    // }
     onClickArea(e);
   }
   function onClickArea(e: MouseEvent) {
@@ -202,8 +177,8 @@
       onClose: onClose,
     });
 
-    if (!$wrecks.wrecksObserved.includes(observationKey)) {
-      $wrecks.wrecksObserved = [...$wrecks.wrecksObserved, observationKey];
+    if (!$wrecks.observed.includes(observationKey)) {
+      $wrecks.observed = [...$wrecks.observed, observationKey];
       $notepadApi.openPage("wrecks");
       $notepadApi.addLine(observationKey);
     }
@@ -219,14 +194,14 @@
       onClose: onClose,
     });
 
-    if (!$wrecks.depthsObserved.includes(observationKey)) {
-      $wrecks.depthsObserved = [...$wrecks.depthsObserved, observationKey];
-      $notepadApi.openPage("observation-depths");
+    if (!$wrecks.observed.includes(observationKey)) {
+      $wrecks.observed = [...$wrecks.observed, observationKey];
+      $notepadApi.openPage("wrecks-experiment");
       $notepadApi.addTableRow(key, observationKey);
 
-      if ($wrecks.depthsObserved.length === 3) {
-        $objectivesApi.completeTask("task_record-depth-o");
-        $notepadApi.openPage("observations-depth");
+      if ($wrecks.observed.length === 3) {
+        $objectivesApi.completeTask("task_wrecks-record-data");
+        $notepadApi.openPage("wrecks-experiment");
         $hudApi.showNotepad = true;
         $wrecks.forestUnlocked = true;
       }
@@ -240,11 +215,8 @@
     if ($gameApi.debugMode) {
       $objectivesApi.completedChapters = ["tutorial"];
       $objectivesApi.completedObjectives = [
-        //"obj_explore-wrecks",
-        // "obj_start-sm",
-        // "obj_explore-wrecks",
-        // "obj_prepare-notepad",
-        // "obj_depth-o",
+        "obj_explore-wrecks",
+        "obj_sm-intro",
       ];
       $objectivesApi.recallCompletedChapters();
     }
@@ -338,7 +310,7 @@
         class="w-[111%] bottom-0 z-[13]"
       />
       <Darkness
-        level={depthRatio - 0.4}
+        level={depthRatio - 0.2}
         lights={[
           {
             x: subCoords.current.x + $subDirection.x * 50,
@@ -368,40 +340,31 @@
           --color-top="#03E5B7"
           --color-bottom="#00C1EF"
         />
-        {#if $objectivesApi.currentObjectiveIs("obj_sm-intro")}
+        {#if $objectivesApi.currentObjectiveIs("obj_sm-intro") || $objectivesApi.currentObjectiveIs("obj_wrecks-experiment")}
           <InfoMarker
             type="sm-o"
             onclick={() => {
               $objectivesApi.completeTask("task_make-observation");
               makeObservation("o_sunlight-surface", () => {
-                $objectivesApi.completeTask("task_ask-question");
-                $hudApi.startDialog({
-                  keys: smColor,
-                  onFinished: () => {
-                    $objectivesApi.completeTask("task_make-hypothesis");
-                  },
-                });
+                if ($objectivesApi.currentObjectiveIs("obj_sm-intro")) {
+                  $objectivesApi.completeTask("task_ask-question");
+                  $hudApi.startDialog({
+                    keys: smColor,
+                    onFinished: () => {
+                      $objectivesApi.completeTask("task_make-hypothesis");
+                    },
+                  });
+                }
               });
             }}
             class={cn(
               "absolute top-[44%] left-[44%]",
               "w-[55px] h-[55px] z-[9]",
+              $wrecks.observed.includes("o_sunlight-surface")
+                ? "opacity-30"
+                : "opacity-100",
             )}
           />
-        {/if}
-        {#if $objectivesApi.currentObjectiveIs("obj_depth-o")}
-          {#if $wrecks.numDepthsObserved >= 0}
-            <InfoMarker
-              type="sm-o"
-              onclick={() => {
-                makeTableObservation("depth-shallow", "o_sunlight-surface");
-              }}
-              class={cn(
-                "absolute w-[55px] h-[55px] top-[44%] left-[44%] z-[9]",
-                $wrecks.numDepthsObserved === 0 ? "opacity-100" : "opacity-30",
-              )}
-            />
-          {/if}
         {/if}
       </Area>
       <Area
@@ -413,33 +376,19 @@
           --color-top="#00C1EF"
           --color-bottom="#037ADE"
         />
-        <!-- {#if $objectivesApi.currentObjectiveIs("obj_explore-wrecks")}
-          {#if $wrecks.numWrecksObserved >= 0}
-            <InfoMarker
-              type="sm-o"
-              onclick={() => {
-                makeObservation("o_wreckage");
-              }}
-              class={cn(
-                "absolute right-[48%] bottom-[40%] w-[55px] h-[55px] z-20",
-                $wrecks.numWrecksObserved === 0 ? "opacity-100" : "opacity-30",
-              )}
-            />
-          {/if}
-        {/if} -->
-        {#if $objectivesApi.currentObjectiveIs("obj_depth-o")}
-          {#if $wrecks.numDepthsObserved >= 1}
-            <InfoMarker
-              type="sm-o"
-              onclick={() => {
-                makeTableObservation("depth-medium", "o_color-change");
-              }}
-              class={cn(
-                "absolute w-[55px] h-[55px] bottom-[55%] right-[33%] z-[15]",
-                $wrecks.numDepthsObserved === 1 ? "opacity-100" : "opacity-30",
-              )}
-            />
-          {/if}
+        {#if $objectivesApi.currentObjectiveIs("obj_wrecks-experiment")}
+          <InfoMarker
+            type="sm-o"
+            onclick={() => {
+              makeTableObservation("depth-medium", "o_color-change");
+            }}
+            class={cn(
+              "absolute w-[55px] h-[55px] bottom-[55%] right-[33%] z-[15]",
+              $wrecks.observed.includes("o_color-change")
+                ? "opacity-30"
+                : "opacity-100",
+            )}
+          />
         {/if}
       </Area>
       <Area
@@ -451,67 +400,31 @@
           --color-top="#037ADE"
           --color-bottom="#182B3A"
         />
-        <Conch
-          onclick={() => {
-            console.log("hello");
-          }}
-          class={cn(
-            "absolute right-[19%] bottom-[51%] w-[55px] h-[55px] z-[9]",
-            true && "pointer-events-none",
-          )}
-          style="transform: translateX({gridOffset.current.x / 5}px)"
-        />
-        <!-- {#if $objectivesApi.currentObjectiveIs("obj_explore-wrecks")}
-          {#if $wrecks.numWrecksObserved >= 1}
-            <InfoMarker
-              type="sm-o"
-              onclick={() => {
-                makeObservation("o_floor");
-              }}
-              class={cn(
-                "absolute left-[33%] bottom-[73%] w-[55px] h-[55px] z-20",
-                $wrecks.numWrecksObserved === 1 ? "opacity-100" : "opacity-30",
-              )}
-              style="transform: translateX({gridOffset.current.x / 5}px)"
-            />
-          {/if}
-          {#if $wrecks.numWrecksObserved >= 2}
-            <InfoMarker
-              type="sm-o"
-              onclick={() => {
-                setSubTarget({ x: 1300, y: 1300 });
-                gridOffset.set({ x: -900, y: -900 });
-                $hudApi.startDialog({
-                  keys: conchEncounter,
-                  blockInput: true,
-                  onFinished: () => {
-                    makeObservation("o_shell", () => {
-                      $objectivesApi.completeTask("task_make-o");
-                    });
-                  },
-                });
-              }}
-              class={cn(
-                "absolute right-[19%] bottom-[66%] w-[55px] h-[55px] z-20",
-                $wrecks.numWrecksObserved === 2 ? "opacity-100" : "opacity-30",
-              )}
-              style="transform: translateX({gridOffset.current.x / 5}px)"
-            />
-          {/if}
-        {/if} -->
-        {#if $objectivesApi.currentObjectiveIs("obj_depth-o")}
-          {#if $wrecks.numDepthsObserved >= 2}
-            <InfoMarker
-              type="sm-o"
-              onclick={() => {
-                makeTableObservation("depth-deep", "o_darkness");
-              }}
-              class={cn(
-                "absolute w-[55px] h-[55px] bottom-[66%] right-[22%] z-[15]",
-                $wrecks.numDepthsObserved === 2 ? "opacity-100" : "opacity-30",
-              )}
-            />
-          {/if}
+        {#if $forest.encounteredMonster}
+          <Conch
+            onclick={() => {
+              console.log("hello");
+            }}
+            class={cn(
+              "absolute right-[19%] bottom-[51%] w-[55px] h-[55px] z-[9]",
+              true && "pointer-events-none",
+            )}
+            style="transform: translateX({gridOffset.current.x / 5}px)"
+          />
+        {/if}
+        {#if $objectivesApi.currentObjectiveIs("obj_wrecks-experiment")}
+          <InfoMarker
+            type="sm-o"
+            onclick={() => {
+              makeTableObservation("depth-deep", "o_darkness");
+            }}
+            class={cn(
+              "absolute w-[55px] h-[55px] bottom-[66%] right-[22%] z-[15]",
+              $wrecks.observed.includes("o_darkness")
+                ? "opacity-30"
+                : "opacity-100",
+            )}
+          />
         {/if}
       </Area>
     {/snippet}

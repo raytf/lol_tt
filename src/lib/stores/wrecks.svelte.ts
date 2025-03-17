@@ -1,21 +1,11 @@
 import { writable, get } from "svelte/store";
 
 class WrecksState {
-  startedObservationTask = $state(false);
-  completedObservationTask = $state(false);
+  observed = $state<string[]>([]);
   forestUnlocked = $state(false);
-  wrecksObserved = $state<string[]>([]);
-  depthsObserved = $state<string[]>([]);
-  visitedTop = $state(false);
-  visitedMiddle = $state(false);
-  visitedBottom = $state(false);
 
-  get numWrecksObserved() {
-    return this.wrecksObserved.length;
-  }
-
-  get numDepthsObserved() {
-    return this.depthsObserved.length;
+  get numObserved() {
+    return this.observed.length;
   }
 }
 

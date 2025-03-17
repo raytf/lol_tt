@@ -45,7 +45,6 @@ type PageData = TextPageData | TablePageData | CustomPageData;
 
 interface CustomPageData {
   type: "custom";
-  name: string;
   lines: string[];
 }
 
@@ -58,7 +57,5 @@ interface TextPageData {
 
 interface TablePageData {
   type: "table";
-  titleKey: string;
-  header: string[];
   rows: string[][];
 }

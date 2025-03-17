@@ -58,6 +58,12 @@ const objectiveMap: ObjectiveMap = {
     { key: "task_ask-question" },
     { key: "task_make-hypothesis" },
   ],
+  "obj_wrecks-experiment": [
+    {
+      key: "task_new-page",
+    },
+    { key: "task_wrecks-record-data" },
+  ],
   "obj_start-sm": [{ key: "task_open-sm" }, { key: "task_review-o" }],
   "obj_depth-o": [
     { key: "task_visit-depths", numTimes: 3 },
@@ -102,12 +108,10 @@ const chapterMap: ChapterMap = {
     {
       key: "obj_explore-wrecks",
       onFinished: () => {
-        get(notepadApi).newPage("wrecks", {
+        get(notepadApi).newPage("wrecks-notes", {
           type: "custom",
-          name: "wrecks",
           lines: [],
         });
-        get(hudApi).showNotepad = false;
       },
     },
     {
@@ -115,6 +119,9 @@ const chapterMap: ChapterMap = {
       onFinished: () => {
         get(hudApi).showNotepad = true;
       },
+    },
+    {
+      key: "obj_wrecks-experiment",
     },
     // {
     //   key: "obj_start-sm",

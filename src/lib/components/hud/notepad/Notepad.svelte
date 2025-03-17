@@ -4,7 +4,7 @@
   import { Close, NewPage } from "$components/svg/icons";
   import { Lol } from "$components/text";
   import { Left, Right } from "$components/svg/icons/caret";
-  import { CoverPage, WrecksPage } from "../notepad";
+  import { CoverPage, WrecksNotesPage, WrecksExperimentPage } from "./pages";
   import {
     notepadApi,
     hudApi,
@@ -29,29 +29,38 @@
   function newPage() {
     if (!$objectivesApi.currentObjective) return;
 
-    if ($objectivesApi.hasCompleted("obj_explore-wrecks")) {
-      $notepadApi.newPage("observations-depth", {
-        type: "table",
-        titleKey: "notepad-title_depth-o",
-        header: ["th_depth-level", "th_observation"],
-        rows: [],
-      });
-    } else {
-      $notepadApi.newPage("wrecks", {
+    if ($objectivesApi.currentObjectiveIs("obj_explore-wrecks")) {
+      $notepadApi.newPage("wrecks-notes", {
         type: "custom",
-        name: "wrecks",
         lines: [],
       });
     }
 
+    if ($objectivesApi.currentObjectiveIs("obj_wrecks-experiment")) {
+      $notepadApi.newPage("wrecks-experiment", {
+        type: "table",
+        rows: [["depth-shallow", "o_sunlight-surface"]],
+      });
+    }
+
+    // if ($objectivesApi.hasCompleted("obj_explore-wrecks")) {
+    //   $notepadApi.newPage("observations-depth", {
+    //     type: "table",
+    //     titleKey: "notepad-title_depth-o",
+    //     header: ["th_depth-level", "th_observation"],
+    //     rows: [],
+    //   });
+    // }
+
     $objectivesApi.completeTask("task_new-page");
+    //$hudApi.showNotepad = false;
     newPageEnabled = false;
   }
 
   onMount(() => {
     if (
       $objectivesApi.currentObjectiveIs("obj_explore-wrecks") ||
-      $objectivesApi.currentObjectiveIs("obj_prepare-notepad")
+      $objectivesApi.currentObjectiveIs("obj_wrecks-experiment")
     ) {
       newPageEnabled = true;
     }
@@ -93,11 +102,11 @@
     </div>
     <div class="section-text size-full">
       {#if $notepadApi.currentPage.type === "custom"}
-        {#if $notepadApi.currentPage.name === "cover"}
+        {#if $notepadApi.currentPageKey === "cover"}
           <CoverPage />
         {/if}
-        {#if $notepadApi.currentPage.name === "wrecks"}
-          <WrecksPage />
+        {#if $notepadApi.currentPageKey === "wrecks-notes"}
+          <WrecksNotesPage />
         {/if}
       {:else if $notepadApi.currentPage.type === "text"}
         <Lol
@@ -110,7 +119,10 @@
           </div>
         {/each}
       {:else if $notepadApi.currentPage.type === "table"}
-        <Lol
+        {#if $notepadApi.currentPageKey === "wrecks-experiment"}
+          <WrecksExperimentPage />
+        {/if}
+        <!-- <Lol
           key={$notepadApi.currentPage.titleKey}
           class="font-bold underline"
         />
@@ -127,7 +139,7 @@
               </tr>
             {/each}
           </tbody>
-        </table>
+        </table> -->
       {/if}
     </div>
   </div>
@@ -176,11 +188,5 @@
     line-height: 1.45em;
     overflow: hidden;
     pointer-events: none;
-  }
-
-  th,
-  td {
-    border: 1px solid black;
-    padding: 0 0.25em;
   }
 </style>

@@ -30,7 +30,7 @@ export const smColor = [
     onStart: () => {
       const notepad = get(notepadApi);
       notepad.openPage("wrecks");
-      notepad.addLine("ch1_color-q");
+      notepad.addLine("np-wrecks-notes_question");
     },
     options: [
       {
