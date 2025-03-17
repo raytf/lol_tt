@@ -23,6 +23,31 @@ import { audioApi, gameApi, notepadApi, objectivesApi } from "$apis";
 import wrecks from "$stores/wrecks.svelte";
 import { showConchFace, conchLightRadius, conchFace } from "$stores/conch";
 
+export const wrecksAnalysis = [
+  {
+    imgSrc: neutral,
+    name: "explorer",
+    text: "ch1_analysis",
+  },
+  {
+    imgSrc: hushed,
+    name: "explorer",
+    text: "ch1_conclusion",
+  },
+];
+
+export const wrecksCorrect = {
+  imgSrc: smileOpen,
+  name: "explorer",
+  text: "ch1_hypothesis-correct",
+};
+
+export const wrecksIncorrect = {
+  imgSrc: frownSlight,
+  name: "explorer",
+  text: "ch1_hypothesis-incorrect",
+};
+
 export const smColor = [
   {
     imgSrc: thinking,

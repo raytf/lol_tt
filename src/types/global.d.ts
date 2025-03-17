@@ -58,4 +58,5 @@ interface TextPageData {
 interface TablePageData {
   type: "table";
   rows: string[][];
+  lines: string[];
 }

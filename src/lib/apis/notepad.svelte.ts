@@ -37,8 +37,10 @@ class NotepadApi {
   addLine(key: string) {
     if (
       this.currentPage.type === "text" ||
-      this.currentPage.type === "custom"
+      this.currentPage.type === "custom" ||
+      this.currentPage.type === "table"
     ) {
+      console.log("add line");
       this.currentPage?.lines?.push(key);
     }
   }

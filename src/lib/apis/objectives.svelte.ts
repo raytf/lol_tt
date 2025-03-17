@@ -146,6 +146,7 @@ const chapterMap: ChapterMap = {
             ["depth-medium", "o_color-change"],
             ["depth-deep", "o_darkness"],
           ],
+          lines: [],
         });
         get(hudApi).showNotepad = true;
       },

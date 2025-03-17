@@ -1,7 +1,14 @@
 <script lang="ts">
   import { Lol } from "$components/text";
   import { SmButton } from "$components/hud/notepad";
-  import { notepadApi, infoApi } from "$apis";
+  import { notepadApi, infoApi, hudApi, objectivesApi } from "$apis";
+  import {
+    wrecksAnalysis,
+    wrecksCorrect,
+    wrecksIncorrect,
+  } from "$dialog/chapter1";
+  import wrecks from "$stores/wrecks.svelte";
+  import { cn } from "$lib/utils";
 </script>
 
 {#if $notepadApi.currentPage.type === "table"}
@@ -26,8 +33,34 @@
   </table>
   {#if $notepadApi.currentPage.rows.length === 3}
     <div class="flex gap-2">
-      <SmButton step="sm-a" /><Lol key="analyze" />
+      <SmButton step="sm-a" />
+      <button
+        onclick={() => {
+          $objectivesApi.completeTask("task_wrecks-analysis");
+          $hudApi.startDialog({
+            keys: [
+              ...wrecksAnalysis,
+              $wrecks.hypothesisCorrect ? wrecksCorrect : wrecksIncorrect,
+            ],
+            onFinished: () => {
+              $notepadApi.addLine("ch1_conclusion");
+              $objectivesApi.completeTask("task_wrecks-conclusion");
+            },
+          });
+        }}
+        class={cn(
+          "border border-black rounded pl-1 pr-2",
+          "hover:bg-black hover:text-white",
+          "pointer-events-auto",
+        )}
+      >
+        <Lol key="start" />
+      </button>
     </div>
+  {/if}
+  {#if $notepadApi.currentPage?.lines.length > 0}
+    <SmButton step="sm-c" />
+    <Lol key={$notepadApi.currentPage?.lines[0]} class="text-left" />
   {/if}
 {/if}
 

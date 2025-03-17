@@ -4,7 +4,7 @@ import { coords, setTarget as setSubTarget } from "$stores/sub";
 import { pressureCreak } from "$dialog/common";
 import { gameApi, hudApi, interfaceApi } from "$apis";
 
-export const creakThreshold = 1350;
+export const creakThreshold = 1450;
 const pressureTimerId = writable<NodeJS.Timeout>();
 const underPressure = writable(false);
 
@@ -34,7 +34,7 @@ export const moveSub = (e: MouseEvent) => {
   const y = e.clientY - gridOffset.current.y;
   setSubTarget({ x, y });
   checkPressure({ x, y });
-  console.log({ x, y });
+  //console.log({ x, y });
   return { x, y };
 };
 

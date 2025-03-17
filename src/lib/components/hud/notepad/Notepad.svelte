@@ -40,17 +40,9 @@
       $notepadApi.newPage("wrecks-experiment", {
         type: "table",
         rows: [["depth-shallow", "o_sunlight-surface"]],
+        lines: [],
       });
     }
-
-    // if ($objectivesApi.hasCompleted("obj_explore-wrecks")) {
-    //   $notepadApi.newPage("observations-depth", {
-    //     type: "table",
-    //     titleKey: "notepad-title_depth-o",
-    //     header: ["th_depth-level", "th_observation"],
-    //     rows: [],
-    //   });
-    // }
 
     $objectivesApi.completeTask("task_new-page");
     //$hudApi.showNotepad = false;
