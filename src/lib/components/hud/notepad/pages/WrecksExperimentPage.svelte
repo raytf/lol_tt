@@ -40,7 +40,7 @@
           $hudApi.startDialog({
             keys: [
               ...wrecksAnalysis,
-              $wrecks.hypothesisCorrect ? wrecksCorrect : wrecksIncorrect,
+              ...($wrecks.hypothesisCorrect ? wrecksCorrect : wrecksIncorrect),
             ],
             onFinished: () => {
               $notepadApi.addLine("ch1_conclusion");

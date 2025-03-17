@@ -129,7 +129,9 @@
         $objectivesApi.currentChapterIs("tutorial") ||
         $objectivesApi.currentChapterIs("chapter1")
       ) {
-        $objectivesApi.startChapter("chapter1", () => {});
+        if (!$objectivesApi.completedChapters.includes("chapter1")) {
+          $objectivesApi.startChapter("chapter1", () => {});
+        }
         // $objectivesApi.attachStartCallback("obj_explore-wrecks", () => {
         //   $wrecks.startedObservationTask = true;
         // });
@@ -212,13 +214,15 @@
   onMount(() => {
     //#region Debug
     if ($gameApi.debugMode) {
-      $objectivesApi.completedChapters = ["tutorial"];
-      $objectivesApi.completedObjectives = [
-        "obj_explore-wrecks",
-        "obj_sm-intro",
-        "obj_wrecks-experiment",
-      ];
-      $objectivesApi.recallCompletedChapters();
+      if (!$objectivesApi.completedChapters.includes("chapter1")) {
+        $objectivesApi.completedChapters = ["tutorial"];
+        $objectivesApi.completedObjectives = [
+          "obj_explore-wrecks",
+          "obj_sm-intro",
+          "obj_wrecks-experiment",
+        ];
+        $objectivesApi.recallCompletedChapters();
+      }
     }
     //#endregion
     setTimeout(() => {

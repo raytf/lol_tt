@@ -36,17 +36,26 @@ export const wrecksAnalysis = [
   },
 ];
 
-export const wrecksCorrect = {
-  imgSrc: smileOpen,
-  name: "explorer",
-  text: "ch1_hypothesis-correct",
-};
+export const wrecksCorrect = [
+  {
+    imgSrc: smileOpen,
+    name: "explorer",
+    text: "ch1_hypothesis-correct",
+  },
+];
 
-export const wrecksIncorrect = {
-  imgSrc: frownSlight,
-  name: "explorer",
-  text: "ch1_hypothesis-incorrect",
-};
+export const wrecksIncorrect = [
+  {
+    imgSrc: frownSlight,
+    name: "explorer",
+    text: "ch1_hypothesis-incorrect-1",
+  },
+  {
+    imgSrc: smileSlight,
+    name: "explorer",
+    text: "ch1_hypothesis-incorrect-2",
+  },
+];
 
 export const smColor = [
   {

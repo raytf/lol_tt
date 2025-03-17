@@ -153,6 +153,9 @@ const chapterMap: ChapterMap = {
     },
     {
       key: "obj_wrecks-review",
+      onFinished: () => {
+        get(wrecks).forestUnlocked = true;
+      },
     },
   ],
 };
@@ -351,7 +354,7 @@ class ObjectivesApi {
   completeChapter = () => {
     this.chapterStarted = false;
     this.chapterFinished = true;
-    this.completedChapters.push(this.currentChapter);
+    this.completedChapters = [...this.completedChapters, this.currentChapter];
 
     setTimeout(() => {
       get(hudApi).showObjectives = false;

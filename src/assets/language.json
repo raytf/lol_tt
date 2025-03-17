@@ -198,7 +198,8 @@
     "ch1_analysis": "Based on this data...",
     "ch1_conclusion": "When depth increases, the ocean color fades and becomes darker.",
     "ch1_hypothesis-correct": "These results confirm my hypothesis!",
-    "ch1_hypothesis-incorrect": "These results do not match my hypothesis...",
+    "ch1_hypothesis-incorrect-1": "These results do not match my hypothesis...",
+    "ch1_hypothesis-incorrect-2": "...but at least I've learned something.",
 
     "ch1_conch-1": "Hey you...",
     "ch1_conch-2": "Leave this place now... for your own good.",
