@@ -2,7 +2,6 @@ type SM = "sm-o" | "sm-q" | "sm-h" | "sm-e" | "sm-a" | "sm-c";
 
 interface SMStep {
   titleKey: string;
-  description: string;
   border: string;
   label: string;
 }
@@ -42,10 +41,12 @@ interface ItemDetails {
   measuring?: boolean;
 }
 
-type PageData = CoverPageData | TextPageData | TablePageData;
+type PageData = TextPageData | TablePageData | CustomPageData;
 
-interface CoverPageData {
-  type: "cover";
+interface CustomPageData {
+  type: "custom";
+  name: string;
+  lines: string[];
 }
 
 interface TextPageData {

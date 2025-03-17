@@ -30,7 +30,7 @@ class InfoApi {
       onClose,
     } = params;
 
-    this.smStep = steps.find((s) => s.label === infoType);
+    this.smStep = infoType ? steps[infoType] : undefined;
     if (textKeys) {
       this.textKeys = textKeys;
       get(lolApi).speakText(textKeys[0]);

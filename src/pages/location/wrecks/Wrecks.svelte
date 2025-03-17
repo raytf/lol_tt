@@ -47,7 +47,7 @@
   import forest from "$stores/forest.svelte";
   import { cn } from "$lib/utils";
 
-  //#region state
+  //#region grid
   const grid = {
     width: $gameApi.windowWidth * 2,
     height: $gameApi.windowHeight * 3,
@@ -90,10 +90,11 @@
     const ratio = gridOffset.current.x / $minOffset.x;
     return ratio;
   });
+  //#endregion
+  //#region booleans
   let subNearSurface = $state(false);
   let subNearForest = $state(false);
   //#endregion
-
   //#region events
   function onEnter() {
     $audioApi.playTrack({
@@ -103,9 +104,9 @@
     });
 
     if ($objectivesApi.chapterStarted) {
-      if ($objectivesApi.currentObjectiveIs("obj_explore-wrecks")) {
-        $wrecks.startedObservationTask = true;
-      }
+      // if ($objectivesApi.currentObjectiveIs("obj_explore-wrecks")) {
+      //   $wrecks.startedObservationTask = true;
+      // }
       if ($objectivesApi.currentObjectiveIs("obj_keep-exploring")) {
         $wrecks.forestUnlocked = true;
         if (searchParams.has("from", "forest") && $forest.encounteredMonster) {
@@ -128,12 +129,12 @@
         $objectivesApi.currentChapterIs("chapter1")
       ) {
         $objectivesApi.startChapter("chapter1", () => {});
-        $objectivesApi.attachStartCallback("obj_explore-wrecks", () => {
-          $wrecks.startedObservationTask = true;
-        });
-        $objectivesApi.attachStartCallback("obj_keep-exploring", () => {
-          $wrecks.forestUnlocked = true;
-        });
+        // $objectivesApi.attachStartCallback("obj_explore-wrecks", () => {
+        //   $wrecks.startedObservationTask = true;
+        // });
+        // $objectivesApi.attachStartCallback("obj_keep-exploring", () => {
+        //   $wrecks.forestUnlocked = true;
+        // });
       }
     }
   }
@@ -202,7 +203,7 @@
 
     if (!$wrecks.wrecksObserved.includes(observationKey)) {
       $wrecks.wrecksObserved = [...$wrecks.wrecksObserved, observationKey];
-      $notepadApi.openPage("observation-wrecks");
+      $notepadApi.openPage("wrecks");
       $notepadApi.addLine(observationKey);
     }
   }
@@ -238,6 +239,7 @@
     if ($gameApi.debugMode) {
       $objectivesApi.completedChapters = ["tutorial"];
       $objectivesApi.completedObjectives = [
+        "obj_explore-wrecks",
         // "obj_start-sm",
         // "obj_explore-wrecks",
         // "obj_prepare-notepad",
@@ -306,56 +308,54 @@
     xOffset={gridOffset.current.x}
     yOffset={gridOffset.current.y}
   >
-    <TurbulentImg src={underwater} class="opacity-35 z-[1]" />
-    <BgImg
-      src={wrecks_3}
-      class="w-[133%] left-[-22%] bottom-0 z-[7] opacity-75"
-    />
-    <BgImg
-      src={wrecks_2}
-      style="transform: translateX({gridOffset.current.x / 10}px)"
-      class="w-[122%] left-[-11%] bottom-0 z-[9]"
-    />
-    <!-- <BgImg
-      src={wrecks_trash}
-      style="transform: translateX({gridOffset.current.x / 5}px)"
-      class={cn("w-[111%] bottom-0 z-[9] brightness-50")}
-    /> -->
-    <Submarine class="z-10" />
-    <BgImg
-      src={wrecks_kelp}
-      style="filter: brightness({1 -
-        depthRatio * 0.5}); transform: translateX({gridOffset.current.x / 5}px)"
-      class="w-[111%] opacity-[90%] bottom-0 z-[14]"
-    />
-    <WrecksPath
-      style="transform: translateX({gridOffset.current.x / 5}px)"
-      class="absolute w-[111%] bottom-0 z-[13] pointer-events-none opacity-0"
-    />
-    <BgImg
-      src={wrecks_1}
-      style="transform: translateX({gridOffset.current.x / 5}px)"
-      class="w-[111%] bottom-0 z-[13]"
-    />
-    <Darkness
-      level={depthRatio - 0.4}
-      lights={[
-        {
-          x: subCoords.current.x + $subDirection.x * 50,
-          y: subCoords.current.y,
-          unit: "px",
-          radius: 4,
-          strength: 0.5,
-        },
-        {
-          x: 72 - (xRatio - 0.7) * 8,
-          y: 80,
-          unit: "%",
-          radius: $conchLightRadius,
-        },
-      ]}
-      class="z-50"
-    />
+    {#snippet backgrounds()}
+      <TurbulentImg src={underwater} class="opacity-35 z-[1]" />
+      <BgImg
+        src={wrecks_3}
+        class="w-[133%] left-[-22%] bottom-0 z-[7] opacity-75"
+      />
+      <BgImg
+        src={wrecks_2}
+        style="transform: translateX({gridOffset.current.x / 10}px)"
+        class="w-[122%] left-[-11%] bottom-0 z-[9]"
+      />
+      <Submarine class="z-10" />
+      <BgImg
+        src={wrecks_kelp}
+        style="filter: brightness({1 -
+          depthRatio * 0.5}); transform: translateX({gridOffset.current.x /
+          5}px)"
+        class="w-[111%] opacity-[90%] bottom-0 z-[14]"
+      />
+      <WrecksPath
+        style="transform: translateX({gridOffset.current.x / 5}px)"
+        class="absolute w-[111%] bottom-0 z-[13] pointer-events-none opacity-0"
+      />
+      <BgImg
+        src={wrecks_1}
+        style="transform: translateX({gridOffset.current.x / 5}px)"
+        class="w-[111%] bottom-0 z-[13]"
+      />
+      <Darkness
+        level={depthRatio - 0.4}
+        lights={[
+          {
+            x: subCoords.current.x + $subDirection.x * 50,
+            y: subCoords.current.y,
+            unit: "px",
+            radius: 4,
+            strength: 0.5,
+          },
+          {
+            x: 72 - (xRatio - 0.7) * 8,
+            y: 80,
+            unit: "%",
+            radius: $conchLightRadius,
+          },
+        ]}
+        class="z-50"
+      />
+    {/snippet}
     {#snippet areas()}
       <Area
         size={[grid.width, $gameApi.windowHeight]}
@@ -367,7 +367,19 @@
           --color-top="#03E5B7"
           --color-bottom="#00C1EF"
         />
-
+        {#if $objectivesApi.currentObjectiveIs("obj_sm-intro")}
+          <InfoMarker
+            type="sm-o"
+            onclick={() => {
+              $objectivesApi.completeTask("task_make-observation");
+              makeObservation("o_sunlight-surface", () => {});
+            }}
+            class={cn(
+              "absolute top-[44%] left-[44%]",
+              "w-[55px] h-[55px] z-[9]",
+            )}
+          />
+        {/if}
         {#if $objectivesApi.currentObjectiveIs("obj_depth-o")}
           {#if $wrecks.numDepthsObserved >= 0}
             <InfoMarker
@@ -392,7 +404,7 @@
           --color-top="#00C1EF"
           --color-bottom="#037ADE"
         />
-        {#if $objectivesApi.currentObjectiveIs("obj_explore-wrecks")}
+        <!-- {#if $objectivesApi.currentObjectiveIs("obj_explore-wrecks")}
           {#if $wrecks.numWrecksObserved >= 0}
             <InfoMarker
               type="sm-o"
@@ -405,7 +417,7 @@
               )}
             />
           {/if}
-        {/if}
+        {/if} -->
         {#if $objectivesApi.currentObjectiveIs("obj_depth-o")}
           {#if $wrecks.numDepthsObserved >= 1}
             <InfoMarker
@@ -440,7 +452,7 @@
           )}
           style="transform: translateX({gridOffset.current.x / 5}px)"
         />
-        {#if $objectivesApi.currentObjectiveIs("obj_explore-wrecks")}
+        <!-- {#if $objectivesApi.currentObjectiveIs("obj_explore-wrecks")}
           {#if $wrecks.numWrecksObserved >= 1}
             <InfoMarker
               type="sm-o"
@@ -477,7 +489,7 @@
               style="transform: translateX({gridOffset.current.x / 5}px)"
             />
           {/if}
-        {/if}
+        {/if} -->
         {#if $objectivesApi.currentObjectiveIs("obj_depth-o")}
           {#if $wrecks.numDepthsObserved >= 2}
             <InfoMarker

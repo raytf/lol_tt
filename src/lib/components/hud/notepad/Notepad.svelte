@@ -4,7 +4,7 @@
   import { Close, NewPage } from "$components/svg/icons";
   import { Lol } from "$components/text";
   import { Left, Right } from "$components/svg/icons/caret";
-  import { InfoButton } from "$components/ui/button";
+  import { CoverPage, WrecksPage } from "../notepad";
   import {
     notepadApi,
     hudApi,
@@ -37,11 +37,10 @@
         rows: [],
       });
     } else {
-      $notepadApi.newPage("observations-wrecks", {
-        type: "text",
-        titleKey: "notepad-title_o",
+      $notepadApi.newPage("wrecks", {
+        type: "custom",
+        name: "wrecks",
         lines: [],
-        delimiter: "- ",
       });
     }
 
@@ -50,9 +49,12 @@
   }
 
   onMount(() => {
-    // if ($objectivesApi.currentObjectiveIs("obj_prepare-notepad")) {
-    //   newPageEnabled = true;
-    // }
+    if (
+      $objectivesApi.currentObjectiveIs("obj_explore-wrecks") ||
+      $objectivesApi.currentObjectiveIs("obj_prepare-notepad")
+    ) {
+      newPageEnabled = true;
+    }
   });
 
   let newPageEnabled = $state(false);
@@ -90,8 +92,13 @@
       </button>
     </div>
     <div class="section-text size-full">
-      {#if $notepadApi.currentPage.type === "cover"}
-        {@render coverPage()}
+      {#if $notepadApi.currentPage.type === "custom"}
+        {#if $notepadApi.currentPage.name === "cover"}
+          <CoverPage />
+        {/if}
+        {#if $notepadApi.currentPage.name === "wrecks"}
+          <WrecksPage />
+        {/if}
       {:else if $notepadApi.currentPage.type === "text"}
         <Lol
           key={$notepadApi.currentPage.titleKey}
@@ -125,49 +132,6 @@
     </div>
   </div>
 {/key}
-
-{#snippet coverPage()}
-  <Lol key="notepad-title_mission" class="font-bold underline" />
-  <!-- <Lol key="notepad-line_look-clues" /> -->
-  <Lol key="notepad-line_explore-depths" />
-  <button
-    onclick={() => {
-      $infoApi.openModal({
-        textKeys: ["tut_elaborate-ql"],
-      });
-    }}
-    class="flex hover:font-bold pointer-events-auto"
-  >
-    <InfoButton /><Lol key="ql-data" />
-  </button>
-  <button
-    onclick={() => {
-      $infoApi.openModal({
-        textKeys: ["tut_elaborate-qn"],
-      });
-    }}
-    class="flex hover:font-bold pointer-events-auto"
-  >
-    <InfoButton /><Lol key="qn-data" />
-  </button>
-  <!-- <Lol key="notepad-line_ee-1" class="inline-block" /> -->
-  <p class="inline-block">
-    {$lolApi.getText("notepad-line_ee-1")}
-    <button
-      onclick={() => {
-        $infoApi.openModal({
-          textKeys: ["ee_desc-1", "ee_desc-2"],
-        });
-      }}
-      class="inline-block hover:font-bold pointer-events-auto"
-    >
-      <InfoButton />{$lolApi.getText("ee_name")}
-    </button>
-  </p>
-  <br />
-  <br />
-  <Lol key="notepad-line_ee-2" />
-{/snippet}
 
 <style>
   .paper {

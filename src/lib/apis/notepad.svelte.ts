@@ -6,7 +6,7 @@ interface Notepad {
 
 class NotepadApi {
   pages = $state<Notepad>({
-    cover: { type: "cover" },
+    cover: { type: "custom", name: "cover", lines: [] },
   });
   currentPageKey = $state("cover");
 
@@ -35,8 +35,11 @@ class NotepadApi {
   }
 
   addLine(key: string) {
-    if (this.currentPage.type === "text") {
-      this.currentPage.lines.push(key);
+    if (
+      this.currentPage.type === "text" ||
+      this.currentPage.type === "custom"
+    ) {
+      this.currentPage?.lines?.push(key);
     }
   }
 

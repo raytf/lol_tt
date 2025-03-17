@@ -47,14 +47,18 @@ const objectiveMap: ObjectiveMap = {
     { key: "task_open-notepad" },
     { key: "task_open-sm" },
   ],
-  "obj_prepare-notepad": [
-    { key: "task_open-notepad" },
-    { key: "task_new-page" },
-  ],
   obj_explore: [{ key: "task_move-sub" }, { key: "task_dive" }],
 
+  "obj_explore-wrecks": [
+    { key: "task_enter-wrecks" },
+    { key: "task_new-page" },
+  ],
+  "obj_sm-intro": [
+    { key: "task_make-observation" },
+    { key: "task_ask-question" },
+    { key: "task_make-hypothesis" },
+  ],
   "obj_start-sm": [{ key: "task_open-sm" }, { key: "task_review-o" }],
-  "obj_explore-wrecks": [{ key: "task_enter-wrecks" }, { key: "task_make-o" }],
   "obj_depth-o": [
     { key: "task_visit-depths", numTimes: 3 },
     {
@@ -89,17 +93,6 @@ const chapterMap: ChapterMap = {
       key: "obj_review-inventory",
       onFinished: () => {},
     },
-    // {
-    //   key: "obj_prepare-notepad",
-    //   onFinished: () => {
-    //     get(notepadApi).newPage("observations-wrecks", {
-    //       type: "text",
-    //       titleKey: "notepad-title_o",
-    //       lines: [],
-    //       delimiter: "- ",
-    //     });
-    //   },
-    // },
     {
       key: "obj_explore",
       onFinished: () => {},
@@ -107,22 +100,35 @@ const chapterMap: ChapterMap = {
   ],
   chapter1: [
     {
-      key: "obj_start-sm",
-    },
-    {
       key: "obj_explore-wrecks",
-    },
-    {
-      key: "obj_prepare-notepad",
       onFinished: () => {
-        get(notepadApi).newPage("observations-depth", {
-          type: "table",
-          titleKey: "notepad-title_depth-o",
-          header: ["th_depth-level", "th_observation"],
-          rows: [],
+        get(notepadApi).newPage("wrecks", {
+          type: "custom",
+          name: "wrecks",
+          lines: [],
         });
       },
     },
+    {
+      key: "obj_sm-intro",
+    },
+    // {
+    //   key: "obj_start-sm",
+    // },
+    // {
+    //   key: "obj_explore-wrecks",
+    // },
+    // {
+    //   key: "obj_prepare-notepad",
+    //   onFinished: () => {
+    //     get(notepadApi).newPage("observations-depth", {
+    //       type: "table",
+    //       titleKey: "notepad-title_depth-o",
+    //       header: ["th_depth-level", "th_observation"],
+    //       rows: [],
+    //     });
+    //   },
+    // },
     {
       key: "obj_depth-o",
     },

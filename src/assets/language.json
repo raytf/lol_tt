@@ -41,16 +41,19 @@
     "task_open-notepad": "Open your Notepad",
     "task_open-sm": "Open the SM Diagram",
 
-    "obj_prepare-notepad": "Prepare notes",
-
-    "task_new-page": "Start a new page",
-
-    "obj_explore": "Explore!",
+    "obj_explore": "Start Exploration",
     "task_move-sub": "Click around the screen to move the sub",
     "task_dive": "Start your dive",
 
-    "obj_explore-wrecks": "Explore the wrecks.",
-    "task_enter-wrecks": "Enter the wrecks.",
+    "obj_explore-wrecks": "Explore the wrecks",
+    "task_enter-wrecks": "Enter the wrecks",
+    "task_new-page": "Start a new notepad page",
+
+    "obj_sm-intro": "Scientific Method Walkthrough",
+    "task_make-observation": "Make an <span class='color sm-o'>observation</span>",
+    "task_ask-question": "Ask a <span class='color sm-q'>scientific question</span>",
+    "task_make-hypothesis": "Make a <span class='color sm-h'>hypothesis</span>",
+
     "task_make-o": "Record some <span class='color sm-o'>observations</span>",
 
     "obj_start-sm": "Starting the Scientific Method",
@@ -71,9 +74,6 @@
     "task_contact-mc2": "Contact Mission Control again using the radio",
     "task_show-observations": "Review your <span class='color sm-o'>observations</span> with Mission Control",
 
-    "obj_question": "Ask a <span class='color sm-q'>scientific question</span>",
-    "task_ask-question": "Ask <span class='color sm-q'>scientific question</span> based on your <span class='color sm-o'>observations</span>",
-
     "location-surface": "The Triton Triangle",
     "location-wrecks": "Wrecks",
     "location-forest": "Forest",
@@ -82,7 +82,7 @@
     "i_ship": "My trusty support ship. I can come here to rest or make repairs.",
     "i_propellor": "Something is tangled in the propellor. I should go back to the ship to fix it.",
     "o_floating-kelp": "There is a kelp forest here. It looks very dense.",
-    "o_sunlight-surface": "Sunlight is visible. Colors are bright.",
+    "o_sunlight-surface": "Sunlight shines through the water's surface. The ocean is bright with blues and greens.",
     "o_color-change": "Ocean and kelp start to change color.",
     "o_darkness": "Much darker. Colors fade. Sub starts to creak.",
     "o_floor": "A pile of trash lying on the ocean floor. They have been crushed by something.",
@@ -112,16 +112,18 @@
 
     "item-unlocked": "Item Unlocked",
 
-    "notepad-title_mission": "Mission: Explore the Triton's Triangle depths",
-    "notepad-line_look-clues": "Look for any clues about dad",
-    "notepad-line_explore-depths": "Conduct experiments and collect data:",
+    "np-cover_title": "Mission: Explore the Triton's Triangle depths",
+    "np-cover_subtitle": "Conduct experiments and collect data:",
     "ql-data": "Qualitative Data",
     "qn-data": "Quantitative Data",
     "ee_name": "Empirical Evidence",
     "ee_desc-1": "Empirical evidence is data that is collected through <strong>observations</strong> and measurements in an <strong>experiment.</strong>",
     "ee_desc-2": "It is used to answer a <strong>scientific question</strong> and support a <strong>hypothesis</strong>.",
-    "notepad-line_ee-1": "Collecting both types of data is known as gathering: ",
-    "notepad-line_ee-2": "By asking questions, and answering them with empirical evidence, we can understand the deep ocean better.",
+    "np-cover_ee-1": "Collecting both types of data is known as gathering: ",
+    "np-cover_ee-2": "By asking questions, and answering them with empirical evidence, we can understand the deep ocean better.",
+
+    "np-wrecks_title": "Wrecks notes",
+    "np-wrecks_question": "How does the color of the ocean change as I go deeper?",
 
     "notepad-line_find-treasure": "Find the treasure (if it even exists)",
     "notepad-title_o": "Observations in the Wrecks",
@@ -198,6 +200,11 @@
     "tut_elaborate-sm-3": "This process is known as the <strong>Scientific Method</strong>, use it as a guideline for your exploration.",
     "tut_mb-1.2": "Copy that. I'm ready to start.",
     "tut_mb-end": "Call us whenever need a recap. Good luck, SM-Explorer-2.",
+
+    "ch1_color-q": "I wonder how the color of the ocean changes as I go deeper.",
+    "ch1_color-h1": "The ocean color stays the same at all depths",
+    "ch1_color-h2": "The ocean gets brighter and more colorful the deeper I go.",
+    "ch1_color-h3": "The ocean gets darker and colors fade the deeper I go.",
 
     "ch1_conch-1": "Hey you...",
     "ch1_conch-2": "Leave this place now... for your own good.",

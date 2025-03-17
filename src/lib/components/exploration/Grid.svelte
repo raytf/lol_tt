@@ -7,6 +7,7 @@
     yOffset = 0,
     class: extraClass,
     children,
+    backgrounds,
     areas,
   }: {
     size?: [number, number];
@@ -14,6 +15,7 @@
     yOffset?: number;
     class?: string;
     children?: Snippet;
+    backgrounds?: Snippet;
     areas?: Snippet;
   } = $props();
 </script>
@@ -23,6 +25,7 @@
   style="width: {size[0]}px; height: {size[1]}px; transform: translate({xOffset}px, {yOffset}px)"
 >
   {@render children?.()}
+  {@render backgrounds?.()}
   {@render areas?.()}
 </div>
 

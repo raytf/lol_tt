@@ -1,2 +1,6 @@
 import Notepad from "./Notepad.svelte";
-export { Notepad };
+import CoverPage from "./CoverPage.svelte";
+import WrecksPage from "./WrecksPage.svelte";
+import SmButton from "./SmButton.svelte";
+
+export { Notepad, CoverPage, WrecksPage, SmButton };

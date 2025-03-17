@@ -44,15 +44,17 @@
       revealTl.reverse();
     }
   });
+
+  const smSteps = Object.values(steps);
 </script>
 
 <div class="grid grid-cols-3 grid-rows-2 text-black {extraClass}">
-  {#each steps as step, i}
+  {#each smSteps as step, i}
     <button
       onclick={() => onClickStep?.(step)}
       class={cn(
         itemClass,
-        activeIndex >= 0 && activeIndex < steps.length && activeIndex !== i
+        activeIndex >= 0 && activeIndex < smSteps.length && activeIndex !== i
           ? "brightness-50"
           : "",
         i == 1 && "mb-4",

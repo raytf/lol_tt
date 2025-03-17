@@ -22,6 +22,15 @@ import { get } from "svelte/store";
 import { audioApi, gameApi } from "$apis";
 import { showConchFace, conchLightRadius, conchFace } from "$stores/conch";
 
+export const smColor = [
+  {
+    imgSrc: thinking,
+    name: "explorer",
+    text: "ch1-color-q",
+    options: [{}],
+  },
+];
+
 export const shipWreck = [
   {
     imgSrc: hushed,
