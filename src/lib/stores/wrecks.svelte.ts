@@ -4,6 +4,7 @@ class WrecksState {
   observed = $state<string[]>([]);
   hypothesisKey = $state<string>("");
   forestUnlocked = $state(false);
+  conchEncountered = $state(false);
 
   get numObserved() {
     return this.observed.length;

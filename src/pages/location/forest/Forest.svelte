@@ -118,7 +118,7 @@
     //console.log(distance);
     if (distance <= maxDistance) {
       if (!touched) {
-        onTouched();
+        //onTouched();
         touched = true;
       }
     }
@@ -192,20 +192,18 @@
       loop: true,
     });
 
-    if (
-      !$forest.encounteredMonster &&
-      $objectivesApi.currentObjectiveIs("obj_keep-exploring")
-    ) {
+    if (!$forest.encounteredMonster) {
       setTimeout(() => {
         $hudApi.startDialog({
           keys: enterForest,
           blockInput: true,
           onFinished: () => {
+            $forest.encounteredMonster = true;
             setSubTarget({ x: 0, y: subCoords.current.y });
-            $forest.monsterActivated = true;
+            $gameApi.fadeScene("/wrecks?from=forest");
           },
         });
-      }, 2000);
+      }, 1000);
     } else {
       setTimeout(() => {
         $forest.monsterActivated = true;
@@ -244,7 +242,7 @@
   });
 </script>
 
-<Location title="forest" uiClass="z-[11]">
+<Location titleKey="location-forest" uiClass="z-[11]">
   {#snippet ui()}
     {#if subNearWrecks}
       <div

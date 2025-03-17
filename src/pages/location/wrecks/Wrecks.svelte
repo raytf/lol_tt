@@ -40,7 +40,6 @@
     shipWreck,
     conchScare,
     conchEncounter,
-    returnToWrecks,
   } from "$dialog/chapter1";
   import { showConchFace, conchLightRadius } from "$stores/conch";
   import { ArrowUp, ArrowRight } from "$components/svg/icons/animated";
@@ -104,40 +103,34 @@
       loop: true,
     });
 
-    if ($objectivesApi.chapterStarted) {
-      // if ($objectivesApi.currentObjectiveIs("obj_explore-wrecks")) {
-      //   $wrecks.startedObservationTask = true;
-      // }
-      if ($objectivesApi.currentObjectiveIs("obj_keep-exploring")) {
-        $wrecks.forestUnlocked = true;
-        if (searchParams.has("from", "forest") && $forest.encounteredMonster) {
-          // setSubTarget({ x: 1300, y: 1300 });
-          // gridOffset.set({ x: -900, y: -900 });
-
-          setTimeout(() => {
-            $hudApi.startDialog({
-              keys: returnToWrecks,
-              blockInput: true,
-            });
-          }, 2000);
-        }
-      }
-    } else {
+    if (!$objectivesApi.chapterStarted) {
       // Chapter not started
-      if (
-        $objectivesApi.currentChapterIs("") ||
-        $objectivesApi.currentChapterIs("tutorial") ||
-        $objectivesApi.currentChapterIs("chapter1")
-      ) {
-        if (!$objectivesApi.completedChapters.includes("chapter1")) {
-          $objectivesApi.startChapter("chapter1", () => {});
-        }
-        // $objectivesApi.attachStartCallback("obj_explore-wrecks", () => {
-        //   $wrecks.startedObservationTask = true;
-        // });
-        // $objectivesApi.attachStartCallback("obj_keep-exploring", () => {
-        //   $wrecks.forestUnlocked = true;
-        // });
+
+      // if (
+      //   $objectivesApi.currentChapterIs("") ||
+      //   $objectivesApi.currentChapterIs("tutorial") ||
+      //   $objectivesApi.currentChapterIs("chapter1")
+      // ) {
+      // }
+      if (!$objectivesApi.completedChapters.includes("chapter1")) {
+        $objectivesApi.startChapter("chapter1", () => {});
+        return;
+      }
+      //&& $forest.encounteredMonster
+      if (searchParams.has("from", "forest") && $forest.encounteredMonster) {
+        // setSubTarget({ x: 1300, y: 1300 });
+        // gridOffset.set({ x: -900, y: -900 });
+
+        setTimeout(() => {
+          $hudApi.startDialog({
+            keys: conchEncounter,
+            blockInput: true,
+            onFinished: () => {
+              $objectivesApi.startChapter("chapter2", () => {});
+              $wrecks.conchEncountered = true;
+            },
+          });
+        }, 1000);
       }
     }
   }
@@ -215,11 +208,12 @@
     //#region Debug
     if ($gameApi.debugMode) {
       if (!$objectivesApi.completedChapters.includes("chapter1")) {
-        $objectivesApi.completedChapters = ["tutorial"];
+        $objectivesApi.completedChapters = ["tutorial", "chapter1"];
         $objectivesApi.completedObjectives = [
           "obj_explore-wrecks",
           "obj_sm-intro",
           "obj_wrecks-experiment",
+          "obj_wrecks-review",
         ];
         $objectivesApi.recallCompletedChapters();
       }
@@ -255,7 +249,7 @@
         </Button>
       </div>
     {/if}
-    {#if $wrecks.forestUnlocked && subNearForest}
+    <!-- {#if $wrecks.forestUnlocked && subNearForest}
       <div
         transition:fade
         class="absolute z-[11] top-0 right-0 w-[222px] h-full flex flex-col justify-center items-end pr-4"
@@ -277,7 +271,7 @@
           <ArrowRight class="w-[33px] h-[33px]" />
         </Button>
       </div>
-    {/if}
+    {/if} -->
   {/snippet}
 
   <Grid
@@ -394,6 +388,29 @@
             )}
           />
         {/if}
+        {#if $wrecks.forestUnlocked && subNearForest}
+          <div
+            transition:fade
+            class="absolute z-[20] top-0 right-0 w-[222px] h-full flex flex-col justify-center items-end pr-4"
+          >
+            <Button
+              onclick={() => {
+                setSubTarget({ x: grid.width, y: subCoords.current.y });
+                $audioApi.stopTrack({
+                  src: "music/deep-echoes.mp3",
+                });
+                $gameApi.fadeScene("/forest?from=wrecks");
+                if ($objectivesApi.currentObjectiveIs("obj_explore-forest")) {
+                  $objectivesApi.completeTask("task_enter-forest");
+                }
+              }}
+              class="w-[99px] h-[88px] flex-col items-center"
+            >
+              <Lol key="location-forest" class="mr-1" />
+              <ArrowRight class="w-[33px] h-[33px]" />
+            </Button>
+          </div>
+        {/if}
       </Area>
       <Area
         size={[grid.width, $gameApi.windowHeight]}
@@ -404,7 +421,7 @@
           --color-top="#037ADE"
           --color-bottom="#182B3A"
         />
-        {#if $forest.encounteredMonster}
+        {#if $forest.encounteredMonster && !$wrecks.conchEncountered}
           <Conch
             onclick={() => {
               console.log("hello");

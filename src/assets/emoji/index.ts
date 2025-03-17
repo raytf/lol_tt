@@ -16,6 +16,8 @@ import smileOpen from "./smile-open.svg";
 import heartEyes from "./heart-eyes.svg";
 import smileSlight from "./smile-slight.svg";
 import grinSweat from "./grin-sweat.svg";
+import grimace from "./grimace.svg";
+import kissingClosed from "./kissing-closed.svg";
 
 export {
   confused,
@@ -31,9 +33,11 @@ export {
   smile,
   thinking,
   kissing,
+  kissingClosed,
   unamused,
   smileOpen,
   heartEyes,
   smileSlight,
   grinSweat,
+  grimace,
 };

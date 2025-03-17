@@ -28,7 +28,7 @@
         onclick={() => {
           const selected = {
             imgSrc: option.imgSrc,
-            name: "you",
+            name: "explorer",
             text: option.text,
             onProceed: option.onProceed,
           };

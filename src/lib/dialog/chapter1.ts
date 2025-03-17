@@ -4,12 +4,14 @@ import {
   hushed,
   frownSlight,
   thinking,
+  kissingClosed,
   openMouth,
   smileOpen,
   neutral,
   smileSlight,
   fearful,
   confused,
+  pensive,
 } from "$assets/emoji";
 import {
   conch_devious,
@@ -17,11 +19,20 @@ import {
   conch_smile,
   conch_smileWide,
   conch_angry,
+  conch_openMouth,
+  conch_eyes,
 } from "$assets/conch";
 import { get } from "svelte/store";
-import { audioApi, gameApi, notepadApi, objectivesApi } from "$apis";
+import { audioApi, gameApi, notepadApi, objectivesApi, hudApi } from "$apis";
 import wrecks from "$stores/wrecks.svelte";
+import forest from "$stores/forest.svelte";
+
 import { showConchFace, conchLightRadius, conchFace } from "$stores/conch";
+import {
+  setTarget as setSubTarget,
+  direction as subDirection,
+} from "$stores/sub";
+import { gridOffset } from "$stores/exploration";
 
 export const wrecksAnalysis = [
   {
@@ -151,100 +162,201 @@ export const conchScare = [
   },
 ];
 
+// export const conchEncounter = [
+//   {
+//     text: "ch1_conch-1",
+//     onStart: () => {
+//       conchFace.set(conch_angry);
+//       showConchFace.set(true);
+//       conchLightRadius.set(8);
+//     },
+//   },
+//   {
+//     text: "ch1_conch-2",
+//     options: [
+//       {
+//         imgSrc: smileOpen,
+//         name: "you",
+//         text: "ch1_conch-2.1",
+//         nextDialog: [
+//           {
+//             text: "ch1_conch-2.1-1",
+//             onStart: () => {
+//               conchFace.set(conch_neutral);
+//             },
+//           },
+//         ],
+//       },
+//     ],
+//   },
+//   {
+//     name: "conch",
+//     text: "ch1_conch-3",
+//     onStart: () => {
+//       conchFace.set(conch_angry);
+//       //conchFace.set(conch_devious);
+//     },
+//   },
+//   {
+//     name: "conch",
+//     text: "ch1_conch-4",
+//     onStart: () => {
+//       conchFace.set(conch_angry);
+//     },
+//     options: [
+//       {
+//         imgSrc: neutral,
+//         text: "ch1_conch-4.1",
+//         nextDialog: [
+//           {
+//             name: "conch",
+//             text: "ch1_conch-4.1-1",
+//           },
+//         ],
+//       },
+//     ],
+//   },
+//   {
+//     name: "conch",
+//     text: "ch1_conch-5",
+//     onProceed: () => {
+//       showConchFace.set(false);
+//       conchLightRadius.set(0);
+//     },
+//   },
+// ];
+
+export const enterForest = [
+  {
+    name: "narrator",
+    text: "enter-forest-1",
+  },
+  {
+    name: "narrator",
+    text: "enter-forest-2",
+    onStart: () => {
+      get(forest).monsterActivated = true;
+    },
+  },
+  {
+    imgSrc: fearful,
+    name: "explorer",
+    text: "enter-forest-3",
+  },
+];
+
 export const conchEncounter = [
   {
+    imgSrc: downcastSweat,
+    name: "explorer",
     text: "ch1_conch-1",
+  },
+  {
+    text: "ch1_conch-2",
     onStart: () => {
-      conchFace.set(conch_angry);
       showConchFace.set(true);
       conchLightRadius.set(8);
     },
   },
   {
-    text: "ch1_conch-2",
-    options: [
-      {
-        imgSrc: smileOpen,
-        name: "you",
-        text: "ch1_conch-2.1",
-        nextDialog: [
-          {
-            text: "ch1_conch-2.1-1",
-            onStart: () => {
-              conchFace.set(conch_neutral);
-            },
-          },
-        ],
-      },
-    ],
-  },
-  {
-    name: "conch",
+    imgSrc: kissingClosed,
+    name: "explorer",
     text: "ch1_conch-3",
-    onStart: () => {
-      conchFace.set(conch_angry);
-      //conchFace.set(conch_devious);
-    },
   },
   {
-    name: "conch",
+    imgSrc: grinSweat,
+    name: "explorer",
     text: "ch1_conch-4",
-    onStart: () => {
-      conchFace.set(conch_angry);
-    },
-    options: [
-      {
-        imgSrc: neutral,
-        text: "ch1_conch-4.1",
-        nextDialog: [
-          {
-            name: "conch",
-            text: "ch1_conch-4.1-1",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    name: "conch",
-    text: "ch1_conch-5",
-    onProceed: () => {
-      showConchFace.set(false);
-      conchLightRadius.set(0);
-    },
-  },
-];
-
-export const enterForest = [
-  {
-    imgSrc: hushed,
-    name: "you",
-    text: "ch1_enter-forest-1",
-  },
-  {
-    text: "ch1_enter-forest-2",
-  },
-  {
-    imgSrc: fearful,
-    name: "you",
-    text: "ch1_enter-forest-3",
-  },
-];
-
-export const returnToWrecks = [
-  {
-    imgSrc: frownSlight,
-    name: "you",
-    text: "ch1_return-1",
-  },
-  {
-    imgSrc: frownSlight,
-    name: "you",
-    text: "ch1_return-2",
   },
   {
     imgSrc: confused,
-    name: "you",
-    text: "ch1_return-3",
+    name: "explorer",
+    text: "ch1_conch-5",
+  },
+  {
+    text: "ch1_conch-6",
+    onStart: () => {
+      // subDirection.set({ x: 1, y: get(subDirection).y });
+      gridOffset.set({ x: -900, y: -900 });
+    },
+    onProceed: () => {
+      setSubTarget({ x: 1400, y: 1100 });
+    },
+  },
+  {
+    imgSrc: openMouth,
+    name: "explorer",
+    text: "ch1_conch-7",
+  },
+  {
+    imgSrc: conch_eyes,
+    name: "conch",
+    text: "ch1_conch-8",
+  },
+  {
+    imgSrc: conch_eyes,
+    name: "conch",
+    text: "ch1_conch-9",
+  },
+  {
+    imgSrc: neutral,
+    name: "explorer",
+    text: "ch1_conch-10",
+  },
+  {
+    imgSrc: conch_openMouth,
+    name: "conch",
+    text: "ch1_conch-11",
+    onStart: () => {
+      conchFace.set(conch_openMouth);
+    },
+  },
+  {
+    imgSrc: neutral,
+    name: "explorer",
+    text: "ch1_conch-12",
+  },
+  {
+    imgSrc: smileSlight,
+    name: "explorer",
+    text: "ch1_conch-13",
+  },
+  {
+    imgSrc: pensive,
+    name: "explorer",
+    text: "ch1_conch-14",
+  },
+  {
+    imgSrc: thinking,
+    name: "explorer",
+    text: "ch1_conch-15",
+  },
+  {
+    imgSrc: conch_eyes,
+    name: "conch",
+    text: "ch1_conch-16",
+    onStart: () => {
+      conchFace.set(conch_eyes);
+    },
+  },
+  {
+    imgSrc: conch_eyes,
+    name: "conch",
+    text: "ch1_conch-17",
+  },
+  {
+    imgSrc: conch_devious,
+    name: "conch",
+    text: "ch1_conch-18",
+    onStart: () => {
+      conchFace.set(conch_devious);
+    },
+    onProceed: () => {
+      showConchFace.set(false);
+      conchLightRadius.set(0);
+      get(hudApi).startItemUnlock({
+        itemId: "conch",
+      });
+    },
   },
 ];

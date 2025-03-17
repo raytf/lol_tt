@@ -40,7 +40,6 @@ class NotepadApi {
       this.currentPage.type === "custom" ||
       this.currentPage.type === "table"
     ) {
-      console.log("add line");
       this.currentPage?.lines?.push(key);
     }
   }

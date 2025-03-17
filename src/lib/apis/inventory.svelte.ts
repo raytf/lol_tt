@@ -34,6 +34,12 @@ export const itemMap: ItemMap = {
     descKey: "item_desc_notepad",
     // actionKey: "item_action_notepad",
   },
+  conch: {
+    imgSrc: shell,
+    id: "conch",
+    nameKey: "item_name_conch",
+    descKey: "item_desc_conch",
+  },
   map: {
     imgSrc: map,
     id: "map",

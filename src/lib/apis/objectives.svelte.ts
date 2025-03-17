@@ -70,19 +70,9 @@ const objectiveMap: ObjectiveMap = {
     { key: "task_wrecks-conclusion" },
   ],
 
-  "obj_start-sm": [{ key: "task_open-sm" }, { key: "task_review-o" }],
-  "obj_depth-o": [
-    { key: "task_visit-depths", numTimes: 3 },
-    {
-      key: "task_record-depth-o",
-    },
-  ],
-  "obj_keep-exploring": [{ key: "task_explore-more" }],
-  "obj_explore-forest": [{ key: "task_enter-forest" }],
-
-  "obj_review-observations": [
-    { key: "task_contact-mc2" },
-    { key: "task_show-observations" },
+  "obj_explore-forest": [
+    { key: "task_enter-forest" },
+    { key: "task_in-progress" },
   ],
 };
 
@@ -156,6 +146,11 @@ const chapterMap: ChapterMap = {
       onFinished: () => {
         get(wrecks).forestUnlocked = true;
       },
+    },
+  ],
+  chapter2: [
+    {
+      key: "obj_explore-forest",
     },
   ],
 };
