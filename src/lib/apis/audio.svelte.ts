@@ -30,7 +30,7 @@ export interface StopTrackOptions {
 }
 
 export class AudioApi {
-  soundEnabled = $state(false);
+  soundEnabled = $state(true);
   tracks = new Map<string, Track>();
   constructor() {
     if (!this.soundEnabled) {

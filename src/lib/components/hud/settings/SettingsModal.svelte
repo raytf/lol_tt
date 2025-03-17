@@ -31,10 +31,8 @@
     onchange={() => ($lolApi.ttsEnabled = !$lolApi.ttsEnabled)}
     ><Lol key="tts-enabled" /></Checkbox
   >
-  {#if $gameApi.debugMode}
-    <p>Debug Mode</p>
-    <Button onclick={() => $lolApi.clearState()} class="pointer-events-auto"
-      >Clear state</Button
-    >
-  {/if}
+  <p>Debug Mode</p>
+  <Button onclick={() => $lolApi.clearState()} class="pointer-events-auto"
+    >Clear state</Button
+  >
 </Modal>
