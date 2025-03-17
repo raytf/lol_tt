@@ -107,10 +107,14 @@ const chapterMap: ChapterMap = {
           name: "wrecks",
           lines: [],
         });
+        get(hudApi).showNotepad = false;
       },
     },
     {
       key: "obj_sm-intro",
+      onFinished: () => {
+        get(hudApi).showNotepad = true;
+      },
     },
     // {
     //   key: "obj_start-sm",

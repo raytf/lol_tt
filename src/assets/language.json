@@ -54,6 +54,9 @@
     "task_ask-question": "Ask a <span class='color sm-q'>scientific question</span>",
     "task_make-hypothesis": "Make a <span class='color sm-h'>hypothesis</span>",
 
+    "obj_wrecks-experiment": "Conduct an experiment",
+    "task_record-data": "Record data at different depths.",
+
     "task_make-o": "Record some <span class='color sm-o'>observations</span>",
 
     "obj_start-sm": "Starting the Scientific Method",

@@ -22,7 +22,7 @@ class HudApi {
   showItemUnlock = $state(false);
   showSmModal = $state(false);
   showSmPuzzle = $state(false);
-  showNotepad = $state(true);
+  showNotepad = $state(false);
   showMap = $state(false);
   showInfoModal = $state(false);
 

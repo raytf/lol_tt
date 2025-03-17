@@ -19,15 +19,51 @@ import {
   conch_angry,
 } from "$assets/conch";
 import { get } from "svelte/store";
-import { audioApi, gameApi } from "$apis";
+import { audioApi, gameApi, notepadApi, objectivesApi } from "$apis";
 import { showConchFace, conchLightRadius, conchFace } from "$stores/conch";
 
 export const smColor = [
   {
     imgSrc: thinking,
     name: "explorer",
-    text: "ch1-color-q",
-    options: [{}],
+    text: "ch1_color-q",
+    onStart: () => {
+      const notepad = get(notepadApi);
+      notepad.openPage("wrecks");
+      notepad.addLine("ch1_color-q");
+    },
+    options: [
+      {
+        imgSrc: smileSlight,
+        text: "ch1_color-h1",
+        nextDialog: [],
+        onProceed: () => {
+          const notepad = get(notepadApi);
+          notepad.openPage("wrecks");
+          notepad.addLine("ch1_color-h1");
+        },
+      },
+      {
+        imgSrc: smileSlight,
+        text: "ch1_color-h2",
+        nextDialog: [],
+        onProceed: () => {
+          const notepad = get(notepadApi);
+          notepad.openPage("wrecks");
+          notepad.addLine("ch1_color-h2");
+        },
+      },
+      {
+        imgSrc: smileSlight,
+        text: "ch1_color-h3",
+        nextDialog: [],
+        onProceed: () => {
+          const notepad = get(notepadApi);
+          notepad.openPage("wrecks");
+          notepad.addLine("ch1_color-h3");
+        },
+      },
+    ],
   },
 ];
 

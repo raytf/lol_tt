@@ -8,9 +8,17 @@
 {#if $notepadApi.currentPage.type === "custom"}
   <Lol key="np-wrecks_title" class="font-bold underline" />
   {#if $notepadApi.currentPage.lines.length > 0}
-  <div class="flex">
-    <SmButton step="sm-o" />
-    <Lol key={$notepadApi.currentPage.lines[0]} class="text-left" />
-  </div>
+  <SmButton step="sm-o" />
+  <Lol key={$notepadApi.currentPage.lines[0]} class="text-left" />
+  {/if}
+  {#if $notepadApi.currentPage.lines.length > 1}
+  <br />
+  <SmButton step="sm-q" />
+  <Lol key={$notepadApi.currentPage.lines[1]} class="text-left" />
+  {/if}
+  {#if $notepadApi.currentPage.lines.length > 2}
+  <br />
+  <SmButton step="sm-h" />
+  <Lol key={$notepadApi.currentPage.lines[2]} class="text-left" />
   {/if}
 {/if}

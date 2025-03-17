@@ -36,6 +36,7 @@
   } from "$apis";
   import { pressureCreak } from "$dialog/common";
   import {
+    smColor,
     shipWreck,
     conchScare,
     conchEncounter,
@@ -239,7 +240,7 @@
     if ($gameApi.debugMode) {
       $objectivesApi.completedChapters = ["tutorial"];
       $objectivesApi.completedObjectives = [
-        "obj_explore-wrecks",
+        //"obj_explore-wrecks",
         // "obj_start-sm",
         // "obj_explore-wrecks",
         // "obj_prepare-notepad",
@@ -372,7 +373,15 @@
             type="sm-o"
             onclick={() => {
               $objectivesApi.completeTask("task_make-observation");
-              makeObservation("o_sunlight-surface", () => {});
+              makeObservation("o_sunlight-surface", () => {
+                $objectivesApi.completeTask("task_ask-question");
+                $hudApi.startDialog({
+                  keys: smColor,
+                  onFinished: () => {
+                    $objectivesApi.completeTask("task_make-hypothesis");
+                  },
+                });
+              });
             }}
             class={cn(
               "absolute top-[44%] left-[44%]",

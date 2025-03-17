@@ -9,6 +9,7 @@
     Analysis,
     Conclusion,
   } from "$components/svg/icons/sm";
+  import { Lol } from "$components/text";
   import { steps } from "$components/scientificMethod";
   import { infoApi } from "$apis";
   let {
@@ -24,7 +25,6 @@
   } = $props();
 </script>
 
-<p class="mx-3">&nbsp</p>
 <button
   onclick={() => {
     $infoApi.openModal({
@@ -33,21 +33,29 @@
     });
     onclick?.();
   }}
-  class={cn("absolute pointer-events-auto", step, extraClass)}
+  class={cn("pointer-events-auto", step, extraClass)}
 >
-  {#if step === "sm-o"}
-    <Observation class="mt-1" />
-  {:else if step === "sm-q"}
-    <Question class="mt-1" />
-  {:else if step === "sm-h"}
-    <Hypothesis class="mt-1" />
-  {:else if step === "sm-e"}
-    <Experiment class="mt-1" />
-  {:else if step === "sm-a"}
-    <Analysis class="mt-1" />
-  {:else if step === "sm-c"}
-    <Conclusion class="mt-1" />
-  {/if}
+  <div class="flex">
+    {#if step === "sm-o"}
+      <Observation class="m-1" />
+      <Lol key="sm-observation" class="font-bold" />:
+    {:else if step === "sm-q"}
+      <Question class="m-1" />
+      <Lol key="sm-question" class="font-bold" />:
+    {:else if step === "sm-h"}
+      <Hypothesis class="m-1" />
+      <Lol key="sm-hypothesis" class="font-bold" />:
+    {:else if step === "sm-e"}
+      <Experiment class="m-1" />
+      <Lol key="sm-experiment" class="font-bold" />:
+    {:else if step === "sm-a"}
+      <Analysis class="m-1" />
+      <Lol key="sm-analysis" class="font-bold" />:
+    {:else if step === "sm-c"}
+      <Conclusion class="m-1" />
+      <Lol key="sm-conclusion" class="font-bold" />:
+    {/if}
+  </div>
   {@render children?.()}
 </button>
 
