@@ -8,6 +8,7 @@ import {
   smile,
   thinking,
   confused,
+  grinSweat,
 } from "$assets/emoji";
 import radio from "$assets/icons/radio.svg";
 import { hudApi, dialogApi } from "$apis";
@@ -15,7 +16,7 @@ import { hudApi, dialogApi } from "$apis";
 export const status = [
   {
     imgSrc: smileSlight,
-    name: "you",
+    name: "explorer",
     text: "tut_status-1",
   },
   {
@@ -24,8 +25,8 @@ export const status = [
     text: "tut_status-2",
   },
   {
-    imgSrc: smileSlight,
-    name: "you",
+    imgSrc: grinSweat,
+    name: "explorer",
     text: "tut_status-3",
   },
   {
@@ -42,80 +43,73 @@ export const missionBrief = [
     text: "tut_mb-1",
     options: [
       {
-        imgSrc: hushed,
+        imgSrc: thinking,
         text: "tut_mb-1.1",
         repeat: true,
         nextDialog: [
           {
             imgSrc: radio,
             name: "mission-control",
-            text: "tut_data",
+            text: "tut_elaborate-1",
+          },
+          {
+            imgSrc: radio,
+            name: "mission-control",
+            text: "tut_elaborate-2",
             options: [
               {
                 imgSrc: hushed,
-                text: "tut_data.ql",
+                text: "tut_elaborate-2.1",
                 repeat: true,
                 nextDialog: [
                   {
                     imgSrc: radio,
                     name: "mission-control",
-                    text: "tut_data.ql-1",
+                    text: "tut_elaborate-ql",
                   },
                   {
                     imgSrc: radio,
                     name: "mission-control",
-                    text: "tut_data.ql-2",
+                    text: "tut_elaborate-qn",
+                  },
+                  {
+                    imgSrc: radio,
+                    name: "mission-control",
+                    text: "tut_elaborate-np",
                     onProceed: () => {
-                      get(dialogApi).enableOption("tut_data.qn");
-                    },
-                  },
-                ],
-              },
-              {
-                imgSrc: hushed,
-                text: "tut_data.qn",
-                repeat: true,
-                nextDialog: [
-                  {
-                    imgSrc: radio,
-                    name: "mission-control",
-                    text: "tut_data.qn-1",
-                  },
-                  {
-                    imgSrc: radio,
-                    name: "mission-control",
-                    text: "tut_data.qn-2",
-                  },
-                  {
-                    imgSrc: radio,
-                    name: "mission-control",
-                    text: "tut_data.qn-3",
-                    onProceed: () => {
-                      // const hud = get(hudApi);
-                      // hud.startItemUnlock({
-                      //   itemId: "pg",
-                      //   onFinished: () => {
-                      //     hud.startItemUnlock({
-                      //       itemId: "th",
-                      //     });
-                      //   },
-                      // });
-                      get(dialogApi).enableOption("tut_data.ok");
+                      get(hudApi).startItemUnlock({
+                        itemId: "notepad",
+                      });
+                      get(dialogApi).enableOption("tut_elaborate-2.2");
                     },
                   },
                 ],
               },
               {
                 imgSrc: smile,
-                text: "tut_data.ok",
+                text: "tut_elaborate-2.2",
                 nextDialog: [
                   {
                     imgSrc: radio,
                     name: "mission-control",
-                    text: "tut_data.ok-1",
+                    text: "tut_elaborate-sm-1",
+                  },
+                  {
+                    imgSrc: radio,
+                    name: "mission-control",
+                    text: "tut_elaborate-sm-2",
+                  },
+                  {
+                    imgSrc: radio,
+                    name: "mission-control",
+                    text: "tut_elaborate-sm-3",
+                    onStart: () => {
+                      get(hudApi).openSmModalWithDialog();
+                    },
                     onProceed: () => {
+                      get(hudApi).closeSmModalWithDialog();
                       get(hudApi).startItemUnlock({
-                        itemId: "notepad",
+                        itemId: "sm",
                       });
                       get(dialogApi).enableOption("tut_mb-1.2");
                     },
@@ -127,50 +121,13 @@ export const missionBrief = [
         ],
       },
       {
-        imgSrc: thinking,
-        text: "tut_mb-1.2",
-        repeat: true,
-        nextDialog: [
-          {
-            imgSrc: radio,
-            name: "mission-control",
-            text: "tut_sm-1",
-          },
-          {
-            imgSrc: radio,
-            name: "mission-control",
-            text: "tut_sm-2",
-            onStart: () => {
-              get(hudApi).openSmModalWithDialog();
-            },
-          },
-          {
-            imgSrc: radio,
-            name: "mission-control",
-            text: "tut_sm-3",
-          },
-          {
-            imgSrc: radio,
-            name: "mission-control",
-            text: "tut_sm-4",
-            onProceed: () => {
-              get(hudApi).closeSmModalWithDialog();
-              get(hudApi).startItemUnlock({
-                itemId: "sm",
-              });
-              get(dialogApi).enableOption("tut_mb-1.3");
-            },
-          },
-        ],
-      },
-      {
         imgSrc: smile,
-        text: "tut_mb-1.3",
+        text: "tut_mb-1.2",
         nextDialog: [
           {
             imgSrc: radio,
             name: "mission-control",
-            text: "tut_info-1",
+            text: "tut_mb-end",
           },
         ],
       },

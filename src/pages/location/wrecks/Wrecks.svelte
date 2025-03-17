@@ -238,10 +238,10 @@
     if ($gameApi.debugMode) {
       $objectivesApi.completedChapters = ["tutorial"];
       $objectivesApi.completedObjectives = [
-        "obj_start-sm",
-        "obj_explore-wrecks",
-        "obj_prepare-notepad",
-        "obj_depth-o",
+        // "obj_start-sm",
+        // "obj_explore-wrecks",
+        // "obj_prepare-notepad",
+        // "obj_depth-o",
       ];
       $objectivesApi.recallCompletedChapters();
     }
@@ -254,7 +254,7 @@
   });
 </script>
 
-<Location title="wrecks" uiClass="z-[11]">
+<Location titleKey="location-wrecks" uiClass="z-[11]">
   {#snippet ui()}
     {#if subNearSurface}
       <div
@@ -307,7 +307,10 @@
     yOffset={gridOffset.current.y}
   >
     <TurbulentImg src={underwater} class="opacity-35 z-[1]" />
-    <BgImg src={wrecks_3} class="w-[133%] left-[-22%] bottom-0 z-[7] opacity-75" />
+    <BgImg
+      src={wrecks_3}
+      class="w-[133%] left-[-22%] bottom-0 z-[7] opacity-75"
+    />
     <BgImg
       src={wrecks_2}
       style="transform: translateX({gridOffset.current.x / 10}px)"
@@ -432,7 +435,7 @@
             console.log("hello");
           }}
           class={cn(
-            "absolute right-[18%] bottom-[48%] w-[111px] h-[111px] z-[9]",
+            "absolute right-[19%] bottom-[51%] w-[55px] h-[55px] z-[9]",
             true && "pointer-events-none",
           )}
           style="transform: translateX({gridOffset.current.x / 5}px)"

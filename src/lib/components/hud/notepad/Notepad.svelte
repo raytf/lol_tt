@@ -5,8 +5,14 @@
   import { Lol } from "$components/text";
   import { Left, Right } from "$components/svg/icons/caret";
   import { InfoButton } from "$components/ui/button";
-  import { notepadApi, hudApi, lolApi, objectivesApi, infoApi } from "$apis";
-  import Dive from "$components/svg/icons/Dive.svelte";
+  import {
+    notepadApi,
+    hudApi,
+    lolApi,
+    objectivesApi,
+    infoApi,
+    gameApi,
+  } from "$apis";
 
   let {
     class: extraClass,
@@ -127,7 +133,7 @@
   <button
     onclick={() => {
       $infoApi.openModal({
-        textKeys: ["tut_data.ql-1", "tut_data.ql-2"],
+        textKeys: ["tut_elaborate-ql"],
       });
     }}
     class="flex hover:font-bold pointer-events-auto"
@@ -137,7 +143,7 @@
   <button
     onclick={() => {
       $infoApi.openModal({
-        textKeys: ["tut_data.qn-1", "tut_data.qn-2"],
+        textKeys: ["tut_elaborate-qn"],
       });
     }}
     class="flex hover:font-bold pointer-events-auto"
@@ -179,14 +185,14 @@
       linear-gradient(
         90deg,
         transparent,
-        transparent 12%,
+        transparent 8%,
         #f5c492 0,
-        #f5c492 calc(12% + 2px),
-        transparent calc(12% + 2px),
-        transparent calc(12% + 6px),
-        #f5c492 calc(12% + 6px),
-        #f5c492 calc(12% + 8px),
-        transparent calc(12% + 8px),
+        #f5c492 calc(8% + 2px),
+        transparent calc(8% + 2px),
+        transparent calc(8% + 6px),
+        #f5c492 calc(8% + 6px),
+        #f5c492 calc(8% + 8px),
+        transparent calc(8% + 8px),
         transparent
       ),
       linear-gradient(180deg, #fbee9f 20%, transparent 0),

@@ -46,6 +46,9 @@
     };
     gridOffset.set({ x: gridOffset.current.x, y: 0 }, { instant: true });
   }
+  let startTitle = $state(
+    searchParams.has("start") ? "years-later" : "location-surface",
+  );
   let surfaceSub = $state(searchParams.has("start") ? true : false);
   let readyToDive = $state(false);
   //#endregion
@@ -84,12 +87,7 @@
             $radioApi.setCallback(() => {
               $hudApi.startDialog({
                 keys: [...status, ...missionBrief],
-                disabledOptions: [
-                  "tut_mb-1.2",
-                  "tut_mb-1.3",
-                  "tut_data.qn",
-                  "tut_data.ok",
-                ],
+                disabledOptions: ["tut_mb-1.2", "tut_elaborate-2.2"],
                 blockInput: true,
                 onFinished: () => {
                   $objectivesApi.completeTask("task_start-mission");
@@ -146,11 +144,16 @@
 
   setSubPosition(initialSubCoords);
   onMount(() => {
+    // Debug
+    if ($gameApi.debugMode) {
+      $objectivesApi.completedObjectives = ["obj_mission"];
+      $objectivesApi.recallCompletedChapters();
+    }
     onEnter();
   });
 </script>
 
-<Location title="surface" uiClass="z-[11]">
+<Location titleKey={startTitle} uiClass="z-[11]">
   {#snippet ui()}
     <div
       class="absolute z-[11] bottom-0 w-full h-[222px] flex justify-center items-end pb-4"

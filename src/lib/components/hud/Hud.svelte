@@ -105,7 +105,7 @@
     {#if $hudApi.showNotepad}
       <div
         transition:fly={{ x: 555 }}
-        class="absolute w-[44%] h-[88%] bottom-2 right-2 z-[100]"
+        class="absolute w-[70%] h-[88%] bottom-2 right-2 z-[100]"
       >
         <Notepad class="size-full opacity-80" />
       </div>

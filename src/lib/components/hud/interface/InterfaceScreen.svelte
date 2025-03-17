@@ -17,7 +17,7 @@
     <div
       transition:fade
       class={cn(
-        "absolute w-full top-[44%]",
+        "absolute w-full bottom-[4%]",
         "flex flex-col justify-center items-center gap-2",
       )}
     >

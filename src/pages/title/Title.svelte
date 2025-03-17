@@ -42,7 +42,7 @@
   function onPlay() {
     revealTitleSequence = false;
 
-    $gameApi.fadeScene("/surface?start", 2.4, 2);
+    $gameApi.fadeScene("/surface?start", 2, 2);
     $audioApi.stopTrack({
       src: "music/into-the-blue.mp3",
       fade: true,

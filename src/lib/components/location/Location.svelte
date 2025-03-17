@@ -6,13 +6,13 @@
   import { hudApi, gameApi } from "$apis";
 
   let {
-    title,
+    titleKey,
     class: extraClass,
     uiClass,
     children,
     ui,
   }: {
-    title: string;
+    titleKey: string;
     class?: string;
     uiClass?: string;
     children?: Snippet;
@@ -34,7 +34,7 @@
 <div class="relative size-full {extraClass}">
   <div class="absolute size-full pointer-events-none {uiClass}">
     <div class="heading-location w-full text-center">
-      <Lol key="location-{title}" class="text-4xl font-bold p-4" />
+      <Lol key={titleKey} class="text-4xl font-bold p-4" />
     </div>
     {@render ui?.()}
   </div>
