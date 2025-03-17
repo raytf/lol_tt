@@ -25,6 +25,7 @@
     "warning-pressure": "High pressure detected",
     "warning-propellor": "Propellor malfunction",
     "danger": "Danger",
+    "analyze": "Analyze",
 
     "tutorial": "Tutorial",
     "chapter1": "Chapter 1",
@@ -50,25 +51,16 @@
     "task_new-page": "Start a new notepad page",
 
     "obj_sm-intro": "Scientific Method Walkthrough",
-    "task_make-observation": "Make an <span class='color sm-o'>observation</span>",
-    "task_ask-question": "Ask a <span class='color sm-q'>scientific question</span>",
-    "task_make-hypothesis": "Make a <span class='color sm-h'>hypothesis</span>",
+    "task_wrecks-observation": "Make an <span class='color sm-o'>observation</span>",
+    "task_wrecks-question": "Ask a <span class='color sm-q'>scientific question</span>",
+    "task_wrecks-hypothesis": "Make a <span class='color sm-h'>hypothesis</span>",
 
     "obj_wrecks-experiment": "Conduct an <span class='color sm-e'>experiment</span>",
     "task_wrecks-record-data": "Record <strong>color</strong> data at different <strong>depths.</strong>",
 
-    "task_make-o": "Record some <span class='color sm-o'>observations</span>",
-
-    "obj_start-sm": "Starting the Scientific Method",
-
-    "task_review-o": "Review the <span class='color sm-o'>Observations</span> step",
-
-    "obj_depth-o": "Learn about the depths",
-    "task_visit-depths": "Visit 3 different depth levels",
-    "task_record-depth-o": "Record an <span class='color sm-o'>observation</span> at each depth",
-
-    "obj_keep-exploring": "Keep exploring",
-    "task_explore-more": "Explore more of the depths",
+    "obj_wrecks-review": "Review your experiment",
+    "task_wrecks-analysis": "<span class='color sm-a'>Analyze</span> your experiment data",
+    "task_wrecks-conclusion": "Make a <span class='color sm-c'>conclusion</span>",
 
     "obj_explore-forest": "Explore the kelp forest.",
     "task_enter-forest": "Enter the kelp forest.",
@@ -124,8 +116,8 @@
     "np-cover_ee-2": "By asking questions, and answering them with empirical evidence, we can understand the deep ocean better.",
     "np-wrecks-notes_title": "Wrecks notes",
     "np-wrecks-notes_question": "How does the color of the ocean change as I go deeper?",
-    "np-wrecks-experiment_title": "Color x Depth Experiment",
-    "np-wrecks-experiment_header-depth": "Depth Level",
+    "np-wrecks-experiment_title": "Color x Depth",
+    "np-wrecks-experiment_header-depth": "Depth",
     "np-wrecks-experiment_header-color": "Color Observation",
 
     "depth-shallow": "Shallow",

@@ -8,6 +8,7 @@ import {
   radioApi,
   smApi,
 } from "$apis";
+import wrecks from "$stores/wrecks.svelte";
 
 interface Todo {
   key: string;
@@ -54,9 +55,9 @@ const objectiveMap: ObjectiveMap = {
     { key: "task_new-page" },
   ],
   "obj_sm-intro": [
-    { key: "task_make-observation" },
-    { key: "task_ask-question" },
-    { key: "task_make-hypothesis" },
+    { key: "task_wrecks-observation" },
+    { key: "task_wrecks-question" },
+    { key: "task_wrecks-hypothesis" },
   ],
   "obj_wrecks-experiment": [
     {
@@ -64,6 +65,11 @@ const objectiveMap: ObjectiveMap = {
     },
     { key: "task_wrecks-record-data" },
   ],
+  "obj_wrecks-review": [
+    { key: "task_wrecks-analysis" },
+    { key: "task_wrecks-conclusion" },
+  ],
+
   "obj_start-sm": [{ key: "task_open-sm" }, { key: "task_review-o" }],
   "obj_depth-o": [
     { key: "task_visit-depths", numTimes: 3 },
@@ -78,7 +84,6 @@ const objectiveMap: ObjectiveMap = {
     { key: "task_contact-mc2" },
     { key: "task_show-observations" },
   ],
-  obj_question: [{ key: "task_ask-question" }],
 };
 
 const chapterMap: ChapterMap = {
@@ -117,34 +122,36 @@ const chapterMap: ChapterMap = {
     {
       key: "obj_sm-intro",
       onFinished: () => {
+        if (get(wrecks).hypothesisKey === "") {
+          get(wrecks).hypothesisKey = "ch1_color-h3";
+        }
+        get(notepadApi).newPage("wrecks-notes", {
+          type: "custom",
+          lines: [
+            "o_sunlight-surface",
+            "np-wrecks-notes_question",
+            get(wrecks).hypothesisKey,
+          ],
+        });
         get(hudApi).showNotepad = true;
       },
     },
     {
       key: "obj_wrecks-experiment",
-    },
-    // {
-    //   key: "obj_start-sm",
-    // },
-    // {
-    //   key: "obj_explore-wrecks",
-    // },
-    // {
-    //   key: "obj_prepare-notepad",
-    //   onFinished: () => {
-    //     get(notepadApi).newPage("observations-depth", {
-    //       type: "table",
-    //       titleKey: "notepad-title_depth-o",
-    //       header: ["th_depth-level", "th_observation"],
-    //       rows: [],
-    //     });
-    //   },
-    // },
-    {
-      key: "obj_depth-o",
+      onFinished: () => {
+        get(notepadApi).newPage("wrecks-experiment", {
+          type: "table",
+          rows: [
+            ["depth-shallow", "o_sunlight-surface"],
+            ["depth-medium", "o_color-change"],
+            ["depth-deep", "o_darkness"],
+          ],
+        });
+        get(hudApi).showNotepad = true;
+      },
     },
     {
-      key: "obj_keep-exploring",
+      key: "obj_wrecks-review",
     },
   ],
 };

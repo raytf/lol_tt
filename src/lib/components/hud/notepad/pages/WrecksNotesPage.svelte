@@ -1,8 +1,8 @@
 <script lang="ts">
   import { Lol } from "$components/text";
-  import { Observation } from "$components/svg/icons/sm";
   import { SmButton } from "$components/hud/notepad";
   import { notepadApi, infoApi } from "$apis";
+  import wrecks from "$stores/wrecks.svelte";
 </script>
 
 {#if $notepadApi.currentPage.type === "custom"}
@@ -16,9 +16,9 @@
     <SmButton step="sm-q" />
     <Lol key={$notepadApi.currentPage.lines[1]} class="text-left" />
   {/if}
-  {#if $notepadApi.currentPage.lines.length > 2}
+  {#if $wrecks.hypothesisKey != ""}
     <br />
     <SmButton step="sm-h" />
-    <Lol key={$notepadApi.currentPage.lines[2]} class="text-left" />
+    <Lol key={$wrecks.hypothesisKey} class="text-left" />
   {/if}
 {/if}

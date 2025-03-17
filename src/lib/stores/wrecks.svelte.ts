@@ -2,6 +2,7 @@ import { writable, get } from "svelte/store";
 
 class WrecksState {
   observed = $state<string[]>([]);
+  hypothesisKey = $state<string>("");
   forestUnlocked = $state(false);
 
   get numObserved() {

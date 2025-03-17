@@ -39,9 +39,6 @@ class WrecksEvents {
   onEnter() {
     hideHeading();
     const objectives = get(objectivesApi);
-    if (!objectives.hasCompleted("obj_make-observations")) {
-      this.startObservationTask = true;
-    }
 
     if (objectives.hasCompleted("obj_review-observations")) {
       this.revealConch = true;

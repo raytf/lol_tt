@@ -202,7 +202,6 @@
       if ($wrecks.observed.length === 3) {
         $objectivesApi.completeTask("task_wrecks-record-data");
         $notepadApi.openPage("wrecks-experiment");
-        $hudApi.showNotepad = true;
         $wrecks.forestUnlocked = true;
       }
     }
@@ -217,6 +216,7 @@
       $objectivesApi.completedObjectives = [
         "obj_explore-wrecks",
         "obj_sm-intro",
+        "obj_wrecks-experiment",
       ];
       $objectivesApi.recallCompletedChapters();
     }
@@ -344,14 +344,14 @@
           <InfoMarker
             type="sm-o"
             onclick={() => {
-              $objectivesApi.completeTask("task_make-observation");
+              $objectivesApi.completeTask("task_wrecks-observation");
               makeObservation("o_sunlight-surface", () => {
                 if ($objectivesApi.currentObjectiveIs("obj_sm-intro")) {
-                  $objectivesApi.completeTask("task_ask-question");
+                  $objectivesApi.completeTask("task_wrecks-question");
                   $hudApi.startDialog({
                     keys: smColor,
                     onFinished: () => {
-                      $objectivesApi.completeTask("task_make-hypothesis");
+                      $objectivesApi.completeTask("task_wrecks-hypothesis");
                     },
                   });
                 }

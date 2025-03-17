@@ -20,6 +20,7 @@ import {
 } from "$assets/conch";
 import { get } from "svelte/store";
 import { audioApi, gameApi, notepadApi, objectivesApi } from "$apis";
+import wrecks from "$stores/wrecks.svelte";
 import { showConchFace, conchLightRadius, conchFace } from "$stores/conch";
 
 export const smColor = [
@@ -40,7 +41,8 @@ export const smColor = [
         onProceed: () => {
           const notepad = get(notepadApi);
           notepad.openPage("wrecks");
-          notepad.addLine("ch1_color-h1");
+          //notepad.addLine("ch1_color-h1");
+          get(wrecks).hypothesisKey = "ch1_color-h1";
         },
       },
       {
@@ -50,7 +52,8 @@ export const smColor = [
         onProceed: () => {
           const notepad = get(notepadApi);
           notepad.openPage("wrecks");
-          notepad.addLine("ch1_color-h2");
+          //notepad.addLine("ch1_color-h2");
+          get(wrecks).hypothesisKey = "ch1_color-h2";
         },
       },
       {
@@ -60,7 +63,8 @@ export const smColor = [
         onProceed: () => {
           const notepad = get(notepadApi);
           notepad.openPage("wrecks");
-          notepad.addLine("ch1_color-h3");
+          //notepad.addLine("ch1_color-h3");
+          get(wrecks).hypothesisKey = "ch1_color-h3";
         },
       },
     ],

@@ -251,11 +251,7 @@ export const conchReview1 = [
                             imgSrc: conch_smile,
                             name: "conch",
                             text: "ch1_conch-review-4_q3-2",
-                            onProceed: () => {
-                              get(objectivesApi).completeTask(
-                                "task_ask-question",
-                              );
-                            },
+                            onProceed: () => {},
                           },
                           {
                             imgSrc: conch_smile,

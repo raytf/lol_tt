@@ -54,12 +54,6 @@ class SurfaceEvents {
   }
 
   onClickDive() {
-    const objectives = get(objectivesApi);
-    if (objectives.currentObjectiveIs("obj_make-observations")) {
-      get(hudApi).showNotepad = false;
-      objectives.completeTask("task_dive");
-    }
-
     this.readyToDive = false;
     this.surfaceSub = false;
 
@@ -72,44 +66,13 @@ class SurfaceEvents {
   }
 
   startTutorial() {
-    const hud = get(hudApi);
     const objectives = get(objectivesApi);
     objectives.startChapter("tutorial", () => {});
-    // objectives.attachStartCallback("obj_mission", () => {
-    //   this.startMissionBrief();
-    // });
-
-    // hud.startDialog({
-    //   keys: arrival,
-    //   onFinished: () => {
-    //     objectives.startChapter("tutorial", () => {});
-    //     objectives.attachStartCallback("obj_mission", () => {
-    //       this.startMissionBrief();
-    //     });
-    //   },
-    // });
   }
-
-  // startMissionBrief() {
-  //   const hud = get(hudApi);
-  //   hud.startDialog({
-  //     keys: missionBrief,
-  //     disabledOptions: ["tut_brief2_o2", "tut_brief2_o3"],
-  //     onFinished: () => {
-  //       get(objectivesApi).completeTask("task_start-mission");
-  //       objectives.attachStartCallback("obj_make-observations", () => {
-  //         this.readyToDive = true;
-  //       });
-  //     },
-  //   });
-  // }
 
   startChapter1() {
     const objectives = get(objectivesApi);
     objectives.startChapter("chapter1", () => {});
-    objectives.attachStartCallback("obj_make-observations", () => {
-      this.readyToDive = true;
-    });
   }
 }
 
