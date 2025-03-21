@@ -10,7 +10,7 @@ class NotepadApi {
   });
   currentPageKey = $state("cover");
 
-  get currentPage() {
+  get currentPage(): PageData {
     return this.pages[this.currentPageKey];
   }
 
@@ -21,6 +21,18 @@ class NotepadApi {
 
   get numPages() {
     return Object.keys(this.pages).length;
+  }
+
+  onCustomPage() {
+    return this.currentPage.type === "custom";
+  }
+
+  onTextPage() {
+    return this.currentPage.type === "text";
+  }
+
+  onTablePage() {
+    return this.currentPage.type === "table";
   }
 
   restorePages(pages: Notepad) {
@@ -44,9 +56,17 @@ class NotepadApi {
     }
   }
 
-  addTableRow(key1: string, key2: string) {
+  updateRowClass(index: number, rowClass: string) {
     if (this.currentPage.type === "table") {
-      this.currentPage.rows.push([key1, key2]);
+      this.currentPage.rows[index].class = rowClass;
+    }
+  }
+
+  addTableRow(...keys: string[]) {
+    if (this.currentPage.type === "table") {
+      this.currentPage.rows.push({
+        data: keys,
+      });
     }
   }
 

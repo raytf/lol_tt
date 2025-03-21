@@ -5,7 +5,7 @@ import { objectivesApi } from "$apis";
 
 export class GameApi {
   startedGame = $state(false);
-  debugMode = $state(false);
+  debugMode = $state(true);
 
   windowWidth = $state(1024);
   windowHeight = $state(576);

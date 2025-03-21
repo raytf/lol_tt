@@ -29,6 +29,7 @@ import forest from "$stores/forest.svelte";
 
 import { showConchFace, conchLightRadius, conchFace } from "$stores/conch";
 import {
+  coords as subCoords,
   setTarget as setSubTarget,
   direction as subDirection,
 } from "$stores/sub";
@@ -38,12 +39,34 @@ export const wrecksAnalysis = [
   {
     imgSrc: neutral,
     name: "explorer",
-    text: "ch1_analysis",
+    text: "ch1_analysis-1",
   },
   {
-    imgSrc: hushed,
+    imgSrc: neutral,
     name: "explorer",
-    text: "ch1_conclusion",
+    text: "ch1_analysis-2",
+    onStart: () => {
+      get(notepadApi).updateRowClass(0, "font-bold");
+      setSubTarget({ x: subCoords.current.x, y: 100 });
+    },
+  },
+  {
+    imgSrc: neutral,
+    name: "explorer",
+    text: "ch1_analysis-3",
+    onStart: () => {
+      get(notepadApi).updateRowClass(0, "");
+      get(notepadApi).updateRowClass(1, "font-bold");
+    },
+  },
+  {
+    imgSrc: neutral,
+    name: "explorer",
+    text: "ch1_analysis-4",
+    onStart: () => {
+      get(notepadApi).updateRowClass(1, "");
+      get(notepadApi).updateRowClass(2, "font-bold");
+    },
   },
 ];
 

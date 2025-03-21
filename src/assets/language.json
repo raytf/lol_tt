@@ -199,7 +199,10 @@
     "ch1_color-h2": "The ocean gets brighter and more colorful the deeper I go.",
     "ch1_color-h3": "The ocean gets darker and colors fade the deeper I go.",
 
-    "ch1_analysis": "Based on this data...",
+    "ch1_analysis-1": "Based on this data...",
+    "ch1_analysis-2": "Colors start off bright and vibrant near the surface.",
+    "ch1_analysis-3": "As depth increases, colors change and start becoming darker.",
+    "ch1_analysis-4": "The ocean is darkest at the deep end, where most colors have already faded.",
     "ch1_conclusion": "When depth increases, the ocean color fades and becomes darker.",
     "ch1_hypothesis-correct": "These results confirm my hypothesis!",
     "ch1_hypothesis-incorrect-1": "These results do not match my hypothesis...",

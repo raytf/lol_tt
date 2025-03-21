@@ -123,7 +123,6 @@ const chapterMap: ChapterMap = {
             get(wrecks).hypothesisKey,
           ],
         });
-        get(hudApi).showNotepad = true;
       },
     },
     {
@@ -132,13 +131,12 @@ const chapterMap: ChapterMap = {
         get(notepadApi).newPage("wrecks-experiment", {
           type: "table",
           rows: [
-            ["depth-shallow", "o_sunlight-surface"],
-            ["depth-medium", "o_color-change"],
-            ["depth-deep", "o_darkness"],
+            { data: ["depth-shallow", "o_sunlight-surface"] },
+            { data: ["depth-medium", "o_color-change"] },
+            { data: ["depth-deep", "o_darkness"] },
           ],
           lines: [],
         });
-        get(hudApi).showNotepad = true;
       },
     },
     {

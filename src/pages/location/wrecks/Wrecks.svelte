@@ -197,7 +197,7 @@
       if ($wrecks.observed.length === 3) {
         $objectivesApi.completeTask("task_wrecks-record-data");
         $notepadApi.openPage("wrecks-experiment");
-        $wrecks.forestUnlocked = true;
+        $hudApi.showNotepad = true;
       }
     }
   }
@@ -208,12 +208,11 @@
     //#region Debug
     if ($gameApi.debugMode) {
       if (!$objectivesApi.completedChapters.includes("chapter1")) {
-        $objectivesApi.completedChapters = ["tutorial", "chapter1"];
+        $objectivesApi.completedChapters = ["tutorial"];
         $objectivesApi.completedObjectives = [
           "obj_explore-wrecks",
           "obj_sm-intro",
           "obj_wrecks-experiment",
-          "obj_wrecks-review",
         ];
         $objectivesApi.recallCompletedChapters();
       }
@@ -350,6 +349,7 @@
                     keys: smColor,
                     onFinished: () => {
                       $objectivesApi.completeTask("task_wrecks-hypothesis");
+                      $hudApi.showNotepad = true;
                     },
                   });
                 }

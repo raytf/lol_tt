@@ -39,7 +39,7 @@
     if ($objectivesApi.currentObjectiveIs("obj_wrecks-experiment")) {
       $notepadApi.newPage("wrecks-experiment", {
         type: "table",
-        rows: [["depth-shallow", "o_sunlight-surface"]],
+        rows: [{ data: ["depth-shallow", "o_sunlight-surface"] }],
         lines: [],
       });
     }
@@ -93,7 +93,7 @@
       </button>
     </div>
     <div class="section-text size-full">
-      {#if $notepadApi.currentPage.type === "custom"}
+      {#if $notepadApi.onCustomPage()}
         {#if $notepadApi.currentPageKey === "cover"}
           <CoverPage />
         {/if}
@@ -110,28 +110,10 @@
             {$notepadApi.currentPage?.delimiter}<Lol key={line} />
           </div>
         {/each}
-      {:else if $notepadApi.currentPage.type === "table"}
+      {:else if $notepadApi.onTablePage()}
         {#if $notepadApi.currentPageKey === "wrecks-experiment"}
           <WrecksExperimentPage />
         {/if}
-        <!-- <Lol
-          key={$notepadApi.currentPage.titleKey}
-          class="font-bold underline"
-        />
-        <table class="table-auto w-full">
-          <tbody>
-            <tr>
-              <th><Lol key={$notepadApi.currentPage.header[0]} /></th>
-              <th><Lol key={$notepadApi.currentPage.header[1]} /></th>
-            </tr>
-            {#each $notepadApi.currentPage.rows as row}
-              <tr>
-                <td><Lol key={row[0]} /></td>
-                <td><Lol key={row[1]} /></td>
-              </tr>
-            {/each}
-          </tbody>
-        </table> -->
       {/if}
     </div>
   </div>

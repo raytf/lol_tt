@@ -24,9 +24,9 @@
         <th><Lol key="np-wrecks-experiment_header-color" /></th>
       </tr>
       {#each $notepadApi.currentPage.rows as row}
-        <tr>
-          <td><Lol key={row[0]} /></td>
-          <td><Lol key={row[1]} /></td>
+        <tr class={cn(row.class, "transition-[font-weight]")}>
+          <td><Lol key={row.data[0]} /></td>
+          <td><Lol key={row.data[1]} /></td>
         </tr>
       {/each}
     </tbody>

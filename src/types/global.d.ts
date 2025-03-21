@@ -55,8 +55,13 @@ interface TextPageData {
   delimiter?: string;
 }
 
+interface TableRow {
+  data: string[];
+  class?: string;
+}
+
 interface TablePageData {
   type: "table";
-  rows: string[][];
+  rows: TableRow[];
   lines: string[];
 }
