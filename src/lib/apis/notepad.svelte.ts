@@ -9,6 +9,7 @@ class NotepadApi {
     cover: { type: "custom", lines: [] },
   });
   currentPageKey = $state("cover");
+  notepadClass = $state("");
 
   get currentPage(): PageData {
     return this.pages[this.currentPageKey];

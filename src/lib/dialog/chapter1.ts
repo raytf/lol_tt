@@ -46,8 +46,9 @@ export const wrecksAnalysis = [
     name: "explorer",
     text: "ch1_analysis-2",
     onStart: () => {
+      get(notepadApi).notepadClass = "opacity-30";
       get(notepadApi).updateRowClass(0, "font-bold");
-      setSubTarget({ x: subCoords.current.x, y: 100 });
+      gridOffset.set({ x: gridOffset.current.x, y: 0 });
     },
   },
   {
@@ -57,6 +58,7 @@ export const wrecksAnalysis = [
     onStart: () => {
       get(notepadApi).updateRowClass(0, "");
       get(notepadApi).updateRowClass(1, "font-bold");
+      gridOffset.set({ x: gridOffset.current.x, y: -450 });
     },
   },
   {
@@ -66,6 +68,10 @@ export const wrecksAnalysis = [
     onStart: () => {
       get(notepadApi).updateRowClass(1, "");
       get(notepadApi).updateRowClass(2, "font-bold");
+      gridOffset.set({ x: gridOffset.current.x, y: -900 });
+    },
+    onProceed: () => {
+      get(notepadApi).notepadClass = "";
     },
   },
 ];

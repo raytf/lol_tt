@@ -13,6 +13,7 @@
     infoApi,
     gameApi,
   } from "$apis";
+  import { cn } from "$lib/utils";
 
   let {
     class: extraClass,
@@ -62,7 +63,7 @@
 </script>
 
 {#key $notepadApi.currentPage}
-  <div class="absolute paper {extraClass}">
+  <div class={cn("absolute paper", extraClass, $notepadApi.notepadClass)}>
     <div class="absolute w-full h-[44px] pointer-events-auto">
       <button onclick={onClose} class="absolute top-1 left-1">
         <Close class="w-[33px] h-[33px] text-white" />
@@ -125,6 +126,7 @@
     font-family: Caveat, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     font-size: 24px;
     user-select: none;
+    transition: opacity 1s;
 
     background-image: linear-gradient(
         180deg,
