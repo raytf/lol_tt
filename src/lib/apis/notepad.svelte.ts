@@ -24,6 +24,10 @@ class NotepadApi {
     return Object.keys(this.pages).length;
   }
 
+  hasPage(key: string) {
+    return key in this.pages;
+  }
+
   onCustomPage() {
     return this.currentPage.type === "custom";
   }
@@ -41,7 +45,7 @@ class NotepadApi {
   }
 
   openPage(key: string) {
-    if (key in this.pages) {
+    if (this.hasPage(key)) {
       this.currentPageKey = key;
       console.log("opening", this.currentPage);
     }
@@ -53,7 +57,7 @@ class NotepadApi {
       this.currentPage.type === "custom" ||
       this.currentPage.type === "table"
     ) {
-      this.currentPage?.lines?.push(key);
+      this.currentPage.lines = [...this.currentPage.lines, key];
     }
   }
 

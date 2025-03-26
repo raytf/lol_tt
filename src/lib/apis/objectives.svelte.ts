@@ -54,10 +54,10 @@ const objectiveMap: ObjectiveMap = {
     { key: "task_enter-wrecks" },
     { key: "task_new-page" },
   ],
-  "obj_sm-intro": [
-    { key: "task_wrecks-observation" },
-    { key: "task_wrecks-question" },
-    { key: "task_wrecks-hypothesis" },
+  "obj_sm-wrecks": [
+    { key: "task_observation" },
+    { key: "task_question" },
+    { key: "task_hypothesis" },
   ],
   "obj_wrecks-experiment": [
     {
@@ -71,8 +71,13 @@ const objectiveMap: ObjectiveMap = {
   ],
 
   "obj_explore-forest": [
+    { key: "task_new-page" },
     { key: "task_enter-forest" },
-    { key: "task_in-progress" },
+  ],
+  "obj_sm-forest": [
+    { key: "task_observation" },
+    { key: "task_question" },
+    { key: "task_hypothesis" },
   ],
 };
 
@@ -110,7 +115,7 @@ const chapterMap: ChapterMap = {
       },
     },
     {
-      key: "obj_sm-intro",
+      key: "obj_sm-wrecks",
       onFinished: () => {
         if (get(wrecks).hypothesisKey === "") {
           get(wrecks).hypothesisKey = "ch1_color-h3";
@@ -149,6 +154,15 @@ const chapterMap: ChapterMap = {
   chapter2: [
     {
       key: "obj_explore-forest",
+      onFinished: () => {
+        get(notepadApi).newPage("forest-notes", {
+          type: "custom",
+          lines: ["o_kelp-monster"],
+        });
+      },
+    },
+    {
+      key: "obj_sm-forest",
     },
   ],
 };

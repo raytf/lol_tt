@@ -105,22 +105,12 @@
 
     if (!$objectivesApi.chapterStarted) {
       // Chapter not started
-
-      // if (
-      //   $objectivesApi.currentChapterIs("") ||
-      //   $objectivesApi.currentChapterIs("tutorial") ||
-      //   $objectivesApi.currentChapterIs("chapter1")
-      // ) {
-      // }
       if (!$objectivesApi.completedChapters.includes("chapter1")) {
         $objectivesApi.startChapter("chapter1", () => {});
         return;
       }
-      //&& $forest.encounteredMonster
-      if (searchParams.has("from", "forest") && $forest.encounteredMonster) {
-        // setSubTarget({ x: 1300, y: 1300 });
-        // gridOffset.set({ x: -900, y: -900 });
 
+      if (searchParams.has("from", "forest") && $forest.encounteredMonster) {
         setTimeout(() => {
           $hudApi.startDialog({
             keys: conchEncounter,
@@ -207,15 +197,16 @@
   onMount(() => {
     //#region Debug
     if ($gameApi.debugMode) {
-      if (!$objectivesApi.completedChapters.includes("chapter1")) {
-        $objectivesApi.completedChapters = ["tutorial"];
-        $objectivesApi.completedObjectives = [
-          "obj_explore-wrecks",
-          "obj_sm-intro",
-          "obj_wrecks-experiment",
-        ];
-        $objectivesApi.recallCompletedChapters();
-      }
+      // if (!$objectivesApi.completedChapters.includes("chapter1")) {
+      //   $objectivesApi.completedChapters = ["tutorial", "chapter1"];
+      //   $objectivesApi.completedObjectives = [
+      //     "obj_explore-wrecks",
+      //     "obj_sm-wrecks",
+      //     "obj_wrecks-experiment",
+      //     "obj_wrecks-review",
+      //   ];
+      //   $objectivesApi.recallCompletedChapters();
+      // }
     }
     //#endregion
     setTimeout(() => {
@@ -337,18 +328,18 @@
           --color-top="#03E5B7"
           --color-bottom="#00C1EF"
         />
-        {#if $objectivesApi.currentObjectiveIs("obj_sm-intro") || $objectivesApi.currentObjectiveIs("obj_wrecks-experiment")}
+        {#if $objectivesApi.currentObjectiveIs("obj_sm-wrecks") || $objectivesApi.currentObjectiveIs("obj_wrecks-experiment")}
           <InfoMarker
             type="sm-o"
             onclick={() => {
-              $objectivesApi.completeTask("task_wrecks-observation");
+              $objectivesApi.completeTask("task_observation");
               makeObservation("o_sunlight-surface", () => {
-                if ($objectivesApi.currentObjectiveIs("obj_sm-intro")) {
-                  $objectivesApi.completeTask("task_wrecks-question");
+                if ($objectivesApi.currentObjectiveIs("obj_sm-wrecks")) {
+                  $objectivesApi.completeTask("task_question");
                   $hudApi.startDialog({
                     keys: smColor,
                     onFinished: () => {
-                      $objectivesApi.completeTask("task_wrecks-hypothesis");
+                      $objectivesApi.completeTask("task_hypothesis");
                       $hudApi.showNotepad = true;
                     },
                   });
@@ -374,7 +365,7 @@
           --color-top="#00C1EF"
           --color-bottom="#037ADE"
         />
-        {#if $objectivesApi.currentObjectiveIs("obj_wrecks-experiment")}
+        {#if $objectivesApi.currentObjectiveIs("obj_wrecks-experiment") && $notepadApi.hasPage("wrecks-experiment")}
           <InfoMarker
             type="sm-o"
             onclick={() => {
@@ -433,7 +424,7 @@
             style="transform: translateX({gridOffset.current.x / 5}px)"
           />
         {/if}
-        {#if $objectivesApi.currentObjectiveIs("obj_wrecks-experiment")}
+        {#if $objectivesApi.currentObjectiveIs("obj_wrecks-experiment") && $notepadApi.hasPage("wrecks-experiment")}
           <InfoMarker
             type="sm-o"
             onclick={() => {

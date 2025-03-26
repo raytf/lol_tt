@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { location } from "svelte-spa-router";
   import { Lol } from "$components/text";
   import { SmButton } from "$components/hud/notepad";
   import { notepadApi, infoApi, hudApi, objectivesApi } from "$apis";
@@ -51,7 +52,9 @@
         class={cn(
           "border border-black rounded pl-1 pr-2",
           "hover:bg-black hover:text-white",
-          "pointer-events-auto",
+          $location.includes("/wrecks")
+            ? "pointer-events-auto"
+            : "pointer-events-none opacity-50",
         )}
       >
         <Lol key="start" />

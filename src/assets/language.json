@@ -49,21 +49,23 @@
     "task_enter-wrecks": "Enter the wrecks",
     "task_new-page": "Start a new notepad page",
 
-    "obj_sm-intro": "Scientific Method Walkthrough",
-    "task_wrecks-observation": "Make an <span class='color sm-o'>observation</span>",
-    "task_wrecks-question": "Ask a <span class='color sm-q'>scientific question</span>",
-    "task_wrecks-hypothesis": "Make a <span class='color sm-h'>hypothesis</span>",
+    "obj_sm-wrecks": "Scientific Method: Wrecks",
+    "task_observation": "Make an <span class='color sm-o'>observation</span>",
+    "task_question": "Ask a <span class='color sm-q'>scientific question</span>",
+    "task_hypothesis": "Make a <span class='color sm-h'>hypothesis</span>",
 
     "obj_wrecks-experiment": "Conduct an <span class='color sm-e'>experiment</span>",
     "task_wrecks-record-data": "Record <strong>color</strong> data at different <strong>depths.</strong>",
 
-    "obj_wrecks-review": "Review your experiment",
+    "obj_wrecks-review": "Review your experime      nt",
     "task_wrecks-analysis": "<span class='color sm-a'>Analyze</span> your experiment data",
     "task_wrecks-conclusion": "Make a <span class='color sm-c'>conclusion</span>",
 
     "obj_explore-forest": "Explore the kelp forest.",
     "task_enter-forest": "Enter the kelp forest.",
     "task_in-progress": "Currently in development...next version next week.",
+
+    "obj_sm-forest": "Scientific Method: Forest",
 
     "obj_review-observations": "<span class='color sm-o'>Observations</span> review",
     "task_contact-mc2": "Contact Mission Control again using the radio",
@@ -81,6 +83,7 @@
     "o_color-change": "Blues and greens of the ocean begin to shift to darker hues, while the bright kelp fades to a murky olive color.",
     "o_darkness": "Ocean has become much darker, with most colors now barely visible.",
     "o_shell": "Met a talking shell! It doesn't seem very cheerful though.",
+    "o_kelp-monster": "A shadowy creature with kelp-like tentacles lurks in the forest.",
 
     "sm-heading": "The Scientific Method steps",
     "sm-subheading": "Click a step for more info.",
@@ -119,6 +122,7 @@
     "np-wrecks-experiment_title": "Color x Depth",
     "np-wrecks-experiment_header-depth": "Depth",
     "np-wrecks-experiment_header-color": "Color Observation",
+    "np-forest-notes_title": "Kelp Forest notes",
 
     "depth-shallow": "Shallow",
     "depth-medium": "Medium",
@@ -214,13 +218,13 @@
     "thwomp": "<i>Thwomp!</i>",
 
     "ch1_conch-1": "What was that?!",
-    "ch1_conch-2": "Are you scared?",
+    "ch1_conch-2": "<i>An unexpected voice emerges.</i> Are you scared?",
     "ch1_conch-3": "Pfft, no...",
-    "ch1_conch-4": "...well, maybe a little. I've heard stories about sea monsters...surely it can't be...",
-    "ch1_conch-5": "...wait hold on?! Who's talking?",
+    "ch1_conch-4": "...well, maybe a little. Those stories about sea monsters... could it really be?",
+    "ch1_conch-5": "Wait... who's talking?",
     "ch1_conch-6": "Down here.",
-    "ch1_conch-7": "Wow, a talking shell?! That's so cool!",
-    "ch1_conch-8": "I ain't just a shell kid. I'm a conch.",
+    "ch1_conch-7": "A talking shell?! That's so cool!",
+    "ch1_conch-8": "I ain't just a shell, kid. I'm a conch.",
     "ch1_conch-9": "If you're so scared, why did you come here?",
     "ch1_conch-10": "I don't know... my Dad came here years ago, but never returned.",
     "ch1_conch-11": "Oh...",

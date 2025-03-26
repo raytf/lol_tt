@@ -25,7 +25,7 @@
     hudApi,
     interfaceApi,
   } from "$apis";
-  import { Button } from "$components/ui/button";
+  import { Button, InfoMarker } from "$components/ui/button";
   import {
     ForestPath,
     ForestRightPath,
@@ -192,13 +192,23 @@
       loop: true,
     });
 
-    if (!$forest.encounteredMonster) {
+    if (!$objectivesApi.chapterStarted) {
+      if (!$objectivesApi.completedChapters.includes("chapter2")) {
+        $objectivesApi.startChapter("chapter2", () => {});
+      }
+    }
+
+    $forest.encounteredMonster = true;
+
+    if (
+      $objectivesApi.currentChapterIs("chapter1") &&
+      !$forest.encounteredMonster
+    ) {
       setTimeout(() => {
         $hudApi.startDialog({
           keys: enterForest,
           blockInput: true,
           onFinished: () => {
-            $forest.encounteredMonster = true;
             setSubTarget({ x: 0, y: subCoords.current.y });
             $audioApi.stopTrack({ src: "music/tangled-depths.mp3" });
             $gameApi.fadeScene("/wrecks?from=forest");
@@ -235,6 +245,12 @@
 
   setSubPosition(initialPosition);
   onMount(() => {
+    if (!$objectivesApi.completedChapters.includes("chapter1")) {
+      $objectivesApi.completedChapters = ["tutorial", "chapter1"];
+      $objectivesApi.completedObjectives = ["obj_explore-forest"];
+      $objectivesApi.recallCompletedChapters();
+    }
+
     setTimeout(() => {
       setSubTarget(initialTarget);
     }, 555);
@@ -364,6 +380,17 @@
           --color-top="#037ADE"
           --color-bottom="#182B3A"
         />
+        {#if $objectivesApi.currentObjectiveIs("obj_sm-forest")}
+          <InfoMarker
+            type="sm-o"
+            onclick={() => {
+              //makeTableObservation("depth-deep", "o_darkness");
+            }}
+            class={cn(
+              "absolute w-[55px] h-[55px] bottom-[22%] left-[44%] z-[15]",
+            )}
+          />
+        {/if}
         {#if $forest.abyssUnlocked && subNearAbyss}
           <div
             transition:fade
@@ -386,16 +413,6 @@
             </Button>
           </div>
         {/if}
-      </Area>
-      <Area
-        size={[grid.width, $gameApi.windowHeight]}
-        onmousedown={onClickArea}
-      >
-        <UnderwaterGradient
-          class="absolute size-full"
-          --color-top="#182B3A"
-          --color-bottom="#00172a"
-        />
       </Area>
     {/snippet}
   </Grid>

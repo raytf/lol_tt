@@ -4,7 +4,12 @@
   import { Close, NewPage } from "$components/svg/icons";
   import { Lol } from "$components/text";
   import { Left, Right } from "$components/svg/icons/caret";
-  import { CoverPage, WrecksNotesPage, WrecksExperimentPage } from "./pages";
+  import {
+    CoverPage,
+    WrecksNotesPage,
+    WrecksExperimentPage,
+    ForestNotesPage,
+  } from "./pages";
   import {
     notepadApi,
     hudApi,
@@ -45,6 +50,13 @@
       });
     }
 
+    if ($objectivesApi.currentObjectiveIs("obj_explore-forest")) {
+      $notepadApi.newPage("forest-notes", {
+        type: "custom",
+        lines: ["o_kelp-monster"],
+      });
+    }
+
     $objectivesApi.completeTask("task_new-page");
     //$hudApi.showNotepad = false;
     newPageEnabled = false;
@@ -53,7 +65,8 @@
   onMount(() => {
     if (
       $objectivesApi.currentObjectiveIs("obj_explore-wrecks") ||
-      $objectivesApi.currentObjectiveIs("obj_wrecks-experiment")
+      $objectivesApi.currentObjectiveIs("obj_wrecks-experiment") ||
+      $objectivesApi.currentObjectiveIs("obj_explore-forest")
     ) {
       newPageEnabled = true;
     }
@@ -97,9 +110,10 @@
       {#if $notepadApi.onCustomPage()}
         {#if $notepadApi.currentPageKey === "cover"}
           <CoverPage />
-        {/if}
-        {#if $notepadApi.currentPageKey === "wrecks-notes"}
+        {:else if $notepadApi.currentPageKey === "wrecks-notes"}
           <WrecksNotesPage />
+        {:else if $notepadApi.currentPageKey === "forest-notes"}
+          <ForestNotesPage />
         {/if}
       {:else if $notepadApi.currentPage.type === "text"}
         <Lol
