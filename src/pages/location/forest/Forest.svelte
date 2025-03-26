@@ -24,6 +24,7 @@
     objectivesApi,
     hudApi,
     interfaceApi,
+    notepadApi,
   } from "$apis";
   import { Button, InfoMarker } from "$components/ui/button";
   import {
@@ -192,13 +193,12 @@
       loop: true,
     });
 
-    if (!$objectivesApi.chapterStarted) {
+    //console.log($objectivesApi.currentChapter);
+    if ($objectivesApi.currentChapterIs("")) {
       if (!$objectivesApi.completedChapters.includes("chapter2")) {
         $objectivesApi.startChapter("chapter2", () => {});
       }
     }
-
-    $forest.encounteredMonster = true;
 
     if (
       $objectivesApi.currentChapterIs("chapter1") &&
@@ -214,6 +214,7 @@
             $gameApi.fadeScene("/wrecks?from=forest");
           },
         });
+        $forest.encounteredMonster = true;
       }, 1000);
     } else {
       setTimeout(() => {
@@ -245,11 +246,11 @@
 
   setSubPosition(initialPosition);
   onMount(() => {
-    if (!$objectivesApi.completedChapters.includes("chapter1")) {
-      $objectivesApi.completedChapters = ["tutorial", "chapter1"];
-      $objectivesApi.completedObjectives = ["obj_explore-forest"];
-      $objectivesApi.recallCompletedChapters();
-    }
+    // if (!$objectivesApi.completedChapters.includes("chapter1")) {
+    //   $objectivesApi.completedChapters = ["tutorial", "chapter1"];
+    //   $objectivesApi.completedObjectives = ["obj_explore-forest"];
+    //   $objectivesApi.recallCompletedChapters();
+    // }
 
     setTimeout(() => {
       setSubTarget(initialTarget);
@@ -384,6 +385,20 @@
           <InfoMarker
             type="sm-o"
             onclick={() => {
+              $hudApi.startDialog({
+                keys: [{ text: "sub-creak-1" }],
+                onFinished: () => {
+                  $notepadApi.openPage("forest-notes");
+                  $notepadApi.addLine("o_warning-creak");
+
+                  $infoApi.openModal({
+                    infoType: "sm-o",
+                    textKeys: ["o_warning-creak"],
+                    onClose: () => {},
+                  });
+                },
+              });
+
               //makeTableObservation("depth-deep", "o_darkness");
             }}
             class={cn(

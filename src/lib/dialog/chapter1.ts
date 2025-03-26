@@ -191,70 +191,6 @@ export const conchScare = [
   },
 ];
 
-// export const conchEncounter = [
-//   {
-//     text: "ch1_conch-1",
-//     onStart: () => {
-//       conchFace.set(conch_angry);
-//       showConchFace.set(true);
-//       conchLightRadius.set(8);
-//     },
-//   },
-//   {
-//     text: "ch1_conch-2",
-//     options: [
-//       {
-//         imgSrc: smileOpen,
-//         name: "you",
-//         text: "ch1_conch-2.1",
-//         nextDialog: [
-//           {
-//             text: "ch1_conch-2.1-1",
-//             onStart: () => {
-//               conchFace.set(conch_neutral);
-//             },
-//           },
-//         ],
-//       },
-//     ],
-//   },
-//   {
-//     name: "conch",
-//     text: "ch1_conch-3",
-//     onStart: () => {
-//       conchFace.set(conch_angry);
-//       //conchFace.set(conch_devious);
-//     },
-//   },
-//   {
-//     name: "conch",
-//     text: "ch1_conch-4",
-//     onStart: () => {
-//       conchFace.set(conch_angry);
-//     },
-//     options: [
-//       {
-//         imgSrc: neutral,
-//         text: "ch1_conch-4.1",
-//         nextDialog: [
-//           {
-//             name: "conch",
-//             text: "ch1_conch-4.1-1",
-//           },
-//         ],
-//       },
-//     ],
-//   },
-//   {
-//     name: "conch",
-//     text: "ch1_conch-5",
-//     onProceed: () => {
-//       showConchFace.set(false);
-//       conchLightRadius.set(0);
-//     },
-//   },
-// ];
-
 export const enterForest = [
   {
     name: "narrator",
@@ -284,7 +220,7 @@ export const conchEncounter = [
     text: "ch1_conch-2",
     onStart: () => {
       showConchFace.set(true);
-      conchLightRadius.set(8);
+      //conchLightRadius.set(8);
     },
   },
   {
@@ -298,91 +234,63 @@ export const conchEncounter = [
     text: "ch1_conch-4",
   },
   {
-    imgSrc: confused,
+    imgSrc: pensive,
     name: "explorer",
     text: "ch1_conch-5",
   },
   {
+    imgSrc: smileSlight,
+    name: "explorer",
     text: "ch1_conch-6",
+  },
+  {
+    text: "ch1_conch-7",
+  },
+  {
+    imgSrc: grinSweat,
+    name: "explorer",
+    text: "ch1_conch-8",
+  },
+  {
+    imgSrc: downcastSweat,
+    name: "explorer",
+    text: "ch1_conch-9",
+  },
+  {
+    text: "ch1_conch-10",
     onStart: () => {
       // subDirection.set({ x: 1, y: get(subDirection).y });
       gridOffset.set({ x: -900, y: -900 });
     },
     onProceed: () => {
-      setSubTarget({ x: 1400, y: 1100 });
+      setSubTarget({ x: 1400, y: 1200 });
     },
   },
   {
     imgSrc: openMouth,
     name: "explorer",
-    text: "ch1_conch-7",
-  },
-  {
-    imgSrc: conch_eyes,
-    name: "conch",
-    text: "ch1_conch-8",
-  },
-  {
-    imgSrc: conch_eyes,
-    name: "conch",
-    text: "ch1_conch-9",
-  },
-  {
-    imgSrc: neutral,
-    name: "explorer",
-    text: "ch1_conch-10",
-  },
-  {
-    imgSrc: conch_openMouth,
-    name: "conch",
     text: "ch1_conch-11",
-    onStart: () => {
-      conchFace.set(conch_openMouth);
-    },
   },
   {
-    imgSrc: neutral,
-    name: "explorer",
+    imgSrc: conch_eyes,
+    name: "conch",
     text: "ch1_conch-12",
   },
   {
-    imgSrc: smileSlight,
-    name: "explorer",
+    imgSrc: conch_eyes,
+    name: "conch",
     text: "ch1_conch-13",
   },
   {
-    imgSrc: pensive,
-    name: "explorer",
+    imgSrc: conch_smile,
+    name: "conch",
     text: "ch1_conch-14",
-  },
-  {
-    imgSrc: thinking,
-    name: "explorer",
-    text: "ch1_conch-15",
-  },
-  {
-    imgSrc: conch_eyes,
-    name: "conch",
-    text: "ch1_conch-16",
     onStart: () => {
-      conchFace.set(conch_eyes);
-    },
-  },
-  {
-    imgSrc: conch_eyes,
-    name: "conch",
-    text: "ch1_conch-17",
-  },
-  {
-    imgSrc: conch_devious,
-    name: "conch",
-    text: "ch1_conch-18",
-    onStart: () => {
-      conchFace.set(conch_devious);
+      conchFace.set(conch_smile);
     },
     onProceed: () => {
       showConchFace.set(false);
-      conchLightRadius.set(0);
+      //conchLightRadius.set(0);
       get(hudApi).startItemUnlock({
         itemId: "conch",
       });

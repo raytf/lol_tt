@@ -164,7 +164,7 @@
 
     if (!$wrecks.observed.includes(observationKey)) {
       $wrecks.observed = [...$wrecks.observed, observationKey];
-      $notepadApi.openPage("wrecks");
+      $notepadApi.openPage("wrecks-notes");
       $notepadApi.addLine(observationKey);
     }
   }
@@ -197,16 +197,16 @@
   onMount(() => {
     //#region Debug
     if ($gameApi.debugMode) {
-      // if (!$objectivesApi.completedChapters.includes("chapter1")) {
-      //   $objectivesApi.completedChapters = ["tutorial", "chapter1"];
-      //   $objectivesApi.completedObjectives = [
-      //     "obj_explore-wrecks",
-      //     "obj_sm-wrecks",
-      //     "obj_wrecks-experiment",
-      //     "obj_wrecks-review",
-      //   ];
-      //   $objectivesApi.recallCompletedChapters();
-      // }
+      if (!$objectivesApi.completedChapters.includes("chapter1")) {
+        $objectivesApi.completedChapters = ["tutorial"];
+        $objectivesApi.completedObjectives = [
+          "obj_explore-wrecks",
+          "obj_sm-wrecks",
+          "obj_wrecks-experiment",
+          //"obj_wrecks-review",
+        ];
+        $objectivesApi.recallCompletedChapters();
+      }
     }
     //#endregion
     setTimeout(() => {
@@ -239,7 +239,7 @@
         </Button>
       </div>
     {/if}
-    <!-- {#if $wrecks.forestUnlocked && subNearForest}
+    {#if $wrecks.forestUnlocked && subNearForest}
       <div
         transition:fade
         class="absolute z-[11] top-0 right-0 w-[222px] h-full flex flex-col justify-center items-end pr-4"
@@ -261,7 +261,7 @@
           <ArrowRight class="w-[33px] h-[33px]" />
         </Button>
       </div>
-    {/if} -->
+    {/if}
   {/snippet}
 
   <Grid
@@ -379,7 +379,7 @@
             )}
           />
         {/if}
-        {#if $wrecks.forestUnlocked && subNearForest}
+        <!-- {#if $wrecks.forestUnlocked && subNearForest}
           <div
             transition:fade
             class="absolute z-[20] top-0 right-0 w-[222px] h-full flex flex-col justify-center items-end pr-4"
@@ -401,7 +401,7 @@
               <ArrowRight class="w-[33px] h-[33px]" />
             </Button>
           </div>
-        {/if}
+        {/if} -->
       </Area>
       <Area
         size={[grid.width, $gameApi.windowHeight]}
