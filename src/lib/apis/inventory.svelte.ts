@@ -1,6 +1,7 @@
 import { writable } from "svelte/store";
 import radio from "$assets/icons/radio.svg";
 import shell from "$assets/avatars/shell.png";
+import { conch_smile } from "$assets/conch";
 import notepad from "$assets/icons/notepad.svg";
 import smDiagram from "$assets/icons/sm-diagram.png";
 import pressureGauge from "$assets/sprites/pressure-gauge.png";
@@ -35,7 +36,7 @@ export const itemMap: ItemMap = {
     // actionKey: "item_action_notepad",
   },
   conch: {
-    imgSrc: shell,
+    imgSrc: conch_smile,
     id: "conch",
     nameKey: "item_name_conch",
     descKey: "item_desc_conch",

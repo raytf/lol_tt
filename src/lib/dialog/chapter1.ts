@@ -48,6 +48,8 @@ export const wrecksAnalysis = [
     onStart: () => {
       get(notepadApi).notepadClass = "opacity-30";
       get(notepadApi).updateRowClass(0, "font-bold");
+
+      get(wrecks).previousGridOffset = gridOffset.current;
       gridOffset.set({ x: gridOffset.current.x, y: 0 });
     },
   },
@@ -72,6 +74,7 @@ export const wrecksAnalysis = [
     },
     onProceed: () => {
       get(notepadApi).notepadClass = "";
+      gridOffset.set(get(wrecks).previousGridOffset);
     },
   },
 ];
@@ -273,7 +276,6 @@ export const conchEncounter = [
   },
   {
     imgSrc: conch_eyes,
-    name: "conch",
     text: "ch1_conch-12",
   },
   {

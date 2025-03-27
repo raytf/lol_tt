@@ -151,7 +151,7 @@
     "item_desc_notepad": "A tool for recording notes and empirical evidence.",
     "item_action_notepad": "Use this to record and review data.",
     "item_name_conch": "Conch",
-    "item_desc_conch": "A mysterious talking conch. He seems kinda familiar...",
+    "item_desc_conch": "A mysterious talking conch. He seems familiar...",
     "item_name_map": "Map",
     "item_desc_map": "A map drawing of the Triton Triangle depths.",
     "item_name_pg": "Pressure Gauge",
@@ -231,7 +231,7 @@
     "ch1_conch-11": "A talking shell?! That's so cool!",
     "ch1_conch-12": "I ain't just a shell, kid. I'm a conch.",
     "ch1_conch-13": "Listen kid, the deep is full of dangers... but also wonders.",
-    "ch1_conch-14": "Take me with you, I'll help you on your exploration.",
+    "ch1_conch-14": "Take me with you, I'll guide you on your exploration.",
 
     "ch2_deep-1": "This pressure warning only appeared when I went deeper...",
     "ch2_deep-2": "... looks like the kelp monster stopped following me as well.",

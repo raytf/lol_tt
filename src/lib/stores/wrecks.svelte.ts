@@ -1,10 +1,12 @@
 import { writable, get } from "svelte/store";
+import type { Spring } from "svelte/motion";
 
 class WrecksState {
   observed = $state<string[]>([]);
   hypothesisKey = $state<string>("");
   forestUnlocked = $state(false);
   conchEncountered = $state(false);
+  previousGridOffset = $state({ x: 0, y: 0 });
 
   get numObserved() {
     return this.observed.length;
