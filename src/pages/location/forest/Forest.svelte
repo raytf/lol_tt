@@ -246,11 +246,11 @@
 
   setSubPosition(initialPosition);
   onMount(() => {
-    // if (!$objectivesApi.completedChapters.includes("chapter1")) {
-    //   $objectivesApi.completedChapters = ["tutorial", "chapter1"];
-    //   $objectivesApi.completedObjectives = ["obj_explore-forest"];
-    //   $objectivesApi.recallCompletedChapters();
-    // }
+    if (!$objectivesApi.completedChapters.includes("chapter1")) {
+      $objectivesApi.completedChapters = ["tutorial", "chapter1"];
+      $objectivesApi.completedObjectives = ["obj_explore-forest"];
+      $objectivesApi.recallCompletedChapters();
+    }
 
     setTimeout(() => {
       setSubTarget(initialTarget);

@@ -197,16 +197,16 @@
   onMount(() => {
     //#region Debug
     if ($gameApi.debugMode) {
-      if (!$objectivesApi.completedChapters.includes("chapter1")) {
-        $objectivesApi.completedChapters = ["tutorial"];
-        $objectivesApi.completedObjectives = [
-          "obj_explore-wrecks",
-          "obj_sm-wrecks",
-          "obj_wrecks-experiment",
-          //"obj_wrecks-review",
-        ];
-        $objectivesApi.recallCompletedChapters();
-      }
+      // if (!$objectivesApi.completedChapters.includes("chapter1")) {
+      //   $objectivesApi.completedChapters = ["tutorial"];
+      //   $objectivesApi.completedObjectives = [
+      //     "obj_explore-wrecks",
+      //     "obj_sm-wrecks",
+      //     "obj_wrecks-experiment",
+      //     "obj_wrecks-review",
+      //   ];
+      //   $objectivesApi.recallCompletedChapters();
+      // }
     }
     //#endregion
     setTimeout(() => {

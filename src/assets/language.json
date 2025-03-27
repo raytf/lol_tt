@@ -84,7 +84,7 @@
     "o_darkness": "Ocean has become much darker, with most colors now barely visible.",
     "o_shell": "Met a talking shell! It doesn't seem very cheerful though.",
     "o_kelp-monster": "A shadowy creature with kelp-like tentacles lurks in the forest.",
-    "o_warning-creak": "High pressure warnings coming from the sub... also heard a faint creaking sound.",
+    "o_warning-creak": "Creaking sounds and high pressure warnings coming from the sub when going deeper.",
 
     "sm-heading": "The Scientific Method steps",
     "sm-subheading": "Click a step for more info.",
@@ -219,7 +219,7 @@
     "thwomp": "<i>Thwomp!</i>",
 
     "ch1_conch-1": "What was that?!",
-    "ch1_conch-2": "<i>An unexpected voice emerges.</i> Are you scared?",
+    "ch1_conch-2": "Are you scared?",
     "ch1_conch-3": "Pfft, no...",
     "ch1_conch-4": "...maybe a little. Those stories about sea monsters... could it really be?",
     "ch1_conch-5": "Well, my dad used to say: true scientists don't just listen to stories...",
@@ -233,7 +233,7 @@
     "ch1_conch-13": "Listen kid, the deep is full of dangers... but also wonders.",
     "ch1_conch-14": "Take me with you, I'll guide you on your exploration.",
 
-    "ch2_deep-1": "This pressure warning only appeared when I went deeper...",
+    "ch2_deep-1": "This pressure warning only seems to appear at the deepest end...",
     "ch2_deep-2": "... looks like the kelp monster stopped following me as well.",
     "ch2_deep-3": "Interesting, maybe there's a connection between the two.",
     "ch2_deep-3.1": "Between pressure and the kelp monster?",
