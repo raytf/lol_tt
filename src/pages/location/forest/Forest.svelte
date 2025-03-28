@@ -43,6 +43,7 @@
   import wrecks from "$stores/wrecks.svelte";
   import forest from "$stores/forest.svelte";
   import { enterForest } from "$dialog/chapter1";
+  import { oqh } from "$dialog/chapter2";
 
   //#region state
   const grid = {
@@ -222,6 +223,28 @@
       }, 2000);
     }
   }
+  function startOqh() {
+    $hudApi.startDialog({
+      keys: [{ text: "sub-creak-1" }],
+      blockInput: true,
+      onFinished: () => {
+        $notepadApi.openPage("forest-notes");
+        $notepadApi.addLine("o_warning-creak");
+
+        $infoApi.openModal({
+          infoType: "sm-o",
+          textKeys: ["o_warning-creak"],
+          onClose: () => {
+            $objectivesApi.completeTask("task_observation");
+            $hudApi.startDialog({
+              keys: oqh,
+              blockInput: true,
+            });
+          },
+        });
+      },
+    });
+  }
   function onClickArea(e: MouseEvent) {
     const x = e.clientX - gridOffset.current.x;
     const y = e.clientY - gridOffset.current.y;
@@ -385,21 +408,7 @@
           <InfoMarker
             type="sm-o"
             onclick={() => {
-              $hudApi.startDialog({
-                keys: [{ text: "sub-creak-1" }],
-                onFinished: () => {
-                  $notepadApi.openPage("forest-notes");
-                  $notepadApi.addLine("o_warning-creak");
-
-                  $infoApi.openModal({
-                    infoType: "sm-o",
-                    textKeys: ["o_warning-creak"],
-                    onClose: () => {},
-                  });
-                },
-              });
-
-              //makeTableObservation("depth-deep", "o_darkness");
+              startOqh();
             }}
             class={cn(
               "absolute w-[55px] h-[55px] bottom-[22%] left-[44%] z-[15]",

@@ -3,6 +3,7 @@ import type { Spring } from "svelte/motion";
 
 class WrecksState {
   observed = $state<string[]>([]);
+  questionKey = $state<string>("");
   hypothesisKey = $state<string>("");
   forestUnlocked = $state(false);
   conchEncountered = $state(false);

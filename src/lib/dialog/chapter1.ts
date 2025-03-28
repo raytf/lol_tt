@@ -107,42 +107,48 @@ export const smColor = [
     text: "ch1_color-q",
     onStart: () => {
       const notepad = get(notepadApi);
-      notepad.openPage("wrecks");
-      notepad.addLine("np-wrecks-notes_question");
+      notepad.openPage("wrecks-notes");
+      get(wrecks).questionKey = "np-wrecks-notes_question";
     },
     options: [
       {
-        imgSrc: smileSlight,
-        text: "ch1_color-h1",
-        nextDialog: [],
-        onProceed: () => {
-          const notepad = get(notepadApi);
-          notepad.openPage("wrecks");
-          //notepad.addLine("ch1_color-h1");
-          get(wrecks).hypothesisKey = "ch1_color-h1";
-        },
+        text: "ch1_color-q.1",
+        nextDialog: [
+          {
+            imgSrc: smileSlight,
+            name: "explorer",
+            text: "ch1_color-h1",
+            onProceed: () => {
+              get(wrecks).hypothesisKey = "ch1_color-h1";
+            },
+          },
+        ],
       },
       {
-        imgSrc: smileSlight,
-        text: "ch1_color-h2",
-        nextDialog: [],
-        onProceed: () => {
-          const notepad = get(notepadApi);
-          notepad.openPage("wrecks");
-          //notepad.addLine("ch1_color-h2");
-          get(wrecks).hypothesisKey = "ch1_color-h2";
-        },
+        text: "ch1_color-q.2",
+        nextDialog: [
+          {
+            imgSrc: smileSlight,
+            name: "explorer",
+            text: "ch1_color-h2",
+            onProceed: () => {
+              get(wrecks).hypothesisKey = "ch1_color-h2";
+            },
+          },
+        ],
       },
       {
-        imgSrc: smileSlight,
-        text: "ch1_color-h3",
-        nextDialog: [],
-        onProceed: () => {
-          const notepad = get(notepadApi);
-          notepad.openPage("wrecks");
-          //notepad.addLine("ch1_color-h3");
-          get(wrecks).hypothesisKey = "ch1_color-h3";
-        },
+        text: "ch1_color-q.3",
+        nextDialog: [
+          {
+            imgSrc: smileSlight,
+            name: "explorer",
+            text: "ch1_color-h3",
+            onProceed: () => {
+              get(wrecks).hypothesisKey = "ch1_color-h3";
+            },
+          },
+        ],
       },
     ],
   },

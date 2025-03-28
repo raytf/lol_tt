@@ -62,7 +62,7 @@
     newPageEnabled = false;
   }
 
-  onMount(() => {
+  $effect(() => {
     if (
       $objectivesApi.currentObjectiveIs("obj_explore-wrecks") ||
       $objectivesApi.currentObjectiveIs("obj_wrecks-experiment") ||
@@ -72,7 +72,7 @@
     }
   });
 
-  let newPageEnabled = $state(false);
+  let newPageEnabled = $state(true);
 </script>
 
 {#key $notepadApi.currentPage}

@@ -117,16 +117,16 @@ const chapterMap: ChapterMap = {
     {
       key: "obj_sm-wrecks",
       onFinished: () => {
-        if (get(wrecks).hypothesisKey === "") {
-          get(wrecks).hypothesisKey = "ch1_color-h3";
+        const w = get(wrecks);
+        if (w.questionKey === "") {
+          w.questionKey = "np-wrecks-notes_question";
+        }
+        if (w.hypothesisKey === "") {
+          w.hypothesisKey = "ch1_color-h3";
         }
         get(notepadApi).newPage("wrecks-notes", {
           type: "custom",
-          lines: [
-            "o_sunlight-surface",
-            "np-wrecks-notes_question",
-            get(wrecks).hypothesisKey,
-          ],
+          lines: ["o_sunlight-surface"],
         });
       },
     },

@@ -32,7 +32,8 @@
             text: option.text,
             onProceed: option.onProceed,
           };
-          const nextDialog = [selected, ...option.nextDialog];
+          const nextDialog = [...option.nextDialog];
+          //const nextDialog = [selected, ...option.nextDialog];
           if (option.repeat) {
             const originalDialog = { ...key };
             originalDialog.alreadyRead = true;

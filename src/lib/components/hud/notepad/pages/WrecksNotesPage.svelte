@@ -7,19 +7,19 @@
 
 {#if $notepadApi.currentPage.type === "custom"}
   <Lol key="np-wrecks-notes_title" class="font-bold underline" />
-  {#if $notepadApi.currentPage.lines.length > 0}
-    <SmButton step="sm-o" />
-    <Lol key={$notepadApi.currentPage.lines[0]} class="text-left" />
-  {/if}
-  {#if $notepadApi.currentPage.lines.length > 1}
-    <br />
-    <SmButton step="sm-q" />
-    <Lol key={$notepadApi.currentPage.lines[1]} class="text-left" />
-  {/if}
-  {#if $wrecks.hypothesisKey != ""}
-    <br />
-    <SmButton step="sm-h" />
 
+  <SmButton step="sm-o" />
+  {#each $notepadApi.currentPage.lines as line}
+    <Lol key={line} class="text-left" />
+  {/each}
+
+  {#if $wrecks.questionKey != ""}
+    <SmButton step="sm-q" />
+    <Lol key={$wrecks.questionKey} class="text-left" />
+  {/if}
+
+  {#if $wrecks.hypothesisKey != ""}
+    <SmButton step="sm-h" />
     {#if $objectivesApi.hasCompleted("obj_wrecks-review")}
       <Lol
         key={$wrecks.hypothesisKey}
