@@ -201,7 +201,7 @@
         $objectivesApi.completedChapters = ["tutorial"];
         // $objectivesApi.completedObjectives = [
         //   "obj_explore-wrecks",
-        //   "obj_sm-wrecks",
+        //   "obj_wrecks-start",
         //   "obj_wrecks-experiment",
         //   "obj_wrecks-review",
         // ];
@@ -328,13 +328,13 @@
           --color-top="#03E5B7"
           --color-bottom="#00C1EF"
         />
-        {#if $objectivesApi.currentObjectiveIs("obj_sm-wrecks") || $objectivesApi.currentObjectiveIs("obj_wrecks-experiment")}
+        {#if $objectivesApi.currentObjectiveIs("obj_wrecks-start") || $objectivesApi.currentObjectiveIs("obj_wrecks-experiment")}
           <InfoMarker
             type="sm-o"
             onclick={() => {
               $objectivesApi.completeTask("task_observation");
               makeObservation("o_sunlight-surface", () => {
-                if ($objectivesApi.currentObjectiveIs("obj_sm-wrecks")) {
+                if ($objectivesApi.currentObjectiveIs("obj_wrecks-start")) {
                   $objectivesApi.completeTask("task_question");
                   $hudApi.startDialog({
                     keys: smColor,

@@ -49,23 +49,23 @@
     "task_enter-wrecks": "Enter the wrecks",
     "task_new-page": "Start a new notepad page",
 
-    "obj_sm-wrecks": "Scientific Method: Wrecks",
+    "obj_wrecks-start": "Wrecks: Start an investigation",
     "task_observation": "Make an <span class='color sm-o'>observation</span>",
     "task_question": "Ask a <span class='color sm-q'>scientific question</span>",
     "task_hypothesis": "Make a <span class='color sm-h'>hypothesis</span>",
 
-    "obj_wrecks-experiment": "Conduct an <span class='color sm-e'>experiment</span>",
+    "obj_wrecks-experiment": "Wrecks: Conduct an <span class='color sm-e'>experiment</span>",
     "task_wrecks-record-data": "Record <strong>color</strong> data at different <strong>depths.</strong>",
 
-    "obj_wrecks-review": "Review your experiment",
+    "obj_wrecks-review": "Wrecks: Review the experiment",
     "task_wrecks-analysis": "<span class='color sm-a'>Analyze</span> your experiment data",
     "task_wrecks-conclusion": "Make a <span class='color sm-c'>conclusion</span>",
 
     "obj_explore-forest": "Explore the kelp forest.",
     "task_enter-forest": "Enter the kelp forest.",
-    "task_in-progress": "Currently in development...next version next week.",
 
-    "obj_sm-forest": "Scientific Method: Forest",
+    "obj_forest-start": "Forest: Start an investigation",
+    "obj_forest-experiment": "Forest: Conduct an <span class='color sm-e'>experiment</span>",
 
     "obj_review-observations": "<span class='color sm-o'>Observations</span> review",
     "task_contact-mc2": "Contact Mission Control again using the radio",

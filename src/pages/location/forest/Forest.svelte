@@ -404,7 +404,7 @@
           --color-top="#037ADE"
           --color-bottom="#182B3A"
         />
-        {#if $objectivesApi.currentObjectiveIs("obj_sm-forest")}
+        {#if $objectivesApi.currentObjectiveIs("obj_forest-start")}
           <InfoMarker
             type="sm-o"
             onclick={() => {

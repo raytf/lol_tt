@@ -9,6 +9,7 @@ import {
   smApi,
 } from "$apis";
 import wrecks from "$stores/wrecks.svelte";
+import forest from "$stores/forest.svelte";
 
 interface Todo {
   key: string;
@@ -54,7 +55,7 @@ const objectiveMap: ObjectiveMap = {
     { key: "task_enter-wrecks" },
     { key: "task_new-page" },
   ],
-  "obj_sm-wrecks": [
+  "obj_wrecks-start": [
     { key: "task_observation" },
     { key: "task_question" },
     { key: "task_hypothesis" },
@@ -74,10 +75,14 @@ const objectiveMap: ObjectiveMap = {
     { key: "task_new-page" },
     { key: "task_enter-forest" },
   ],
-  "obj_sm-forest": [
+  "obj_forest-start": [
     { key: "task_observation" },
     { key: "task_question" },
     { key: "task_hypothesis" },
+  ],
+  "obj_forest-experiment": [
+    { key: "task_new-page" },
+    { key: "task_forest-record-data" },
   ],
 };
 
@@ -115,7 +120,7 @@ const chapterMap: ChapterMap = {
       },
     },
     {
-      key: "obj_sm-wrecks",
+      key: "obj_wrecks-start",
       onFinished: () => {
         const w = get(wrecks);
         if (w.questionKey === "") {
@@ -162,7 +167,23 @@ const chapterMap: ChapterMap = {
       },
     },
     {
-      key: "obj_sm-forest",
+      key: "obj_forest-start",
+      onFinished: () => {
+        const f = get(forest);
+        if (f.questionKey === "") {
+          f.questionKey = "ch2_pressure-q";
+        }
+        if (f.hypothesisKey === "") {
+          f.hypothesisKey = "ch2_pressure-h1";
+        }
+        get(notepadApi).newPage("forest-notes", {
+          type: "custom",
+          lines: ["o_kelp-monster", "o_warning-creak", "o_monster-deep"],
+        });
+      },
+    },
+    {
+      key: "obj_forest-experiment",
     },
   ],
 };
