@@ -36,7 +36,7 @@ export const oqh = [
   {
     imgSrc: conch_openMouth,
     name: "conch",
-    text: "ch2_deep-1",
+    text: "ch2_ohq-1",
     onProceed: () => {
       get(notepadApi).addLine("o_monster-deep");
     },
@@ -44,34 +44,34 @@ export const oqh = [
   {
     imgSrc: grinSweat,
     name: "explorer",
-    text: "ch2_deep-2",
+    text: "ch2_ohq-2",
   },
   {
     imgSrc: conch_smile,
     name: "conch",
-    text: "ch2_deep-3",
+    text: "ch2_ohq-3",
   },
   {
     imgSrc: conch_smile,
     name: "conch",
-    text: "ch2_deep-4",
+    text: "ch2_ohq-4",
   },
   {
     imgSrc: hushed,
     name: "explorer",
-    text: "ch2_deep-5",
+    text: "ch2_ohq-5",
   },
   {
     imgSrc: conch_smile,
     name: "conch",
-    text: "ch2_deep-6",
+    text: "ch2_ohq-6",
     onStart: () => {
       get(forest).questionKey = "ch2_pressure-q";
       get(objectivesApi).completeTask("task_question");
     },
     options: [
       {
-        text: "ch2_deep-6.1",
+        text: "ch2_ohq-6.1",
         nextDialog: [
           {
             imgSrc: smileSlight,
@@ -82,12 +82,13 @@ export const oqh = [
               notepad.openPage("forest-notes");
               get(forest).hypothesisKey = "ch2_pressure-h1";
               get(objectivesApi).completeTask("task_hypothesis");
+              get(hudApi).showNotepad = true;
             },
           },
         ],
       },
       {
-        text: "ch2_deep-6.2",
+        text: "ch2_ohq-6.2",
         nextDialog: [
           {
             imgSrc: smileSlight,
@@ -98,12 +99,13 @@ export const oqh = [
               notepad.openPage("forest-notes");
               get(forest).hypothesisKey = "ch2_pressure-h2";
               get(objectivesApi).completeTask("task_hypothesis");
+              get(hudApi).showNotepad = true;
             },
           },
         ],
       },
       {
-        text: "ch2_deep-6.3",
+        text: "ch2_ohq-6.3",
         nextDialog: [
           {
             imgSrc: smileSlight,
@@ -114,18 +116,24 @@ export const oqh = [
               notepad.openPage("forest-notes");
               get(forest).hypothesisKey = "ch2_pressure-h3";
               get(objectivesApi).completeTask("task_hypothesis");
+              get(hudApi).showNotepad = true;
             },
           },
         ],
       },
     ],
   },
+];
+
+export const tool = [
   {
-    imgSrc: conch_smile,
-    name: "conch",
-    text: "ch2_prepare-1",
-    onStart: () => {
-      get(hudApi).showNotepad = true;
-    },
+    imgSrc: thinking,
+    name: "explorer",
+    text: "ch2_tool-1",
+  },
+  {
+    imgSrc: hushed,
+    name: "explorer",
+    text: "ch2_tool-2",
   },
 ];

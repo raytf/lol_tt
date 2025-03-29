@@ -271,7 +271,10 @@
   onMount(() => {
     if (!$objectivesApi.completedChapters.includes("chapter1")) {
       $objectivesApi.completedChapters = ["tutorial", "chapter1"];
-      $objectivesApi.completedObjectives = ["obj_explore-forest"];
+      $objectivesApi.completedObjectives = [
+        "obj_explore-forest",
+        "obj_forest-start",
+      ];
       $objectivesApi.recallCompletedChapters();
     }
 
@@ -347,13 +350,13 @@
       style="transform: translateX({gridOffset.current.x / 6}px);"
     />
 
-    <BgImg
+    <!-- <BgImg
       src={kelp_1}
       class="left-0 size-full z-[12]"
       style="filter: brightness({1 -
         depthRatio +
         0.4}); transform: translateX({gridOffset.current.x / 4}px);"
-    />
+    /> -->
     <Darkness
       level={depthRatio * 0.5 + 0.3}
       lights={[

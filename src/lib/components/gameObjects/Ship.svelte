@@ -2,7 +2,7 @@
   import ship from "$assets/sprites/ship.png";
   import { InfoMarker } from "$components/ui/button";
   import { fixPropellor } from "$stores/sub";
-  import { infoApi } from "$apis";
+  import { infoApi, inventoryApi, objectivesApi, hudApi } from "$apis";
 
   let {
     class: extraClass = "",
@@ -16,8 +16,18 @@
   onclick={() => {
     $infoApi.openModal({
       textKeys: ["i_ship"],
+      onClose: () => {
+        if ($objectivesApi.currentObjectiveIs("obj_forest-plan")) {
+          $hudApi.startItemUnlock({
+            itemId: "pg",
+            onFinished: () => {
+              $objectivesApi.completeTask("task_pressure-tool");
+            },
+          });
+        }
+      },
     });
-    fixPropellor();
+    //fixPropellor();
   }}
   class="container-ship w-[500px] h-[250px] {extraClass}"
 >

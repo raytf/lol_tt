@@ -26,6 +26,8 @@ class HudApi {
   showMap = $state(false);
   showInfoModal = $state(false);
 
+  showGaugeScreen = $state(true);
+
   debugActivate() {
     //get(inventoryApi).unlockEverything();
     this.enableInventory = true;

@@ -18,7 +18,7 @@
     <Lol key="np-wrecks-experiment_title" class="font-bold underline" />
   </div>
 
-  <table class="table-auto w-full">
+  <table class="table-auto w-full -mt-[4px]">
     <tbody>
       <tr>
         <th><Lol key="np-wrecks-experiment_header-depth" /></th>

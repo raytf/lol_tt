@@ -15,7 +15,6 @@
   {/each}
 
   {#if $forest.questionKey != ""}
-    <br />
     <SmButton step="sm-q" />
     <Lol key={$forest.questionKey} class="text-left" />
   {/if}

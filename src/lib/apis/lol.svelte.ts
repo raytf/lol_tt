@@ -100,10 +100,10 @@ export class LolApi {
     const objectives = get(objectivesApi);
     const notepad = get(notepadApi);
     let data = {
-      completedObjectives: objectives.completedObjectives,
-      completedChapters: objectives.completedChapters,
+      completedObjectives: $state.snapshot(objectives.completedObjectives),
+      completedChapters: $state.snapshot(objectives.completedChapters),
       currentChapter: objectives.currentChapter,
-      pages: notepad.pages,
+      pages: $state.snapshot(notepad.pages),
     };
 
     lol_send("saveState", {

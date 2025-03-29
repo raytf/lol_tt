@@ -9,6 +9,7 @@
     WrecksNotesPage,
     WrecksExperimentPage,
     ForestNotesPage,
+    ForestExperimentPage,
   } from "./pages";
   import {
     notepadApi,
@@ -22,8 +23,10 @@
 
   let {
     class: extraClass,
+    style: extraStyle,
   }: {
     class?: string;
+    style?: string;
   } = $props();
 
   const disabledClass = "pointer-events-none opacity-50";
@@ -57,6 +60,14 @@
       });
     }
 
+    if ($objectivesApi.currentObjectiveIs("obj_forest-plan")) {
+      $notepadApi.newPage("forest-experiment", {
+        type: "table",
+        rows: [],
+        lines: [],
+      });
+    }
+
     $objectivesApi.completeTask("task_new-page");
     //$hudApi.showNotepad = false;
     newPageEnabled = false;
@@ -66,17 +77,21 @@
     if (
       $objectivesApi.currentObjectiveIs("obj_explore-wrecks") ||
       $objectivesApi.currentObjectiveIs("obj_wrecks-experiment") ||
-      $objectivesApi.currentObjectiveIs("obj_explore-forest")
+      $objectivesApi.currentObjectiveIs("obj_explore-forest") ||
+      $objectivesApi.currentObjectiveIs("obj_forest-plan")
     ) {
       newPageEnabled = true;
     }
   });
 
-  let newPageEnabled = $state(true);
+  let newPageEnabled = $state(false);
 </script>
 
 {#key $notepadApi.currentPage}
-  <div class={cn("absolute paper", extraClass, $notepadApi.notepadClass)}>
+  <div
+    class={cn("absolute paper", extraClass, $notepadApi.notepadClass)}
+    style={extraStyle}
+  >
     <div class="absolute w-full h-[44px] pointer-events-auto">
       <button onclick={onClose} class="absolute top-1 left-1">
         <Close class="w-[33px] h-[33px] text-white" />
@@ -129,6 +144,9 @@
         {#if $notepadApi.currentPageKey === "wrecks-experiment"}
           <WrecksExperimentPage />
         {/if}
+        {#if $notepadApi.currentPageKey === "forest-experiment"}
+          <ForestExperimentPage />
+        {/if}
       {/if}
     </div>
   </div>
@@ -140,7 +158,7 @@
     font-family: Caveat, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     font-size: 24px;
     user-select: none;
-    transition: opacity 1s;
+    transition: opacity 2s;
 
     background-image: linear-gradient(
         180deg,
@@ -151,14 +169,14 @@
       linear-gradient(
         90deg,
         transparent,
-        transparent 8%,
+        transparent 5%,
         #f5c492 0,
-        #f5c492 calc(8% + 2px),
-        transparent calc(8% + 2px),
-        transparent calc(8% + 6px),
-        #f5c492 calc(8% + 6px),
-        #f5c492 calc(8% + 8px),
-        transparent calc(8% + 8px),
+        #f5c492 calc(5% + 2px),
+        transparent calc(5% + 2px),
+        transparent calc(5% + 6px),
+        #f5c492 calc(5% + 6px),
+        #f5c492 calc(5% + 8px),
+        transparent calc(5% + 8px),
         transparent
       ),
       linear-gradient(180deg, #fbee9f 20%, transparent 0),

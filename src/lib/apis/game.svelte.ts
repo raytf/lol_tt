@@ -1,7 +1,7 @@
 import { writable, get } from "svelte/store";
 import { push } from "svelte-spa-router";
 import { gsap } from "gsap";
-import { objectivesApi } from "$apis";
+import { objectivesApi, hudApi } from "$apis";
 
 export class GameApi {
   startedGame = $state(false);
@@ -26,6 +26,7 @@ export class GameApi {
     outDuration: number = 0.8,
     inDuration: number = 0.8,
   ) => {
+    get(hudApi).enabled = false;
     this.sceneReady = false;
     gsap.to(".fader", {
       opacity: 1,

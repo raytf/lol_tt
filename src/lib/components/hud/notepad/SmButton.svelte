@@ -38,29 +38,39 @@
   <div class="flex">
     {#if step === "sm-o"}
       <Observation class="m-1" />
-      <Lol key="sm-observation" class="font-bold" />:
+      <Lol key="sm-observation" class="" />:
     {:else if step === "sm-q"}
       <Question class="m-1" />
-      <Lol key="sm-question" class="font-bold" />:
+      <Lol key="sm-question" class="" />:
     {:else if step === "sm-h"}
       <Hypothesis class="m-1" />
-      <Lol key="sm-hypothesis" class="font-bold" />:
+      <Lol key="sm-hypothesis" class="" />:
     {:else if step === "sm-e"}
       <Experiment class="m-1" />
-      <Lol key="sm-experiment" class="font-bold" />:
+      <Lol key="sm-experiment" class="" />:
     {:else if step === "sm-a"}
       <Analysis class="m-1" />
-      <Lol key="sm-analysis" class="font-bold" />:
+      <Lol key="sm-analysis" class="" />:
     {:else if step === "sm-c"}
       <Conclusion class="m-1" />
-      <Lol key="sm-conclusion" class="font-bold" />:
+      <Lol key="sm-conclusion" class="" />:
     {/if}
   </div>
   {@render children?.()}
 </button>
 
 <style>
-  button:hover {
+  button {
     color: var(--color);
+    filter: drop-shadow(-1px -1px 0px #000000) drop-shadow(1px -1px 0px #000000)
+      drop-shadow(1px 1px 0px #000000) drop-shadow(-1px 1px 0px #000000);
+  }
+  button:hover {
+    font-weight: bold;
+    /* text-shadow:
+      -1px -1px 0 #000,
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+      1px 1px 0 #000; */
   }
 </style>

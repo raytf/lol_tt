@@ -9,6 +9,7 @@
     InventoryToggle,
     InventoryModal,
     ItemUnlockScreen,
+    GaugeScreen,
   } from "$components/hud/inventory";
   import { Notepad } from "$components/hud/notepad";
   import { Map } from "$components/hud/map";
@@ -28,6 +29,9 @@
   } from "$apis";
   import { noSignal } from "$dialog/radio";
   import { storyComponent } from "$stores/component";
+  import { cn } from "$lib/utils";
+
+  let notepadOpacity = $state(80);
 
   const disableHideClass = "disabled opacity-50";
 </script>
@@ -35,17 +39,27 @@
 {#if $hudApi.enabled}
   <div transition:fade class="container-hud">
     <div class="absolute size-full z-[104]">
+      <!-- svelte-ignore svelte_component_deprecated -->
       <svelte:component this={$storyComponent} />
     </div>
+    {#if $hudApi.showGaugeScreen}
+      <div transition:fade>
+        <GaugeScreen class="z-[100]" />
+      </div>
+    {/if}
     <InterfaceScreen class="z-[100]" />
     {#if $hudApi.showObjectives}
       <div transition:fade>
         <Objectives
-          class="z-100 left-0 {($hudApi.showDialog ||
-            $hudApi.showSmModal ||
-            $hudApi.showSmPuzzle ||
-            $hudApi.showMap) &&
-            disableHideClass}"
+          class={cn(
+            "z-100 left-0",
+            "hover:bg-black",
+            ($hudApi.showDialog ||
+              $hudApi.showSmModal ||
+              $hudApi.showSmPuzzle ||
+              $hudApi.showMap) &&
+              disableHideClass,
+          )}
         />
       </div>
     {/if}
@@ -103,11 +117,18 @@
       />
     {/if}
     {#if $hudApi.showNotepad}
+      <!-- svelte-ignore a11y_no_static_element_interactions -->
       <div
-        transition:fly={{ x: 555 }}
-        class="absolute w-[70%] h-[88%] bottom-2 right-2 z-[100]"
+        transition:fly={{ y: 555 }}
+        onmouseenter={() => {
+          notepadOpacity = 80;
+        }}
+        onmouseleave={() => {
+          notepadOpacity = 15;
+        }}
+        class="absolute w-[98%] h-[88%] bottom-0 right-2 z-[100]"
       >
-        <Notepad class="size-full opacity-80" />
+        <Notepad class="size-full" style="opacity: {notepadOpacity}%;" />
       </div>
     {/if}
     {#if $hudApi.showMap}

@@ -109,6 +109,10 @@
         $objectivesApi.startChapter("chapter1", () => {});
         return;
       }
+      if (!$objectivesApi.completedChapters.includes("chapter2")) {
+        $objectivesApi.startChapter("chapter2", () => {});
+        return;
+      }
 
       if (searchParams.has("from", "forest") && $forest.encounteredMonster) {
         setTimeout(() => {
@@ -198,13 +202,12 @@
     //#region Debug
     if ($gameApi.debugMode) {
       if (!$objectivesApi.completedChapters.includes("chapter1")) {
-        $objectivesApi.completedChapters = ["tutorial"];
-        // $objectivesApi.completedObjectives = [
-        //   "obj_explore-wrecks",
-        //   "obj_wrecks-start",
-        //   "obj_wrecks-experiment",
-        //   "obj_wrecks-review",
-        // ];
+        $objectivesApi.completedChapters = ["tutorial", "chapter1"];
+        $objectivesApi.completedObjectives = [
+          "obj_explore-forest",
+          "obj_forest-start",
+          "obj_forest-plan",
+        ];
         $objectivesApi.recallCompletedChapters();
       }
     }
@@ -286,7 +289,7 @@
         style="filter: brightness({1 -
           depthRatio * 0.5}); transform: translateX({gridOffset.current.x /
           5}px)"
-        class="w-[111%] opacity-[90%] bottom-0 z-[14]"
+        class="w-[111%] opacity-[90%] bottom-0 z-[12]"
       />
       <WrecksPath
         style="transform: translateX({gridOffset.current.x / 5}px)"

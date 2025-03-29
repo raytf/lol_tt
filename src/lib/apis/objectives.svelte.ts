@@ -80,6 +80,12 @@ const objectiveMap: ObjectiveMap = {
     { key: "task_question" },
     { key: "task_hypothesis" },
   ],
+  "obj_forest-plan": [
+    { key: "task_new-page" },
+    { key: "task_review-ind" },
+    { key: "task_review-dep" },
+    { key: "task_pressure-tool" },
+  ],
   "obj_forest-experiment": [
     { key: "task_new-page" },
     { key: "task_forest-record-data" },
@@ -180,6 +186,12 @@ const chapterMap: ChapterMap = {
           type: "custom",
           lines: ["o_kelp-monster", "o_warning-creak", "o_monster-deep"],
         });
+      },
+    },
+    {
+      key: "obj_forest-plan",
+      onFinished: () => {
+        get(inventoryApi).unlockItem("pg");
       },
     },
     {
