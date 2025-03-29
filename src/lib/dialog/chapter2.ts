@@ -1,6 +1,7 @@
 import { get } from "svelte/store";
 import {
   downcastSweat,
+  grin,
   grinSweat,
   hushed,
   frownSlight,
@@ -24,6 +25,7 @@ import {
   conch_eyes,
 } from "$assets/conch";
 import { notepadApi, hudApi, objectivesApi } from "$apis";
+import wrecks from "$stores/wrecks.svelte";
 import forest from "$stores/forest.svelte";
 
 export const creak = [
@@ -135,5 +137,33 @@ export const tool = [
     imgSrc: hushed,
     name: "explorer",
     text: "ch2_tool-2",
+  },
+];
+
+export const crane = [
+  {
+    imgSrc: smileOpen,
+    name: "explorer",
+    text: "ch2_crane-1",
+  },
+  {
+    imgSrc: frownSlight,
+    name: "explorer",
+    text: "ch2_crane-2",
+  },
+  {
+    imgSrc: thinking,
+    name: "explorer",
+    text: "ch2_crane-3",
+  },
+  {
+    imgSrc: openMouth,
+    name: "explorer",
+    text: "ch2_crane-4",
+  },
+  {
+    imgSrc: grin,
+    name: "explorer",
+    text: "ch2_crane-5",
   },
 ];

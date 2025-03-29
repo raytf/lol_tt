@@ -4,6 +4,7 @@ import { objectivesApi, dialogApi, inventoryApi, smApi } from "$apis";
 
 interface StartItemUnlockParams {
   itemId: string;
+  unlockType?: "unlock" | "activate" | "upgrade";
   onFinished?: () => void;
 }
 
@@ -78,8 +79,21 @@ class HudApi {
   }
 
   startItemUnlock(params: StartItemUnlockParams) {
-    const { itemId, onFinished } = params;
+    const { itemId, unlockType, onFinished } = params;
     const iApi = get(inventoryApi);
+
+    if (unlockType === "activate") {
+      iApi.unlockTitleKey = "item-activated";
+      onFinished?.();
+      return;
+    } else if (unlockType === "upgrade") {
+      iApi.unlockTitleKey = "item-upgraded";
+      onFinished?.();
+      return;
+    } else {
+      iApi.unlockTitleKey = "item-unlocked";
+    }
+
     if (iApi.isItemUnlocked(itemId)) {
       onFinished?.();
       return;

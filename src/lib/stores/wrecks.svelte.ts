@@ -8,6 +8,7 @@ class WrecksState {
   forestUnlocked = $state(false);
   conchEncountered = $state(false);
   previousGridOffset = $state({ x: 0, y: 0 });
+  measuringUnlocked = $state(false);
 
   get numObserved() {
     return this.observed.length;

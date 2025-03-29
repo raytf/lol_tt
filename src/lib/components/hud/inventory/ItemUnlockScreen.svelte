@@ -1,6 +1,7 @@
 <script lang="ts">
   import ItemCard from "./ItemCard.svelte";
-  import { lolApi } from "$apis";
+  import { Lol } from "$components/text";
+  import { lolApi, inventoryApi } from "$apis";
 
   let {
     item,
@@ -18,9 +19,10 @@
 </script>
 
 <button onclick={onClick} class="container-unlock {extraClass}">
-  <h1 class="text-6xl font-bold uppercase p-14">
-    {$lolApi.getText("item-unlocked")}
-  </h1>
+  <Lol
+    key={$inventoryApi.unlockTitleKey}
+    class="text-6xl font-bold uppercase p-14"
+  />
   <ItemCard {item} />
 </button>
 

@@ -10,6 +10,7 @@
   import { InfoMarker } from "$components/ui/button";
   import { Lol } from "$components/text";
   import { Button } from "$components/ui/button";
+  import { MeasuringLine } from "$components/visual";
   import Conch from "$components/gameObjects/Conch.svelte";
   import { Submarine } from "$components/gameObjects";
   import {
@@ -131,7 +132,7 @@
   function onClickTopArea(e: MouseEvent) {
     const x = e.clientX - gridOffset.current.x;
     const y = e.clientY - gridOffset.current.y;
-    if (y < 222 && x < 1555) {
+    if (y < 222 && x < 1777) {
       subNearSurface = true;
     } else {
       subNearSurface = false;
@@ -206,7 +207,7 @@
         $objectivesApi.completedObjectives = [
           "obj_explore-forest",
           "obj_forest-start",
-          "obj_forest-plan",
+          //"obj_forest-plan",
         ];
         $objectivesApi.recallCompletedChapters();
       }
@@ -218,6 +219,9 @@
 
     onEnter();
   });
+  //#region experiment values
+  let measuringLineValues = $state([150, 120, 90, 60, 30, 0]);
+  //#region
 </script>
 
 <Location titleKey="location-wrecks" uiClass="z-[11]">
@@ -319,6 +323,14 @@
         ]}
         class="z-50"
       />
+      {#if $wrecks.measuringUnlocked}
+        <MeasuringLine
+          height={1400}
+          values={measuringLineValues}
+          class="z-[9]"
+          style="transform: translateX({gridOffset.current.x / 5}px)"
+        />
+      {/if}
     {/snippet}
     {#snippet areas()}
       <Area

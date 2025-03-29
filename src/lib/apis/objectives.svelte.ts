@@ -85,6 +85,7 @@ const objectiveMap: ObjectiveMap = {
     { key: "task_review-ind" },
     { key: "task_review-dep" },
     { key: "task_pressure-tool" },
+    { key: "task_depth-tool" },
   ],
   "obj_forest-experiment": [
     { key: "task_new-page" },
@@ -192,6 +193,12 @@ const chapterMap: ChapterMap = {
       key: "obj_forest-plan",
       onFinished: () => {
         get(inventoryApi).unlockItem("pg");
+        get(wrecks).measuringUnlocked = true;
+        get(notepadApi).newPage("forest-experiment", {
+          type: "table",
+          rows: [],
+          lines: [],
+        });
       },
     },
     {

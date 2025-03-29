@@ -37,8 +37,10 @@ interface ItemDetails {
   id: string;
   nameKey: string;
   descKey: string;
+  upgradedDescKey?: string;
   actionKey?: string;
   measuring?: boolean;
+  upgraded?: boolean;
 }
 
 type PageData = TextPageData | TablePageData | CustomPageData;

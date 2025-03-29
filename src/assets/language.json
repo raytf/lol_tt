@@ -69,6 +69,7 @@
     "task_review-ind": "Review the independent variable",
     "task_review-dep": "Review the dependent variable",
     "task_pressure-tool": "Find a tool for measuring pressure",
+    "task_depth-tool": "Find a tool for measuring depth",
 
     "obj_forest-experiment": "Conduct an <span class='color sm-e'>experiment</span>",
 
@@ -114,6 +115,8 @@
     "sm-conclusion_desc": "Make a conclusion based on the results from your experiment and analysis.",
 
     "item-unlocked": "Item Unlocked",
+    "item-activated": "Item Activated",
+    "item-upgraded": "Item Upgraded",
 
     "np-cover_title": "Mission: Explore the Triton's Triangle depths",
     "np-cover_subtitle": "Conduct experiments and collect data:",
@@ -266,8 +269,14 @@
     "ch2_pressure-h2": "I think pressure decreases the deeper I go.",
     "ch2_pressure-h3": "I think pressure stays the same at all depths.",
 
-    "ch2_tool-1": "To measure pressure precisely, I need a tool.",
-    "ch2_tool-2": "I might have one back at the ship.",
+    "ch2_tool-1": "To measure variables precisely, I need tools.",
+    "ch2_tool-2": "I might have some back at the ship.",
+
+    "ch2_crane-1": "Nice, I can measure pressure precisely now.",
+    "ch2_crane-2": "Couldn't find a tool to measure depth though.",
+    "ch2_crane-3": "Hmm...",
+    "ch2_crane-4": "Wait, maybe I can use the ship's crane as a tool!",
+    "ch2_crane-5": "By lowering it into the water, I can use it as a measuring line for depth.",
 
     "ch3_find-entrance-1": "There is an entrance here!",
     "ch3_find-entrance-2": "Should I enter?",

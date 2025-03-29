@@ -4,6 +4,8 @@
   import { fixPropellor } from "$stores/sub";
   import { infoApi, inventoryApi, objectivesApi, hudApi } from "$apis";
 
+  import { crane } from "$dialog/chapter2";
+
   let {
     class: extraClass = "",
   }: {
@@ -22,6 +24,12 @@
             itemId: "pg",
             onFinished: () => {
               $objectivesApi.completeTask("task_pressure-tool");
+              $hudApi.startDialog({
+                keys: crane,
+                onFinished: () => {
+                  $objectivesApi.completeTask("task_depth-tool");
+                },
+              });
             },
           });
         }
@@ -34,7 +42,7 @@
   <img
     src={ship}
     alt="ship"
-    class="absolute -bottom-[10px] left-[55px] w-3/4 h-auto select-none anim-bob"
+    class="absolute -bottom-[10px] left-[55px] w-3/4 -scale-x-100 h-auto select-none anim-bob"
   />
   <InfoMarker class="absolute left-[222px] top-[160px] w-[55px] h-[55px]" />
 </button>

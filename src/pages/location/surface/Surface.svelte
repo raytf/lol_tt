@@ -182,7 +182,7 @@
       bob={true}
       reveal={surfaceSub}
     />
-    <Ship class="left-[500px] bottom-[270px] z-[11]" />
+    <Ship class="right-[500px] bottom-[270px] z-[11]" />
     <!-- <BgImg
       src={island_1}
       class="absolute bottom-0 -right-[22%] w-1/2 h-full z-[15]"
@@ -190,12 +190,12 @@
     {#snippet areas()}
       <div class="absolute flex w-full h-1/2 bottom-0 z-10">
         <Area
-          size={[$gameApi.windowWidth * 1.5, grid.height / 2]}
+          size={[$gameApi.windowWidth * 1.7, grid.height / 2]}
           onmousedown={onClickArea}
           class=""
         ></Area>
         <Area
-          size={[$gameApi.windowWidth * 0.5, grid.height / 2]}
+          size={[$gameApi.windowWidth * 0.3, grid.height / 2]}
           class="pointer-events-none"
         >
           <FloatingKelp class="absolute top-0 size-full" />

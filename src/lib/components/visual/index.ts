@@ -1,3 +1,4 @@
 import Darkness from "./Darkness.svelte";
 import UnderwaterGradient from "./UnderwaterGradient.svelte";
-export { Darkness, UnderwaterGradient };
+import MeasuringLine from "./MeasuringLine.svelte";
+export { Darkness, UnderwaterGradient, MeasuringLine };

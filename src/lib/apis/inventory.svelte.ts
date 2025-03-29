@@ -76,6 +76,7 @@ export class InventoryApi {
   showHintDialog = $state(false);
   showGaugeScreen = $state(false);
   // Item Unlock Screen
+  unlockTitleKey = $state("item-unlocked");
   newItemUnlock = $state<ItemDetails>();
   onItemUnlockFinished = () => {};
 

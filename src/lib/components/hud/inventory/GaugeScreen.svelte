@@ -14,7 +14,6 @@
   }: {
     class?: string;
   } = $props();
-  console.log($location);
 
   let currentDepth = $derived.by(() => {
     if ($location === "/surface") {
@@ -55,5 +54,6 @@
   {#if $inventoryApi.isItemUnlocked("dg")}
     <p class="mx-2 text-4xl font-bold">{currentDepth}m</p>
   {/if}
+  <p class="mx-2 text-4xl font-bold">{currentDepth}m</p>
 </div>
 <!-- {/if} -->
