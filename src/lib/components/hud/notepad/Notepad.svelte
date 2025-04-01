@@ -9,7 +9,7 @@
     WrecksNotesPage,
     WrecksExperimentPage,
     ForestNotesPage,
-    ForestExperimentPage,
+    PressureExperimentPage,
   } from "./pages";
   import {
     notepadApi,
@@ -60,8 +60,8 @@
       });
     }
 
-    if ($objectivesApi.currentObjectiveIs("obj_forest-plan")) {
-      $notepadApi.newPage("forest-experiment", {
+    if ($objectivesApi.currentObjectiveIs("obj_pressure-plan")) {
+      $notepadApi.newPage("pressure-experiment", {
         type: "table",
         rows: [],
         lines: [],
@@ -78,7 +78,7 @@
       $objectivesApi.currentObjectiveIs("obj_explore-wrecks") ||
       $objectivesApi.currentObjectiveIs("obj_wrecks-experiment") ||
       $objectivesApi.currentObjectiveIs("obj_explore-forest") ||
-      $objectivesApi.currentObjectiveIs("obj_forest-plan")
+      $objectivesApi.currentObjectiveIs("obj_pressure-plan")
     ) {
       newPageEnabled = true;
     }
@@ -144,8 +144,8 @@
         {#if $notepadApi.currentPageKey === "wrecks-experiment"}
           <WrecksExperimentPage />
         {/if}
-        {#if $notepadApi.currentPageKey === "forest-experiment"}
-          <ForestExperimentPage />
+        {#if $notepadApi.currentPageKey === "pressure-experiment"}
+          <PressureExperimentPage />
         {/if}
       {/if}
     </div>

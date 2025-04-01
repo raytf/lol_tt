@@ -67,10 +67,10 @@ class NotepadApi {
     }
   }
 
-  addTableRow(...keys: string[]) {
+  addTableRow(...cols: string[]) {
     if (this.currentPage.type === "table") {
       this.currentPage.rows.push({
-        data: keys,
+        data: cols,
       });
     }
   }

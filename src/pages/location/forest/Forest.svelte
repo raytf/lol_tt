@@ -273,7 +273,7 @@
       $objectivesApi.completedChapters = ["tutorial", "chapter1"];
       $objectivesApi.completedObjectives = [
         "obj_explore-forest",
-        "obj_forest-start",
+        "obj_pressure-start",
       ];
       $objectivesApi.recallCompletedChapters();
     }
@@ -407,7 +407,7 @@
           --color-top="#037ADE"
           --color-bottom="#182B3A"
         />
-        {#if $objectivesApi.currentObjectiveIs("obj_forest-start")}
+        {#if $objectivesApi.currentObjectiveIs("obj_pressure-start")}
           <InfoMarker
             type="sm-o"
             onclick={() => {

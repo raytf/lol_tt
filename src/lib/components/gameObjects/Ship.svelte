@@ -19,7 +19,7 @@
     $infoApi.openModal({
       textKeys: ["i_ship"],
       onClose: () => {
-        if ($objectivesApi.currentObjectiveIs("obj_forest-plan")) {
+        if ($objectivesApi.currentObjectiveIs("obj_pressure-plan")) {
           $hudApi.startItemUnlock({
             itemId: "pg",
             onFinished: () => {

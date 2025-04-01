@@ -1,6 +1,7 @@
 <script lang="ts">
   import { location } from "svelte-spa-router";
   import { Lol } from "$components/text";
+  import { SimpleButton } from "$components/ui/button";
   import { SmButton } from "$components/hud/notepad";
   import { notepadApi, infoApi, hudApi, objectivesApi } from "$apis";
   import {
@@ -26,8 +27,8 @@
       </tr>
       {#each $notepadApi.currentPage.rows as row}
         <tr class={cn(row.class, "transition-[font-weight]")}>
-          <td><Lol key={row.data[0]} /></td>
-          <td><Lol key={row.data[1]} /></td>
+          <td>{row.data[0]}</td>
+          <td>{row.data[1]}</td>
         </tr>
       {/each}
     </tbody>
@@ -35,7 +36,7 @@
   {#if $notepadApi.currentPage.rows.length === 3}
     <div class="flex gap-2">
       <SmButton step="sm-a" />
-      <button
+      <SimpleButton
         onclick={() => {
           $objectivesApi.completeTask("task_wrecks-analysis");
           $hudApi.startDialog({
@@ -49,16 +50,12 @@
             },
           });
         }}
-        class={cn(
-          "border border-black rounded pl-1 pr-2",
-          "hover:bg-black hover:text-white",
-          $location.includes("/wrecks")
-            ? "pointer-events-auto"
-            : "pointer-events-none opacity-50",
-        )}
+        class={$location.includes("/wrecks")
+          ? "pointer-events-auto"
+          : "pointer-events-none opacity-50"}
       >
         <Lol key="start" />
-      </button>
+      </SimpleButton>
     </div>
   {/if}
   {#if $notepadApi.currentPage?.lines.length > 0}

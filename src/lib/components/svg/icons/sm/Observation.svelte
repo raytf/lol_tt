@@ -21,7 +21,10 @@
 >
 
 <style>
-  svg:hover {
+  /* svg:hover {
     filter: drop-shadow(0 0 2px white);
-  }
+  } */
+  /* svg {
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+  } */
 </style>

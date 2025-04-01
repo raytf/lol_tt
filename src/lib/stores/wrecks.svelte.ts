@@ -9,6 +9,7 @@ class WrecksState {
   conchEncountered = $state(false);
   previousGridOffset = $state({ x: 0, y: 0 });
   measuringUnlocked = $state(false);
+  numMeasured = $state(0);
 
   get numObserved() {
     return this.observed.length;

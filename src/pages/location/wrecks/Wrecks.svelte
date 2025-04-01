@@ -34,6 +34,7 @@
     objectivesApi,
     infoApi,
     notepadApi,
+    lolApi,
   } from "$apis";
   import { pressureCreak } from "$dialog/common";
   import {
@@ -132,7 +133,7 @@
   function onClickTopArea(e: MouseEvent) {
     const x = e.clientX - gridOffset.current.x;
     const y = e.clientY - gridOffset.current.y;
-    if (y < 222 && x < 1777) {
+    if (y < 222 && x < 1555) {
       subNearSurface = true;
     } else {
       subNearSurface = false;
@@ -187,13 +188,25 @@
     if (!$wrecks.observed.includes(observationKey)) {
       $wrecks.observed = [...$wrecks.observed, observationKey];
       $notepadApi.openPage("wrecks-experiment");
-      $notepadApi.addTableRow(key, observationKey);
+      $notepadApi.addTableRow(
+        $lolApi.getText(key),
+        $lolApi.getText(observationKey),
+      );
 
       if ($wrecks.observed.length === 3) {
         $objectivesApi.completeTask("task_wrecks-record-data");
         $notepadApi.openPage("wrecks-experiment");
         $hudApi.showNotepad = true;
       }
+    }
+  }
+  function makeMeasurement(depth: string, pressure: string) {
+    $notepadApi.openPage("pressure-experiment");
+    $hudApi.showNotepad = true;
+    $notepadApi.addTableRow(depth, pressure);
+    $wrecks.numMeasured++;
+    if ($wrecks.numMeasured === 4) {
+      $objectivesApi.completeTask("task_record-pressure");
     }
   }
   //#endregion
@@ -206,8 +219,8 @@
         $objectivesApi.completedChapters = ["tutorial", "chapter1"];
         $objectivesApi.completedObjectives = [
           "obj_explore-forest",
-          "obj_forest-start",
-          //"obj_forest-plan",
+          "obj_pressure-start",
+          "obj_pressure-plan",
         ];
         $objectivesApi.recallCompletedChapters();
       }
@@ -220,7 +233,7 @@
     onEnter();
   });
   //#region experiment values
-  let measuringLineValues = $state([150, 120, 90, 60, 30, 0]);
+  let measuringLineValues = $state([150, 100, 50, 0]);
   //#region
 </script>
 
@@ -370,6 +383,29 @@
             )}
           />
         {/if}
+        {#if $objectivesApi.currentObjectiveIs("obj_pressure-experiment") && $wrecks.numMeasured === 0}
+          <InfoMarker
+            type="sm-e"
+            onclick={() => {
+              makeMeasurement("0", "101.33");
+            }}
+            class={cn("absolute top-0 right-[11%]", "w-[55px] h-[55px] z-[9]")}
+            style="transform: translateX({gridOffset.current.x / 5}px)"
+          />
+        {/if}
+        {#if $objectivesApi.currentObjectiveIs("obj_pressure-experiment") && $wrecks.numMeasured === 1}
+          <InfoMarker
+            type="sm-e"
+            onclick={() => {
+              makeMeasurement("50", "607.95");
+            }}
+            class={cn(
+              "absolute bottom-[10%] right-[11%]",
+              "w-[55px] h-[55px] z-[9]",
+            )}
+            style="transform: translateX({gridOffset.current.x / 5}px)"
+          />
+        {/if}
       </Area>
       <Area
         size={[grid.width, $gameApi.windowHeight]}
@@ -394,29 +430,19 @@
             )}
           />
         {/if}
-        <!-- {#if $wrecks.forestUnlocked && subNearForest}
-          <div
-            transition:fade
-            class="absolute z-[20] top-0 right-0 w-[222px] h-full flex flex-col justify-center items-end pr-4"
-          >
-            <Button
-              onclick={() => {
-                setSubTarget({ x: grid.width, y: subCoords.current.y });
-                $audioApi.stopTrack({
-                  src: "music/deep-echoes.mp3",
-                });
-                $gameApi.fadeScene("/forest?from=wrecks");
-                if ($objectivesApi.currentObjectiveIs("obj_explore-forest")) {
-                  $objectivesApi.completeTask("task_enter-forest");
-                }
-              }}
-              class="w-[99px] h-[88px] flex-col items-center"
-            >
-              <Lol key="location-forest" class="mr-1" />
-              <ArrowRight class="w-[33px] h-[33px]" />
-            </Button>
-          </div>
-        {/if} -->
+        {#if $objectivesApi.currentObjectiveIs("obj_pressure-experiment") && $wrecks.numMeasured === 2}
+          <InfoMarker
+            type="sm-e"
+            onclick={() => {
+              makeMeasurement("100", "1114.58");
+            }}
+            class={cn(
+              "absolute bottom-[30%] right-[11%]",
+              "w-[55px] h-[55px] z-[9]",
+            )}
+            style="transform: translateX({gridOffset.current.x / 5}px)"
+          />
+        {/if}
       </Area>
       <Area
         size={[grid.width, $gameApi.windowHeight]}
@@ -451,6 +477,19 @@
                 ? "opacity-30"
                 : "opacity-100",
             )}
+          />
+        {/if}
+        {#if $objectivesApi.currentObjectiveIs("obj_pressure-experiment") && $wrecks.numMeasured === 3}
+          <InfoMarker
+            type="sm-e"
+            onclick={() => {
+              makeMeasurement("150", "1621.20");
+            }}
+            class={cn(
+              "absolute top-[36%] right-[11%]",
+              "w-[55px] h-[55px] z-[9]",
+            )}
+            style="transform: translateX({gridOffset.current.x / 5}px)"
           />
         {/if}
       </Area>

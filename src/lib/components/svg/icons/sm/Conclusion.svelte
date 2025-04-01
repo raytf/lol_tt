@@ -18,7 +18,7 @@
 >
 
 <style>
-  svg {
+  /* svg {
     filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
-  }
+  } */
 </style>

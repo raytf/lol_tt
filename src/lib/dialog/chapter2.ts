@@ -14,6 +14,7 @@ import {
   fearful,
   confused,
   pensive,
+  cool,
 } from "$assets/emoji";
 import {
   conch_devious,
@@ -84,7 +85,6 @@ export const oqh = [
               notepad.openPage("forest-notes");
               get(forest).hypothesisKey = "ch2_pressure-h1";
               get(objectivesApi).completeTask("task_hypothesis");
-              get(hudApi).showNotepad = true;
             },
           },
         ],
@@ -101,7 +101,6 @@ export const oqh = [
               notepad.openPage("forest-notes");
               get(forest).hypothesisKey = "ch2_pressure-h2";
               get(objectivesApi).completeTask("task_hypothesis");
-              get(hudApi).showNotepad = true;
             },
           },
         ],
@@ -118,25 +117,47 @@ export const oqh = [
               notepad.openPage("forest-notes");
               get(forest).hypothesisKey = "ch2_pressure-h3";
               get(objectivesApi).completeTask("task_hypothesis");
-              get(hudApi).showNotepad = true;
             },
           },
         ],
       },
     ],
   },
+  {
+    imgSrc: conch_smile,
+    name: "conch",
+    text: "ch2_ohq-7",
+    onStart: () => {
+      get(hudApi).showNotepad = true;
+    },
+  },
 ];
 
 export const tool = [
   {
+    imgSrc: conch_smile,
+    name: "conch",
+    text: "ch2_tool-1",
+  },
+  {
+    imgSrc: smileSlight,
+    name: "explorer",
+    text: "ch2_tool-2",
+  },
+  {
+    imgSrc: smileSlight,
+    name: "explorer",
+    text: "ch2_tool-3",
+  },
+  {
     imgSrc: thinking,
     name: "explorer",
-    text: "ch2_tool-1",
+    text: "ch2_tool-4",
   },
   {
     imgSrc: hushed,
     name: "explorer",
-    text: "ch2_tool-2",
+    text: "ch2_tool-5",
   },
 ];
 

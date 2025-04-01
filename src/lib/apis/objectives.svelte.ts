@@ -75,22 +75,19 @@ const objectiveMap: ObjectiveMap = {
     { key: "task_new-page" },
     { key: "task_enter-forest" },
   ],
-  "obj_forest-start": [
+  "obj_pressure-start": [
     { key: "task_observation" },
     { key: "task_question" },
     { key: "task_hypothesis" },
   ],
-  "obj_forest-plan": [
+  "obj_pressure-plan": [
     { key: "task_new-page" },
     { key: "task_review-ind" },
     { key: "task_review-dep" },
     { key: "task_pressure-tool" },
     { key: "task_depth-tool" },
   ],
-  "obj_forest-experiment": [
-    { key: "task_new-page" },
-    { key: "task_forest-record-data" },
-  ],
+  "obj_pressure-experiment": [{ key: "task_record-pressure" }],
 };
 
 const chapterMap: ChapterMap = {
@@ -174,7 +171,7 @@ const chapterMap: ChapterMap = {
       },
     },
     {
-      key: "obj_forest-start",
+      key: "obj_pressure-start",
       onFinished: () => {
         const f = get(forest);
         if (f.questionKey === "") {
@@ -190,11 +187,11 @@ const chapterMap: ChapterMap = {
       },
     },
     {
-      key: "obj_forest-plan",
+      key: "obj_pressure-plan",
       onFinished: () => {
         get(inventoryApi).unlockItem("pg");
         get(wrecks).measuringUnlocked = true;
-        get(notepadApi).newPage("forest-experiment", {
+        get(notepadApi).newPage("pressure-experiment", {
           type: "table",
           rows: [],
           lines: [],
@@ -202,7 +199,7 @@ const chapterMap: ChapterMap = {
       },
     },
     {
-      key: "obj_forest-experiment",
+      key: "obj_pressure-experiment",
     },
   ],
 };
