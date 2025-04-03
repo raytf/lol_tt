@@ -90,7 +90,7 @@
     class={cn("absolute paper", extraClass, $notepadApi.notepadClass)}
     style={extraStyle}
   >
-    <div class="absolute w-full h-[44px] pointer-events-auto">
+    <div class="topbar absolute w-full h-[44px] pointer-events-auto">
       <button onclick={onClose} class="absolute top-1 left-1">
         <Close class="w-[33px] h-[33px] text-white" />
       </button>
@@ -119,7 +119,8 @@
         <NewPage class="w-[33px] h-[33px] text-white" />
       </button>
     </div>
-    <div class="section-text size-full">
+
+    <div class="section-text size-full" style="opacity: {$notepadApi.opacity}%">
       {#if $notepadApi.onCustomPage()}
         {#if $notepadApi.currentPageKey === "cover"}
           <CoverPage />
@@ -159,15 +160,21 @@
     font-family: Caveat, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     font-size: 24px;
     user-select: none;
+  }
+  .topbar {
+    background: rgba(106, 42, 27, 0.8);
+    z-index: 1;
+  }
+  .section-text {
+    position: absolute;
+    max-height: 100%;
+    padding: 3.3em 1em 1em 3em;
+    line-height: 1.45em;
+    overflow: hidden;
+    pointer-events: none;
     transition: opacity 2s;
 
     background-image: linear-gradient(
-        180deg,
-        #6a2a1b,
-        #6a2a1b 9%,
-        transparent calc(9% + 2px)
-      ),
-      linear-gradient(
         90deg,
         transparent,
         transparent 5%,
@@ -189,13 +196,5 @@
         transparent 36px
       ),
       linear-gradient(#fbee9f, #fbee9f);
-  }
-  .section-text {
-    position: absolute;
-    max-height: 100%;
-    padding: 3.3em 1em 1em 3em;
-    line-height: 1.45em;
-    overflow: hidden;
-    pointer-events: none;
   }
 </style>

@@ -118,7 +118,6 @@
         class="z-[102] pointer-events-auto"
       />
     {/if}
-    <!-- $hudApi.showNotepad -->
     {#if $hudApi.showNotepad}
       <!-- svelte-ignore a11y_no_static_element_interactions -->
       <div
@@ -133,7 +132,7 @@
         }}
         class="absolute w-[98%] h-[88%] bottom-0 right-2 z-[100]"
       >
-        <Notepad class="size-full" style="opacity: {$notepadApi.opacity}%;" />
+        <Notepad class="size-full" />
       </div>
     {/if}
     {#if $hudApi.showMap}
