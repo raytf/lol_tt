@@ -292,7 +292,7 @@
     "ch2_analyze-4.1": "No correlation between pressure and depth.",
     "ch2_analyze-4.1-1": "Are you sure? Check for any trends/patterns in the graph.",
     "ch2_analyze-4.2": "Pressure increases as depth increases.",
-    "ch2_analyze-4.2-1": "I agree! The line on the graph shows an upward trend, meaning pressure increases as depth increases.",
+    "ch2_analyze-4.2-1": "I agree! In the graph, we can see a pattern: the deeper the depth, the higher the pressure.",
     "ch2_analyze-4.2-2": "Pressure increases at a constant rate, forming a straight line: this means pressure and depth also have a <strong>linear relationship</strong>.",
     "ch2_analyze-4.3": "Pressure decreases as depth increases.",
     "ch2_analyze-4.3-1": "Are you sure? In the graph, check what direction the line goes.",
@@ -300,6 +300,8 @@
     "ch2_hypothesis-correct": "These results confirm my hypothesis!",
     "ch2_hypothesis-incorrect-1": "These results do not match my hypothesis...",
     "ch2_hypothesis-incorrect-2": "...but at least I've learned something.",
+
+    "ch2_linear-1": "",
 
     "ch3_find-entrance-1": "There is an entrance here!",
     "ch3_find-entrance-2": "Should I enter?",

@@ -217,9 +217,10 @@
         $objectivesApi.completedChapters = ["tutorial", "chapter1"];
         $objectivesApi.completedObjectives = [
           "obj_explore-forest",
-          //"obj_pressure-start",
-          //"obj_pressure-plan",
-          //"obj_pressure-experiment",
+          "obj_pressure-start",
+          "obj_pressure-plan",
+          "obj_pressure-experiment",
+          //"obj_pressure-review",
         ];
         $objectivesApi.recallCompletedChapters();
       }
@@ -232,7 +233,7 @@
     onEnter();
   });
   //#region experiment values
-  let measuringLineValues = $state([150, 100, 50, 0]);
+  let measuringLineValues = $state([200, 150, 100, 50, 0]);
   //#region
 </script>
 
@@ -399,7 +400,7 @@
               makeMeasurement("50", "607.95");
             }}
             class={cn(
-              "absolute bottom-[10%] right-[11%]",
+              "absolute bottom-[33%] right-[11%]",
               "w-[55px] h-[55px] z-[9]",
             )}
             style="transform: translateX({gridOffset.current.x / 5}px)"
@@ -436,7 +437,20 @@
               makeMeasurement("100", "1114.58");
             }}
             class={cn(
-              "absolute bottom-[30%] right-[11%]",
+              "absolute top-[17%] right-[11%]",
+              "w-[55px] h-[55px] z-[9]",
+            )}
+            style="transform: translateX({gridOffset.current.x / 5}px)"
+          />
+        {/if}
+        {#if $objectivesApi.currentObjectiveIs("obj_pressure-experiment") && $wrecks.numMeasured === 3}
+          <InfoMarker
+            type="sm-e"
+            onclick={() => {
+              makeMeasurement("150", "1621.20");
+            }}
+            class={cn(
+              "absolute bottom-[12%] right-[11%]",
               "w-[55px] h-[55px] z-[9]",
             )}
             style="transform: translateX({gridOffset.current.x / 5}px)"
@@ -478,11 +492,11 @@
             )}
           />
         {/if}
-        {#if $objectivesApi.currentObjectiveIs("obj_pressure-experiment") && $wrecks.numMeasured === 3}
+        {#if $objectivesApi.currentObjectiveIs("obj_pressure-experiment") && $wrecks.numMeasured === 4}
           <InfoMarker
             type="sm-e"
             onclick={() => {
-              makeMeasurement("150", "1621.20");
+              makeMeasurement("200", "2127.83");
             }}
             class={cn(
               "absolute top-[36%] right-[11%]",

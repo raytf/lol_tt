@@ -34,7 +34,7 @@ export const moveSub = (e: MouseEvent) => {
   const y = e.clientY - gridOffset.current.y;
   setSubTarget({ x, y });
   checkPressure({ x, y });
-  console.log({ x, y });
+  //console.log({ x, y });
   //console.log(gridOffset.current);
   return { x, y };
 };

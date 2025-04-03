@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "chart.js": "^4.4.8",
+    "chartjs-plugin-trendline": "^2.1.7",
     "clsx": "^2.1.1",
     "gsap": "npm:@gsap/shockingly@^3.12.5",
     "howler": "^2.2.4",

@@ -115,6 +115,15 @@ class NotepadApi {
     this.pages[key] = page;
     this.currentPageKey = key;
   }
+
+  updatePage(key: string, data: any) {
+    const page = $state.snapshot(this.getPage(key));
+    console.log("prev", page);
+    console.log("new", data);
+    if (page) {
+      this.pages[key] = { ...page, ...data };
+    }
+  }
 }
 
 export const notepadApi = writable<NotepadApi>(new NotepadApi());

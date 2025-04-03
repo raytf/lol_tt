@@ -1,2 +1,3 @@
 import Line from "./Line.svelte";
-export { Line };
+import Scatter from "./Scatter.svelte";
+export { Line, Scatter };

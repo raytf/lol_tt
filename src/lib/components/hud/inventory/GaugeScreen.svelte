@@ -6,7 +6,8 @@
     depthMultiplier,
     nearVent,
   } from "$lib/stores/sub";
-  import { inventoryApi, lolApi } from "$apis";
+  import { minOffset, gridOffset } from "$lib/stores/exploration";
+  import { inventoryApi, lolApi, gameApi } from "$apis";
   import { cn } from "$lib/utils";
 
   let {
@@ -19,13 +20,14 @@
     if ($location === "/surface") {
       return 0;
     }
+    //console.log(coords.current.y);
+    const maxDepth = -($minOffset.y - $gameApi.windowHeight);
+    const depthRatio = coords.current.y / maxDepth;
+    //console.log(depthRatio);
+    //console.log(gridOffset.current.y);
 
-    let depthOffset = -5;
-    let depth =
-      depthOffset +
-      Math.round(
-        (coords.current.y / window.innerHeight) * 100 * $depthMultiplier,
-      );
+    let depthOffset = 0;
+    let depth = depthOffset + Math.round(depthRatio * 250);
     return depth > 0 ? depth : 0;
   });
   let pressure = $derived.by(() => {
@@ -66,6 +68,6 @@
     </p>
   {/if}
 
-  <!-- <p class="mx-2 text-4xl font-bold">{currentDepth}m</p> -->
+  <p class="mx-2 text-4xl font-bold">{currentDepth}m</p>
 </div>
 <!-- {/if} -->

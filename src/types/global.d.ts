@@ -1,3 +1,5 @@
+declare module "chartjs-plugin-trendline";
+
 type SM = "sm-o" | "sm-q" | "sm-h" | "sm-e" | "sm-a" | "sm-c";
 
 interface SMStep {

@@ -87,7 +87,7 @@ const objectiveMap: ObjectiveMap = {
     { key: "task_pressure-tool" },
     { key: "task_depth-tool" },
   ],
-  "obj_pressure-experiment": [{ key: "task_record-pressure", numTimes: 4 }],
+  "obj_pressure-experiment": [{ key: "task_record-pressure", numTimes: 5 }],
   "obj_pressure-review": [
     { key: "task_pressure-analysis" },
     { key: "task_pressure-conclusion" },
@@ -191,8 +191,7 @@ const chapterMap: ChapterMap = {
         const notepad = get(notepadApi);
         const forestNotes = notepad.getPage("forest-notes") as SMPageData;
 
-        notepad.newPage("forest-notes", {
-          type: "sm",
+        notepad.updatePage("forest-notes", {
           observations: ["o_kelp-monster", "o_warning-creak", "o_monster-deep"],
           question: forestNotes.question
             ? forestNotes.question
@@ -217,13 +216,21 @@ const chapterMap: ChapterMap = {
     {
       key: "obj_pressure-experiment",
       onFinished: () => {
-        get(notepadApi).newPage("pressure-experiment", {
+        const notepad = get(notepadApi);
+        const pressurePage = $state.snapshot(
+          notepad.getPage("pressure-experiment"),
+        ) as ExperimentPageData;
+        console.log(pressurePage);
+        //const currentRows = $state.snapshot(pressurePage.rows);
+        //console.log(currentRows);
+        notepad.updatePage("pressure-experiment", {
           type: "experiment",
           rows: [
             { data: ["0", "101.33"] },
             { data: ["50", "607.95"] },
             { data: ["100", "1114.58"] },
             { data: ["150", "1621.20"] },
+            { data: ["200", "2127.83"] },
           ],
         });
       },

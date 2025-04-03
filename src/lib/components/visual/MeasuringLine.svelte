@@ -27,7 +27,7 @@
   <div
     transition:fade
     class={cn(
-      "absolute w-full top-[10px] pointer-events-none select-none",
+      "absolute w-full top-[5px] pointer-events-none select-none",
       extraClass,
     )}
     style="height: {height}px;{extraStyle}"
