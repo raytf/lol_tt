@@ -87,7 +87,11 @@ const objectiveMap: ObjectiveMap = {
     { key: "task_pressure-tool" },
     { key: "task_depth-tool" },
   ],
-  "obj_pressure-experiment": [{ key: "task_record-pressure" }],
+  "obj_pressure-experiment": [{ key: "task_record-pressure", numTimes: 4 }],
+  "obj_pressure-review": [
+    { key: "task_pressure-analysis" },
+    { key: "task_pressure-conclusion" },
+  ],
 };
 
 const chapterMap: ChapterMap = {
@@ -142,12 +146,23 @@ const chapterMap: ChapterMap = {
     {
       key: "obj_wrecks-experiment",
       onFinished: () => {
+        const lol = get(lolApi);
         get(notepadApi).newPage("wrecks-experiment", {
           type: "table",
           rows: [
-            { data: ["depth-shallow", "o_sunlight-surface"] },
-            { data: ["depth-medium", "o_color-change"] },
-            { data: ["depth-deep", "o_darkness"] },
+            {
+              data: [
+                lol.getText("depth-shallow"),
+                lol.getText("o_sunlight-surface"),
+              ],
+            },
+            {
+              data: [
+                lol.getText("depth-medium"),
+                lol.getText("o_color-change"),
+              ],
+            },
+            { data: [lol.getText("depth-deep"), lol.getText("o_darkness")] },
           ],
           lines: [],
         });
@@ -165,24 +180,26 @@ const chapterMap: ChapterMap = {
       key: "obj_explore-forest",
       onFinished: () => {
         get(notepadApi).newPage("forest-notes", {
-          type: "custom",
-          lines: ["o_kelp-monster"],
+          type: "sm",
+          observations: ["o_kelp-monster"],
         });
       },
     },
     {
       key: "obj_pressure-start",
       onFinished: () => {
-        const f = get(forest);
-        if (f.questionKey === "") {
-          f.questionKey = "ch2_pressure-q";
-        }
-        if (f.hypothesisKey === "") {
-          f.hypothesisKey = "ch2_pressure-h1";
-        }
-        get(notepadApi).newPage("forest-notes", {
-          type: "custom",
-          lines: ["o_kelp-monster", "o_warning-creak", "o_monster-deep"],
+        const notepad = get(notepadApi);
+        const forestNotes = notepad.getPage("forest-notes") as SMPageData;
+
+        notepad.newPage("forest-notes", {
+          type: "sm",
+          observations: ["o_kelp-monster", "o_warning-creak", "o_monster-deep"],
+          question: forestNotes.question
+            ? forestNotes.question
+            : "ch2_pressure-q",
+          hypothesis: forestNotes.hypothesis
+            ? forestNotes.hypothesis
+            : "ch2_pressure-h1",
         });
       },
     },
@@ -192,14 +209,40 @@ const chapterMap: ChapterMap = {
         get(inventoryApi).unlockItem("pg");
         get(wrecks).measuringUnlocked = true;
         get(notepadApi).newPage("pressure-experiment", {
-          type: "table",
+          type: "experiment",
           rows: [],
-          lines: [],
         });
       },
     },
     {
       key: "obj_pressure-experiment",
+      onFinished: () => {
+        get(notepadApi).newPage("pressure-experiment", {
+          type: "experiment",
+          rows: [
+            { data: ["0", "101.33"] },
+            { data: ["50", "607.95"] },
+            { data: ["100", "1114.58"] },
+            { data: ["150", "1621.20"] },
+          ],
+        });
+      },
+    },
+    {
+      key: "obj_pressure-review",
+      onFinished: () => {
+        get(notepadApi).newPage("pressure-experiment", {
+          type: "experiment",
+          rows: [
+            { data: ["0", "101.33"] },
+            { data: ["50", "607.95"] },
+            { data: ["100", "1114.58"] },
+            { data: ["150", "1621.20"] },
+          ],
+          showGraph: true,
+          showConclusion: true,
+        });
+      },
     },
   ],
 };

@@ -10,6 +10,8 @@ class NotepadApi {
   });
   currentPageKey = $state("cover");
   notepadClass = $state("");
+  seethrough = $state(true);
+  opacity = $state(80);
 
   get currentPage(): PageData {
     return this.pages[this.currentPageKey];
@@ -40,8 +42,23 @@ class NotepadApi {
     return this.currentPage.type === "table";
   }
 
+  onSMPage() {
+    return this.currentPage.type === "sm";
+  }
+
+  onExperimentPage() {
+    return this.currentPage.type === "experiment";
+  }
+
   restorePages(pages: Notepad) {
     this.pages = pages;
+  }
+
+  getPage(key: string) {
+    if (this.hasPage(key)) {
+      return this.pages[key];
+    }
+    return null;
   }
 
   openPage(key: string) {
@@ -68,7 +85,10 @@ class NotepadApi {
   }
 
   addTableRow(...cols: string[]) {
-    if (this.currentPage.type === "table") {
+    if (
+      this.currentPage.type === "table" ||
+      this.currentPage.type === "experiment"
+    ) {
       this.currentPage.rows.push({
         data: cols,
       });

@@ -22,6 +22,7 @@
     const currentKey = dialog?.currentKey;
     if (!currentKey) return;
     if (currentKey.options) {
+      currentKey.onShowOptions?.();
       showOptions = true;
       return;
     }

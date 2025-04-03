@@ -14,6 +14,7 @@ type DialogKey = {
   alreadyRead?: boolean;
   italic?: boolean;
   onStart?: () => void;
+  onShowOptions?: () => void;
   onProceed?: () => void;
 };
 
@@ -43,7 +44,12 @@ interface ItemDetails {
   upgraded?: boolean;
 }
 
-type PageData = TextPageData | TablePageData | CustomPageData;
+type PageData =
+  | TextPageData
+  | TablePageData
+  | CustomPageData
+  | SMPageData
+  | ExperimentPageData;
 
 interface CustomPageData {
   type: "custom";
@@ -57,6 +63,13 @@ interface TextPageData {
   delimiter?: string;
 }
 
+interface SMPageData {
+  type: "sm";
+  observations: string[];
+  question?: string;
+  hypothesis?: string;
+}
+
 interface TableRow {
   data: string[];
   class?: string;
@@ -66,4 +79,12 @@ interface TablePageData {
   type: "table";
   rows: TableRow[];
   lines: string[];
+}
+
+interface ExperimentPageData {
+  type: "experiment";
+  showTable?: boolean;
+  rows: TableRow[];
+  showGraph?: boolean;
+  showConclusion?: boolean;
 }

@@ -2,25 +2,24 @@
   import { Lol } from "$components/text";
   import { SmButton } from "$components/hud/notepad";
   import { notepadApi, infoApi, objectivesApi } from "$apis";
-  import forest from "$stores/forest.svelte";
   import { cn } from "$lib/utils";
 </script>
 
-{#if $notepadApi.currentPage.type === "custom"}
+{#if $notepadApi.currentPage.type === "sm"}
   <Lol key="np-forest-notes_title" class="font-bold underline" />
 
   <SmButton step="sm-o" />
-  {#each $notepadApi.currentPage.lines as line}
-    <Lol key={line} class="text-left" />
+  {#each $notepadApi.currentPage.observations as observation}
+    <Lol key={observation} class="text-left" />
   {/each}
 
-  {#if $forest.questionKey != ""}
+  {#if $notepadApi.currentPage.question}
     <SmButton step="sm-q" />
-    <Lol key={$forest.questionKey} class="text-left" />
+    <Lol key={$notepadApi.currentPage.question} class="text-left" />
   {/if}
 
-  {#if $forest.hypothesisKey != ""}
+  {#if $notepadApi.currentPage.hypothesis}
     <SmButton step="sm-h" />
-    <Lol key={$forest.hypothesisKey} class="text-left" />
+    <Lol key={$notepadApi.currentPage.hypothesis} class="text-left" />
   {/if}
 {/if}

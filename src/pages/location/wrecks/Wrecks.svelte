@@ -205,9 +205,7 @@
     $hudApi.showNotepad = true;
     $notepadApi.addTableRow(depth, pressure);
     $wrecks.numMeasured++;
-    if ($wrecks.numMeasured === 4) {
-      $objectivesApi.completeTask("task_record-pressure");
-    }
+    $objectivesApi.incrementTask("task_record-pressure");
   }
   //#endregion
 
@@ -219,8 +217,9 @@
         $objectivesApi.completedChapters = ["tutorial", "chapter1"];
         $objectivesApi.completedObjectives = [
           "obj_explore-forest",
-          "obj_pressure-start",
-          "obj_pressure-plan",
+          //"obj_pressure-start",
+          //"obj_pressure-plan",
+          //"obj_pressure-experiment",
         ];
         $objectivesApi.recallCompletedChapters();
       }

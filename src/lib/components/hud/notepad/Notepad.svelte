@@ -55,21 +55,19 @@
 
     if ($objectivesApi.currentObjectiveIs("obj_explore-forest")) {
       $notepadApi.newPage("forest-notes", {
-        type: "custom",
-        lines: ["o_kelp-monster"],
+        type: "sm",
+        observations: ["o_kelp-monster"],
       });
     }
 
     if ($objectivesApi.currentObjectiveIs("obj_pressure-plan")) {
       $notepadApi.newPage("pressure-experiment", {
-        type: "table",
+        type: "experiment",
         rows: [],
-        lines: [],
       });
     }
 
     $objectivesApi.completeTask("task_new-page");
-    //$hudApi.showNotepad = false;
     newPageEnabled = false;
   }
 
@@ -127,8 +125,6 @@
           <CoverPage />
         {:else if $notepadApi.currentPageKey === "wrecks-notes"}
           <WrecksNotesPage />
-        {:else if $notepadApi.currentPageKey === "forest-notes"}
-          <ForestNotesPage />
         {/if}
       {:else if $notepadApi.currentPage.type === "text"}
         <Lol
@@ -140,10 +136,15 @@
             {$notepadApi.currentPage?.delimiter}<Lol key={line} />
           </div>
         {/each}
+      {:else if $notepadApi.onSMPage()}
+        {#if $notepadApi.currentPageKey === "forest-notes"}
+          <ForestNotesPage />
+        {/if}
       {:else if $notepadApi.onTablePage()}
         {#if $notepadApi.currentPageKey === "wrecks-experiment"}
           <WrecksExperimentPage />
         {/if}
+      {:else if $notepadApi.onExperimentPage()}
         {#if $notepadApi.currentPageKey === "pressure-experiment"}
           <PressureExperimentPage />
         {/if}

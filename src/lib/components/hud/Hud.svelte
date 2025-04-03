@@ -34,6 +34,7 @@
   let notepadOpacity = $state(80);
 
   const disableHideClass = "disabled opacity-50";
+  let StoryComp = $state($storyComponent);
 </script>
 
 {#if $hudApi.enabled}
@@ -41,6 +42,7 @@
     <div class="absolute size-full z-[104]">
       <!-- svelte-ignore svelte_component_deprecated -->
       <svelte:component this={$storyComponent} />
+      <StoryComp />
     </div>
     {#if $hudApi.showGaugeScreen}
       <div transition:fade>
@@ -116,19 +118,22 @@
         class="z-[102] pointer-events-auto"
       />
     {/if}
+    <!-- $hudApi.showNotepad -->
     {#if $hudApi.showNotepad}
       <!-- svelte-ignore a11y_no_static_element_interactions -->
       <div
         transition:fly={{ y: 555 }}
         onmouseenter={() => {
-          notepadOpacity = 80;
+          if (!$notepadApi.seethrough) return;
+          $notepadApi.opacity = 80;
         }}
         onmouseleave={() => {
-          notepadOpacity = 15;
+          if (!$notepadApi.seethrough) return;
+          $notepadApi.opacity = 15;
         }}
         class="absolute w-[98%] h-[88%] bottom-0 right-2 z-[100]"
       >
-        <Notepad class="size-full" style="opacity: {notepadOpacity}%;" />
+        <Notepad class="size-full" style="opacity: {$notepadApi.opacity}%;" />
       </div>
     {/if}
     {#if $hudApi.showMap}

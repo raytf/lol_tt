@@ -69,7 +69,11 @@ export const oqh = [
     name: "conch",
     text: "ch2_ohq-6",
     onStart: () => {
-      get(forest).questionKey = "ch2_pressure-q";
+      const notepad = get(notepadApi);
+      notepad.openPage("forest-notes");
+      if (notepad.currentPage.type === "sm") {
+        notepad.currentPage.question = "ch2_pressure-q";
+      }
       get(objectivesApi).completeTask("task_question");
     },
     options: [
@@ -82,8 +86,9 @@ export const oqh = [
             text: "ch2_pressure-h1",
             onProceed: () => {
               const notepad = get(notepadApi);
-              notepad.openPage("forest-notes");
-              get(forest).hypothesisKey = "ch2_pressure-h1";
+              if (notepad.currentPage.type === "sm") {
+                notepad.currentPage.hypothesis = "ch2_pressure-h1";
+              }
               get(objectivesApi).completeTask("task_hypothesis");
             },
           },
@@ -98,8 +103,9 @@ export const oqh = [
             text: "ch2_pressure-h2",
             onProceed: () => {
               const notepad = get(notepadApi);
-              notepad.openPage("forest-notes");
-              get(forest).hypothesisKey = "ch2_pressure-h2";
+              if (notepad.currentPage.type === "sm") {
+                notepad.currentPage.hypothesis = "ch2_pressure-h2";
+              }
               get(objectivesApi).completeTask("task_hypothesis");
             },
           },
@@ -114,8 +120,9 @@ export const oqh = [
             text: "ch2_pressure-h3",
             onProceed: () => {
               const notepad = get(notepadApi);
-              notepad.openPage("forest-notes");
-              get(forest).hypothesisKey = "ch2_pressure-h3";
+              if (notepad.currentPage.type === "sm") {
+                notepad.currentPage.hypothesis = "ch2_pressure-h3";
+              }
               get(objectivesApi).completeTask("task_hypothesis");
             },
           },
@@ -186,5 +193,109 @@ export const crane = [
     imgSrc: grin,
     name: "explorer",
     text: "ch2_crane-5",
+  },
+];
+
+export const hCorrect = [
+  {
+    imgSrc: smileOpen,
+    name: "explorer",
+    text: "ch2_hypothesis-correct",
+  },
+];
+
+export const hIncorrect = [
+  {
+    imgSrc: frownSlight,
+    name: "explorer",
+    text: "ch2_hypothesis-incorrect-1",
+  },
+  {
+    imgSrc: smileSlight,
+    name: "explorer",
+    text: "ch2_hypothesis-incorrect-2",
+  },
+];
+
+export const analyze = [
+  {
+    imgSrc: conch_smile,
+    name: "conch",
+    text: "ch2_analyze-1",
+    onStart: () => {
+      const notepad = get(notepadApi);
+      if (notepad.currentPage.type === "experiment") {
+        notepad.seethrough = false;
+        notepad.opacity = 80;
+      }
+    },
+  },
+  {
+    imgSrc: conch_smile,
+    name: "conch",
+    text: "ch2_analyze-2",
+  },
+  {
+    imgSrc: conch_smile,
+    name: "conch",
+    text: "ch2_analyze-3",
+    onStart: () => {
+      const notepad = get(notepadApi);
+      if (notepad.currentPage.type === "experiment") {
+        notepad.currentPage.showGraph = true;
+      }
+      get(objectivesApi).completeTask("task_pressure-analysis");
+    },
+  },
+  {
+    imgSrc: conch_smile,
+    name: "conch",
+    text: "ch2_analyze-4",
+    options: [
+      {
+        text: "ch2_analyze-4.1",
+        repeat: true,
+        nextDialog: [
+          {
+            imgSrc: conch_smile,
+            name: "conch",
+            text: "ch2_analyze-4.1-1",
+          },
+        ],
+      },
+      {
+        text: "ch2_analyze-4.2",
+        nextDialog: [
+          {
+            imgSrc: conch_smile,
+            name: "conch",
+            text: "ch2_analyze-4.2-1",
+          },
+          {
+            imgSrc: conch_smile,
+            name: "conch",
+            text: "ch2_analyze-4.2-2",
+            onProceed: () => {
+              const notepad = get(notepadApi);
+              if (notepad.currentPage.type === "experiment") {
+                notepad.currentPage.showConclusion = true;
+              }
+              notepad.seethrough = true;
+            },
+          },
+        ],
+      },
+      {
+        text: "ch2_analyze-4.3",
+        repeat: true,
+        nextDialog: [
+          {
+            imgSrc: conch_smile,
+            name: "conch",
+            text: "ch2_analyze-4.3-1",
+          },
+        ],
+      },
+    ],
   },
 ];

@@ -53,7 +53,7 @@
       {pressure.toFixed(2)}<span class="text-2xl">kPa</span>
     </p>
   {/if}
-  {#if $inventoryApi.isItemUnlocked("dh")}
+  {#if $inventoryApi.isItemUnlocked("dg")}
     <p class="mx-1 text-2xl">{$lolApi.getText("depth")}:</p>
     <p class="mx-2 text-3xl">
       {currentDepth}<span class="text-2xl">m</span>
