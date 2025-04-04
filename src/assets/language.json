@@ -293,7 +293,7 @@
     "ch2_analyze-4.1-1": "Are you sure? Check for any trends/patterns in the graph.",
     "ch2_analyze-4.2": "Pressure increases as depth increases.",
     "ch2_analyze-4.2-1": "I agree! In the graph, we can see a pattern: the deeper the depth, the higher the pressure.",
-    "ch2_analyze-4.2-2": "Pressure increases at a constant rate, forming a straight line: this means pressure and depth also have a <strong>linear relationship</strong>.",
+    "ch2_analyze-4.2-2": "Pressure also increases at a constant rate, forming a straight line: this means pressure and depth have a <strong>linear relationship</strong>.",
     "ch2_analyze-4.3": "Pressure decreases as depth increases.",
     "ch2_analyze-4.3-1": "Are you sure? In the graph, check what direction the line goes.",
     "ch2_conclusion": "Pressure and depth are correlated, and have a linear relationship. <br /> When depth increases, pressure increases at a constant rate.",

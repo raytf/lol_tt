@@ -220,32 +220,26 @@ const chapterMap: ChapterMap = {
         const pressurePage = $state.snapshot(
           notepad.getPage("pressure-experiment"),
         ) as ExperimentPageData;
-        console.log(pressurePage);
-        //const currentRows = $state.snapshot(pressurePage.rows);
-        //console.log(currentRows);
+        const isEmpty = pressurePage.rows.length === 0;
+
         notepad.updatePage("pressure-experiment", {
-          type: "experiment",
-          rows: [
-            { data: ["0", "101.33"] },
-            { data: ["50", "607.95"] },
-            { data: ["100", "1114.58"] },
-            { data: ["150", "1621.20"] },
-            { data: ["200", "2127.83"] },
-          ],
+          rows: isEmpty
+            ? [
+                { data: ["0", "101.33"] },
+                { data: ["50", "607.95"] },
+                { data: ["100", "1114.58"] },
+                { data: ["150", "1621.20"] },
+                { data: ["200", "2127.83"] },
+              ]
+            : pressurePage.rows,
         });
       },
     },
     {
       key: "obj_pressure-review",
       onFinished: () => {
-        get(notepadApi).newPage("pressure-experiment", {
-          type: "experiment",
-          rows: [
-            { data: ["0", "101.33"] },
-            { data: ["50", "607.95"] },
-            { data: ["100", "1114.58"] },
-            { data: ["150", "1621.20"] },
-          ],
+        const notepad = get(notepadApi);
+        notepad.updatePage("pressure-experiment", {
           showGraph: true,
           showConclusion: true,
         });
