@@ -11,9 +11,15 @@
     notepadApi,
     lolApi,
   } from "$apis";
-  import { tool, analyze, hCorrect, hIncorrect } from "$dialog/chapter2";
+  import {
+    tool,
+    analyze,
+    hCorrect,
+    hIncorrect,
+    linear,
+  } from "$dialog/chapter2";
   import { cn } from "$lib/utils";
-  //101.33, 607.95, 1114.58, 1621.21
+
   let data = {
     datasets: [
       {
@@ -148,13 +154,20 @@
               ).hypothesis;
               const hypothesisCorrect = hypothesis === "ch2_pressure-h1";
 
+              if ($notepadApi.currentPage.type === "experiment") {
+                $notepadApi.seethrough = false;
+                $notepadApi.opacity = 80;
+              }
               $hudApi.startDialog({
                 keys: [
                   ...analyze,
                   ...(hypothesisCorrect ? hCorrect : hIncorrect),
+                  ...linear,
                 ],
                 onFinished: () => {
-                  $objectivesApi.completeTask("task_pressure-conclusion");
+                  if ($notepadApi.currentPage.type === "experiment") {
+                    $notepadApi.seethrough = true;
+                  }
                 },
               });
             }}

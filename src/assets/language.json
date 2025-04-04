@@ -177,6 +177,7 @@
     "item_desc_map": "A map drawing of the Triton Triangle depths.",
     "item_name_pg": "Pressure Gauge",
     "item_desc_pg": "An instrument for measuring underwater pressure.",
+    "item_desc_pg-upgraded": "An instrument for measuring underwater pressure. <br>It can also be used to measure depth.",
     "item_name_dg": "Depth Gauge",
     "item_desc_dg": "An instrument for measuring underwater depth.",
     "item_name_th": "Thermistor",
@@ -301,7 +302,10 @@
     "ch2_hypothesis-incorrect-1": "These results do not match my hypothesis...",
     "ch2_hypothesis-incorrect-2": "...but at least I've learned something.",
 
-    "ch2_linear-1": "",
+    "ch2_linear-1": "Since pressure and depth have a linear relationship, we can predict the value of one variable if we know the other.",
+    "ch2_linear-2": "For example, if you know how much pressure there is, you can use it to calculate how deep you are.",
+    "ch2_linear-3": "This is how pressure gauges are also useful for measuring depth.",
+    "ch2_linear-4": "That's great! I can now measure depth at much deeper levels now.",
 
     "ch3_find-entrance-1": "There is an entrance here!",
     "ch3_find-entrance-2": "Should I enter?",

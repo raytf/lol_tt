@@ -27,7 +27,11 @@
         {$lolApi.getText(item.nameKey)}
       </h2>
       <p class="mb-3 text-2xl font-normal text-gray-700 leading-tight">
-        {@html $lolApi.getText(item.descKey)}
+        {#if item.upgraded}
+          {@html $lolApi.getText(item.upgradedDescKey)}
+        {:else}
+          {@html $lolApi.getText(item.descKey)}
+        {/if}
       </p>
       {#if item.actionKey}
         <div class="flex flex-row items-center text-lg">

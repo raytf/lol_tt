@@ -25,19 +25,18 @@
       $objectivesApi.completeTask("task_review-o");
     }
   }
+
+  function onClose() {
+    $objectivesApi.completeTask("task_review-SM");
+    $hudApi.showSmModal = false;
+  }
 </script>
 
 <div class={cn("container-smModal", extraClass)}>
   {#if interactable}
-    <button
-      onclick={() => {
-        $objectivesApi.completeTask("task_review-SM");
-        $hudApi.showSmModal = false;
-      }}
-      class="absolute top-4 right-4"
-    >
+    <button onclick={onClose} class="absolute top-4 right-4">
       <Close
-        class="w-[55px] h-[55px] text-black hover:text-white transition-colors"
+        class="w-[55px] h-[55px] text-white hover:text-white transition-colors"
       />
     </button>
     <Lol key="sm-heading" shadow={true} class="text-4xl mt-24" />

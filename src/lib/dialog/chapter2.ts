@@ -222,13 +222,6 @@ export const analyze = [
     imgSrc: conch_smile,
     name: "conch",
     text: "ch2_analyze-1",
-    onStart: () => {
-      const notepad = get(notepadApi);
-      if (notepad.currentPage.type === "experiment") {
-        notepad.seethrough = false;
-        notepad.opacity = 80;
-      }
-    },
   },
   {
     imgSrc: conch_smile,
@@ -280,7 +273,6 @@ export const analyze = [
               if (notepad.currentPage.type === "experiment") {
                 notepad.currentPage.showConclusion = true;
               }
-              notepad.seethrough = true;
             },
           },
         ],
@@ -297,5 +289,44 @@ export const analyze = [
         ],
       },
     ],
+  },
+];
+
+export const linear = [
+  {
+    imgSrc: conch_smile,
+    name: "conch",
+    text: "ch2_linear-1",
+    onStart: () => {
+      get(objectivesApi).completeTask("task_pressure-conclusion");
+    },
+  },
+  {
+    imgSrc: conch_smile,
+    name: "conch",
+    text: "ch2_linear-2",
+  },
+  {
+    imgSrc: conch_smile,
+    name: "conch",
+    text: "ch2_linear-3",
+    onProceed: () => {
+      const hud = get(hudApi);
+      hud.startItemUnlock({
+        itemId: "pg",
+        unlockType: "upgrade",
+        onFinished: () => {
+          hud.startDialog({
+            keys: [
+              {
+                imgSrc: smileOpen,
+                name: "explorer",
+                text: "ch2_linear-4",
+              },
+            ],
+          });
+        },
+      });
+    },
   },
 ];

@@ -88,18 +88,16 @@ class HudApi {
       return;
     } else if (unlockType === "upgrade") {
       iApi.unlockTitleKey = "item-upgraded";
-      onFinished?.();
-      return;
+      iApi.upgradeItem(itemId);
     } else {
       iApi.unlockTitleKey = "item-unlocked";
+      if (iApi.isItemUnlocked(itemId)) {
+        onFinished?.();
+        return;
+      }
+      iApi.unlockItem(itemId);
     }
 
-    if (iApi.isItemUnlocked(itemId)) {
-      onFinished?.();
-      return;
-    }
-
-    iApi.unlockItem(itemId);
     iApi.onItemUnlockFinished = () => {};
     if (onFinished) iApi.onItemUnlockFinished = onFinished;
 

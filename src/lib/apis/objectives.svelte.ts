@@ -243,6 +243,7 @@ const chapterMap: ChapterMap = {
           showGraph: true,
           showConclusion: true,
         });
+        get(inventoryApi).upgradeItem("pg");
       },
     },
   ],

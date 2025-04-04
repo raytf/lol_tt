@@ -220,7 +220,7 @@
           "obj_pressure-start",
           "obj_pressure-plan",
           "obj_pressure-experiment",
-          "obj_pressure-review",
+          //"obj_pressure-review",
         ];
         $objectivesApi.recallCompletedChapters();
       }

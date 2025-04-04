@@ -52,6 +52,7 @@ export const itemMap: ItemMap = {
     id: "pg",
     nameKey: "item_name_pg",
     descKey: "item_desc_pg",
+    upgradedDescKey: "item_desc_pg-upgraded",
     measuring: true,
   },
   th: {
@@ -98,6 +99,12 @@ export class InventoryApi {
     this.unlockedItems = [...Object.values(itemMap)];
   }
 
+  upgradeItem(itemId: string) {
+    const item = itemMap[itemId];
+    item.upgraded = true;
+    this.newItemUnlock = item;
+  }
+
   unlockItem(itemId: string) {
     if (this.isItemUnlocked(itemId)) return;
 
@@ -108,6 +115,9 @@ export class InventoryApi {
 
   isItemUnlocked(item: string): boolean {
     return !!this.unlockedItems.find((i) => i.id === item);
+  }
+  isItemUpgraded(item: string): boolean {
+    return !!this.unlockedItems.find((i) => i.id === item && i.upgraded);
   }
 }
 

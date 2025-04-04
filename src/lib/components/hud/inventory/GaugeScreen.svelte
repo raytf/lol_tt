@@ -55,7 +55,7 @@
       {pressure.toFixed(2)}<span class="text-2xl">kPa</span>
     </p>
   {/if}
-  {#if $inventoryApi.isItemUnlocked("dg")}
+  {#if $inventoryApi.isItemUpgraded("pg")}
     <p class="mx-1 text-2xl">{$lolApi.getText("depth")}:</p>
     <p class="mx-2 text-3xl">
       {currentDepth}<span class="text-2xl">m</span>
@@ -67,7 +67,7 @@
       {temp.toFixed(2)}<span class="text-2xl">°C</span>
     </p>
   {/if}
-
-  <p class="mx-2 text-4xl font-bold">{currentDepth}m</p>
+  <!-- 
+  <p class="mx-2 text-4xl font-bold">{currentDepth}m</p> -->
 </div>
 <!-- {/if} -->
