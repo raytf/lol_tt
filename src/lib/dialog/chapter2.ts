@@ -297,9 +297,6 @@ export const linear = [
     imgSrc: conch_smile,
     name: "conch",
     text: "ch2_linear-1",
-    onStart: () => {
-      get(objectivesApi).completeTask("task_pressure-conclusion");
-    },
   },
   {
     imgSrc: conch_smile,

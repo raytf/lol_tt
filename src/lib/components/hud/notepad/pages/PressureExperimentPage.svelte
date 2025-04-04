@@ -165,9 +165,11 @@
                   ...linear,
                 ],
                 onFinished: () => {
+                  $objectivesApi.completeTask("task_pressure-conclusion");
                   if ($notepadApi.currentPage.type === "experiment") {
                     $notepadApi.seethrough = true;
                   }
+                  $hudApi.showNotepad = false;
                 },
               });
             }}

@@ -100,9 +100,11 @@ export class InventoryApi {
   }
 
   upgradeItem(itemId: string) {
-    const item = itemMap[itemId];
-    item.upgraded = true;
-    this.newItemUnlock = item;
+    const item = this.unlockedItems.find((i) => i.id === itemId);
+    if (item) {
+      item.upgraded = true;
+      this.newItemUnlock = item;
+    }
   }
 
   unlockItem(itemId: string) {
