@@ -74,9 +74,9 @@
   });
 </script>
 
-<Location title="abyss">
+<Location titleKey="location-abyss" uiClass="z-[11]">
   {#snippet ui()}
-    <button
+    <!-- <button
       onclick={() => {
         $hudApi.startDialog({
           keys: hiddenEntrance,
@@ -87,7 +87,7 @@
       }}
       class="absolute top-1/2 left-1/2 z-[12] pointer-events-auto"
       >Vent
-    </button>
+    </button> -->
     {#if showEntranceOptions}
       <div
         transition:fade
@@ -132,7 +132,7 @@
     <Submarine size={88} class="z-10" />
 
     <Darkness
-      level={depthRatio * 0.2 + 0.9}
+      level={depthRatio * 0.4 + 0.8}
       lights={[
         {
           x: subCoords.current.x + $subDirection.x * 50,

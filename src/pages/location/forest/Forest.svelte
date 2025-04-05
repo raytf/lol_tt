@@ -269,15 +269,6 @@
 
   setSubPosition(initialPosition);
   onMount(() => {
-    if (!$objectivesApi.completedChapters.includes("chapter1")) {
-      $objectivesApi.completedChapters = ["tutorial", "chapter1"];
-      $objectivesApi.completedObjectives = [
-        "obj_explore-forest",
-        "obj_pressure-start",
-      ];
-      $objectivesApi.recallCompletedChapters();
-    }
-
     setTimeout(() => {
       setSubTarget(initialTarget);
     }, 555);

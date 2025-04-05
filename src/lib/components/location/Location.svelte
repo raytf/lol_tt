@@ -3,7 +3,7 @@
   import { onMount } from "svelte";
   import { Lol } from "$components/text";
   import { hideHeading, tlRevealHeading } from "./animations";
-  import { hudApi, gameApi } from "$apis";
+  import { hudApi, gameApi, objectivesApi } from "$apis";
 
   let {
     titleKey,
@@ -20,6 +20,21 @@
   } = $props();
 
   onMount(() => {
+    if ($gameApi.debugMode) {
+      if (!$objectivesApi.completedChapters.includes("chapter1")) {
+        $objectivesApi.completedChapters = ["tutorial", "chapter1"];
+        $objectivesApi.completedObjectives = [
+          "obj_explore-forest",
+          "obj_pressure-start",
+          "obj_pressure-plan",
+          "obj_pressure-tools",
+          "obj_pressure-experiment",
+          //"obj_pressure-review",
+        ];
+        $objectivesApi.recallCompletedChapters();
+      }
+    }
+
     $gameApi.startedGame = true;
     hideHeading();
 

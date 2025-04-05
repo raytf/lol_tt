@@ -211,21 +211,6 @@
 
   setSubPosition(initialPosition);
   onMount(() => {
-    //#region Debug
-    if ($gameApi.debugMode) {
-      if (!$objectivesApi.completedChapters.includes("chapter1")) {
-        $objectivesApi.completedChapters = ["tutorial", "chapter1"];
-        $objectivesApi.completedObjectives = [
-          "obj_explore-forest",
-          "obj_pressure-start",
-          "obj_pressure-plan",
-          "obj_pressure-tools",
-          //"obj_pressure-experiment",
-          //"obj_pressure-review",
-        ];
-        $objectivesApi.recallCompletedChapters();
-      }
-    }
     //#endregion
     setTimeout(() => {
       setSubTarget(initialTarget);
