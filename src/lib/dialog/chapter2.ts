@@ -292,6 +292,14 @@ export const analyze = [
   },
 ];
 
+export const end = [
+  {
+    imgSrc: smileOpen,
+    name: "explorer",
+    text: "ch2_end-1",
+  },
+];
+
 export const linear = [
   {
     imgSrc: conch_smile,
@@ -314,13 +322,7 @@ export const linear = [
         unlockType: "upgrade",
         onFinished: () => {
           hud.startDialog({
-            keys: [
-              {
-                imgSrc: smileOpen,
-                name: "explorer",
-                text: "ch2_linear-4",
-              },
-            ],
+            keys: end,
           });
         },
       });

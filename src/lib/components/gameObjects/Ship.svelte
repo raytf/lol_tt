@@ -16,18 +16,19 @@
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <button
   onclick={() => {
+    $objectivesApi.completeTask("task_return-to-ship");
     $infoApi.openModal({
       textKeys: ["i_ship"],
       onClose: () => {
-        if ($objectivesApi.currentObjectiveIs("obj_pressure-plan")) {
+        if ($objectivesApi.currentObjectiveIs("obj_pressure-tools")) {
           $hudApi.startItemUnlock({
             itemId: "pg",
             onFinished: () => {
-              $objectivesApi.completeTask("task_pressure-tool");
+              $objectivesApi.completeTask("task_tool-pg");
               $hudApi.startDialog({
                 keys: crane,
                 onFinished: () => {
-                  $objectivesApi.completeTask("task_depth-tool");
+                  $objectivesApi.completeTask("task_tool-crane");
                 },
               });
             },

@@ -140,10 +140,10 @@
   setSubPosition(initialSubCoords);
   onMount(() => {
     // Debug
-    if ($gameApi.debugMode) {
-      $objectivesApi.completedObjectives = [];
-      $objectivesApi.recallCompletedChapters();
-    }
+    // if ($gameApi.debugMode) {
+    //   $objectivesApi.completedObjectives = [];
+    //   $objectivesApi.recallCompletedChapters();
+    // }
     onEnter();
   });
 </script>

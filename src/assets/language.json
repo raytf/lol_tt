@@ -68,8 +68,10 @@
     "obj_pressure-plan": "Plan an <span class='color sm-e'>experiment</span>",
     "task_review-ind": "Review the independent variable",
     "task_review-dep": "Review the dependent variable",
-    "task_pressure-tool": "Find a tool for measuring pressure",
-    "task_depth-tool": "Find a tool for measuring depth",
+    "obj_pressure-tools": "Collect tools for the <span class='color sm-e'>experiment</span>",
+    "task_return-to-ship": "Return to the ship",
+    "task_tool-pg": "Find a tool for measuring pressure",
+    "task_tool-crane": "Find a tool for measuring depth",
 
     "obj_pressure-experiment": "Conduct pressure <span class='color sm-e'>experiment</span>",
     "task_record-pressure": "Record pressure at different depths",
@@ -305,7 +307,8 @@
     "ch2_linear-1": "Since pressure and depth have a linear relationship, we can predict the value of one variable if we know the other.",
     "ch2_linear-2": "For example, if you know how much pressure there is, you can use it to calculate how deep you are.",
     "ch2_linear-3": "This is how pressure gauges are also useful for measuring depth.",
-    "ch2_linear-4": "That's great! I can now measure depth at much deeper levels now.",
+
+    "ch2_end-1": "I can precisely measure depth anywhere now!",
 
     "ch3_find-entrance-1": "There is an entrance here!",
     "ch3_find-entrance-2": "Should I enter?",

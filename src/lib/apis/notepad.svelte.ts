@@ -118,10 +118,11 @@ class NotepadApi {
 
   updatePage(key: string, data: any) {
     const page = $state.snapshot(this.getPage(key));
-    // console.log("prev", page);
-    // console.log("new", data);
+    console.log("prev", page);
+    console.log("new", data);
     if (page) {
       this.pages[key] = { ...page, ...data };
+      console.log("updated", this.pages[key]);
     }
   }
 }

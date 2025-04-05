@@ -219,7 +219,8 @@
           "obj_explore-forest",
           "obj_pressure-start",
           "obj_pressure-plan",
-          "obj_pressure-experiment",
+          "obj_pressure-tools",
+          //"obj_pressure-experiment",
           //"obj_pressure-review",
         ];
         $objectivesApi.recallCompletedChapters();
@@ -336,7 +337,7 @@
         ]}
         class="z-50"
       />
-      {#if $wrecks.measuringUnlocked}
+      {#if $wrecks.measuringUnlocked && !$objectivesApi.hasCompleted("obj_pressure-review")}
         <MeasuringLine
           height={1400}
           values={measuringLineValues}

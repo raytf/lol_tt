@@ -84,8 +84,11 @@ const objectiveMap: ObjectiveMap = {
     { key: "task_new-page" },
     { key: "task_review-ind" },
     { key: "task_review-dep" },
-    { key: "task_pressure-tool" },
-    { key: "task_depth-tool" },
+  ],
+  "obj_pressure-tools": [
+    { key: "task_return-to-ship" },
+    { key: "task_tool-pg" },
+    { key: "task_tool-crane" },
   ],
   "obj_pressure-experiment": [{ key: "task_record-pressure", numTimes: 5 }],
   "obj_pressure-review": [
@@ -205,12 +208,17 @@ const chapterMap: ChapterMap = {
     {
       key: "obj_pressure-plan",
       onFinished: () => {
-        get(inventoryApi).unlockItem("pg");
-        get(wrecks).measuringUnlocked = true;
         get(notepadApi).newPage("pressure-experiment", {
           type: "experiment",
           rows: [],
         });
+      },
+    },
+    {
+      key: "obj_pressure-tools",
+      onFinished: () => {
+        get(inventoryApi).unlockItem("pg");
+        get(wrecks).measuringUnlocked = true;
       },
     },
     {
@@ -244,6 +252,7 @@ const chapterMap: ChapterMap = {
           showConclusion: true,
         });
         get(inventoryApi).upgradeItem("pg");
+        get(forest).abyssUnlocked = true;
       },
     },
   ],
