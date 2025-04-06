@@ -321,6 +321,7 @@ class ObjectivesApi {
       objectives.forEach((objective) => {
         objective.onStart?.();
         objective.onFinished?.();
+        this.completedObjectives.push(objective.key);
       });
     });
   };

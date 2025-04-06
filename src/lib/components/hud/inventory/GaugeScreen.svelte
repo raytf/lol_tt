@@ -1,5 +1,6 @@
 <script lang="ts">
   import { location } from "svelte-spa-router";
+  import { untrack } from "svelte";
   import {
     coords,
     depthOffset,
@@ -7,7 +8,7 @@
     nearVent,
   } from "$lib/stores/sub";
   import { minOffset, gridOffset } from "$lib/stores/exploration";
-  import { inventoryApi, lolApi, gameApi } from "$apis";
+  import { inventoryApi, lolApi, gameApi, interfaceApi } from "$apis";
   import { cn } from "$lib/utils";
 
   let {
@@ -15,6 +16,8 @@
   }: {
     class?: string;
   } = $props();
+
+  let highPressure = false;
 
   let currentDepth = $derived.by(() => {
     if ($location === "/surface") {
@@ -47,6 +50,23 @@
       val += Math.exp(currentDepth / 1000) / 5;
     }
     return val;
+  });
+
+  $effect(() => {
+    if (currentDepth > 210) {
+      if (!highPressure) {
+        $interfaceApi.showWarning({
+          level: "warning",
+          text: "warning-pressure",
+        });
+      }
+      highPressure = true;
+    } else {
+      if (highPressure) {
+        $interfaceApi.hideWarning("warning-pressure");
+      }
+      highPressure = false;
+    }
   });
 </script>
 

@@ -33,7 +33,7 @@ export const moveSub = (e: MouseEvent) => {
   const x = e.clientX - gridOffset.current.x;
   const y = e.clientY - gridOffset.current.y;
   setSubTarget({ x, y });
-  checkPressure({ x, y });
+  //checkPressure({ x, y });
   //console.log({ x, y });
   //console.log(gridOffset.current);
   return { x, y };

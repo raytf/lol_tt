@@ -421,6 +421,7 @@
               onclick={() => {
                 setSubTarget({ x: grid.width - 111, y: grid.height + 111 });
                 $audioApi.stopTrack({ src: "music/tangled-depths.mp3" });
+                $objectivesApi.completeTask("task_enter-abyss");
                 $gameApi.fadeScene("/abyss");
                 // $gameApi.fadeScene("/surface?from=wrecks", 1, 1);
               }}

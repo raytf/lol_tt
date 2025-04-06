@@ -67,6 +67,13 @@
       });
     }
 
+    if ($objectivesApi.currentObjectiveIs("obj_explore-deep")) {
+      $notepadApi.newPage("abyss-notes", {
+        type: "sm",
+        observations: [],
+      });
+    }
+
     $objectivesApi.completeTask("task_new-page");
     newPageEnabled = false;
   }
@@ -76,7 +83,8 @@
       $objectivesApi.currentObjectiveIs("obj_explore-wrecks") ||
       $objectivesApi.currentObjectiveIs("obj_wrecks-experiment") ||
       $objectivesApi.currentObjectiveIs("obj_explore-forest") ||
-      $objectivesApi.currentObjectiveIs("obj_pressure-plan")
+      $objectivesApi.currentObjectiveIs("obj_pressure-plan") ||
+      $objectivesApi.currentObjectiveIs("obj_explore-deep")
     ) {
       newPageEnabled = true;
     }
@@ -174,7 +182,8 @@
     pointer-events: none;
     transition: opacity 2s;
 
-    background-image: linear-gradient(
+    background-image:
+      linear-gradient(
         90deg,
         transparent,
         transparent 5%,

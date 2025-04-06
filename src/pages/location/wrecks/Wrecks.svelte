@@ -115,6 +115,10 @@
         $objectivesApi.startChapter("chapter2", () => {});
         return;
       }
+      if (!$objectivesApi.completedChapters.includes("chapter3")) {
+        $objectivesApi.startChapter("chapter3", () => {});
+        return;
+      }
 
       if (searchParams.has("from", "forest") && $forest.encounteredMonster) {
         setTimeout(() => {
