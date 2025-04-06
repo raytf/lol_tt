@@ -298,6 +298,11 @@ export const end = [
     name: "explorer",
     text: "ch2_end-1",
   },
+  {
+    imgSrc: neutral,
+    name: "explorer",
+    text: "ch2_end-2",
+  }
 ];
 
 export const linear = [

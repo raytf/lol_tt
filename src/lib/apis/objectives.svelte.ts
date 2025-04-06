@@ -95,6 +95,14 @@ const objectiveMap: ObjectiveMap = {
     { key: "task_pressure-analysis" },
     { key: "task_pressure-conclusion" },
   ],
+  "obj_prepare-deep": [
+    { key: "task_return-to-ship" },
+    { key: "task_tool-th" }
+  ],
+  "obj_explore-deep": [
+    { key: "task_enter-abyss" },
+    { key: "task_new-page" },
+  ],
 };
 
 const chapterMap: ChapterMap = {
@@ -113,11 +121,11 @@ const chapterMap: ChapterMap = {
     },
     {
       key: "obj_review-inventory",
-      onFinished: () => {},
+      onFinished: () => { },
     },
     {
       key: "obj_explore",
-      onFinished: () => {},
+      onFinished: () => { },
     },
   ],
   chapter1: [
@@ -233,12 +241,12 @@ const chapterMap: ChapterMap = {
         notepad.updatePage("pressure-experiment", {
           rows: isEmpty
             ? [
-                { data: ["0", "101.33"] },
-                { data: ["50", "607.95"] },
-                { data: ["100", "1114.58"] },
-                { data: ["150", "1621.20"] },
-                { data: ["200", "2127.83"] },
-              ]
+              { data: ["0", "101.33"] },
+              { data: ["50", "607.95"] },
+              { data: ["100", "1114.58"] },
+              { data: ["150", "1621.20"] },
+              { data: ["200", "2127.83"] },
+            ]
             : pressurePage.rows,
         });
       },
@@ -255,6 +263,17 @@ const chapterMap: ChapterMap = {
         get(forest).abyssUnlocked = true;
       },
     },
+    {
+      key: "obj_prepare-deep",
+      onFinished: () => {
+        get(inventoryApi).unlockItem("th");
+      },
+    }
+  ],
+  chapter3: [
+    {
+      key: "obj_explore-deep",
+    },
   ],
 };
 
@@ -266,7 +285,7 @@ class ObjectivesApi {
   currentTasks = $state<Task[]>([]);
   chapterStarted = $state(false);
   chapterFinished = $state(false);
-  onChapterFinished = () => {};
+  onChapterFinished = () => { };
 
   numTotalObjectives: number = 0;
   completedObjectives = $state<string[]>([]);
@@ -332,7 +351,7 @@ class ObjectivesApi {
       };
     });
 
-    this.onChapterFinished = onFinished || (() => {});
+    this.onChapterFinished = onFinished || (() => { });
 
     if (this.currentObjectiveIndex < this.currentObjectives.length) {
       this.startObjective();

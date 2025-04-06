@@ -132,7 +132,7 @@
     <Submarine size={88} class="z-10" />
 
     <Darkness
-      level={depthRatio * 0.4 + 0.8}
+      level={depthRatio * 0.4 + 0.5}
       lights={[
         {
           x: subCoords.current.x + $subDirection.x * 50,

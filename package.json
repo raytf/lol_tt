@@ -11,7 +11,7 @@
     "zip": "mkdir -p builds && cd dist && zip -r ../builds/build.zip *"
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^3.1.1",
+    "@sveltejs/vite-plugin-svelte": "^4.0.0-next.6",
     "@tsconfig/svelte": "^5.0.4",
     "@types/howler": "^2.2.11",
     "@types/node": "^20.14.9",

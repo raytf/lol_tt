@@ -29,7 +29,7 @@
           "obj_pressure-plan",
           "obj_pressure-tools",
           "obj_pressure-experiment",
-          //"obj_pressure-review",
+          "obj_pressure-review",
         ];
         $objectivesApi.recallCompletedChapters();
       }

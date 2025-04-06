@@ -34,6 +34,16 @@
             },
           });
         }
+
+        if ($objectivesApi.currentObjectiveIs("obj_prepare-deep")) {
+          $hudApi.startItemUnlock({
+            itemId: "th",
+            onFinished: () => {
+              $objectivesApi.startChapter("chapter3", () => {});
+            },
+          });
+          $objectivesApi.completeTask("task_tool-th");
+        }
       },
     });
     //fixPropellor();

@@ -27,13 +27,21 @@
     //console.log(gridOffset.current.y);
 
     let depthOffset = 0;
-    let depth = depthOffset + Math.round(depthRatio * 250);
+    let depthMultiplier = 1;
+    if ($location === "/abyss") {
+      depthOffset = 250;
+      depthMultiplier = 2;
+    }
+    let depth = depthOffset + Math.round(depthRatio * depthMultiplier * 250);
     return depth > 0 ? depth : 0;
   });
   let pressure = $derived.by(() => {
     return (1 + currentDepth / 10) * 101.325;
   });
   let temp = $derived.by(() => {
+    if (currentDepth === 0) {
+      return 20;
+    }
     let val = 18 - Math.log(currentDepth) * 2;
     if ($nearVent) {
       val += Math.exp(currentDepth / 1000) / 5;

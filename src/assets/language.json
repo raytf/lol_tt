@@ -6,18 +6,15 @@
     "sound-enabled": "Sound Enabled",
     "tts-enabled": "Text-to-Speech Enabled",
     "play-intro": "Play Intro",
-
     "title": "Triton's Treasure",
     "subtitle": "A Scientific Method Adventure",
     "start": "Start",
     "play": "Play",
-
     "info": "Info",
     "settings": "Settings",
     "inventory": "Inventory",
     "standard-tools": "Standard Tools",
     "measuring-tools": "Measuring Tools",
-
     "dive": "Dive",
     "surface": "Surface",
     "complete": "Complete",
@@ -25,45 +22,35 @@
     "warning-pressure": "High pressure detected",
     "warning-propellor": "Propellor malfunction",
     "danger": "Danger",
-
     "tutorial": "Tutorial",
     "chapter1": "Chapter 1",
     "chapter2": "Chapter 2",
     "chapter3": "Chapter 3",
     "completed-obj": "Completed Objective",
-
     "obj_mission": "Mission Brief",
     "task_open-inventory": "Open your inventory",
     "task_call-radio": "Call the radio",
     "task_start-mission": "Start the mission",
-
     "obj_review-inventory": "Review your inventory",
     "task_open-notepad": "Open your Notepad",
     "task_open-sm": "Open the SM Diagram",
-
     "obj_explore": "Start Exploration",
     "task_move-sub": "Click around the screen to move the sub",
     "task_dive": "Start your dive",
-
     "obj_explore-wrecks": "Explore the wrecks",
     "task_enter-wrecks": "Enter the wrecks",
     "task_new-page": "Start a new notepad page",
-
     "obj_wrecks-start": "Wrecks: Start an investigation",
     "task_observation": "Make an <span class='color sm-o'>observation</span>",
     "task_question": "Ask a <span class='color sm-q'>scientific question</span>",
     "task_hypothesis": "Make a <span class='color sm-h'>hypothesis</span>",
-
     "obj_wrecks-experiment": "Wrecks: Conduct an <span class='color sm-e'>experiment</span>",
     "task_wrecks-record-data": "Record <strong>color</strong> data at different <strong>depths.</strong>",
-
     "obj_wrecks-review": "Wrecks: Review the experiment",
     "task_wrecks-analysis": "<span class='color sm-a'>Analyze</span> your experiment data",
     "task_wrecks-conclusion": "Make a <span class='color sm-c'>conclusion</span>",
-
     "obj_explore-forest": "Explore the kelp forest.",
     "task_enter-forest": "Enter the kelp forest.",
-
     "obj_pressure-start": "Start an investigation",
     "obj_pressure-plan": "Plan an <span class='color sm-e'>experiment</span>",
     "task_review-ind": "Review the independent variable",
@@ -72,19 +59,19 @@
     "task_return-to-ship": "Return to the ship",
     "task_tool-pg": "Find a tool for measuring pressure",
     "task_tool-crane": "Find a tool for measuring depth",
-
     "obj_pressure-experiment": "Conduct pressure <span class='color sm-e'>experiment</span>",
     "task_record-pressure": "Record pressure at different depths",
-
     "obj_pressure-review": "Review pressure <span class='color sm-e'>experiment</span>",
     "task_pressure-analysis": "<span class='color sm-a'>Analyze</span> your data from the <span class='color sm-e'>experiment</span>",
     "task_pressure-conclusion": "Make a <span class='color sm-c'>conclusion</span>",
-
+    "obj_prepare-deep": "Prepare to explore deeper",
+    "task_tool-th": "Find a tool for measuring temperature",
+    "obj_explore-deep": "Explore the deep",
+    "task_enter-abyss": "Enter the abyss",
     "location-surface": "The Triton Triangle",
     "location-wrecks": "Wrecks",
     "location-forest": "Forest",
     "location-abyss": "Abyss",
-
     "i_ship": "My trusty support ship. I can come here to rest or make repairs.",
     "i_propellor": "Something is tangled in the propellor. I should go back to the ship to fix it.",
     "o_floating-kelp": "There is a kelp forest here. It looks very dense.",
@@ -95,7 +82,6 @@
     "o_kelp-monster": "A shadowy monster with kelp-like tentacles lurks in the forest.",
     "o_warning-creak": "Creaking sounds and high pressure warnings appear when going deeper.",
     "o_monster-deep": "The kelp monster stops following me at the deep end.",
-
     "sm-heading": "The Scientific Method steps",
     "sm-subheading": "Click a step for more info.",
     "sm-observation": "Observation",
@@ -116,11 +102,9 @@
     "sm-conclusion": "Conclusion",
     "sm-conclusion_def": "Conclusion: a summary statement that compares your hypothesis with the results of the experiment.",
     "sm-conclusion_desc": "Make a conclusion based on the results from your experiment and analysis.",
-
     "item-unlocked": "Item Unlocked",
     "item-activated": "Item Activated",
     "item-upgraded": "Item Upgraded",
-
     "np-cover_title": "Mission: Explore the Triton's Triangle depths",
     "np-cover_subtitle": "Conduct experiments and collect data:",
     "ql-data": "Qualitative Data",
@@ -147,14 +131,11 @@
     "depth": "Depth",
     "temperature": "Temperature",
     "analyze-data": "Analyze Data",
-
     "depth-shallow": "Shallow",
     "depth-medium": "Medium",
     "depth-deep": "Deeper",
-
     "sub-creak-1": "...<i>Creak</i>...",
     "sub-creak-2": "That sound just came from the sub's hull... that can't be good.",
-
     "sm-puzzle_title": "Enter radio code",
     "hint": "Hint",
     "hint_radio-code": "Click the Scientific Method steps in the correct order",
@@ -190,7 +171,6 @@
     "desc_shell": "A large sea snail with a horn-shaped shell. <br>There is something mysterious about this one...",
     "name_otter": "Sea Otter",
     "desc_otter": "A cute marine mammal with thick fur. <br>Can live on land and in water.",
-
     "newspaper-heading": "THE DAILY NEWS",
     "newspaper-subheading": "MYSTERY OF MISSING SCIENTIST",
     "newspaper-text-1": "Renowned scientist Dr. Conch has gone missing during a deep sea expedition into the infamous Triton Triangle.",
@@ -198,12 +178,10 @@
     "newspaper-text-3": "Little is known about the Triton's Triangle, but many tell of strange events, lurking sea monsters...",
     "newspaper-text-4": "... and rumours of a treasure hidden deep below.",
     "years-later": "Years later...",
-
     "radio_incoming-call": "<em>...Incoming call...</em>",
     "radio_crackle": "...<em>crackle</em>...",
     "radio_no-signal": "There is no signal here... maybe I should try again above water.",
     "radio_signal-lost": "Weird... lost the signal. Just when I was about to report something interesting.",
-
     "tut_status-1": "Mission Control, this is SM-Explorer. I have arrived at the Triton Triangle.",
     "tut_status-2": "Copy that, SM-Explorer. How are you feeling?",
     "tut_status-3": "Good... just a bit nervous. First time seeing this place in person.",
@@ -222,7 +200,6 @@
     "tut_elaborate-sm-3": "This process is known as the <strong>Scientific Method</strong>, use it as a guideline for your exploration.",
     "tut_mb-1.2": "Copy that. I'm ready to start.",
     "tut_mb-end": "Call us whenever need a recap. Good luck, SM-Explorer-2.",
-
     "ch1_color-q": "I wonder how the color of the ocean changes as I go deeper?",
     "ch1_color-q.1": "Stays the same.",
     "ch1_color-q.2": "Gets brighter and more colorful.",
@@ -230,7 +207,6 @@
     "ch1_color-h1": "I think ocean color stays the same at all depths",
     "ch1_color-h2": "I think ocean color gets brighter and more colorful the deeper I go.",
     "ch1_color-h3": "I think ocean color gets darker and fades the deeper I go.",
-
     "ch1_analysis-1": "Based on this data...",
     "ch1_analysis-2": "Colors start off bright and vibrant near the surface.",
     "ch1_analysis-3": "As depth increases, colors begin to change and become darker.",
@@ -239,12 +215,10 @@
     "ch1_hypothesis-correct": "These results confirm my hypothesis!",
     "ch1_hypothesis-incorrect-1": "These results do not match my hypothesis...",
     "ch1_hypothesis-incorrect-2": "...but at least I've learned something.",
-
     "enter-forest-1": "<i>Tall, swaying kelp stalks stretching upward like trees. It's like an underwater forest.</i>",
     "enter-forest-2": "<i>In the distance, a large shadowy shape emerges from the kelp. Eyes glowing menacingly...</i>",
     "enter-forest-3": "Nope... I'm getting out of here.",
     "thwomp": "<i>Thwomp!</i>",
-
     "ch1_conch-1": "What was that?! Looked like a giant kelp monster!",
     "ch1_conch-2": "Are you scared?",
     "ch1_conch-3": "Pfft, no...",
@@ -259,7 +233,6 @@
     "ch1_conch-12": "I ain't just a shell, kid. I'm a conch.",
     "ch1_conch-13": "Listen kid, the deep is full of dangers... but also wonders.",
     "ch1_conch-14": "Take me with you, I'll guide you on your exploration.",
-
     "ch2_ohq-1": "Looks like the kelp monster has left you alone for now.",
     "ch2_ohq-2": "That's a relief... maybe it's also scared of the deep.",
     "ch2_ohq-3": "This is the deepest you've been so far, pressure is also quite high.",
@@ -270,24 +243,20 @@
     "ch2_ohq-6.2": "Decreases",
     "ch2_ohq-6.3": "Stays the same.",
     "ch2_ohq-7": "Interesting, let's design an experiment to test this.",
-
     "ch2_pressure-q": "How does pressure change as I go deeper?",
     "ch2_pressure-h1": "I think pressure increases the deeper I go.",
     "ch2_pressure-h2": "I think pressure decreases the deeper I go.",
     "ch2_pressure-h3": "I think pressure stays the same at all depths.",
-
     "ch2_tool-1": "So, what steps will you take to conduct this experiment?",
     "ch2_tool-2": "As I dive deeper and modify the depth, I can measure the pressure at each depth.",
     "ch2_tool-3": "By recording measurements at different levels, I can then analyze how pressure changes with depth.",
     "ch2_tool-4": "Hmm, but to measure both variables precisely... I need tools.",
     "ch2_tool-5": "There might be some back at the ship.",
-
     "ch2_crane-1": "Nice, I can measure pressure precisely now.",
     "ch2_crane-2": "Couldn't find a tool to measure depth though.",
     "ch2_crane-3": "Hmm...",
     "ch2_crane-4": "Wait, maybe I can use the ship's crane as a tool!",
     "ch2_crane-5": "By lowering it into the water, I can use it as a measuring line for depth.",
-
     "ch2_analyze-1": "We analyze this data to find out whether there is a relationship between pressure and depth.",
     "ch2_analyze-2": "In other words, whether pressure and depth are <strong>correlated</strong>.",
     "ch2_analyze-3": "Plotting the data on a graph may help us visualize any correlations easier.",
@@ -303,16 +272,13 @@
     "ch2_hypothesis-correct": "These results confirm my hypothesis!",
     "ch2_hypothesis-incorrect-1": "These results do not match my hypothesis...",
     "ch2_hypothesis-incorrect-2": "...but at least I've learned something.",
-
     "ch2_linear-1": "Since pressure and depth have a linear relationship, we can predict the value of one variable if we know the other.",
     "ch2_linear-2": "For example, if you know how much pressure there is, you can use it to calculate how deep you are.",
     "ch2_linear-3": "This is how pressure gauges are also useful for measuring depth.",
-
     "ch2_end-1": "I can precisely measure depth anywhere now!",
-
+    "ch2_end-2": "I should return to the ship before going deeper.",
     "ch3_find-entrance-1": "There is an entrance here!",
     "ch3_find-entrance-2": "Should I enter?",
-
     "vent_desc-1": "<i>As the conch’s light cuts through the darkness, a hidden world is revealed.</i>",
     "vent_desc-2": "<i>In a place where sunlight has never touched, freezing water seeps down the gaps of the ocean bottom.</i>",
     "vent_desc-3": "<i>Mixing with the hot magma deep below, the water spews out as black smoke-like plumes…</i>",
