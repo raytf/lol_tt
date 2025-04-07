@@ -197,7 +197,7 @@
                   t2 = "",
                   t3 = "";
                 if ($objectivesApi.hasCompleted("obj_temp-experiment")) {
-                  t2 = "6.60";
+                  t2 = "6.64";
                 }
                 if ($objectivesApi.hasCompleted("obj_temp-experiment-2")) {
                   t3 = "6.58";
@@ -221,7 +221,7 @@
                   t2 = "",
                   t3 = "";
                 if ($objectivesApi.hasCompleted("obj_temp-experiment")) {
-                  t2 = "4.62";
+                  t2 = "4.59";
                 }
                 if ($objectivesApi.hasCompleted("obj_temp-experiment-2")) {
                   t3 = "4.64";
@@ -278,7 +278,7 @@
                   t2 = "",
                   t3 = "";
                 if ($objectivesApi.hasCompleted("obj_temp-experiment")) {
-                  t2 = "3.67";
+                  t2 = "3.73";
                 }
                 if ($objectivesApi.hasCompleted("obj_temp-experiment-2")) {
                   t3 = "3.65";
@@ -314,7 +314,7 @@
                   t2 = "",
                   t3 = "";
                 if ($objectivesApi.hasCompleted("obj_temp-experiment")) {
-                  t2 = "3.02";
+                  t2 = "2.95";
                 }
                 if ($objectivesApi.hasCompleted("obj_temp-experiment-2")) {
                   t3 = "3.00";
@@ -350,7 +350,7 @@
                   t2 = "",
                   t3 = "";
                 if ($objectivesApi.hasCompleted("obj_temp-experiment")) {
-                  t2 = "2.53";
+                  t2 = "2.69";
                 }
                 if ($objectivesApi.hasCompleted("obj_temp-experiment-2")) {
                   t3 = "2.51";

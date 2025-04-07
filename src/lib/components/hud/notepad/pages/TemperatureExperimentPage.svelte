@@ -19,24 +19,47 @@
     linear,
   } from "$dialog/chapter2";
   import { cn } from "$lib/utils";
+  import { analysis } from "$dialog/chapter3";
+
+  const datasets2 = [
+    {
+      // label: $lolApi.getText("np-p-exp_title"),
+      data: [
+        { x: 6.59, y: 300 },
+        { x: 4.63, y: 800 },
+        { x: 3.66, y: 1300 },
+        { x: 3.01, y: 1800 },
+        { x: 2.52, y: 2300 },
+      ],
+      fill: false,
+      borderColor: "rgb(75, 192, 192)",
+      tension: 0.1,
+      trendlineLinear: {},
+    },
+    {
+      // label: $lolApi.getText("np-p-exp_title"),
+      data: [
+        { x: 6.64, y: 300 },
+        { x: 4.59, y: 800 },
+        { x: 3.73, y: 1300 },
+        { x: 2.95, y: 1800 },
+        { x: 2.69, y: 2300 },
+      ],
+      fill: false,
+      borderColor: "rgb(255, 99, 132)",
+      tension: 0.1,
+      trendlineLinear: {},
+    },
+  ];
+
+  const datasets3 = [...datasets2, {}];
 
   let data = {
-    datasets: [
-      {
-        // label: $lolApi.getText("np-p-exp_title"),
-        data: [
-          { x: 101.33, y: 0 },
-          { x: 607.95, y: 50 },
-          { x: 1114.58, y: 100 },
-          { x: 1621.21, y: 150 },
-          { x: 2127.84, y: 200 },
-        ],
-        fill: false,
-        borderColor: "rgb(75, 192, 192)",
-        tension: 0.1,
-        trendlineLinear: {},
-      },
-    ],
+    datasets: datasets2,
+  };
+
+  let data3 = {
+    datasets: datasets3,
   };
 </script>
 
@@ -45,8 +68,8 @@
     <SmButton step="sm-e" />
     <Lol key="np-t-exp_title" class="font-bold underline" />
   </div>
-  <div class="">
-    <div class="flex flex-col">
+  <div class="grid grid-cols-3">
+    <div class="col-span-1">
       <div class="flex gap-2">
         <button
           onclick={() => {
@@ -75,9 +98,7 @@
         </button>
         <Lol key="temperature" />
       </div>
-    </div>
 
-    <div class="">
       {#if $objectivesApi.hasCompleted("obj_pressure-plan")}
         <table class="table-auto -mt-[4px] pointer-events-auto">
           <tbody>
@@ -104,7 +125,69 @@
         </table>
       {/if}
     </div>
+
+    <div class="col-span-2 flex flex-col items-center h-[252px]">
+      {#if $objectivesApi.hasCompleted("obj_temp-experiment-2")}
+        <SmButton step="sm-a" class="mb-[6px]" />
+        {#if $notepadApi.currentPage.showGraph}
+          <Scatter
+            {data}
+            options={{
+              elements: {
+                point: {
+                  radius: 4,
+                  // backgroundColor: "rgb(75, 192, 192)",
+                },
+              },
+              scales: {
+                x: {
+                  title: {
+                    display: true,
+                    text: `${$lolApi.getText("temperature")} (°C)`,
+                    font: { size: 22 },
+                  },
+                  position: "top",
+                  // min: 0,
+                  // max: 2000,
+                },
+                y: {
+                  title: {
+                    display: true,
+                    text: `${$lolApi.getText("depth")} (m)`,
+                    font: { size: 22 },
+                  },
+                  reverse: true,
+                },
+              },
+              plugins: {
+                legend: {
+                  display: false,
+                },
+              },
+            }}
+            class="pointer-events-auto"
+          />
+        {:else}
+          <SimpleButton
+            onclick={() => {
+              if ($notepadApi.currentPage.type === "experiment") {
+                $notepadApi.currentPage.showGraph = true;
+                $hudApi.startDialog({
+                  keys: analysis,
+                  onFinished: () => {
+                    $objectivesApi.completeTask("task_temp-analysis");
+                  },
+                });
+              }
+            }}
+            class="pointer-events-auto"
+            >{$lolApi.getText("analyze-data")}
+          </SimpleButton>
+        {/if}
+      {/if}
+    </div>
   </div>
+
   {#if $notepadApi.currentPage.showConclusion}
     <div class="text-center mt-2">
       <div class="flex justify-center gap-2">

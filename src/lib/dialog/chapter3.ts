@@ -97,6 +97,29 @@ export const trial1 = [
   },
 ]
 
+export const analysis = [
+  {
+    imgSrc: thinking,
+    name: "explorer",
+    text: "ch3_analysis-1",
+  },
+  {
+    imgSrc: smileSlight,
+    name: "explorer",
+    text: "ch3_analysis-2",
+  },
+  {
+    imgSrc: grinSweat,
+    name: "explorer",
+    text: "ch3_analysis-3",
+  },
+  {
+    imgSrc: conch_smile,
+    name: "conch",
+    text: "ch3_analysis-4"
+  }
+]
+
 export const hiddenEntrance = [
   {
     imgSrc: hushed,
