@@ -112,9 +112,12 @@ const objectiveMap: ObjectiveMap = {
   "obj_temp-experiment": [
     { key: "task_record-temp", numTimes: 5 },
   ],
-  "obj_temp-trial-2": [
+  "obj_temp-experiment-2": [
     { key: "task_record-temp", numTimes: 5 },
   ],
+  "obj_temp-experiment-3": [
+    { key: "task_record-temp", numTimes: 5 },
+  ]
 };
 
 const chapterMap: ChapterMap = {
@@ -315,10 +318,23 @@ const chapterMap: ChapterMap = {
       }
     },
     {
-      key: "obj_temp-experiment"
+      key: "obj_temp-experiment",
+      onFinished: () => {
+        const notepad = get(notepadApi);
+        notepad.newPage("temperature-experiment", {
+          type: "experiment",
+          rows: [
+            { data: ["300", "6.59", "", ""] },
+            { data: ["800", "4.63", "", ""] },
+            { data: ["1300", "3.66", "", ""] },
+            { data: ["1800", "3.01", "", ""] },
+            { data: ["2300", "2.52", "", ""] },
+          ],
+        });
+      }
     },
     {
-      key: "obj_temp-trial-2"
+      key: "obj_temp-experiment-2"
     }
   ],
 };

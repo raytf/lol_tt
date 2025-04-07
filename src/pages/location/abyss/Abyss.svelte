@@ -22,7 +22,7 @@
   } from "$stores/sub";
   import { gameApi, audioApi, hudApi, objectivesApi, notepadApi } from "$apis";
   import { cn } from "$lib/utils";
-  import { hiddenEntrance } from "$dialog/chapter3";
+  import { trial1, hiddenEntrance } from "$dialog/chapter3";
   import underwater from "$assets/underwater_swirls.jpg";
   import abyss_1 from "$assets/abyss/abyss_1.png";
   import abyss_2 from "$assets/abyss/abyss_2.png";
@@ -32,7 +32,7 @@
 
   //#region state
   const grid = {
-    width: $gameApi.windowWidth * 3,
+    width: $gameApi.windowWidth * 2,
     height: $gameApi.windowHeight * 4,
   };
   minOffset.set({
@@ -73,11 +73,17 @@
     $notepadApi.openPage("temperature-experiment");
     $hudApi.showNotepad = true;
     $notepadApi.updateTableRow($abyss.numMeasured, ...cols);
-    $objectivesApi.incrementTask("task_record-temp");
+
     $abyss.numMeasured++;
     if ($abyss.numMeasured >= 5) {
       $abyss.numMeasured = 0;
+      if ($objectivesApi.currentObjectiveIs("obj_temp-experiment")) {
+        $hudApi.startDialog({
+          keys: trial1,
+        });
+      }
     }
+    $objectivesApi.incrementTask("task_record-temp");
   }
   //#endregion
 
@@ -182,7 +188,7 @@
           --color-top="#037ADE"
           --color-bottom="#182B3A"
         />
-        {#if $objectivesApi.currentObjectiveIs("obj_temp-experiment") || $objectivesApi.currentObjectiveIs("obj_temp-trial-2") || $objectivesApi.currentObjectiveIs("obj_temp-trial-3")}
+        {#if $objectivesApi.currentObjectiveIs("obj_temp-experiment") || $objectivesApi.currentObjectiveIs("obj_temp-experiment-2") || $objectivesApi.currentObjectiveIs("obj_temp-experiment-3")}
           {#if $abyss.numMeasured === 0}
             <InfoMarker
               type="sm-e"
@@ -193,7 +199,7 @@
                 if ($objectivesApi.hasCompleted("obj_temp-experiment")) {
                   t2 = "6.60";
                 }
-                if ($objectivesApi.hasCompleted("obj_temp-trial-2")) {
+                if ($objectivesApi.hasCompleted("obj_temp-experiment-2")) {
                   t3 = "6.58";
                 }
                 makeMeasurement("300", t1, t2, t3);
@@ -202,6 +208,8 @@
                 "absolute w-[55px] h-[55px] top-[3%] z-[15]",
                 $objectivesApi.currentObjectiveIs("obj_temp-experiment") &&
                   "left-[22%]",
+                $objectivesApi.currentObjectiveIs("obj_temp-experiment-2") &&
+                  "left-[55%]",
               )}
             />
           {/if}
@@ -215,7 +223,7 @@
                 if ($objectivesApi.hasCompleted("obj_temp-experiment")) {
                   t2 = "4.62";
                 }
-                if ($objectivesApi.hasCompleted("obj_temp-trial-2")) {
+                if ($objectivesApi.hasCompleted("obj_temp-experiment-2")) {
                   t3 = "4.64";
                 }
                 makeMeasurement("800", t1, t2, t3);
@@ -224,6 +232,8 @@
                 "absolute w-[55px] h-[55px] top-[83%] z-[15]",
                 $objectivesApi.currentObjectiveIs("obj_temp-experiment") &&
                   "left-[22%]",
+                $objectivesApi.currentObjectiveIs("obj_temp-experiment-2") &&
+                  "left-[55%]",
               )}
             />
           {/if}
@@ -259,7 +269,7 @@
           --color-top="#182B3A"
           --color-bottom="#00172a"
         />
-        {#if $objectivesApi.currentObjectiveIs("obj_temp-experiment") || $objectivesApi.currentObjectiveIs("obj_temp-trial-2") || $objectivesApi.currentObjectiveIs("obj_temp-trial-3")}
+        {#if $objectivesApi.currentObjectiveIs("obj_temp-experiment") || $objectivesApi.currentObjectiveIs("obj_temp-experiment-2") || $objectivesApi.currentObjectiveIs("obj_temp-experiment-3")}
           {#if $abyss.numMeasured === 2}
             <InfoMarker
               type="sm-e"
@@ -270,7 +280,7 @@
                 if ($objectivesApi.hasCompleted("obj_temp-experiment")) {
                   t2 = "3.67";
                 }
-                if ($objectivesApi.hasCompleted("obj_temp-trial-2")) {
+                if ($objectivesApi.hasCompleted("obj_temp-experiment-2")) {
                   t3 = "3.65";
                 }
                 makeMeasurement("1300", t1, t2, t3);
@@ -279,6 +289,8 @@
                 "absolute w-[55px] h-[55px] top-[62%] z-[15]",
                 $objectivesApi.currentObjectiveIs("obj_temp-experiment") &&
                   "left-[22%]",
+                $objectivesApi.currentObjectiveIs("obj_temp-experiment-2") &&
+                  "left-[55%]",
               )}
             />
           {/if}
@@ -293,7 +305,7 @@
           --color-top="#00172a"
           --color-bottom="#00172a"
         />
-        {#if $objectivesApi.currentObjectiveIs("obj_temp-experiment") || $objectivesApi.currentObjectiveIs("obj_temp-trial-2") || $objectivesApi.currentObjectiveIs("obj_temp-trial-3")}
+        {#if $objectivesApi.currentObjectiveIs("obj_temp-experiment") || $objectivesApi.currentObjectiveIs("obj_temp-experiment-2") || $objectivesApi.currentObjectiveIs("obj_temp-experiment-3")}
           {#if $abyss.numMeasured === 3}
             <InfoMarker
               type="sm-e"
@@ -304,7 +316,7 @@
                 if ($objectivesApi.hasCompleted("obj_temp-experiment")) {
                   t2 = "3.02";
                 }
-                if ($objectivesApi.hasCompleted("obj_temp-trial-2")) {
+                if ($objectivesApi.hasCompleted("obj_temp-experiment-2")) {
                   t3 = "3.00";
                 }
                 makeMeasurement("1800", t1, t2, t3);
@@ -313,6 +325,8 @@
                 "absolute w-[55px] h-[55px] top-[43%] z-[15]",
                 $objectivesApi.currentObjectiveIs("obj_temp-experiment") &&
                   "left-[22%]",
+                $objectivesApi.currentObjectiveIs("obj_temp-experiment-2") &&
+                  "left-[55%]",
               )}
             />
           {/if}
@@ -327,7 +341,7 @@
           --color-top="#00172a"
           --color-bottom="#00060a"
         />
-        {#if $objectivesApi.currentObjectiveIs("obj_temp-experiment") || $objectivesApi.currentObjectiveIs("obj_temp-trial-2") || $objectivesApi.currentObjectiveIs("obj_temp-trial-3")}
+        {#if $objectivesApi.currentObjectiveIs("obj_temp-experiment") || $objectivesApi.currentObjectiveIs("obj_temp-experiment-2") || $objectivesApi.currentObjectiveIs("obj_temp-experiment-3")}
           {#if $abyss.numMeasured === 4}
             <InfoMarker
               type="sm-e"
@@ -338,7 +352,7 @@
                 if ($objectivesApi.hasCompleted("obj_temp-experiment")) {
                   t2 = "2.53";
                 }
-                if ($objectivesApi.hasCompleted("obj_temp-trial-2")) {
+                if ($objectivesApi.hasCompleted("obj_temp-experiment-2")) {
                   t3 = "2.51";
                 }
                 makeMeasurement("2300", t1, t2, t3);
@@ -347,6 +361,8 @@
                 "absolute w-[55px] h-[55px] top-[23%] z-[15]",
                 $objectivesApi.currentObjectiveIs("obj_temp-experiment") &&
                   "left-[22%]",
+                $objectivesApi.currentObjectiveIs("obj_temp-experiment-2") &&
+                  "left-[55%]",
               )}
             />
           {/if}

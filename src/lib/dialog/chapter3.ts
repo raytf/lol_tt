@@ -79,6 +79,24 @@ export const hypothesis = [
   }
 ]
 
+export const trial1 = [
+  {
+    imgSrc: conch_smile,
+    name: "conch",
+    text: "ch3_trial-1",
+  },
+  {
+    imgSrc: conch_smile,
+    name: "conch",
+    text: "ch3_trial-2",
+  },
+  {
+    imgSrc: neutral,
+    name: "explorer",
+    text: "ch3_trial-3",
+  },
+]
+
 export const hiddenEntrance = [
   {
     imgSrc: hushed,

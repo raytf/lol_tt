@@ -25,6 +25,7 @@
       $objectivesApi.completedObjectives = [
         "obj_explore-deep",
         "obj_temp-plan",
+        "obj_temp-experiment",
       ];
       $objectivesApi.recallCompletedChapters();
     }

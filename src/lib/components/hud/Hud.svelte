@@ -46,10 +46,14 @@
     </div>
     {#if $hudApi.showGaugeScreen}
       <div transition:fade>
-        <GaugeScreen class="z-[100]" />
+        <GaugeScreen
+          class={cn("z-[100]", $hudApi.showNotepad && disableHideClass)}
+        />
       </div>
     {/if}
-    <InterfaceScreen class="z-[100]" />
+    <InterfaceScreen
+      class={cn("z-[100]", $hudApi.showNotepad && disableHideClass)}
+    />
     {#if $hudApi.showObjectives}
       <div transition:fade>
         <Objectives

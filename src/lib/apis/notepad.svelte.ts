@@ -64,7 +64,7 @@ class NotepadApi {
   openPage(key: string) {
     if (this.hasPage(key)) {
       this.currentPageKey = key;
-      console.log("opening", this.currentPage);
+      //console.log("opening", this.currentPage);
     }
   }
 
