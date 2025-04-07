@@ -62,6 +62,10 @@
     });
 
     if (searchParams.has("start")) {
+      if ($objectivesApi.hasCompleted("obj_explore")) {
+        readyToDive = true;
+      }
+
       if (
         $objectivesApi.currentChapterIs("") ||
         $objectivesApi.currentChapterIs("tutorial")
@@ -97,10 +101,7 @@
             });
           }
         }, 3000);
-      } else {
-        readyToDive = true;
       }
-
       return;
     }
 

@@ -50,7 +50,14 @@
     if ($objectivesApi.currentObjectiveIs("obj_wrecks-experiment")) {
       $notepadApi.newPage("wrecks-experiment", {
         type: "table",
-        rows: [{ data: ["depth-shallow", "o_sunlight-surface"] }],
+        rows: [
+          {
+            data: [
+              $lolApi.getText("depth-shallow"),
+              $lolApi.getText("o_sunlight-surface"),
+            ],
+          },
+        ],
         lines: [],
       });
     }

@@ -14,7 +14,7 @@
 
     $hudApi.showGaugeScreen = false;
     //$hudApi.showInterface = false;
-
+    $hudApi.showNotepad = false;
     $hudApi.enabled = true;
 
     $hudApi.startDialog({

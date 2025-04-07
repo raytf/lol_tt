@@ -169,12 +169,12 @@
     xOffset={gridOffset.current.x}
     yOffset={gridOffset.current.y}
   >
-    <TurbulentImg
+    <!-- <TurbulentImg
       src={jellyfish}
       maxFrequency={[0.02, 0.07]}
       yoyo={true}
       class="!w-[222px] !h-[222px] blur opacity-50 z-10"
-    />
+    /> -->
     <TurbulentImg src={underwater} class="opacity-35 z-[1]" />
     <BgImg src={abyss_3} class="w-full -bottom-[100px] blur z-[7]" />
     <BgImg src={abyss_2} class="w-full -bottom-[100px] blur z-[8]" />
