@@ -10,6 +10,8 @@
     WrecksExperimentPage,
     ForestNotesPage,
     PressureExperimentPage,
+    AbyssNotesPage,
+    TemperatureExperimentPage,
   } from "./pages";
   import {
     notepadApi,
@@ -70,7 +72,21 @@
     if ($objectivesApi.currentObjectiveIs("obj_explore-deep")) {
       $notepadApi.newPage("abyss-notes", {
         type: "sm",
-        observations: [],
+        observations: ["o_abyss-depth"],
+        question: "np-abyss-notes_question",
+      });
+    }
+
+    if ($objectivesApi.currentObjectiveIs("obj_temp-plan")) {
+      $notepadApi.newPage("temperature-experiment", {
+        type: "experiment",
+        rows: [
+          { data: ["300", "", "", ""] },
+          { data: ["800", "", "", ""] },
+          { data: ["1300", "", "", ""] },
+          { data: ["1800", "", "", ""] },
+          { data: ["2300", "", "", ""] },
+        ],
       });
     }
 
@@ -84,7 +100,8 @@
       $objectivesApi.currentObjectiveIs("obj_wrecks-experiment") ||
       $objectivesApi.currentObjectiveIs("obj_explore-forest") ||
       $objectivesApi.currentObjectiveIs("obj_pressure-plan") ||
-      $objectivesApi.currentObjectiveIs("obj_explore-deep")
+      $objectivesApi.currentObjectiveIs("obj_explore-deep") ||
+      $objectivesApi.currentObjectiveIs("obj_temp-plan")
     ) {
       newPageEnabled = true;
     }
@@ -148,6 +165,8 @@
       {:else if $notepadApi.onSMPage()}
         {#if $notepadApi.currentPageKey === "forest-notes"}
           <ForestNotesPage />
+        {:else if $notepadApi.currentPageKey === "abyss-notes"}
+          <AbyssNotesPage />
         {/if}
       {:else if $notepadApi.onTablePage()}
         {#if $notepadApi.currentPageKey === "wrecks-experiment"}
@@ -156,6 +175,8 @@
       {:else if $notepadApi.onExperimentPage()}
         {#if $notepadApi.currentPageKey === "pressure-experiment"}
           <PressureExperimentPage />
+        {:else if $notepadApi.currentPageKey === "temperature-experiment"}
+          <TemperatureExperimentPage />
         {/if}
       {/if}
     </div>

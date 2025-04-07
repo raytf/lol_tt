@@ -22,7 +22,10 @@
   onMount(() => {
     if ($gameApi.debugMode) {
       $objectivesApi.completedChapters = ["tutorial", "chapter1", "chapter2"];
-      $objectivesApi.completedObjectives = [];
+      $objectivesApi.completedObjectives = [
+        "obj_explore-deep",
+        "obj_temp-plan",
+      ];
       $objectivesApi.recallCompletedChapters();
     }
 

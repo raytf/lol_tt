@@ -103,6 +103,18 @@ const objectiveMap: ObjectiveMap = {
     { key: "task_enter-abyss" },
     { key: "task_new-page" },
   ],
+  "obj_temp-plan": [
+    { key: "task_hypothesis" },
+    {
+      key: "task_new-page",
+    }
+  ],
+  "obj_temp-experiment": [
+    { key: "task_record-temp", numTimes: 5 },
+  ],
+  "obj_temp-trial-2": [
+    { key: "task_record-temp", numTimes: 5 },
+  ],
 };
 
 const chapterMap: ChapterMap = {
@@ -273,7 +285,41 @@ const chapterMap: ChapterMap = {
   chapter3: [
     {
       key: "obj_explore-deep",
+      onFinished: () => {
+        get(notepadApi).newPage("abyss-notes", {
+          type: "sm",
+          observations: ["o_abyss-depth"],
+          question: "np-abyss-notes_question",
+        });
+      }
     },
+    {
+      key: "obj_temp-plan",
+      onFinished: () => {
+        const notepad = get(notepadApi);
+        const abyssNotes = notepad.getPage("abyss-notes") as SMPageData;
+
+        notepad.updatePage("abyss-notes", {
+          hypothesis: abyssNotes.hypothesis ? abyssNotes.hypothesis : "ch3_hypothesis-1.2-1",
+        });
+        notepad.newPage("temperature-experiment", {
+          type: "experiment",
+          rows: [
+            { data: ["300", "", "", ""] },
+            { data: ["800", "", "", ""] },
+            { data: ["1300", "", "", ""] },
+            { data: ["1800", "", "", ""] },
+            { data: ["2300", "", "", ""] },
+          ],
+        });
+      }
+    },
+    {
+      key: "obj_temp-experiment"
+    },
+    {
+      key: "obj_temp-trial-2"
+    }
   ],
 };
 

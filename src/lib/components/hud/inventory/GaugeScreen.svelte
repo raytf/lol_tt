@@ -33,7 +33,7 @@
     let depthMultiplier = 1;
     if ($location === "/abyss") {
       depthOffset = 250;
-      depthMultiplier = 2;
+      depthMultiplier = 10;
     }
     let depth = depthOffset + Math.round(depthRatio * depthMultiplier * 250);
     return depth > 0 ? depth : 0;
@@ -78,21 +78,21 @@
   )}
 >
   {#if $inventoryApi.isItemUnlocked("pg")}
-    <p class="mx-1 text-2xl">{$lolApi.getText("pressure")}:</p>
-    <p class="mx-2 text-3xl">
-      {pressure.toFixed(2)}<span class="text-2xl">kPa</span>
+    <p class="mx-1 text-xl">{$lolApi.getText("pressure")}:</p>
+    <p class="mx-2 text-2xl">
+      {pressure.toFixed(2)}<span class="text-xl">kPa</span>
     </p>
   {/if}
   {#if $inventoryApi.isItemUpgraded("pg")}
-    <p class="mx-1 text-2xl">{$lolApi.getText("depth")}:</p>
-    <p class="mx-2 text-3xl">
-      {currentDepth}<span class="text-2xl">m</span>
+    <p class="mx-1 text-xl">{$lolApi.getText("depth")}:</p>
+    <p class="mx-2 text-2xl">
+      {currentDepth}<span class="text-xl">m</span>
     </p>
   {/if}
   {#if $inventoryApi.isItemUnlocked("th")}
-    <p class="mx-1 text-2xl">{$lolApi.getText("temperature")}:</p>
-    <p class="mx-2 text-3xl">
-      {temp.toFixed(2)}<span class="text-2xl">°C</span>
+    <p class="mx-1 text-xl">{$lolApi.getText("temperature")}:</p>
+    <p class="mx-2 text-2xl">
+      {temp.toFixed(2)}<span class="text-xl">°C</span>
     </p>
   {/if}
   <!-- 

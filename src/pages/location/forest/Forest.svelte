@@ -349,7 +349,7 @@
         0.4}); transform: translateX({gridOffset.current.x / 4}px);"
     /> -->
     <Darkness
-      level={depthRatio * 0.5 + 0.3}
+      level={depthRatio * 0.5 + 0.1}
       lights={[
         {
           x: subCoords.current.x + $subDirection.x * 50,
@@ -421,7 +421,7 @@
               onclick={() => {
                 setSubTarget({ x: grid.width - 111, y: grid.height + 111 });
                 $audioApi.stopTrack({ src: "music/tangled-depths.mp3" });
-                $objectivesApi.completeTask("task_enter-abyss");
+
                 $gameApi.fadeScene("/abyss");
                 // $gameApi.fadeScene("/surface?from=wrecks", 1, 1);
               }}

@@ -95,6 +95,18 @@ class NotepadApi {
     }
   }
 
+  updateTableRow(
+    index: number,
+    ...cols: string[]
+  ) {
+    if (
+      this.currentPage.type === "table" ||
+      this.currentPage.type === "experiment"
+    ) {
+      this.currentPage.rows[index].data = cols;
+    }
+  }
+
   prevPage() {
     const keys = Object.keys(this.pages);
     const currentIndex = keys.indexOf(this.currentPageKey);

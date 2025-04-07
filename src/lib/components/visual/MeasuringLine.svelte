@@ -9,6 +9,7 @@
     unit = "m",
     class: extraClass,
     style: extraStyle = "",
+    offset = "right-[333px]",
   }: {
     reveal?: boolean;
     height?: number;
@@ -16,6 +17,7 @@
     unit?: string;
     class?: string;
     style?: string;
+    offset?: string;
   } = $props();
 
   let lastIdx = values.length - 1;
@@ -33,12 +35,12 @@
     style="height: {height}px;{extraStyle}"
   >
     <div
-      class="absolute h-full border-l-4 border-black bottom-0 right-[333px]"
+      class={cn("absolute h-full border-l-4 border-black bottom-0", offset)}
     ></div>
     <div class="relative size-full">
       {#each values as value, i}
         <div
-          class="absolute w-[22px] border-b-4 border-black right-[333px]"
+          class={cn("absolute w-[22px] border-b-4 border-black", offset)}
           style="bottom: {i * increment}%;"
         >
           <p

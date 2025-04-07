@@ -4,10 +4,14 @@
   import { Location } from "$components/location";
   import { Grid, Area } from "$components/exploration";
   import { Submarine } from "$components/gameObjects";
-  import { Darkness, UnderwaterGradient } from "$components/visual";
+  import {
+    Darkness,
+    UnderwaterGradient,
+    MeasuringLine,
+  } from "$components/visual";
   import { Lol } from "$components/text";
   import { ArrowUp } from "$components/svg/icons/animated";
-  import { Button } from "$components/ui/button";
+  import { Button, InfoMarker } from "$components/ui/button";
   import { TurbulentImg, BgImg } from "$components/ui/img";
   import { gridOffset, minOffset, moveSub } from "$stores/exploration";
   import {
@@ -16,7 +20,7 @@
     coords as subCoords,
     direction as subDirection,
   } from "$stores/sub";
-  import { gameApi, audioApi, hudApi } from "$apis";
+  import { gameApi, audioApi, hudApi, objectivesApi, notepadApi } from "$apis";
   import { cn } from "$lib/utils";
   import { hiddenEntrance } from "$dialog/chapter3";
   import underwater from "$assets/underwater_swirls.jpg";
@@ -24,6 +28,7 @@
   import abyss_2 from "$assets/abyss/abyss_2.png";
   import abyss_3 from "$assets/abyss/abyss_3.png";
   import jellyfish from "$assets/characters/jellyfish/jellyfish.png";
+  import abyss from "$stores/abyss.svelte";
 
   //#region state
   const grid = {
@@ -53,9 +58,26 @@
       volume: 0.5,
       loop: true,
     });
+
+    if (!$objectivesApi.chapterStarted) {
+      if (!$objectivesApi.completedChapters.includes("chapter3")) {
+        $objectivesApi.startChapter("chapter3", () => {});
+      }
+    }
+    $objectivesApi.completeTask("task_enter-abyss");
   }
   function onClickArea(e: MouseEvent) {
     moveSub(e);
+  }
+  function makeMeasurement(...cols: string[]) {
+    $notepadApi.openPage("temperature-experiment");
+    $hudApi.showNotepad = true;
+    $notepadApi.updateTableRow($abyss.numMeasured, ...cols);
+    $objectivesApi.incrementTask("task_record-temp");
+    $abyss.numMeasured++;
+    if ($abyss.numMeasured >= 5) {
+      $abyss.numMeasured = 0;
+    }
   }
   //#endregion
 
@@ -129,16 +151,16 @@
     <BgImg src={abyss_3} class="w-full -bottom-[100px] blur z-[7]" />
     <BgImg src={abyss_2} class="w-full -bottom-[100px] blur z-[8]" />
     <BgImg src={abyss_1} class="w-full -bottom-[100px] blur z-[9]" />
-    <Submarine size={88} class="z-10" />
+    <Submarine size={55} class="z-10" />
 
     <Darkness
       level={depthRatio * 0.4 + 0.5}
       lights={[
         {
-          x: subCoords.current.x + $subDirection.x * 50,
+          x: subCoords.current.x + $subDirection.x * 25,
           y: subCoords.current.y,
           unit: "px",
-          radius: 4,
+          radius: 2,
           strength: 1,
         },
         // {
@@ -160,6 +182,52 @@
           --color-top="#037ADE"
           --color-bottom="#182B3A"
         />
+        {#if $objectivesApi.currentObjectiveIs("obj_temp-experiment") || $objectivesApi.currentObjectiveIs("obj_temp-trial-2") || $objectivesApi.currentObjectiveIs("obj_temp-trial-3")}
+          {#if $abyss.numMeasured === 0}
+            <InfoMarker
+              type="sm-e"
+              onclick={() => {
+                let t1 = "6.59",
+                  t2 = "",
+                  t3 = "";
+                if ($objectivesApi.hasCompleted("obj_temp-experiment")) {
+                  t2 = "6.60";
+                }
+                if ($objectivesApi.hasCompleted("obj_temp-trial-2")) {
+                  t3 = "6.58";
+                }
+                makeMeasurement("300", t1, t2, t3);
+              }}
+              class={cn(
+                "absolute w-[55px] h-[55px] top-[3%] z-[15]",
+                $objectivesApi.currentObjectiveIs("obj_temp-experiment") &&
+                  "left-[22%]",
+              )}
+            />
+          {/if}
+          {#if $abyss.numMeasured === 1}
+            <InfoMarker
+              type="sm-e"
+              onclick={() => {
+                let t1 = "4.63",
+                  t2 = "",
+                  t3 = "";
+                if ($objectivesApi.hasCompleted("obj_temp-experiment")) {
+                  t2 = "4.62";
+                }
+                if ($objectivesApi.hasCompleted("obj_temp-trial-2")) {
+                  t3 = "4.64";
+                }
+                makeMeasurement("800", t1, t2, t3);
+              }}
+              class={cn(
+                "absolute w-[55px] h-[55px] top-[83%] z-[15]",
+                $objectivesApi.currentObjectiveIs("obj_temp-experiment") &&
+                  "left-[22%]",
+              )}
+            />
+          {/if}
+        {/if}
         <div
           transition:fade
           class={cn(
@@ -177,7 +245,7 @@
             }}
             class="w-[99px] h-[88px] flex-col items-center gap-1"
           >
-            <Lol key="location-abyss" />
+            <Lol key="location-forest" />
             <ArrowUp class="w-[44px] h-[44px]" />
           </Button>
         </div>
@@ -191,6 +259,30 @@
           --color-top="#182B3A"
           --color-bottom="#00172a"
         />
+        {#if $objectivesApi.currentObjectiveIs("obj_temp-experiment") || $objectivesApi.currentObjectiveIs("obj_temp-trial-2") || $objectivesApi.currentObjectiveIs("obj_temp-trial-3")}
+          {#if $abyss.numMeasured === 2}
+            <InfoMarker
+              type="sm-e"
+              onclick={() => {
+                let t1 = "3.66",
+                  t2 = "",
+                  t3 = "";
+                if ($objectivesApi.hasCompleted("obj_temp-experiment")) {
+                  t2 = "3.67";
+                }
+                if ($objectivesApi.hasCompleted("obj_temp-trial-2")) {
+                  t3 = "3.65";
+                }
+                makeMeasurement("1300", t1, t2, t3);
+              }}
+              class={cn(
+                "absolute w-[55px] h-[55px] top-[62%] z-[15]",
+                $objectivesApi.currentObjectiveIs("obj_temp-experiment") &&
+                  "left-[22%]",
+              )}
+            />
+          {/if}
+        {/if}
       </Area>
       <Area
         size={[grid.width, $gameApi.windowHeight]}
@@ -201,6 +293,30 @@
           --color-top="#00172a"
           --color-bottom="#00172a"
         />
+        {#if $objectivesApi.currentObjectiveIs("obj_temp-experiment") || $objectivesApi.currentObjectiveIs("obj_temp-trial-2") || $objectivesApi.currentObjectiveIs("obj_temp-trial-3")}
+          {#if $abyss.numMeasured === 3}
+            <InfoMarker
+              type="sm-e"
+              onclick={() => {
+                let t1 = "3.01",
+                  t2 = "",
+                  t3 = "";
+                if ($objectivesApi.hasCompleted("obj_temp-experiment")) {
+                  t2 = "3.02";
+                }
+                if ($objectivesApi.hasCompleted("obj_temp-trial-2")) {
+                  t3 = "3.00";
+                }
+                makeMeasurement("1800", t1, t2, t3);
+              }}
+              class={cn(
+                "absolute w-[55px] h-[55px] top-[43%] z-[15]",
+                $objectivesApi.currentObjectiveIs("obj_temp-experiment") &&
+                  "left-[22%]",
+              )}
+            />
+          {/if}
+        {/if}
       </Area>
       <Area
         size={[grid.width, $gameApi.windowHeight]}
@@ -211,6 +327,30 @@
           --color-top="#00172a"
           --color-bottom="#00060a"
         />
+        {#if $objectivesApi.currentObjectiveIs("obj_temp-experiment") || $objectivesApi.currentObjectiveIs("obj_temp-trial-2") || $objectivesApi.currentObjectiveIs("obj_temp-trial-3")}
+          {#if $abyss.numMeasured === 4}
+            <InfoMarker
+              type="sm-e"
+              onclick={() => {
+                let t1 = "2.52",
+                  t2 = "",
+                  t3 = "";
+                if ($objectivesApi.hasCompleted("obj_temp-experiment")) {
+                  t2 = "2.53";
+                }
+                if ($objectivesApi.hasCompleted("obj_temp-trial-2")) {
+                  t3 = "2.51";
+                }
+                makeMeasurement("2300", t1, t2, t3);
+              }}
+              class={cn(
+                "absolute w-[55px] h-[55px] top-[23%] z-[15]",
+                $objectivesApi.currentObjectiveIs("obj_temp-experiment") &&
+                  "left-[22%]",
+              )}
+            />
+          {/if}
+        {/if}
       </Area>
     {/snippet}
   </Grid>
