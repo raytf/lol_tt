@@ -9,7 +9,7 @@ interface StartItemUnlockParams {
 }
 
 class HudApi {
-  enabled = $state(true);
+  enabled = $state(false);
   showDebug = $state(true);
   showObjectives = $state(false);
   showDialog = $state(false);
@@ -27,7 +27,7 @@ class HudApi {
   showMap = $state(false);
   showInfoModal = $state(false);
 
-  showGaugeScreen = $state(true);
+  showGaugeScreen = $state(false);
   showInterface = $state(true);
 
   debugActivate() {

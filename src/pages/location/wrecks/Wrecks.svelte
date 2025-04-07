@@ -143,6 +143,10 @@
       subNearSurface = false;
     }
 
+    if ($objectivesApi.currentObjectiveIs("obj_explore")) {
+      $objectivesApi.completeTask("task_move-sub");
+    }
+
     onClickArea(e);
   }
   function onClickMiddleArea(e: MouseEvent) {
