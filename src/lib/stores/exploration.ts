@@ -14,7 +14,7 @@ export const gridOffset = new Spring(
 );
 export const minOffset = writable({ x: 0, y: 0 });
 
-export const moveSub = (e: MouseEvent) => {
+export const moveSub = (e: MouseEvent, onMove?: ({ x1, y1 }: { x1: number; y1: number }) => void) => {
   const gApi = get(gameApi);
 
   const halfWidth = gApi.windowWidth / 2;
@@ -34,6 +34,7 @@ export const moveSub = (e: MouseEvent) => {
   const y = e.clientY - gridOffset.current.y;
   setSubTarget({ x, y });
   //checkPressure({ x, y });
+  onMove?.({ x1: x, y1: y });
   //console.log({ x, y });
   //console.log(gridOffset.current);
   return { x, y };

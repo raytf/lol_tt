@@ -121,7 +121,9 @@ const objectiveMap: ObjectiveMap = {
   "obj_temp-experiment-3": [
     { key: "task_record-temp", numTimes: 5 },
   ],
-
+  "obj_temp-review": [
+    { key: "task_temp-conclusion" },
+  ]
 };
 
 const chapterMap: ChapterMap = {
@@ -341,8 +343,7 @@ const chapterMap: ChapterMap = {
       key: "obj_temp-experiment-2",
       onFinished: () => {
         const notepad = get(notepadApi);
-        notepad.newPage("temperature-experiment", {
-          type: "experiment",
+        notepad.updatePage("temperature-experiment", {
           rows: [
             { data: ["300", "6.59", "6.64", ""] },
             { data: ["800", "4.63", "4.59", ""] },
@@ -354,7 +355,31 @@ const chapterMap: ChapterMap = {
       }
     },
     {
-      key: "obj_temp-analysis"
+      key: "obj_temp-analysis",
+      onFinished: () => {
+        const notepad = get(notepadApi);
+        notepad.updatePage("temperature-experiment", {
+          showGraph: true,
+        });
+      }
+    },
+    {
+      key: "obj_temp-experiment-3",
+      onFinished: () => {
+        const notepad = get(notepadApi);
+        notepad.updatePage("temperature-experiment", {
+          rows: [
+            { data: ["300", "6.59", "6.64", "6.70"] },
+            { data: ["800", "4.63", "4.59", "4.69"] },
+            { data: ["1300", "3.66", "3.73", "3.77"] },
+            { data: ["1800", "3.01", "2.95", "9.09"] },
+            { data: ["2300", "2.52", "2.69", "12.55"] },
+          ],
+        });
+      }
+    },
+    {
+      key: "obj_temp-review"
     }
   ],
 };

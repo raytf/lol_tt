@@ -21,7 +21,7 @@ export class Dialog {
     this.blockInput = params.blockInput || false;
     this.position = "top";
     this.disabledOptions = params.disabledOptions || [];
-    this.onFinished = params.onFinished || (() => {});
+    this.onFinished = params.onFinished || (() => { });
   }
 
   insertDialog(newKeys: DialogKey[] = []) {
@@ -37,7 +37,7 @@ export class Dialog {
       if (!this.currentKey.alreadyRead) {
         get(lolApi).speakText(this.currentKey.text);
       }
-      console.log("currentKey", this.currentKey);
+      //console.log("currentKey", this.currentKey);
       this.currentKey?.onStart?.();
     } else {
       this.onFinished();

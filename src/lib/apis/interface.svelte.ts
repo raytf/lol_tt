@@ -22,7 +22,7 @@ class InterfaceApi {
     if (!exists) {
       this.warningList = [...this.warningList, warning];
     }
-    console.log("show warning")
+    //console.log("show warning")
     this.revealWarning = true;
   }
 

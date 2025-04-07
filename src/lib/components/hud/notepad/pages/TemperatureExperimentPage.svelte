@@ -34,7 +34,6 @@
       fill: false,
       borderColor: "rgb(75, 192, 192)",
       tension: 0.1,
-      trendlineLinear: {},
     },
     {
       // label: $lolApi.getText("np-p-exp_title"),
@@ -48,11 +47,25 @@
       fill: false,
       borderColor: "rgb(255, 99, 132)",
       tension: 0.1,
-      trendlineLinear: {},
     },
   ];
 
-  const datasets3 = [...datasets2, {}];
+  const datasets3 = [
+    ...datasets2,
+    {
+      // label: $lolApi.getText("np-p-exp_title"),
+      data: [
+        { x: 6.7, y: 300 },
+        { x: 4.69, y: 800 },
+        { x: 3.77, y: 1300 },
+        { x: 9.09, y: 1800 },
+        { x: 12.55, y: 2300 },
+      ],
+      fill: false,
+      borderColor: "rgb(255, 69, 0)",
+      tension: 0.1,
+    },
+  ];
 
   let data = {
     datasets: datasets2,
@@ -131,8 +144,11 @@
         <SmButton step="sm-a" class="mb-[6px]" />
         {#if $notepadApi.currentPage.showGraph}
           <Scatter
-            {data}
+            data={$objectivesApi.hasCompleted("obj_temp-experiment-3")
+              ? data3
+              : data}
             options={{
+              showLine: true,
               elements: {
                 point: {
                   radius: 4,

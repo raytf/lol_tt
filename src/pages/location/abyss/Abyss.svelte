@@ -19,10 +19,11 @@
     setPosition as setSubPosition,
     coords as subCoords,
     direction as subDirection,
+    nearVent,
   } from "$stores/sub";
   import { gameApi, audioApi, hudApi, objectivesApi, notepadApi } from "$apis";
   import { cn } from "$lib/utils";
-  import { trial1, hiddenEntrance } from "$dialog/chapter3";
+  import { trial1, anomaly, hiddenEntrance } from "$dialog/chapter3";
   import underwater from "$assets/underwater_swirls.jpg";
   import abyss_1 from "$assets/abyss/abyss_1.png";
   import abyss_2 from "$assets/abyss/abyss_2.png";
@@ -67,11 +68,20 @@
     $objectivesApi.completeTask("task_enter-abyss");
   }
   function onClickArea(e: MouseEvent) {
-    moveSub(e);
+    moveSub(e, ({ x1, y1 }) => {
+      if (x1 > 1800 && y1 > 1000) {
+        nearVent.set(true);
+      } else {
+        nearVent.set(false);
+      }
+      //console.log(x1, y1);
+    });
   }
   function makeMeasurement(...cols: string[]) {
     $notepadApi.openPage("temperature-experiment");
-    $hudApi.showNotepad = true;
+    if (!$objectivesApi.currentObjectiveIs("obj_temp-experiment-3")) {
+      $hudApi.showNotepad = true;
+    }
     $notepadApi.updateTableRow($abyss.numMeasured, ...cols);
 
     $abyss.numMeasured++;
@@ -80,6 +90,18 @@
       if ($objectivesApi.currentObjectiveIs("obj_temp-experiment")) {
         $hudApi.startDialog({
           keys: trial1,
+        });
+      }
+      if ($objectivesApi.currentObjectiveIs("obj_temp-experiment-3")) {
+        $hudApi.showNotepad = true;
+        $notepadApi.seethrough = false;
+        $hudApi.startDialog({
+          keys: anomaly,
+          blockInput: true,
+          onFinished: () => {
+            $notepadApi.seethrough = true;
+            $gameApi.fadeScene("/vent");
+          },
         });
       }
     }
@@ -200,7 +222,7 @@
                   t2 = "6.64";
                 }
                 if ($objectivesApi.hasCompleted("obj_temp-experiment-2")) {
-                  t3 = "6.58";
+                  t3 = "6.70";
                 }
                 makeMeasurement("300", t1, t2, t3);
               }}
@@ -210,6 +232,8 @@
                   "left-[22%]",
                 $objectivesApi.currentObjectiveIs("obj_temp-experiment-2") &&
                   "left-[55%]",
+                $objectivesApi.currentObjectiveIs("obj_temp-experiment-3") &&
+                  "left-[88%]",
               )}
             />
           {/if}
@@ -224,7 +248,7 @@
                   t2 = "4.59";
                 }
                 if ($objectivesApi.hasCompleted("obj_temp-experiment-2")) {
-                  t3 = "4.64";
+                  t3 = "4.69";
                 }
                 makeMeasurement("800", t1, t2, t3);
               }}
@@ -234,6 +258,8 @@
                   "left-[22%]",
                 $objectivesApi.currentObjectiveIs("obj_temp-experiment-2") &&
                   "left-[55%]",
+                $objectivesApi.currentObjectiveIs("obj_temp-experiment-3") &&
+                  "left-[88%]",
               )}
             />
           {/if}
@@ -281,7 +307,7 @@
                   t2 = "3.73";
                 }
                 if ($objectivesApi.hasCompleted("obj_temp-experiment-2")) {
-                  t3 = "3.65";
+                  t3 = "3.77";
                 }
                 makeMeasurement("1300", t1, t2, t3);
               }}
@@ -291,6 +317,8 @@
                   "left-[22%]",
                 $objectivesApi.currentObjectiveIs("obj_temp-experiment-2") &&
                   "left-[55%]",
+                $objectivesApi.currentObjectiveIs("obj_temp-experiment-3") &&
+                  "left-[88%]",
               )}
             />
           {/if}
@@ -317,7 +345,7 @@
                   t2 = "2.95";
                 }
                 if ($objectivesApi.hasCompleted("obj_temp-experiment-2")) {
-                  t3 = "3.00";
+                  t3 = "9.09";
                 }
                 makeMeasurement("1800", t1, t2, t3);
               }}
@@ -327,6 +355,8 @@
                   "left-[22%]",
                 $objectivesApi.currentObjectiveIs("obj_temp-experiment-2") &&
                   "left-[55%]",
+                $objectivesApi.currentObjectiveIs("obj_temp-experiment-3") &&
+                  "left-[88%]",
               )}
             />
           {/if}
@@ -353,7 +383,7 @@
                   t2 = "2.69";
                 }
                 if ($objectivesApi.hasCompleted("obj_temp-experiment-2")) {
-                  t3 = "2.51";
+                  t3 = "12.55";
                 }
                 makeMeasurement("2300", t1, t2, t3);
               }}
@@ -363,6 +393,8 @@
                   "left-[22%]",
                 $objectivesApi.currentObjectiveIs("obj_temp-experiment-2") &&
                   "left-[55%]",
+                $objectivesApi.currentObjectiveIs("obj_temp-experiment-3") &&
+                  "left-[88%]",
               )}
             />
           {/if}

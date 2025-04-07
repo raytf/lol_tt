@@ -47,7 +47,7 @@
     }
     let val = 18 - Math.log(currentDepth) * 2;
     if ($nearVent) {
-      val += Math.exp(currentDepth / 1000) / 5;
+      val += Math.exp(currentDepth / 1000);
     }
     return val;
   });

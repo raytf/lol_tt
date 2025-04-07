@@ -12,8 +12,16 @@
       volume: 0.5,
     });
 
+    $hudApi.showGaugeScreen = false;
+    //$hudApi.showInterface = false;
+
+    $hudApi.enabled = true;
+
     $hudApi.startDialog({
       keys: ventDescription,
+      onFinished: () => {
+        $gameApi.fadeScene("/");
+      },
     });
 
     videoElement.play();
@@ -30,14 +38,14 @@
   }
 </script>
 
-<button
+<!-- <button
   onclick={() => {
     $gameApi.fadeScene("/abyss");
   }}
   class="absolute top-4 left-4 pointer-events-auto z-[10]"
 >
   Back
-</button>
+</button> -->
 <video
   bind:this={videoElement}
   onended={onVideoEnded}

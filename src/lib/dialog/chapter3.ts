@@ -120,6 +120,39 @@ export const analysis = [
   }
 ]
 
+export const anomaly = [
+  {
+    imgSrc: confused,
+    name: "explorer",
+    text: "ch3_anomaly-1",
+  },
+  {
+    imgSrc: frownSlight,
+    name: "explorer",
+    text: "ch3_anomaly-2",
+  },
+  {
+    imgSrc: thinking,
+    name: "explorer",
+    text: "ch3_anomaly-3",
+  },
+  {
+    imgSrc: conch_smile,
+    name: "conch",
+    text: "ch3_anomaly-4",
+  },
+  {
+    imgSrc: conch_smile,
+    name: "conch",
+    text: "ch3_anomaly-5",
+  },
+  {
+    imgSrc: openMouth,
+    name: "explorer",
+    text: "ch3_anomaly-6",
+  },
+]
+
 export const hiddenEntrance = [
   {
     imgSrc: hushed,
@@ -157,5 +190,17 @@ export const ventDescription = [
   },
   {
     text: "vent_desc-8",
+  },
+  {
+    text: "vent_desc-9",
+  },
+  {
+    text: "vent_desc-10",
+  },
+  {
+    text: "vent_desc-11",
+  },
+  {
+    text: "vent_desc-12",
   },
 ];

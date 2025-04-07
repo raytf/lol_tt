@@ -51,9 +51,11 @@
         />
       </div>
     {/if}
-    <InterfaceScreen
-      class={cn("z-[100]", $hudApi.showNotepad && disableHideClass)}
-    />
+    {#if $hudApi.showInterface}
+      <InterfaceScreen
+        class={cn("z-[100]", $hudApi.showNotepad && disableHideClass)}
+      />
+    {/if}
     {#if $hudApi.showObjectives}
       <div transition:fade>
         <Objectives

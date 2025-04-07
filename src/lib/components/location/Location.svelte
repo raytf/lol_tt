@@ -26,6 +26,8 @@
         "obj_explore-deep",
         "obj_temp-plan",
         "obj_temp-experiment",
+        "obj_temp-experiment-2",
+        "obj_temp-analysis",
       ];
       $objectivesApi.recallCompletedChapters();
     }

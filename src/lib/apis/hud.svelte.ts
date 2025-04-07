@@ -28,6 +28,7 @@ class HudApi {
   showInfoModal = $state(false);
 
   showGaugeScreen = $state(true);
+  showInterface = $state(true);
 
   debugActivate() {
     //get(inventoryApi).unlockEverything();
@@ -98,7 +99,7 @@ class HudApi {
       iApi.unlockItem(itemId);
     }
 
-    iApi.onItemUnlockFinished = () => {};
+    iApi.onItemUnlockFinished = () => { };
     if (onFinished) iApi.onItemUnlockFinished = onFinished;
 
     this.showItemUnlock = true;
