@@ -30,7 +30,7 @@ export interface StopTrackOptions {
 }
 
 export class AudioApi {
-  soundEnabled = $state(false);
+  soundEnabled = $state(true);
   tracks = new Map<string, Track>();
   constructor() {
     if (!this.soundEnabled) {
@@ -49,7 +49,7 @@ export class AudioApi {
     }
   };
 
-  loadTrack = ({ src, onload = () => {} }: TrackOptions) => {
+  loadTrack = ({ src, onload = () => { } }: TrackOptions) => {
     //if (!this.soundEnabled) return;
 
     if (src in this.tracks) {
