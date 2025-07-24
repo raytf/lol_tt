@@ -126,17 +126,17 @@
     {/if}
     {#if $hudApi.showNotepad}
       <!-- svelte-ignore a11y_no_static_element_interactions -->
-      <div
-        transition:fly={{ y: 555 }}
-        onmouseenter={() => {
+      <!--         onmouseenter={() => {
           if (!$notepadApi.seethrough) return;
           $notepadApi.opacity = 80;
         }}
         onmouseleave={() => {
           if (!$notepadApi.seethrough) return;
           $notepadApi.opacity = 15;
-        }}
-        class="absolute w-[98%] h-[88%] bottom-0 right-2 z-[100]"
+        }} -->
+      <div
+        transition:fly={{ y: 555 }}
+        class="absolute w-[50%] h-[88%] bottom-0 right-0 z-[100]"
       >
         <Notepad class="size-full" />
       </div>
