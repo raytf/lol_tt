@@ -30,16 +30,13 @@
     width: $gameApi.windowWidth,
     height: $gameApi.windowHeight,
   };
-  // minOffset.set({
-  //   x: -grid.width + $gameApi.windowWidth,
-  //   y: -grid.height + $gameApi.windowHeight,
-  // });
 
   let initialSubCoords = {
     x: $gameApi.windowWidth / 2,
     y: $gameApi.windowHeight / 2 + 111,
   };
   const searchParams = new URLSearchParams($querystring);
+  const isTitleScreen = searchParams.has("title");
   if (searchParams.has("from", "wrecks")) {
     initialSubCoords = {
       x: subCoords.current.x,
@@ -47,11 +44,31 @@
     };
     gridOffset.set({ x: gridOffset.current.x, y: 0 }, { instant: true });
   }
-  let surfaceSub = $state(true);
+  let surfaceSub = $state(false);
   let readyToDive = $state(false);
   //#endregion
 
   //#region events
+  function startTitleSequence() {
+    showTitleSequence = true;
+    $audioApi.playTrack({
+      src: "music/into-the-blue.mp3",
+      volume: 0.55,
+      loop: true,
+    });
+  }
+
+  function onPlay() {
+    surfaceSub = true;
+    showTitleSequence = false;
+
+    // $gameApi.fadeScene("/surface?start", 2, 2);
+    $audioApi.stopTrack({
+      src: "music/into-the-blue.mp3",
+      fade: true,
+      fadeTime: 5555,
+    });
+  }
   function onClickArea(e: MouseEvent) {
     if ($objectivesApi.currentObjectiveIs("obj_explore")) {
       $objectivesApi.completeTask("task_move-sub");
@@ -62,22 +79,49 @@
   //#endregion
 
   setSubPosition(initialSubCoords);
-  onMount(() => {});
+  onMount(() => {
+    if (isTitleScreen) {
+      startTitleSequence();
+      return;
+    }
+
+    surfaceSub = true;
+  });
+
+  let showTitleSequence = $state(false);
 </script>
 
-<Location titleKey="" uiClass="z-[11]">
+<Location titleKey="location-surface" uiClass="z-[21]">
   {#snippet ui()}
-    <div class="size-full flex flex-col items-center">
-      <h1 class="text-title text-8xl font-bold mt-24">
-        {$lolApi.getText("title")}
-      </h1>
-      <p
-        in:fade={{ delay: 3000, duration: 2000 }}
-        class="text-title text-4xl font-bold p-4"
+    {#if showTitleSequence}
+      <div
+        out:fade={{ duration: 2000 }}
+        class="absolute top-0 size-full flex flex-col items-center"
       >
-        {$lolApi.getText("subtitle")}
-      </p>
-    </div>
+        <h1
+          in:fade={{ delay: 1000, duration: 3000 }}
+          class="text-title text-8xl font-bold mt-24"
+        >
+          {$lolApi.getText("title")}
+        </h1>
+        <p
+          in:fade={{ delay: 3000, duration: 2000 }}
+          class="text-title text-4xl font-bold p-4"
+        >
+          {$lolApi.getText("subtitle")}
+        </p>
+        <div
+          in:fade={{ delay: 4000, duration: 2000 }}
+          class="grow w-full flex flex-col justify-end items-center"
+        >
+          <button onclick={onPlay} class="text-title p-12 pointer-events-auto">
+            <p class="text-2xl hover:text-yellow-200">
+              {$lolApi.getText("play")}
+            </p>
+          </button>
+        </div>
+      </div>
+    {/if}
   {/snippet}
 
   <Grid

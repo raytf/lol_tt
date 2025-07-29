@@ -17,7 +17,7 @@ class HudApi {
   enableSettings = $state(true);
   openSettings = $state(false);
 
-  enableInventory = $state(true);
+  enableInventory = $state(false);
   openInventory = $state(false);
 
   showItemUnlock = $state(false);

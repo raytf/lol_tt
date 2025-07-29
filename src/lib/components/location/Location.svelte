@@ -20,17 +20,17 @@
   } = $props();
 
   onMount(() => {
-    if ($gameApi.debugMode) {
-      $objectivesApi.completedChapters = ["tutorial", "chapter1", "chapter2"];
-      $objectivesApi.completedObjectives = [
-        "obj_explore-deep",
-        "obj_temp-plan",
-        "obj_temp-experiment",
-        "obj_temp-experiment-2",
-        "obj_temp-analysis",
-      ];
-      $objectivesApi.recallCompletedChapters();
-    }
+    // if ($gameApi.debugMode) {
+    //   $objectivesApi.completedChapters = ["tutorial", "chapter1", "chapter2"];
+    //   $objectivesApi.completedObjectives = [
+    //     "obj_explore-deep",
+    //     "obj_temp-plan",
+    //     "obj_temp-experiment",
+    //     "obj_temp-experiment-2",
+    //     "obj_temp-analysis",
+    //   ];
+    //   $objectivesApi.recallCompletedChapters();
+    // }
 
     $gameApi.startedGame = true;
     hideHeading();
