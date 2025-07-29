@@ -37,6 +37,7 @@
 
     $gameApi.startedGame = true;
     $hudApi.enabled = true;
+    mounted = true;
     // hideHeading();
 
     // const tlHeading = tlRevealHeading();
@@ -45,12 +46,14 @@
     //   $hudApi.enabled = true;
     // }, 2000);
   });
+
+  let mounted = $state(false);
 </script>
 
 <div class="relative size-full {extraClass}">
   <div class="absolute size-full pointer-events-none {uiClass}">
     <div class="heading-location w-full text-center">
-      {#if titleKey && showTitle}
+      {#if titleKey && showTitle && mounted}
         <div
           in:fade={{ duration: 2000 }}
           out:fade={{ delay: 2000, duration: 2000 }}

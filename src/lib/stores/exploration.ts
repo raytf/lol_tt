@@ -30,7 +30,7 @@ export const moveSub = (
 
   let newXOffset = gridOffset.current.x - halfWidthDiff;
   let newYOffset = gridOffset.current.y - halfHeightDiff;
-  console.log(get(leftSide));
+  // console.log(get(leftSide));
   if (newXOffset > 0) newXOffset = 0;
   if (newYOffset > 0) newYOffset = 0;
   if (newXOffset < get(minOffset).x) newXOffset = get(minOffset).x;
