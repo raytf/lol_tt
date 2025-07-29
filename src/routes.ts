@@ -1,5 +1,5 @@
 import Logo from "./pages/logo";
-import Title, { Newspaper, MissionBrief } from "./pages/title";
+import Title, { Newspaper } from "./pages/title";
 import Dev from "./pages/Dev.svelte";
 // Exploration
 import Surface from "./pages/location/surface";
@@ -28,7 +28,6 @@ export default {
   "/dev": Dev,
   "/": Logo,
   "/title": Title,
-  "/mission-brief": MissionBrief,
   "/newspaper": Newspaper,
   "/surface": Surface,
   "/wrecks": Wrecks,

@@ -207,7 +207,7 @@
   .section-text {
     position: absolute;
     max-height: 100%;
-    padding: 3.3em 1em 1em 3em;
+    padding: 3.3em 0em 0em 1.5em;
     line-height: 1.45em;
     overflow: hidden;
     pointer-events: none;

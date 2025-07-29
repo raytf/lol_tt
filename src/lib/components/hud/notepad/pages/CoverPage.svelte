@@ -5,7 +5,8 @@
 </script>
 
 <Lol key="np-cover_title" class="font-bold underline" />
-<Lol key="np-cover_subtitle" />
+<Lol key="np-cover-1" />
+<Lol key="np-cover-2" />
 <button
   onclick={() => {
     $infoApi.openModal({
@@ -37,7 +38,7 @@
     }}
     class="inline-block hover:font-bold pointer-events-auto"
   >
-    <InfoButton />{$lolApi.getText("ee_name")}
+    <InfoButton /><Lol key="ee_name" type="span" />
   </button>
 </p>
 <br />

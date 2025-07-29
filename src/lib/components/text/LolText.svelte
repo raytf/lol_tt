@@ -6,11 +6,20 @@
     key,
     class: extraClass,
     shadow = false,
-  }: { key: string; class?: string; shadow?: boolean } = $props();
+    type = "p",
+  }: {
+    key: string;
+    class?: string;
+    shadow?: boolean;
+    type?: string;
+  } = $props();
   let text = $state($lolApi.getText(key));
 </script>
 
-<p class={cn("relative", shadow && "shadow", extraClass)}>
+<svelte:element
+  this={type}
+  class={cn("relative", shadow && "shadow", extraClass)}
+>
   {@html text}<button
     aria-label="button_speak-text"
     onclick={() => {
@@ -28,7 +37,7 @@
       /></svg
     ></button
   >
-</p>
+</svelte:element>
 
 <style>
   .shadow {
