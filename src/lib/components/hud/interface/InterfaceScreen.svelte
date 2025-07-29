@@ -4,6 +4,7 @@
   import { Warning } from "$components/svg/icons";
   import { cn } from "$lib/utils";
   import { interfaceApi } from "$apis";
+  import { coords } from "$stores/sub";
 
   let {
     class: extraClass,
@@ -13,6 +14,10 @@
 </script>
 
 <div class={cn("absolute size-full", extraClass)}>
+  <div class="bottom-0 right-0">
+    <p>{coords.current.x}</p>
+    <p>{coords.current.y}</p>
+  </div>
   {#if $interfaceApi.revealWarning}
     <div
       transition:fade

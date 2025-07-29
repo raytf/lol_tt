@@ -40,14 +40,27 @@
     [FishType.StripeYellow]: stripe_yellow,
     [FishType.Yellow]: yellow,
   } as const;
+
+  let hovered = $state(false);
 </script>
 
-<button onmouseenter={onclick} class={cn("absolute", extraClass)}>
+<button
+  onmouseenter={() => {
+    hovered = true;
+    onclick?.();
+  }}
+  onmouseleave={() => {
+    hovered = false;
+  }}
+  class={cn("absolute", extraClass)}
+>
   <img
     src={fishImages[fishType]}
     alt={fishType}
     height={size}
     width={size}
-    class="pointer-events-none select-none"
+    class="pointer-events-none select-none {hovered
+      ? 'brightness-200'
+      : 'brightness-100'}"
   />
 </button>

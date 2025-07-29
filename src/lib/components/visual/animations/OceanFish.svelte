@@ -84,14 +84,15 @@
   });
 </script>
 
-<div class={cn("absolute size-full pointer-events-none", containerClass)}></div>
-{#each fishTypes as fishType, index}
-  <Fish
-    {fishType}
-    size={fishSize}
-    class={cn(`absolute fish${index + 1}`, fishClass)}
-    onclick={() => {
-      console.log(fishType);
-    }}
-  />
-{/each}
+<div class={cn("ocean-fish", containerClass)}>
+  {#each fishTypes as fishType, index}
+    <Fish
+      {fishType}
+      size={fishSize}
+      class={cn(`absolute fish${index + 1}`, fishClass)}
+      onclick={() => {
+        console.log(fishType);
+      }}
+    />
+  {/each}
+</div>

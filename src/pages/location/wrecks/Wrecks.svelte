@@ -24,6 +24,7 @@
   import wrecks1 from "$assets/wrecks/wrecks1.png";
   import wrecks2 from "$assets/wrecks/wrecks2.png";
   import wrecks3 from "$assets/wrecks/wrecks3.png";
+  import ship from "$assets/wrecks/ship.png";
   import { WrecksPath } from "$components/svg/environment";
   import {
     hudApi,
@@ -78,6 +79,9 @@
       setSubTarget(initialTarget);
     }, 555);
   });
+
+  let hoveredSunlight = $state(false);
+  let hoveredShip = $state(false);
 </script>
 
 <Location titleKey="location-wrecks" uiClass="z-[11]">
@@ -89,10 +93,30 @@
     yOffset={gridOffset.current.y}
   >
     {#snippet backgrounds()}
-      <TurbulentImg src={underwater} class="opacity-50 z-[1]" />
+      <TurbulentImg src={underwater} class="opacity-70 z-[1]" />
+      <!-- <div
+        onmouseenter={() => (hoveredSunlight = true)}
+        onmouseleave={() => (hoveredSunlight = false)}
+        class="absolute left-[30%] h-[200px] w-[1500px] z-[2]"
+      ></div> -->
 
       <div id="layer3">
-        <BgImg src={wrecks3} class="w-[100%] bottom-0 z-[7] opacity-100" />
+        <BgImg src={wrecks3} class="w-[100%] bottom-0 z-[7]" />
+        <BgImg
+          src={ship}
+          class="w-[100%] bottom-0 z-[8] {hoveredShip
+            ? 'brightness-200'
+            : 'brightness-100'} transition-[filter]"
+        />
+        {#if false}
+          <button
+            aria-label="bounds_ship"
+            onmouseenter={() => (hoveredShip = true)}
+            onmouseleave={() => (hoveredShip = false)}
+            class="absolute w-[450px] h-[550px] left-[49%] bottom-[30%] z-[8]"
+          >
+          </button>
+        {/if}
       </div>
       <div id="layer2">
         <BgImg
@@ -103,12 +127,7 @@
       </div>
 
       <Submarine class="z-10" />
-      <OceanFish
-        width={grid.width}
-        height={grid.height}
-        containerClass="z-10"
-        fishClass="z-10"
-      />
+      <OceanFish width={grid.width} height={grid.height} fishClass="z-10" />
 
       <div id="layer1">
         <BgImg

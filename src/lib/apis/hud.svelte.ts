@@ -17,7 +17,7 @@ class HudApi {
   enableSettings = $state(true);
   openSettings = $state(false);
 
-  enableInventory = $state(false);
+  enableInventory = $state(true);
   openInventory = $state(false);
 
   showItemUnlock = $state(false);
@@ -99,7 +99,7 @@ class HudApi {
       iApi.unlockItem(itemId);
     }
 
-    iApi.onItemUnlockFinished = () => { };
+    iApi.onItemUnlockFinished = () => {};
     if (onFinished) iApi.onItemUnlockFinished = onFinished;
 
     this.showItemUnlock = true;
