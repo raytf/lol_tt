@@ -21,6 +21,7 @@
   } from "$stores/sub";
   import { gridOffset, minOffset, moveSub } from "$stores/exploration";
   import underwater from "$assets/underwater_1by3.jpg";
+  import light from "$assets/underwater_light.png";
   import wrecks1 from "$assets/wrecks/wrecks1.png";
   import wrecks2 from "$assets/wrecks/wrecks2.png";
   import wrecks3 from "$assets/wrecks/wrecks3.png";
@@ -93,20 +94,33 @@
     yOffset={gridOffset.current.y}
   >
     {#snippet backgrounds()}
-      <TurbulentImg src={underwater} class="opacity-70 z-[1]" />
-      <!-- <div
-        onmouseenter={() => (hoveredSunlight = true)}
-        onmouseleave={() => (hoveredSunlight = false)}
-        class="absolute left-[30%] h-[200px] w-[1500px] z-[2]"
-      ></div> -->
+      <div id="layer4">
+        <TurbulentImg src={underwater} class="opacity-70 z-[1]" />
+        <BgImg
+          src={light}
+          class={cn(
+            "size-full opacity-10 z-[2]",
+            hoveredSunlight ? "brightness-200" : "brightness-100",
+          )}
+        />
+        {#if false}
+          <button
+            aria-label="bounds_light"
+            onmouseenter={() => (hoveredSunlight = true)}
+            onmouseleave={() => (hoveredSunlight = false)}
+            class="absolute left-[30%] h-[200px] w-[2000px] bg-red-200 z-[2]"
+          ></button>
+        {/if}
+      </div>
 
       <div id="layer3">
         <BgImg src={wrecks3} class="w-[100%] bottom-0 z-[7]" />
         <BgImg
           src={ship}
-          class="w-[100%] bottom-0 z-[8] {hoveredShip
-            ? 'brightness-200'
-            : 'brightness-100'} transition-[filter]"
+          class={cn(
+            "w-[100%] bottom-0 z-[8] transition-[filter]",
+            hoveredShip ? "brightness-200" : "brightness-100",
+          )}
         />
         {#if false}
           <button
