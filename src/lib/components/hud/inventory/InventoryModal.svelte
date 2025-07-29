@@ -40,9 +40,6 @@
       $radioApi.call($location);
     }
     if (item.id === "notepad") {
-      if ($objectivesApi.currentObjectiveIs("obj_review-inventory")) {
-        $objectivesApi.completeTask("task_open-notepad");
-      }
       $hudApi.showNotepad = true;
     }
     if (item.id === "map") {

@@ -34,6 +34,9 @@
   const disabledClass = "pointer-events-none opacity-50";
 
   function onClose() {
+    if ($objectivesApi.currentObjectiveIs("obj_check-equipment")) {
+      $objectivesApi.completeTask("task_review-notes");
+    }
     $hudApi.showNotepad = false;
   }
 
@@ -210,8 +213,7 @@
     pointer-events: none;
     transition: opacity 2s;
 
-    background-image:
-      linear-gradient(
+    background-image: linear-gradient(
         90deg,
         transparent,
         transparent 5%,

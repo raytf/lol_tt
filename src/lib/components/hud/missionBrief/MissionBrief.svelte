@@ -18,7 +18,17 @@
     aria-label="close"
     onclick={() => {
       if ($objectivesApi.currentObjectiveIs("obj_mission")) {
-        $objectivesApi.completeTask("task_mission-brief");
+        $hudApi.startItemUnlock({
+          itemId: "sm",
+          onFinished: () => {
+            $hudApi.startItemUnlock({
+              itemId: "notepad",
+              onFinished: () => {
+                $objectivesApi.completeTask("task_mission-brief");
+              },
+            });
+          },
+        });
       }
 
       $hudApi.showMissionBrief = false;
@@ -48,11 +58,11 @@
           )}
         >
           {#if idx === 1}
-            <Eyes width={50} />
-          {:else if idx === 2}
-            <Ruler width={50} />
-          {:else if idx === 3}
             <BeakerQuestion width={50} />
+          {:else if idx === 2}
+            <Eyes width={50} />
+          {:else if idx === 3}
+            <Ruler width={50} />
           {/if}
           <Lol key="mission-brief_tip-{idx}" />
         </div>

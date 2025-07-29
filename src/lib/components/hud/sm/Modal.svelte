@@ -27,12 +27,11 @@
   }
 
   function onClose() {
-    if ($objectivesApi.currentObjectiveIs("obj_check-tools")) {
+    if ($objectivesApi.currentObjectiveIs("obj_check-equipment")) {
       $objectivesApi.completeTask("task_review-sm");
     }
-    //$objectivesApi.completeTask("task_review-SM");
+
     $hudApi.showSmModal = false;
-    console.log("close sm modal");
   }
 </script>
 

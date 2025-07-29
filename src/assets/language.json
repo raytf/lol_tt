@@ -32,8 +32,9 @@
     "task_open-inventory": "Open your inventory",
     "task_mission-brief": "Read the mission brief",
 
-    "obj_check-tools": "Check your tools",
+    "obj_check-equipment": "Check equipment",
     "task_review-sm": "Review the SM Diagram",
+    "task_review-notes": "Review your notes",
 
     "obj_challenge-observation": "Make different observations",
     "task_o-photosynthesis": "Find a source of light in the ocean.",
@@ -41,7 +42,6 @@
     "task_call-radio": "Call the radio",
     "task_start-mission": "Start the mission",
     "obj_review-inventory": "Review your inventory",
-    "task_open-notepad": "Open your Notepad",
 
     "obj_explore": "Start Exploration",
     "task_move-sub": "Click around the screen to move the sub",
@@ -207,9 +207,9 @@
     "mission-brief-2": "These depths are known for causing malfunctioning equipment and mysterious disappearances.",
     "mission-brief-3": "Your mission is to explore as deep as you can, and investigate these strange readings using the <strong>Scientific Method.</strong>",
     "mission-brief_tips": "Tips",
-    "mission-brief_tip-1": "Collect <strong>qualitative data</strong> by observing around you",
-    "mission-brief_tip-2": "Collect <strong>quantitative data</strong> using measuring equipment",
-    "mission-brief_tip-3": "Make guesses and prove them by conducting <strong>experiments</strong>",
+    "mission-brief_tip-1": "Ask questions and answer them by collecting data",
+    "mission-brief_tip-2": "Collect <strong>qualitative data</strong> by observing around you",
+    "mission-brief_tip-3": "Collect <strong>quantitative data</strong> using measuring equipment",
 
     "newspaper-heading": "THE DAILY NEWS",
     "newspaper-subheading": "MYSTERY OF MISSING SCIENTIST",

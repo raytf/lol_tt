@@ -33,16 +33,6 @@
       return;
     }
 
-    if (!$inventoryApi.isItemUnlocked("sm")) {
-      $hudApi.startItemUnlock({
-        itemId: "sm",
-        onFinished: () => {
-          openInventory();
-        },
-      });
-      return;
-    }
-
     openInventory();
   }}
   class="button-toggle {buttonClass}"
