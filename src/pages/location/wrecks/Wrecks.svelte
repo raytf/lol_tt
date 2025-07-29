@@ -76,6 +76,12 @@
 
   setSubPosition(initialPosition);
   onMount(() => {
+    $audioApi.playTrack({
+      src: "music/deep-echoes.mp3",
+      volume: 0.44,
+      loop: true,
+    });
+
     setTimeout(() => {
       setSubTarget(initialTarget);
     }, 555);

@@ -46,7 +46,9 @@
 <div class="relative size-full {extraClass}">
   <div class="absolute size-full pointer-events-none {uiClass}">
     <div class="heading-location w-full text-center">
-      <Lol key={titleKey} class="text-4xl font-bold p-4" />
+      {#if titleKey}
+        <Lol key={titleKey} class="text-4xl font-bold p-4" />
+      {/if}
     </div>
     {@render ui?.()}
   </div>
