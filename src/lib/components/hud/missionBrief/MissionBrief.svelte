@@ -1,7 +1,7 @@
 <script lang="ts">
   import { cn } from "$lib/utils";
   import { Lol } from "$components/text";
-  import { lolApi, hudApi } from "$apis";
+  import { lolApi, hudApi, objectivesApi } from "$apis";
 
   let { class: extraClass = "" } = $props();
 </script>
@@ -14,7 +14,13 @@
   )}
 >
   <button
-    onclick={() => ($hudApi.showMissionBrief = false)}
+    aria-label="close"
+    onclick={() => {
+      if ($objectivesApi.currentObjectiveIs("obj_mission")) {
+        $objectivesApi.completeTask("task_mission-brief");
+      }
+      $hudApi.showMissionBrief = false;
+    }}
     class="absolute size-full bg-black/50"
   ></button>
   <div
