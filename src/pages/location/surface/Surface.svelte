@@ -75,16 +75,33 @@
     ) {
       let delay = 3000;
       setTimeout(() => {
-        $objectivesApi.startChapter("tutorial", () => {});
+        $objectivesApi.startChapter("tutorial", () => {
+          readyToDive = true;
+        });
       }, delay);
+    } else {
+      readyToDive = true;
     }
   }
   function onClickArea(e: MouseEvent) {
     if ($objectivesApi.currentObjectiveIs("obj_explore")) {
-      $objectivesApi.completeTask("task_move-sub");
+      $objectivesApi.incrementTask("task_move-sub");
     }
 
     moveSub(e);
+  }
+
+  function onClickDive() {
+    $hudApi.showNotepad = false;
+    readyToDive = false;
+    surfaceSub = false;
+
+    setTimeout(() => {
+      $gameApi.fadeScene("/wrecks?from=surface");
+      $audioApi.stopTrack({
+        src: "sound/ocean-loop.mp3",
+      });
+    }, 1111);
   }
   //#endregion
 
@@ -143,6 +160,21 @@
         </div>
       </div>
     {/if}
+    <div
+      class="absolute z-[11] bottom-0 w-full h-[222px] flex justify-center items-end pb-4"
+    >
+      {#if readyToDive}
+        <div transition:fade>
+          <Button
+            onclick={onClickDive}
+            class="w-[99px] h-[88px] flex-col items-center"
+          >
+            <p class="text-2xl">{$lolApi.getText("dive")}</p>
+            <Dive class="w-[33px] h-[33px]" />
+          </Button>
+        </div>
+      {/if}
+    </div>
   {/snippet}
 
   <Grid

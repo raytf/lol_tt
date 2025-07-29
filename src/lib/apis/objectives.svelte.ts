@@ -45,7 +45,7 @@ const objectiveMap: ObjectiveMap = {
     { key: "task_review-sm" },
     { key: "task_review-notes" },
   ],
-  obj_explore: [{ key: "task_move-sub" }, { key: "task_dive" }],
+  obj_explore: [{ key: "task_move-sub", numTimes: 5 }],
 
   "obj_explore-wrecks": [
     { key: "task_enter-wrecks" },
@@ -122,15 +122,8 @@ const chapterMap: ChapterMap = {
     },
     {
       key: "obj_check-equipment",
-      onFinished: () => {
-        // const inventory = get(inventoryApi);
-        // inventory.unlockItem("sm");
-      },
+      onFinished: () => {},
     },
-    // {
-    //   key: "obj_review-inventory",
-    //   onFinished: () => {},
-    // },
     {
       key: "obj_explore",
       onFinished: () => {},
