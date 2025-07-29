@@ -27,17 +27,30 @@
   }
 
   function onClose() {
-    $objectivesApi.completeTask("task_review-SM");
+    if ($objectivesApi.currentObjectiveIs("obj_check-tools")) {
+      $objectivesApi.completeTask("task_review-sm");
+    }
+    //$objectivesApi.completeTask("task_review-SM");
     $hudApi.showSmModal = false;
+    console.log("close sm modal");
   }
 </script>
 
 <div class={cn("container-smModal", extraClass)}>
   {#if interactable}
-    <button onclick={onClose} class="absolute top-4 right-4">
+    <!-- <button onclick={onClose} class="absolute top-4 right-4">
       <Close
         class="w-[55px] h-[55px] text-white hover:text-white transition-colors"
       />
+    </button> -->
+    <button
+      aria-label="close"
+      onclick={onClose}
+      class="absolute size-full bg-black/50"
+    >
+      <!-- <Close
+        class="w-[55px] h-[55px] text-white hover:text-white transition-colors"
+      /> -->
     </button>
     <Lol key="sm-heading" shadow={true} class="text-4xl mt-24" />
     <Lol key="sm-subheading" />
@@ -60,6 +73,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: rgba(0, 0, 0, 0.55);
+    /* background: rgba(0, 0, 0, 0.55); */
   }
 </style>

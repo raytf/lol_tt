@@ -33,7 +33,7 @@ class InfoApi {
     this.smStep = infoType ? steps[infoType] : undefined;
     if (textKeys) {
       this.textKeys = textKeys;
-      get(lolApi).speakText(textKeys[0]);
+      //get(lolApi).speakText(textKeys[0]);
     }
 
     if (descKey) {

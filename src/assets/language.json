@@ -32,6 +32,9 @@
     "task_open-inventory": "Open your inventory",
     "task_mission-brief": "Read the mission brief",
 
+    "obj_check-tools": "Check your tools",
+    "task_review-sm": "Review the SM Diagram",
+
     "obj_challenge-observation": "Make different observations",
     "task_o-photosynthesis": "Find a source of light in the ocean.",
 
@@ -39,7 +42,7 @@
     "task_start-mission": "Start the mission",
     "obj_review-inventory": "Review your inventory",
     "task_open-notepad": "Open your Notepad",
-    "task_open-sm": "Open the SM Diagram",
+
     "obj_explore": "Start Exploration",
     "task_move-sub": "Click around the screen to move the sub",
     "task_dive": "Start your dive",
@@ -200,9 +203,13 @@
 
     "mission-brief_title": "Mission Brief",
     "mission-brief_location": "Location: The Triton's Triangle",
-    "mission-brief-1": "Our sources report strange <strong>temperature readings</strong> in the depths of the Triton's Triangle.",
-    "mission-brief-2": "Your mission is to explore as deep as you can, and investigate these strange readings using the <strong>Scientific Method.</strong>",
-    "mission-brief-3": "Be careful - these depths are known for causing malfunctioning equipment and mysterious disappearances.",
+    "mission-brief-1": "Our sources report strange temperature readings in the depths of the Triton's Triangle.",
+    "mission-brief-2": "These depths are known for causing malfunctioning equipment and mysterious disappearances.",
+    "mission-brief-3": "Your mission is to explore as deep as you can, and investigate these strange readings using the <strong>Scientific Method.</strong>",
+    "mission-brief_tips": "Tips",
+    "mission-brief_tip-1": "Collect <strong>qualitative data</strong> by observing around you",
+    "mission-brief_tip-2": "Collect <strong>quantitative data</strong> using measuring equipment",
+    "mission-brief_tip-3": "Make guesses and prove them by conducting <strong>experiments</strong>",
 
     "newspaper-heading": "THE DAILY NEWS",
     "newspaper-subheading": "MYSTERY OF MISSING SCIENTIST",

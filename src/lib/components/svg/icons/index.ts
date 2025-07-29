@@ -12,6 +12,9 @@ import Celebrate from "./Celebrate.svelte";
 import Pulse from "./animated/Pulse.svelte";
 import NewPage from "./NewPage.svelte";
 import Warning from "./Warning.svelte";
+import Eyes from "./Eyes.svelte";
+import Ruler from "./Ruler.svelte";
+import BeakerQuestion from "./BeakerQuestion.svelte";
 
 export {
   HandClick,
@@ -28,4 +31,7 @@ export {
   Pulse,
   NewPage,
   Warning,
+  Eyes,
+  Ruler,
+  BeakerQuestion,
 };

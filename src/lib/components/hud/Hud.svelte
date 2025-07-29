@@ -142,7 +142,7 @@
       </div>
     {/if}
     {#if $hudApi.showMissionBrief}
-      <div transition:fade>
+      <div transition:fly={{ y: 555 }} class="size-full">
         <MissionBrief class="z-[102] pointer-events-auto" />
       </div>
     {/if}

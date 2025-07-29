@@ -27,9 +27,6 @@
     selectedItem = undefined;
     $hudApi.openInventory = false;
     if (item.id === "sm") {
-      if ($objectivesApi.currentObjectiveIs("obj_review-inventory")) {
-        $objectivesApi.completeTask("task_open-sm");
-      }
       $hudApi.showSmModal = true;
     }
     if (item.id === "radio") {

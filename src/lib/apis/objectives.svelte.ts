@@ -41,10 +41,11 @@ type ChapterMap = {
 
 const objectiveMap: ObjectiveMap = {
   obj_mission: [{ key: "task_open-inventory" }, { key: "task_mission-brief" }],
-  "obj_review-inventory": [
-    { key: "task_open-notepad" },
-    { key: "task_open-sm" },
-  ],
+  "obj_check-tools": [{ key: "task_review-sm" }, { key: "task_open-notepad" }],
+  // "obj_review-inventory": [
+  //   { key: "task_open-notepad" },
+  //   { key: "task_read-sm" },
+  // ],
   obj_explore: [{ key: "task_move-sub" }, { key: "task_dive" }],
 
   "obj_explore-wrecks": [
@@ -114,16 +115,21 @@ const chapterMap: ChapterMap = {
         get(hudApi).enableInventory = true;
       },
       onFinished: () => {
-        // const inventory = get(inventoryApi);
-        // inventory.unlockItem("radio");
-        // inventory.unlockItem("notepad");
-        // inventory.unlockItem("sm");
+        const inventory = get(inventoryApi);
+        inventory.unlockItem("mb");
       },
     },
     {
-      key: "obj_review-inventory",
-      onFinished: () => {},
+      key: "obj_check-tools",
+      onFinished: () => {
+        const inventory = get(inventoryApi);
+        inventory.unlockItem("sm");
+      },
     },
+    // {
+    //   key: "obj_review-inventory",
+    //   onFinished: () => {},
+    // },
     {
       key: "obj_explore",
       onFinished: () => {},
