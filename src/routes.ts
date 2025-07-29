@@ -26,9 +26,7 @@ import Ch1 from "./pages/chapter1";
 
 export default {
   "/dev": Dev,
-  "/": Logo,
-  "/title": Title,
-  "/newspaper": Newspaper,
+  "/": Title,
   "/surface": Surface,
   "/wrecks": Wrecks,
   "/forest": Forest,

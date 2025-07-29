@@ -9,45 +9,11 @@
   import { tlSlowRevealBackground } from "./animations";
   import { intro } from "./dialog";
 
-  let revealTitleSequence = $state(false);
-  const searchParams = new URLSearchParams($querystring);
-  onMount(() => {
-    if (searchParams.has("intro")) {
-      tlSlowRevealBackground(44);
-      $hudApi.startDialog({
-        keys: intro,
-        onFinished: () => {
-          startTitleSequence();
-        },
-      });
-    } else {
-      tlSlowRevealBackground();
-      startTitleSequence();
-    }
-
-    $audioApi.loadTrack({
-      src: "music/into-the-blue.mp3",
-    });
-  });
-
-  function startTitleSequence() {
-    revealTitleSequence = true;
-    $audioApi.playTrack({
-      src: "music/into-the-blue.mp3",
-      volume: 0.55,
-      loop: true,
-    });
-  }
+  onMount(() => {});
 
   function onPlay() {
-    revealTitleSequence = false;
-
-    $gameApi.fadeScene("/surface?start", 2, 2);
-    $audioApi.stopTrack({
-      src: "music/into-the-blue.mp3",
-      fade: true,
-      fadeTime: 5555,
-    });
+    tlSlowRevealBackground(4);
+    $gameApi.fadeScene("/surface?title", 2, 2);
   }
 </script>
 
@@ -60,45 +26,22 @@
     yoyo={true}
     class="title_bg w-full h-full object-cover"
   />
-  <div id="title_blackdrop"></div>
-  {#if revealTitleSequence}
-    <div
-      out:fade={{ duration: 2000 }}
-      class="relative size-full flex flex-col items-center"
+  <div
+    in:fade={{ duration: 1000 }}
+    class="absolute w-full flex justify-center bottom-0"
+  >
+    <button
+      onclick={onPlay}
+      class="text-title text-center p-12 pointer-events-auto"
     >
-      <h1
-        in:fade={{ delay: 1000, duration: 3000 }}
-        class="text-title text-8xl font-bold mt-24"
-      >
-        {$lolApi.getText("title")}
-      </h1>
-      <p
-        in:fade={{ delay: 3000, duration: 2000 }}
-        class="text-title text-4xl font-bold p-4"
-      >
-        {$lolApi.getText("subtitle")}
+      <p class="text-2xl hover:text-yellow-200">
+        {$lolApi.getText("click-to-start")}
       </p>
-      <div
-        in:fade={{ delay: 4000, duration: 2000 }}
-        class="grow w-full flex flex-col justify-end items-center"
-      >
-        <button onclick={onPlay} class="text-title p-12">
-          <p class="text-2xl">{$lolApi.getText("play")}</p>
-        </button>
-      </div>
-    </div>
-  {/if}
+    </button>
+  </div>
 </div>
 
 <style>
-  #title_blackdrop {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-
-    background: black;
-    opacity: 1;
-  }
   .text-title {
     text-shadow: 1px 1px 2px black;
   }
