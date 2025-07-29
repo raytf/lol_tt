@@ -27,6 +27,10 @@
     "chapter2": "Chapter 2",
     "chapter3": "Chapter 3",
     "completed-obj": "Completed Objective",
+
+    "obj_challenge-observation": "Make different observations",
+    "task_o-photosynthesis": "Find a source of light in the ocean.",
+
     "obj_mission": "Mission Brief",
     "task_open-inventory": "Open your inventory",
     "task_call-radio": "Call the radio",

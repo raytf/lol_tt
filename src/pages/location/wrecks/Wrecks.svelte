@@ -12,6 +12,7 @@
   import { Button } from "$components/ui/button";
   import { MeasuringLine } from "$components/visual";
   import { Submarine } from "$components/gameObjects";
+  import { OceanFish } from "$components/visual/animations";
   import {
     setTarget as setSubTarget,
     setPosition as setSubPosition,
@@ -77,9 +78,6 @@
       setSubTarget(initialTarget);
     }, 555);
   });
-  //#region experiment values
-  let measuringLineValues = $state([200, 150, 100, 50, 0]);
-  //#region
 </script>
 
 <Location titleKey="location-wrecks" uiClass="z-[11]">
@@ -105,6 +103,12 @@
       </div>
 
       <Submarine class="z-10" />
+      <OceanFish
+        width={grid.width}
+        height={grid.height}
+        containerClass="z-10"
+        fishClass="z-10"
+      />
 
       <div id="layer1">
         <BgImg
@@ -137,14 +141,6 @@
         ]}
         class="z-50"
       />
-      {#if $wrecks.measuringUnlocked && !$objectivesApi.hasCompleted("obj_pressure-review")}
-        <MeasuringLine
-          height={1400}
-          values={measuringLineValues}
-          class="z-[9]"
-          style="transform: translateX({gridOffset.current.x / 5}px)"
-        />
-      {/if}
     {/snippet}
     {#snippet areas()}
       <Area
