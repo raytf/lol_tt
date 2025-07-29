@@ -68,7 +68,7 @@
 <Location titleKey="" uiClass="z-[11]">
   {#snippet ui()}
     <div class="size-full flex flex-col items-center">
-      <h1 class="text-title text-8xl font-bold text-shadow-md mt-24">
+      <h1 class="text-title text-8xl font-bold mt-24">
         {$lolApi.getText("title")}
       </h1>
       <p
@@ -106,3 +106,9 @@
     {/snippet}
   </Grid>
 </Location>
+
+<style>
+  .text-title {
+    text-shadow: black 1px 2px 5px;
+  }
+</style>
