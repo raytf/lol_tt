@@ -35,6 +35,7 @@
     infoApi,
     notepadApi,
     lolApi,
+    inventoryApi,
   } from "$apis";
   import { pressureCreak } from "$dialog/common";
   import {
@@ -76,6 +77,10 @@
 
   setSubPosition(initialPosition);
   onMount(() => {
+    //debug
+    $inventoryApi.unlockItem("notepad");
+    $hudApi.enableInventory = true;
+
     $audioApi.playTrack({
       src: "music/deep-echoes.mp3",
       volume: 0.44,

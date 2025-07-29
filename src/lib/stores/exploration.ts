@@ -13,16 +13,24 @@ export const gridOffset = new Spring(
   { stiffness: 0.01, damping: 0.8 },
 );
 export const minOffset = writable({ x: 0, y: 0 });
+export const leftSide = writable(true);
 
-export const moveSub = (e: MouseEvent, onMove?: ({ x1, y1 }: { x1: number; y1: number }) => void) => {
+export const moveSub = (
+  e: MouseEvent,
+  onMove?: ({ x1, y1 }: { x1: number; y1: number }) => void,
+) => {
   const gApi = get(gameApi);
 
   const halfWidth = gApi.windowWidth / 2;
   const halfHeight = gApi.windowHeight / 2;
   const halfWidthDiff = e.clientX - halfWidth;
   const halfHeightDiff = e.clientY - halfHeight;
+
+  leftSide.set(halfWidthDiff <= 0);
+
   let newXOffset = gridOffset.current.x - halfWidthDiff;
   let newYOffset = gridOffset.current.y - halfHeightDiff;
+  console.log(get(leftSide));
   if (newXOffset > 0) newXOffset = 0;
   if (newYOffset > 0) newYOffset = 0;
   if (newXOffset < get(minOffset).x) newXOffset = get(minOffset).x;

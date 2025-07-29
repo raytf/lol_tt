@@ -31,6 +31,7 @@
   import { noSignal } from "$dialog/radio";
   import { storyComponent } from "$stores/component";
   import { cn } from "$lib/utils";
+  import { leftSide as subLeftSide } from "$stores/exploration";
 
   let notepadOpacity = $state(80);
 
@@ -136,7 +137,10 @@
         }} -->
       <div
         transition:fly={{ y: 555 }}
-        class="absolute w-[50%] h-[88%] bottom-0 right-0 z-[100]"
+        class={cn(
+          "absolute w-[50%] bottom-0 h-[88%] z-[100] right-0",
+          // $subLeftSide ? "right-0" : "left-0",
+        )}
       >
         <Notepad class="size-full" />
       </div>

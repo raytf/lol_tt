@@ -10,6 +10,7 @@
 
   import { hudApi, lolApi, inventoryApi, objectivesApi, radioApi } from "$apis";
   import { flipElement, doFlip } from "$stores/flip";
+  import { leftSide as subLeftSide } from "$stores/exploration";
 
   let {
     dialogClass,
@@ -40,6 +41,7 @@
       $radioApi.call($location);
     }
     if (item.id === "notepad") {
+      console.log("");
       $hudApi.showNotepad = true;
     }
     if (item.id === "map") {
