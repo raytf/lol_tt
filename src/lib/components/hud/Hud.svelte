@@ -13,6 +13,7 @@
   } from "$components/hud/inventory";
   import { Notepad } from "$components/hud/notepad";
   import { Map } from "$components/hud/map";
+  import { MissionBrief } from "$components/hud/missionBrief";
   import { InfoModal } from "$components/hud/info";
   import { SettingsModal, SettingsToggle } from "$components/hud/settings";
 
@@ -61,7 +62,6 @@
         <Objectives
           class={cn(
             "z-100 left-0",
-            "hover:bg-black",
             ($hudApi.showDialog ||
               $hudApi.showSmModal ||
               $hudApi.showSmPuzzle ||
@@ -139,6 +139,11 @@
         class="absolute w-[50%] h-[88%] bottom-0 right-0 z-[100]"
       >
         <Notepad class="size-full" />
+      </div>
+    {/if}
+    {#if $hudApi.showMissionBrief}
+      <div transition:fade>
+        <MissionBrief class="z-[102] pointer-events-auto" />
       </div>
     {/if}
     {#if $hudApi.showMap}

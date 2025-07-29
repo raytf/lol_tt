@@ -51,6 +51,12 @@
     if (item.id === "map") {
       $hudApi.showMap = true;
     }
+    if (item.id === "mb") {
+      if ($objectivesApi.currentObjectiveIs("obj_mission")) {
+        $objectivesApi.completeTask("task_mission-brief");
+      }
+      $hudApi.showMissionBrief = true;
+    }
   }
 
   onMount(() => {});

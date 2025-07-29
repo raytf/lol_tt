@@ -69,7 +69,15 @@
     showTitleSequence = false;
     showLocationTitle = true;
 
-    // $gameApi.fadeScene("/surface?start", 2, 2);
+    if (
+      $objectivesApi.currentChapterIs("") ||
+      $objectivesApi.currentChapterIs("tutorial")
+    ) {
+      let delay = 3000;
+      setTimeout(() => {
+        $objectivesApi.startChapter("tutorial", () => {});
+      }, delay);
+    }
   }
   function onClickArea(e: MouseEvent) {
     if ($objectivesApi.currentObjectiveIs("obj_explore")) {

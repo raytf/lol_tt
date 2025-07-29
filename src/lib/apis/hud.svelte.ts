@@ -26,6 +26,7 @@ class HudApi {
   showNotepad = $state(false);
   showMap = $state(false);
   showInfoModal = $state(false);
+  showMissionBrief = $state(false);
 
   showGaugeScreen = $state(false);
   showInterface = $state(true);

@@ -14,9 +14,18 @@
 <button
   transition:fly={{ y: -222 }}
   onclick={() => {
-    if (!$inventoryApi.isItemUnlocked("radio")) {
+    // if (!$inventoryApi.isItemUnlocked("radio")) {
+    //   $hudApi.startItemUnlock({
+    //     itemId: "radio",
+    //     onFinished: () => {
+    //       openInventory();
+    //     },
+    //   });
+    //   return;
+    // }
+    if (!$inventoryApi.isItemUnlocked("mb")) {
       $hudApi.startItemUnlock({
-        itemId: "radio",
+        itemId: "mb",
         onFinished: () => {
           openInventory();
         },

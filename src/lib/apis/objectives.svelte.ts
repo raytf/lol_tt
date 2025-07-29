@@ -40,11 +40,7 @@ type ChapterMap = {
 };
 
 const objectiveMap: ObjectiveMap = {
-  obj_mission: [
-    { key: "task_open-inventory" },
-    { key: "task_call-radio" },
-    { key: "task_start-mission" },
-  ],
+  obj_mission: [{ key: "task_open-inventory" }, { key: "task_mission-brief" }],
   "obj_review-inventory": [
     { key: "task_open-notepad" },
     { key: "task_open-sm" },
@@ -95,35 +91,19 @@ const objectiveMap: ObjectiveMap = {
     { key: "task_pressure-analysis" },
     { key: "task_pressure-conclusion" },
   ],
-  "obj_prepare-deep": [
-    { key: "task_return-to-ship" },
-    { key: "task_tool-th" }
-  ],
-  "obj_explore-deep": [
-    { key: "task_enter-abyss" },
-    { key: "task_new-page" },
-  ],
+  "obj_prepare-deep": [{ key: "task_return-to-ship" }, { key: "task_tool-th" }],
+  "obj_explore-deep": [{ key: "task_enter-abyss" }, { key: "task_new-page" }],
   "obj_temp-plan": [
     { key: "task_hypothesis" },
     {
       key: "task_new-page",
-    }
+    },
   ],
-  "obj_temp-experiment": [
-    { key: "task_record-temp", numTimes: 5 },
-  ],
-  "obj_temp-experiment-2": [
-    { key: "task_record-temp", numTimes: 5 },
-  ],
-  "obj_temp-analysis": [
-    { key: "task_temp-analysis" },
-  ],
-  "obj_temp-experiment-3": [
-    { key: "task_record-temp", numTimes: 5 },
-  ],
-  "obj_temp-review": [
-    { key: "task_temp-conclusion" },
-  ]
+  "obj_temp-experiment": [{ key: "task_record-temp", numTimes: 5 }],
+  "obj_temp-experiment-2": [{ key: "task_record-temp", numTimes: 5 }],
+  "obj_temp-analysis": [{ key: "task_temp-analysis" }],
+  "obj_temp-experiment-3": [{ key: "task_record-temp", numTimes: 5 }],
+  "obj_temp-review": [{ key: "task_temp-conclusion" }],
 };
 
 const chapterMap: ChapterMap = {
@@ -134,19 +114,19 @@ const chapterMap: ChapterMap = {
         get(hudApi).enableInventory = true;
       },
       onFinished: () => {
-        const inventory = get(inventoryApi);
-        inventory.unlockItem("radio");
-        inventory.unlockItem("notepad");
-        inventory.unlockItem("sm");
+        // const inventory = get(inventoryApi);
+        // inventory.unlockItem("radio");
+        // inventory.unlockItem("notepad");
+        // inventory.unlockItem("sm");
       },
     },
     {
       key: "obj_review-inventory",
-      onFinished: () => { },
+      onFinished: () => {},
     },
     {
       key: "obj_explore",
-      onFinished: () => { },
+      onFinished: () => {},
     },
   ],
   chapter1: [
@@ -262,12 +242,12 @@ const chapterMap: ChapterMap = {
         notepad.updatePage("pressure-experiment", {
           rows: isEmpty
             ? [
-              { data: ["0", "101.33"] },
-              { data: ["50", "607.95"] },
-              { data: ["100", "1114.58"] },
-              { data: ["150", "1621.20"] },
-              { data: ["200", "2127.83"] },
-            ]
+                { data: ["0", "101.33"] },
+                { data: ["50", "607.95"] },
+                { data: ["100", "1114.58"] },
+                { data: ["150", "1621.20"] },
+                { data: ["200", "2127.83"] },
+              ]
             : pressurePage.rows,
         });
       },
@@ -289,7 +269,7 @@ const chapterMap: ChapterMap = {
       onFinished: () => {
         get(inventoryApi).unlockItem("th");
       },
-    }
+    },
   ],
   chapter3: [
     {
@@ -300,7 +280,7 @@ const chapterMap: ChapterMap = {
           observations: ["o_abyss-depth"],
           question: "np-abyss-notes_question",
         });
-      }
+      },
     },
     {
       key: "obj_temp-plan",
@@ -309,7 +289,9 @@ const chapterMap: ChapterMap = {
         const abyssNotes = notepad.getPage("abyss-notes") as SMPageData;
 
         notepad.updatePage("abyss-notes", {
-          hypothesis: abyssNotes.hypothesis ? abyssNotes.hypothesis : "ch3_hypothesis-1.2-1",
+          hypothesis: abyssNotes.hypothesis
+            ? abyssNotes.hypothesis
+            : "ch3_hypothesis-1.2-1",
         });
         notepad.newPage("temperature-experiment", {
           type: "experiment",
@@ -321,7 +303,7 @@ const chapterMap: ChapterMap = {
             { data: ["2300", "", "", ""] },
           ],
         });
-      }
+      },
     },
     {
       key: "obj_temp-experiment",
@@ -337,7 +319,7 @@ const chapterMap: ChapterMap = {
             { data: ["2300", "2.52", "", ""] },
           ],
         });
-      }
+      },
     },
     {
       key: "obj_temp-experiment-2",
@@ -352,7 +334,7 @@ const chapterMap: ChapterMap = {
             { data: ["2300", "2.52", "2.69", ""] },
           ],
         });
-      }
+      },
     },
     {
       key: "obj_temp-analysis",
@@ -361,7 +343,7 @@ const chapterMap: ChapterMap = {
         notepad.updatePage("temperature-experiment", {
           showGraph: true,
         });
-      }
+      },
     },
     {
       key: "obj_temp-experiment-3",
@@ -376,11 +358,11 @@ const chapterMap: ChapterMap = {
             { data: ["2300", "2.52", "2.69", "12.55"] },
           ],
         });
-      }
+      },
     },
     {
-      key: "obj_temp-review"
-    }
+      key: "obj_temp-review",
+    },
   ],
 };
 
@@ -392,7 +374,7 @@ class ObjectivesApi {
   currentTasks = $state<Task[]>([]);
   chapterStarted = $state(false);
   chapterFinished = $state(false);
-  onChapterFinished = () => { };
+  onChapterFinished = () => {};
 
   numTotalObjectives: number = 0;
   completedObjectives = $state<string[]>([]);
@@ -459,7 +441,7 @@ class ObjectivesApi {
       };
     });
 
-    this.onChapterFinished = onFinished || (() => { });
+    this.onChapterFinished = onFinished || (() => {});
 
     if (this.currentObjectiveIndex < this.currentObjectives.length) {
       this.startObjective();

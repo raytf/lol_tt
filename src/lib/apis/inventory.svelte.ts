@@ -8,12 +8,19 @@ import pressureGauge from "$assets/sprites/pressure-gauge.png";
 import depthGauge from "$assets/sprites/depth-gauge.png";
 import thermistor from "$assets/sprites/thermistor.png";
 import map from "$assets/icons/map.svg";
+import document from "$assets/icons/document.svg";
 
 type ItemMap = {
   [key: string]: ItemDetails;
 };
 
 export const itemMap: ItemMap = {
+  mb: {
+    imgSrc: document,
+    id: "mb",
+    nameKey: "item_name_mb",
+    descKey: "item_desc_mb",
+  },
   sm: {
     imgSrc: smDiagram,
     id: "sm",

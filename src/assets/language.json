@@ -28,11 +28,13 @@
     "chapter3": "Chapter 3",
     "completed-obj": "Completed Objective",
 
+    "obj_mission": "Mission Brief",
+    "task_open-inventory": "Open your inventory",
+    "task_mission-brief": "Read the mission brief",
+
     "obj_challenge-observation": "Make different observations",
     "task_o-photosynthesis": "Find a source of light in the ocean.",
 
-    "obj_mission": "Mission Brief",
-    "task_open-inventory": "Open your inventory",
     "task_call-radio": "Call the radio",
     "task_start-mission": "Start the mission",
     "obj_review-inventory": "Review your inventory",
@@ -165,6 +167,10 @@
     "you": "You",
     "narrator": "Narrator",
     "explorer": "Explorer",
+
+    "item_name_mb": "Mission Brief",
+    "item_desc_mb": "Document explaining key information for the mission",
+
     "item_name_radio": "Radio",
     "item_desc_radio": "A communication device for contacting Mission Control.",
     "item_action_radio": "Use this to ask for hints if you are stuck.",
@@ -191,6 +197,13 @@
     "desc_shell": "A large sea snail with a horn-shaped shell. <br>There is something mysterious about this one...",
     "name_otter": "Sea Otter",
     "desc_otter": "A cute marine mammal with thick fur. <br>Can live on land and in water.",
+
+    "mission-brief_title": "Mission Brief",
+    "mission-brief_location": "Location: The Triton's Triangle",
+    "mission-brief-1": "Our sources report strange <strong>temperature readings</strong> in the depths of the Triton's Triangle.",
+    "mission-brief-2": "Your mission is to explore as deep as you can, and investigate these strange readings using the <strong>Scientific Method.</strong>",
+    "mission-brief-3": "Be careful - these depths are known for causing malfunctioning equipment and mysterious disappearances.",
+
     "newspaper-heading": "THE DAILY NEWS",
     "newspaper-subheading": "MYSTERY OF MISSING SCIENTIST",
     "newspaper-text-1": "Renowned scientist Dr. Conch has gone missing during a deep sea expedition into the infamous Triton Triangle.",
