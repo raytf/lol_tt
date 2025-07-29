@@ -59,15 +59,17 @@
   }
 
   function onPlay() {
-    surfaceSub = true;
-    showTitleSequence = false;
-
-    // $gameApi.fadeScene("/surface?start", 2, 2);
     $audioApi.stopTrack({
       src: "music/into-the-blue.mp3",
       fade: true,
       fadeTime: 5555,
     });
+
+    surfaceSub = true;
+    showTitleSequence = false;
+    showLocationTitle = true;
+
+    // $gameApi.fadeScene("/surface?start", 2, 2);
   }
   function onClickArea(e: MouseEvent) {
     if ($objectivesApi.currentObjectiveIs("obj_explore")) {
@@ -80,18 +82,29 @@
 
   setSubPosition(initialSubCoords);
   onMount(() => {
+    $audioApi.playTrack({
+      src: "sound/ocean-loop.mp3",
+      volume: 0.05,
+      loop: true,
+    });
+
     if (isTitleScreen) {
       startTitleSequence();
       return;
     }
 
-    surfaceSub = true;
+    onPlay();
   });
 
   let showTitleSequence = $state(false);
+  let showLocationTitle = $state(false);
 </script>
 
-<Location titleKey="location-surface" uiClass="z-[21]">
+<Location
+  showTitle={showLocationTitle}
+  titleKey="location-surface"
+  uiClass="z-[21]"
+>
   {#snippet ui()}
     {#if showTitleSequence}
       <div
