@@ -1,5 +1,6 @@
 <script lang="ts">
   import { cn } from "$lib/utils";
+  import { fade } from "svelte/transition";
   import { Lol } from "$components/text";
   import { lolApi, hudApi, objectivesApi } from "$apis";
   import { Eyes, Ruler, BeakerQuestion } from "$components/svg/icons";
@@ -75,51 +76,75 @@
       <span class="text-2xl">({$hudApi.missionBriefIndex + 1}/{numPages})</span>
     </div>
 
-    <div class="relative flex flex-col h-full py-2">
+    <div class="relative h-[95%] flex flex-col justify-center items-center">
       {#if $hudApi.missionBriefIndex === 0}
-        <Lol key="mission-brief_1-1" class="text-xl py-2" />
-        <img
-          alt="tritons_triangle"
-          src={tritons_triangle}
-          class="h-[350px] object-cover"
-        />
+        <div transition:fade class="absolute">
+          <Lol key="mission-brief_1-1" class="text-xl py-2" />
+          <img
+            alt="tritons_triangle"
+            src={tritons_triangle}
+            class="h-[350px] w-full object-cover"
+          />
+        </div>
       {:else if $hudApi.missionBriefIndex === 1}
-        <Lol key="mission-brief_1-2" class="text-xl py-2" />
-        <img alt="rov_underwater" src={rov_1} class="h-[350px] object-cover" />
+        <div transition:fade class="absolute">
+          <Lol key="mission-brief_1-2" class="text-xl py-2" />
+          <img
+            alt="rov_underwater"
+            src={rov_1}
+            class="h-[350px] w-full object-cover"
+          />
+        </div>
       {:else if $hudApi.missionBriefIndex === 2}
-        <Lol key="mission-brief_1-3" class="text-xl py-2" />
-        <img alt="abyss" src={abyss} class="h-[350px] object-cover" />
+        <div transition:fade class="absolute">
+          <Lol key="mission-brief_1-3" class="text-xl py-2" />
+          <img alt="abyss" src={abyss} class="h-[350px] w-full object-cover" />
+        </div>
       {:else if $hudApi.missionBriefIndex === 3}
-        <Lol key="mission-brief_1-4" class="text-xl py-2" />
-        <img alt="no_signal" src={no_signal} class="h-[350px] object-contain" />
+        <div transition:fade class="absolute">
+          <Lol key="mission-brief_1-4" class="text-xl py-2" />
+          <img
+            alt="no_signal"
+            src={no_signal}
+            class="h-[350px] w-full object-contain"
+          />
+        </div>
       {:else if $hudApi.missionBriefIndex === 4}
-        <Lol key="mission-brief_1-5" class="text-xl py-2" />
-        <img alt="heatmap" src={heatmap} class="h-[350px] object-cover" />
+        <div transition:fade class="absolute">
+          <Lol key="mission-brief_1-5" class="text-xl py-2" />
+          <img
+            alt="heatmap"
+            src={heatmap}
+            class="h-[350px] w-full object-cover"
+          />
+        </div>
       {:else if $hudApi.missionBriefIndex === 5}
-        <Lol key="your-mission" class="text-2xl py-1" />
-        <Lol key="mission-brief_1-6" class="text-xl py-2" />
-        <Lol
-          key="mission-brief_tips"
-          class="text-center underline text-xl p-2"
-        />
-        <div class="grid grid-cols-3 gap-2">
-          {#each [1, 2, 3] as idx}
-            <div
-              class={cn(
-                "flex flex-col items-center gap-1",
-                "border border-white rounded-2xl px-4 py-2",
-              )}
-            >
-              {#if idx === 1}
-                <BeakerQuestion width={80} />
-              {:else if idx === 2}
-                <Eyes width={80} />
-              {:else if idx === 3}
-                <Ruler width={80} />
-              {/if}
-              <Lol key="mission-brief_tip-{idx}" class="mt-1" />
-            </div>
-          {/each}
+        <div transition:fade class="absolute">
+          <Lol key="your-mission" class="underline text-2xl py-1" />
+          <Lol key="mission-brief_1-6" class="text-xl py-2" />
+          <Lol
+            key="mission-brief_tips"
+            class="text-center underline text-xl p-2"
+          />
+          <div class="grid grid-cols-3 gap-2">
+            {#each [1, 2, 3] as idx}
+              <div
+                class={cn(
+                  "flex flex-col items-center gap-1",
+                  "border border-white rounded-2xl px-4 py-2",
+                )}
+              >
+                {#if idx === 1}
+                  <BeakerQuestion width={80} />
+                {:else if idx === 2}
+                  <Eyes width={80} />
+                {:else if idx === 3}
+                  <Ruler width={80} />
+                {/if}
+                <Lol key="mission-brief_tip-{idx}" class="mt-1" />
+              </div>
+            {/each}
+          </div>
         </div>
       {/if}
     </div>
