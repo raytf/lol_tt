@@ -116,13 +116,15 @@ const chapterMap: ChapterMap = {
       onFinished: () => {
         const inventory = get(inventoryApi);
         inventory.unlockItem("mb");
-        inventory.unlockItem("sm");
-        inventory.unlockItem("notepad");
       },
     },
     {
       key: "obj_check-equipment",
-      onFinished: () => {},
+      onFinished: () => {
+        const inventory = get(inventoryApi);
+        inventory.unlockItem("sm");
+        inventory.unlockItem("notepad");
+      },
     },
     {
       key: "obj_explore",

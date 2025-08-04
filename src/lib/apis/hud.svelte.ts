@@ -31,6 +31,8 @@ class HudApi {
   showGaugeScreen = $state(false);
   showInterface = $state(true);
 
+  missionBriefIndex = $state(0);
+
   debugActivate() {
     //get(inventoryApi).unlockEverything();
     this.enableInventory = true;

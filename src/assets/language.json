@@ -206,9 +206,14 @@
 
     "mission-brief_title": "Mission Brief",
     "mission-brief_location": "Location: The Triton's Triangle",
-    "mission-brief-1": "Our sources report strange temperature readings in the depths of the Triton's Triangle.",
-    "mission-brief-2": "These depths are known for causing malfunctioning equipment and mysterious disappearances.",
-    "mission-brief-3": "Your mission is to explore as deep as you can, and investigate these strange readings using the <strong>Scientific Method.</strong>",
+    "mission-brief_1-1": "The Triton Triangle, a region in the Pacific Ocean, is known for being a place where ships and people mysteriously vanish...",
+    "mission-brief_1-2": "On an expedition to research ocean temperatures all around the world, a ROV (remote operated vehicle) was sent underwater to record data.",
+    "mission-brief_1-3": "The ROV discovered a cavern in the depths of the Triton Triangle, one that goes deeper that we ever initially thought.",
+    "mission-brief_1-4": "However, when exploring deeper, equipment started malfunctioning and we lost contact with the ROV.",
+    "mission-brief_1-5": "The only data we recovered were some strange readings... very high temperatures from very deep below.",
+    "mission-brief_1-6": "Explore as deep as you can, and collect data using the <strong>Scientific Method.</strong>",
+
+    "your-mission": "Your Mission:",
     "mission-brief_tips": "Tips",
     "mission-brief_tip-1": "Ask <strong>questions</strong> and find the answers by collecting data",
     "mission-brief_tip-2": "Collect <strong>qualitative data</strong> by making observations around you",
