@@ -96,7 +96,7 @@
         <Lol key="mission-brief_1-5" class="text-xl py-2" />
         <img alt="heatmap" src={heatmap} class="h-[350px] object-cover" />
       {:else if $hudApi.missionBriefIndex === 5}
-        <Lol key="your-mission" class="text-2xl py-2" />
+        <Lol key="your-mission" class="text-2xl py-1" />
         <Lol key="mission-brief_1-6" class="text-xl py-2" />
         <Lol
           key="mission-brief_tips"
