@@ -143,13 +143,13 @@
           inAnim={(node) => fade(node, { delay: 1000, duration: 3000 })}
           key="title"
           class="text-title text-8xl font-bold mt-24"
-          shadow
+          textShadow
         />
         <Lol
           inAnim={(node) => fade(node, { delay: 3000, duration: 2000 })}
           key="subtitle"
           class="text-title text-4xl font-bold p-4"
-          shadow
+          textShadow
         />
         <SimpleButton
           inAnim={(node) => fade(node, { delay: 4000, duration: 2000 })}
@@ -169,7 +169,7 @@
           onclick={onClickDive}
           class="pointer-events-auto"
         >
-          <Dive class="w-[33px] h-[33px]" />
+          <Dive class="w-[33px] h-[33px]" dropShadow />
           <p class="text-3xl">{$lolApi.getText("dive")}</p>
         </SimpleButton>
       {/if}

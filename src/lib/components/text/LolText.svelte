@@ -9,7 +9,7 @@
     inAnim = anim,
     outAnim = anim,
     class: extraClass,
-    shadow = false,
+    textShadow = false,
     type = "p",
   }: {
     key: string;
@@ -17,7 +17,7 @@
     inAnim?: TransitionFunction;
     outAnim?: TransitionFunction;
     class?: string;
-    shadow?: boolean;
+    textShadow?: boolean;
     type?: string;
   } = $props();
 
@@ -30,7 +30,7 @@
   out:outAnim
   class={cn("relative", extraClass)}
 >
-  <span class={shadow ? "text-shadow" : ""}>{@html text}</span><button
+  <span class:textShadow>{@html text}</span><button
     aria-label="button_speak-text"
     onclick={() => {
       $lolApi.speakText(key);
@@ -50,7 +50,7 @@
 </svelte:element>
 
 <style>
-  .text-shadow {
+  .textShadow {
     text-shadow: black 1px 2px 5px;
   }
 </style>

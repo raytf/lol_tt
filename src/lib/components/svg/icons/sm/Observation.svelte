@@ -1,5 +1,5 @@
 <script>
-  let { dropShadow = true, ...restProps } = $props();
+  let { dropShadow = false, ...restProps } = $props();
 </script>
 
 <svg

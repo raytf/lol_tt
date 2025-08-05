@@ -66,35 +66,17 @@
         {i + 1}. {$lolApi.getText(step.titleKey)}
       </p>
       {#if step.label === "sm-o"}
-        <Observation
-          dropShadow={false}
-          class="w-[55px] h-[55px] m-2 pointer-events-none"
-        />
+        <Observation class="w-[55px] h-[55px] m-2 pointer-events-none" />
       {:else if step.label === "sm-q"}
-        <Question
-          dropShadow={false}
-          class="w-[55px] h-[55px] m-2 pointer-events-none"
-        />
+        <Question class="w-[55px] h-[55px] m-2 pointer-events-none" />
       {:else if step.label === "sm-h"}
-        <Hypothesis
-          dropShadow={false}
-          class="w-[55px] h-[55px] m-2 pointer-events-none"
-        />
+        <Hypothesis class="w-[55px] h-[55px] m-2 pointer-events-none" />
       {:else if step.label === "sm-e"}
-        <Experiment
-          dropShadow={false}
-          class="w-[55px] h-[55px] m-2 pointer-events-none"
-        />
+        <Experiment class="w-[55px] h-[55px] m-2 pointer-events-none" />
       {:else if step.label === "sm-a"}
-        <Analysis
-          dropShadow={false}
-          class="w-[55px] h-[55px] m-2 pointer-events-none"
-        />
+        <Analysis class="w-[55px] h-[55px] m-2 pointer-events-none" />
       {:else if step.label === "sm-c"}
-        <Conclusion
-          dropShadow={false}
-          class="w-[55px] h-[55px] m-2 pointer-events-none"
-        />
+        <Conclusion class="w-[55px] h-[55px] m-2 pointer-events-none" />
       {/if}
     </button>
   {/each}

@@ -35,7 +35,7 @@
   }
 </script>
 
-<div class={cn("container-smModal", extraClass)}>
+<div class={["container-smModal", extraClass]}>
   {#if interactable}
     <!-- <button onclick={onClose} class="absolute top-4 right-4">
       <Close
@@ -51,8 +51,9 @@
         class="w-[55px] h-[55px] text-white hover:text-white transition-colors"
       /> -->
     </button>
-    <Lol key="sm-heading" shadow={true} class="text-4xl mt-24" />
-    <Lol key="sm-subheading" />
+    <Lol key="sm-heading" class="text-4xl mt-24" textShadow />
+    <Lol key="sm-desc" class="text-xl my-2" />
+    <Lol key="sm-subheading" class="italic" />
   {/if}
 
   <SMDiagram
