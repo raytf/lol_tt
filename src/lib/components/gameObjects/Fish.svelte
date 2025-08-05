@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { cn } from "$lib/utils";
+  import { cn, getRandomNum } from "$lib/utils";
   import {
     clown,
     goldfish,
@@ -17,11 +17,13 @@
 
   let {
     fishType,
+    numFish = 1,
     size = 111,
     class: extraClass = "",
     onclick,
   }: {
     fishType: FishType;
+    numFish?: number;
     size: number;
     class: string;
     onclick?: () => void;
@@ -52,15 +54,18 @@
   onmouseleave={() => {
     hovered = false;
   }}
-  class={cn("absolute", extraClass)}
+  class={["absolute w-[55px] hover:brightness-200", extraClass]}
 >
-  <img
-    src={fishImages[fishType]}
-    alt={fishType}
-    height={size}
-    width={size}
-    class="pointer-events-none select-none {hovered
-      ? 'brightness-200'
-      : 'brightness-100'}"
-  />
+  {#each { length: numFish }, i}
+    <img
+      src={fishImages[fishType]}
+      alt={fishType}
+      height={size}
+      width={size}
+      class={"pointer-events-none select-none"}
+      style:transform={i !== 0
+        ? `translateX(${Math.pow(-1, i) * 10 * i}px)`
+        : undefined}
+    />
+  {/each}
 </button>

@@ -10,7 +10,7 @@
   import { InfoMarker } from "$components/ui/button";
   import { Lol } from "$components/text";
   import { SimpleButton } from "$components/ui/button";
-  import { Observation } from "$components/svg/icons/sm";
+  import { Observation, Question } from "$components/svg/icons/sm";
   import { MeasuringLine } from "$components/visual";
   import { Submarine } from "$components/gameObjects";
   import { OceanFish } from "$components/visual/animations";
@@ -101,8 +101,9 @@
   {#snippet ui()}
     <div class="absolute w-full bottom-4 flex justify-center">
       <SimpleButton class="pointer-events-auto text-3xl">
-        <Observation width="50" height="50" />
-        {$lolApi.getText("observation-challenge")}
+        <Observation width="50" height="50" dropShadow />
+        <Question width="50" height="50" dropShadow />
+        {$lolApi.getText("challenge")}
       </SimpleButton>
     </div>
   {/snippet}
@@ -160,7 +161,11 @@
       </div>
 
       <Submarine class="z-10" />
-      <OceanFish width={grid.width} height={grid.height} fishClass="z-10" />
+      <OceanFish
+        width={grid.width}
+        height={grid.height - 500}
+        fishClass="z-10"
+      />
 
       <div id="layer1">
         <BgImg

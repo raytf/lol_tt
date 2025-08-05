@@ -2,7 +2,7 @@
   import { onMount, onDestroy } from "svelte";
   import { gsap } from "gsap";
   import { Fish, FishType } from "$components/gameObjects";
-  import { cn } from "$lib/utils";
+  import { cn, getRandomNum } from "$lib/utils";
 
   let {
     height = 576,
@@ -10,10 +10,6 @@
     containerClass = "",
     fishClass = "",
   } = $props();
-
-  function getRandomNum(min: number, max: number) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
 
   let fishTimelines: { [key: string]: gsap.core.Timeline } = {};
   let fishSize = 25;
@@ -84,10 +80,11 @@
   });
 </script>
 
-<div class={cn("ocean-fish", containerClass)}>
+<div class={["ocean-fish", containerClass]}>
   {#each fishTypes as fishType, index}
     <Fish
       {fishType}
+      numFish={getRandomNum(1, 6)}
       size={fishSize}
       class={cn(`absolute fish${index + 1}`, fishClass)}
       onclick={() => {
