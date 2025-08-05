@@ -9,7 +9,8 @@
   import { Grid, Area } from "$components/exploration";
   import { InfoMarker } from "$components/ui/button";
   import { Lol } from "$components/text";
-  import { Button } from "$components/ui/button";
+  import { SimpleButton } from "$components/ui/button";
+  import { Observation } from "$components/svg/icons/sm";
   import { MeasuringLine } from "$components/visual";
   import { Submarine } from "$components/gameObjects";
   import { OceanFish } from "$components/visual/animations";
@@ -78,8 +79,8 @@
   setSubPosition(initialPosition);
   onMount(() => {
     //debug
-    $inventoryApi.unlockItem("notepad");
-    $hudApi.enableInventory = true;
+    $objectivesApi.completedChapters = ["tutorial"];
+    $objectivesApi.recallCompletedChapters();
 
     $audioApi.playTrack({
       src: "music/deep-echoes.mp3",
@@ -97,7 +98,14 @@
 </script>
 
 <Location titleKey="location-wrecks" uiClass="z-[11]">
-  {#snippet ui()}{/snippet}
+  {#snippet ui()}
+    <div class="absolute w-full bottom-4 flex justify-center">
+      <SimpleButton class="pointer-events-auto text-3xl">
+        <Observation width="50" height="50" />
+        {$lolApi.getText("observation-challenge")}
+      </SimpleButton>
+    </div>
+  {/snippet}
 
   <Grid
     size={[grid.width, grid.height]}

@@ -154,11 +154,9 @@
         <SimpleButton
           inAnim={(node) => fade(node, { delay: 4000, duration: 2000 })}
           onclick={onPlay}
-          class="mt-12 p-12 pointer-events-auto"
+          class="mt-12 p-12 pointer-events-auto text-3xl"
         >
-          <p class="text-3xl">
-            {$lolApi.getText("play")}
-          </p>
+          {$lolApi.getText("play")}
         </SimpleButton>
       </div>
     {/if}

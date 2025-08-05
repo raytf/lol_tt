@@ -1,5 +1,5 @@
 <script>
-  let props = $props();
+  let { dropShadow = true, ...restProps } = $props();
 </script>
 
 <svg
@@ -7,7 +7,8 @@
   width="1em"
   height="1em"
   viewBox="0 0 64 64"
-  {...props}
+  class:dropShadow
+  {...restProps}
   ><path
     fill="currentColor"
     d="M32 12C12.123 12 2 32 2 32s10.123 20 30 20c19.879 0 30-20 30-20S51.879 12 32 12m0 36.664C15.436 48.664 7 32 7 32s8.436-16.668 25-16.668C48.566 15.332 57 32 57 32s-8.434 16.664-25 16.664"
@@ -21,10 +22,7 @@
 >
 
 <style>
-  /* svg:hover {
-    filter: drop-shadow(0 0 2px white);
-  } */
-  /* svg {
-    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
-  } */
+  .dropShadow {
+    filter: drop-shadow(1px 2px 5px black);
+  }
 </style>
