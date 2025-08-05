@@ -119,7 +119,7 @@
         <BgImg
           src={light}
           class={cn(
-            "size-full opacity-10 z-[2]",
+            "size-full opacity-80 blur-2xl z-[2]",
             hoveredSunlight ? "brightness-200" : "brightness-100",
           )}
         />
@@ -128,7 +128,7 @@
             aria-label="bounds_light"
             onmouseenter={() => (hoveredSunlight = true)}
             onmouseleave={() => (hoveredSunlight = false)}
-            class="absolute left-[30%] h-[200px] w-[2000px] bg-red-200 z-[2]"
+            class="absolute left-[20%] h-[400px] w-[3000px] z-[2]"
           ></button>
         {/if}
       </div>
@@ -156,15 +156,15 @@
         <BgImg
           src={wrecks2}
           style="transform: translateX({gridOffset.current.x / 10}px)"
-          class="w-[110%] left-0 bottom-0 z-[9]"
+          class="w-[110%] left-0 bottom-0 opacity-90 z-[9]"
         />
       </div>
 
       <Submarine class="z-10" />
       <OceanFish
         width={grid.width}
-        height={grid.height - 500}
-        fishClass="z-10"
+        height={grid.height - 450}
+        fishClass="z-10 {false ? 'pointer-events-auto' : 'pointer-events-none'}"
       />
 
       <div id="layer1">

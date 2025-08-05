@@ -23,7 +23,7 @@
 
     fishTimelines[fishClass] = gsap.timeline();
     const randomY = getRandomNum(0, height - fishSize * 3);
-    const randomDuration = getRandomNum(5, 15);
+    const randomDuration = getRandomNum(10, 20);
     const randomDelay = getRandomNum(0, 2);
 
     if (forward) {
