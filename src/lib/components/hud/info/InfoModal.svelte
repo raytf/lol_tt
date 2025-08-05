@@ -46,10 +46,10 @@
     {#if $infoApi.smStep}
       <button
         onclick={() => {
-          $infoApi.closeModal();
-          $hudApi.showSmModal = true;
+          // $infoApi.closeModal();
+          // $hudApi.showSmModal = true;
         }}
-        class="flex items-center gap-2 hover:text-white transition-colors"
+        class="flex items-center gap-2"
       >
         {#if $infoApi.smStep.label === "sm-o"}
           <Observation class={iconClass} />

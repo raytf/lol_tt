@@ -5,15 +5,27 @@
   let {
     onclick,
     class: extraClass,
+    anim = () => ({ duration: 0 }),
+    inAnim = anim,
+    outAnim = anim,
     children,
-  }: { onclick?: () => void; class?: string; children?: Snippet } = $props();
+  }: {
+    onclick?: () => void;
+    class?: string;
+    anim?: TransitionFunction;
+    inAnim?: TransitionFunction;
+    outAnim?: TransitionFunction;
+    children?: Snippet;
+  } = $props();
 </script>
 
 <button
+  in:inAnim
+  out:outAnim
   {onclick}
   class={cn(
-    "border border-black rounded pl-1 pr-2",
-    "hover:bg-black hover:text-white",
+    "flex items-center gap-1 transition-colors",
+    "hover:text-yellow-200",
     extraClass,
   )}
 >
@@ -21,3 +33,9 @@
     {@render children()}
   {/if}
 </button>
+
+<style>
+  button {
+    text-shadow: black 1px 2px 5px;
+  }
+</style>

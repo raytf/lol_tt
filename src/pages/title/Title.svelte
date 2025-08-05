@@ -4,6 +4,7 @@
   import { fade } from "svelte/transition";
   import { Dialog } from "$components/hud/dialog";
   import { TurbulentImg } from "$components/ui/img";
+  import { SimpleButton } from "$components/ui/button";
   import ocean from "$assets/title/tritons-triangle.jpg";
   import { gameApi, lolApi, audioApi, hudApi } from "$apis";
   import { tlSlowRevealBackground } from "./animations";
@@ -30,19 +31,13 @@
     in:fade={{ duration: 1000 }}
     class="absolute w-full flex justify-center bottom-0"
   >
-    <button
-      onclick={onPlay}
-      class="text-title text-center p-12 pointer-events-auto"
-    >
-      <p class="text-2xl hover:text-yellow-200">
+    <SimpleButton onclick={onPlay} class="text-center p-12 pointer-events-auto">
+      <p class="text-2xl">
         {$lolApi.getText("click-to-start")}
       </p>
-    </button>
+    </SimpleButton>
   </div>
 </div>
 
 <style>
-  .text-title {
-    text-shadow: 1px 1px 2px black;
-  }
 </style>

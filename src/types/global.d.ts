@@ -1,5 +1,15 @@
 declare module "chartjs-plugin-trendline";
 
+interface TransitionConfig {
+  delay?: number;
+  duration?: number;
+  easing?: (t: number) => number;
+  css?: (t: number, u: number) => string;
+  tick?: (t: number, u: number) => void;
+}
+
+type TransitionFunction = (node: Element, params?: any) => TransitionConfig;
+
 type SM = "sm-o" | "sm-q" | "sm-h" | "sm-e" | "sm-a" | "sm-c";
 
 interface SMStep {

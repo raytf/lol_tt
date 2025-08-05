@@ -1,26 +1,36 @@
 <script lang="ts">
   import { lolApi } from "$apis";
+
   import { cn } from "$lib/utils";
 
   let {
     key,
+    anim = () => ({ duration: 0 }),
+    inAnim = anim,
+    outAnim = anim,
     class: extraClass,
     shadow = false,
     type = "p",
   }: {
     key: string;
+    anim?: TransitionFunction;
+    inAnim?: TransitionFunction;
+    outAnim?: TransitionFunction;
     class?: string;
     shadow?: boolean;
     type?: string;
   } = $props();
+
   let text = $state($lolApi.getText(key));
 </script>
 
 <svelte:element
   this={type}
-  class={cn("relative", shadow && "shadow", extraClass)}
+  in:inAnim
+  out:outAnim
+  class={cn("relative", extraClass)}
 >
-  {@html text}<button
+  <span class={shadow ? "text-shadow" : ""}>{@html text}</span><button
     aria-label="button_speak-text"
     onclick={() => {
       $lolApi.speakText(key);
@@ -40,7 +50,7 @@
 </svelte:element>
 
 <style>
-  .shadow {
-    text-shadow: 1px 1px 1px #000000;
+  .text-shadow {
+    text-shadow: black 1px 2px 5px;
   }
 </style>

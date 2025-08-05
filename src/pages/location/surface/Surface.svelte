@@ -6,7 +6,7 @@
   import { Grid, Area } from "$components/exploration";
   import { Lol } from "$components/text";
   import { Dive } from "$components/svg/icons";
-  import { Button } from "$components/ui/button";
+  import { SimpleButton } from "$components/ui/button";
   import { SkyOcean } from "$components/visual/scenery";
   import { Submarine, Ship, FloatingKelp } from "$components/gameObjects";
   import { gridOffset, minOffset, moveSub } from "$stores/exploration";
@@ -80,10 +80,13 @@
         });
       }, delay);
     } else {
+      console.log("not tutorial or empty");
       readyToDive = true;
     }
   }
   function onClickArea(e: MouseEvent) {
+    if (showTitleSequence) return;
+
     if ($objectivesApi.currentObjectiveIs("obj_explore")) {
       $objectivesApi.incrementTask("task_move-sub");
     }
@@ -136,43 +139,41 @@
         out:fade={{ duration: 2000 }}
         class="absolute top-0 size-full flex flex-col items-center"
       >
-        <h1
-          in:fade={{ delay: 1000, duration: 3000 }}
+        <Lol
+          inAnim={(node) => fade(node, { delay: 1000, duration: 3000 })}
+          key="title"
           class="text-title text-8xl font-bold mt-24"
-        >
-          {$lolApi.getText("title")}
-        </h1>
-        <p
-          in:fade={{ delay: 3000, duration: 2000 }}
+          shadow
+        />
+        <Lol
+          inAnim={(node) => fade(node, { delay: 3000, duration: 2000 })}
+          key="subtitle"
           class="text-title text-4xl font-bold p-4"
+          shadow
+        />
+        <SimpleButton
+          inAnim={(node) => fade(node, { delay: 4000, duration: 2000 })}
+          onclick={onPlay}
+          class="mt-12 p-12 pointer-events-auto"
         >
-          {$lolApi.getText("subtitle")}
-        </p>
-        <div
-          in:fade={{ delay: 4000, duration: 2000 }}
-          class="grow w-full flex flex-col justify-end items-center"
-        >
-          <button onclick={onPlay} class="text-title p-12 pointer-events-auto">
-            <p class="text-2xl hover:text-yellow-200">
-              {$lolApi.getText("play")}
-            </p>
-          </button>
-        </div>
+          <p class="text-3xl">
+            {$lolApi.getText("play")}
+          </p>
+        </SimpleButton>
       </div>
     {/if}
     <div
-      class="absolute z-[11] bottom-0 w-full h-[222px] flex justify-center items-end pb-4"
+      class="absolute z-[11] bottom-4 w-full h-[222px] flex justify-center items-end"
     >
       {#if readyToDive}
-        <div transition:fade>
-          <Button
-            onclick={onClickDive}
-            class="w-[99px] h-[88px] flex-col items-center"
-          >
-            <p class="text-2xl">{$lolApi.getText("dive")}</p>
-            <Dive class="w-[33px] h-[33px]" />
-          </Button>
-        </div>
+        <SimpleButton
+          anim={fade}
+          onclick={onClickDive}
+          class="pointer-events-auto"
+        >
+          <Dive class="w-[33px] h-[33px]" />
+          <p class="text-3xl">{$lolApi.getText("dive")}</p>
+        </SimpleButton>
       {/if}
     </div>
   {/snippet}
@@ -205,7 +206,4 @@
 </Location>
 
 <style>
-  .text-title {
-    text-shadow: black 1px 2px 5px;
-  }
 </style>
